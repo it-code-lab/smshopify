@@ -527,16 +527,21 @@
                      <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
-                     <button class="helper btnCenterAlign" style="width: 300px" onclick="register();">Register</button>
+                     <button id="registerBtnId" class="helper btnCenterAlign" style="width: 300px" onclick="register();">Register</button>
                      <!---->
+                     <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
+                                    onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button>
                      <br>
                      <br>
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="tempShowRegistered();">Temp-ShowRegistered</a>
                   </div>
 
 
-                  <div id="providerSecDivId" class="providerSec">
+                  <div id="providerSecDivId" class="providerSec displayNone">
                      <!-- <div style="display:flex; flex-direction: columns; margin-left: 20px;">
                         <input class="checkOutRadioBtn" type="radio" id="shipToMe" name="pickup" value="pick up"
                            onclick="providerSelected()" checked=""> I want to set up my account to list goods/services
@@ -581,8 +586,15 @@
                      <!---->
                      <br>
                      <br>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="tempSelectStoreType();">Temp-SelectStoreType</a>
+
                   </div>
 
+                  <div id="selectStoreTypeDivId" class="storeSec displayNone">
+
+                  </div>
                   <div id="forgotPasswordSecDivId" class="displayNone" style="margin-top: 20px; ">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> FORGOT PASSWORD </label>
                      <hr>

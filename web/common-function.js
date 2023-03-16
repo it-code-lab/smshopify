@@ -3090,15 +3090,9 @@ function checkURL() {
 	document.getElementById("homeDivId").style.display = "none";
 	document.getElementById("tutorialDivId").style.display = "none";
     document.getElementById("tutorialListDivId").style.display = "none";
-    document.getElementById("tutorialEditDivId").style.display = "none";
-    
+    document.getElementById("tutorialEditDivId").style.display = "none";    
 
     document.getElementById(pageName + "DivId").style.display = "block";
-
-
-
-	
-
 
     populateLanguages("helpTopics-lang-box");
 	try{
@@ -6124,8 +6118,11 @@ function register(){
 				//console.log(retstatus);
 				
 				if (retstatus == "S"){
-				  document.getElementById("registererrormsg").innerHTML = "Registration completed successfully. Please check your email for account activation.";
-	
+				  document.getElementById("registererrormsg").innerHTML = "Registration completed successfully. Account activation email is sent to the provided email id.<br><br>If you would like to set up your own online store click on the button below";
+                  
+                  document.getElementById("registerBtnId").style.display = "none";
+
+                  document.getElementById("createMyStoreBtnId").style.display = "block";
                 }
 				
 				if (retstatus == "F")
@@ -6149,6 +6146,24 @@ function register(){
 				  document.getElementById("registererrormsg").innerHTML = "There was a problem in completing registration. Issue has been logged and will be resolved soon. Please try again later";
 			}
       });	  
+}
+
+function tempShowRegistered(){
+    document.getElementById("registererrormsg").innerHTML = "Registration completed successfully. Account activation email is sent to the provided email id.<br><br>If you would like to set up your own online store click on the button below";
+                  
+    document.getElementById("registerBtnId").style.display = "none";
+
+    document.getElementById("createMyStoreBtnId").style.display = "block";    
+}
+
+function tempSelectStoreType(){
+    document.getElementById("providerSecDivId").style.display = "none";
+
+    document.getElementById("selectStoreTypeDivId").style.display = "block";
+}
+function setUpMyStore(){
+    document.getElementById("registerSecDivId").style.display = "none";
+    document.getElementById("providerSecDivId").style.display = "block";
 }
 
 function Subregister(){
