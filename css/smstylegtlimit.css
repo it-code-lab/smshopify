@@ -2,65 +2,78 @@
 /******************* START - FOR SCREENS > 700px *************/
 /*************************************************************/
 
-@media (min-width: 700px){
-	#cardsContainerDivId{
+@media (min-width: 700px) {
+	#cardsContainerDivId {
 		/*display: flex;
 		flex-direction: row;*/
 		padding: 20px;
 		margin: 20px;
 	}
-  #homeCardsContainerDivId{
-    padding: 20px;
+
+	#homeCardsContainerDivId {
+		padding: 20px;
 		margin: 20px;
-  }
-  #homeDivId{
-    display: none;width: 100%;
-  }
-	.splitter{
-		display: block;
-	}
-	.bannerLargeText{
-		font-size: 48px ;
-    
-	}
-	.bannerSmallText{
-		font-size: 20px ; 
-	}
-	#mainContainer{
-		width: 100%;
-    background-color: #fff; padding: 0px; margin: auto;
 	}
 
-	#helpDisplayDivId{
+	#homeDivId {
+		display: none;
+		width: 100%;
+	}
+
+	.splitter {
+		display: block;
+	}
+
+	.bannerLargeText {
+		font-size: 48px;
+
+	}
+
+	.bannerSmallText {
+		font-size: 20px;
+	}
+
+	#mainContainer {
+		width: 100%;
+		background-color: #fff;
+		padding: 0px;
+		margin: auto;
+		/* overflow: visible; */
+	}
+
+	#helpDisplayDivId {
 		width: 30%;
 		z-index: 10;
 
-	}	
+	}
 
 	.panel-container {
-		
-		display: flex;
-		flex-direction: row;  
-		
-		border: 1px solid silver;         
-		overflow: hidden;  
-		
-	}	
 
-  #tutorialLinkId:hover + .dropdown-content {display: block; } 
+		display: flex;
+		flex-direction: row;
+
+		border: 1px solid silver;
+		overflow: hidden;
+
+	}
+
+	#tutorialLinkId:hover+.dropdown-content {
+		display: block;
+	}
 }
 
 /*************************************************************/
 /******************* END - FOR SCREENS > 700px ***************/
 /*************************************************************/
-@media (min-width: 840px){
+@media (min-width: 840px) {
 	.menucard {
 		/* width: 300px;  */
 		width: 46%;
 		max-width: 400px;
-	  }	
-	  .cardsContainerDivClassPadd {
+	}
+
+	.cardsContainerDivClassPadd {
 		width: 46%;
 		max-width: 400px;
-	  }
+	}
 }

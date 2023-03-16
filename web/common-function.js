@@ -30,18 +30,18 @@ var the = {
 
 var last_focused_div_id;
 
-requirejs.config({
-    //By default load any module IDs from js/lib
-    baseUrl: 'js/lib',
-    paths: {
-        'beautifier': the.beautifier_file
-    }
-});
+// requirejs.config({
+//     //By default load any module IDs from js/lib
+//     baseUrl: 'js/lib',
+//     paths: {
+//         'beautifier': the.beautifier_file
+//     }
+// });
 
-requirejs(['beautifier'],
-    function(beautifier) {
-        the.beautifier = beautifier;
-    });
+// requirejs(['beautifier'],
+//     function(beautifier) {
+//         the.beautifier = beautifier;
+//     });
 
 
 function any(a, b) {
@@ -1285,7 +1285,7 @@ function c_L_C(hlpCdId) {
 
             document.getElementById('language-box').value = helpDetails.code_language;
             populateSubCategory();
-            document.getElementById('sub-tech-box').value = helpDetails.code_sub_technology;
+            document.getElementById('sub-tech-box').value = helpDetails.code_sub_category;
             document.getElementById('help_code').value = helpDetails.help_code;
 
             if (helpDetails.help_details == null) {
@@ -1445,7 +1445,7 @@ function populateSubCategory() {
     var subCategory = [];
 
     for (var item, i = 0; item = items[i++];) {
-        var sub_cat = item.code_sub_technology;
+        var sub_cat = item.code_sub_category;
 
         if (!(sub_cat in lookup)) {
             lookup[sub_cat] = 1;
@@ -1609,7 +1609,7 @@ function autocomplete(inp, arr) {
                                 var rows = JSON.parse(tf);
                                 rows = rows.filter(function(entry) {
                                     return (entry.title.toUpperCase() === arr[i].toUpperCase() && entry.discontinue == "0") && (entry.title.toUpperCase().includes(searchText) 
-                                        || entry.technology.toUpperCase().includes(searchText) 
+                                        || entry.category.toUpperCase().includes(searchText) 
                                         || entry.shortdescription.toUpperCase().includes(searchText) 
                                         || entry.keywords.toUpperCase().includes(searchText)) ;
                                 });
@@ -1804,7 +1804,7 @@ function getTutorialList() {
     var tags = sessionStorage.getItem("tutorialList")
     if (tags != null) {
         if ((tags != "")  && (tags != "null")) {
-            populateTutorialsDropDownDisplay();
+            populateitemsDropDownDisplay();
             return;
         }
     }
@@ -1813,7 +1813,7 @@ function getTutorialList() {
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
-            usrfunction: "tutorials"
+            usrfunction: "items"
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function(response) {
@@ -1825,7 +1825,7 @@ function getTutorialList() {
 			//the.LanguageHelpCodeAndIds_LclJson = response;
 
             sessionStorage.setItem("tutorialList", JSON.stringify(response));
-            populateTutorialsDropDownDisplay();
+            populateitemsDropDownDisplay();
         },
         error: function(xhr, status, error) {
 					  console.log(error);
@@ -1833,7 +1833,7 @@ function getTutorialList() {
         }
     });
 }
-function populateTutorialsDropDownDisplay(){
+function populateitemsDropDownDisplay(){
     var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
     var rows = JSON.parse(tf);
     rows = rows.filter(function(entry) {
@@ -1843,14 +1843,14 @@ function populateTutorialsDropDownDisplay(){
 
     for (var i = 0; i < rows.length; i++)  {
         if (i == 0) {
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
-        }else if (rows[i].technology != rows[i-1].technology){
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+        }else if (rows[i].category != rows[i-1].category){
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         }
         // if (i == 0) {
-        //     innHTML = innHTML + "<a href='javascript:showTechnology("+ '"' + rows[i].technology + '"' + ")'>"+ rows[i].technology +"</a>";
-        // }else if (rows[i].technology != rows[i-1].technology){
-        //     innHTML = innHTML + "<a href='javascript:showTechnology("+ '"' + rows[i].technology + '"' + ")'>"+ rows[i].technology +"</a>";
+        //     innHTML = innHTML + "<a href='javascript:showcategory("+ '"' + rows[i].category + '"' + ")'>"+ rows[i].category +"</a>";
+        // }else if (rows[i].category != rows[i-1].category){
+        //     innHTML = innHTML + "<a href='javascript:showcategory("+ '"' + rows[i].category + '"' + ")'>"+ rows[i].category +"</a>";
         // }       
     }
     document.getElementById("dropDownTutListId").innerHTML = innHTML;
@@ -2961,7 +2961,7 @@ function checkURL() {
     
 	}
 
-    if (path.indexOf('tutorials/') > 0) {
+    if (path.indexOf('items/') > 0) {
         //var songtitle = path.replaceAll("/antaksharee/lyrics/","");
 
         if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
@@ -2992,28 +2992,28 @@ function checkURL() {
         document.getElementById("tutorialEditDivId").style.display = "block"; 
         
 
-        var tutorialStr = path.substring(path.indexOf("tutorials/") + 10);
+        var itemstr = path.substring(path.indexOf("items/") + 6);
         
         if (screen.width < 700 || window.innerWidth < 700){
-            //document.getElementById("tutorialSearchDivId").style.display = "none";
+            //document.getElementById("itemsearchDivId").style.display = "none";
             document.getElementById("tutorialEditDivId").style.display = "none";
         }else {
             //populateTutorialList();
         }
         
-        if (tutorialStr.indexOf('/') > 0){
+        if (itemstr.indexOf('/') > 0){
             document.getElementById("mainContainer").style.width = "100%"; 
             document.getElementById("tutorialEditDivId").style.width = "20%";	
             document.getElementById("tutorialEditDivId").innerHTML = "";
-            getTutorial(tutorialStr);
+            getTutorial(itemstr);
         }else {
-            tutorialStr = decodeURI(tutorialStr);
+            itemstr = decodeURI(itemstr);
             document.getElementById("tutorialDivId").style.display = "none";
             document.getElementById("tutorialEditDivId").style.display = "none";
             document.getElementById("tutorialListDivId").style.display = "block";
             document.getElementById("tutorialListDivId").style.width = "100%";
             //populateTutorialList();
-            showTechnology(tutorialStr)
+            showcategory(itemstr)
         }
         
         
@@ -3197,21 +3197,21 @@ function checkURL() {
 	}
 }
 
-function getTutorial(tutorialStr){
+function getTutorial(itemstr){
     $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "getTutorial",
-            tutorialstr: tutorialStr
+            itemstr: itemstr
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function(response) {
 
             tags = JSON.parse(response);
             var itemid = tags[0].itemid;
-            var technology = tags[0].technology;
-            var technologyseq = tags[0].technologyseq;
+            var category = tags[0].category;
+            var categoryseq = tags[0].categoryseq;
             var subpath = tags[0].subpath;
             var subpathseq = tags[0].subpathseq;
             var title = tags[0].title;
@@ -3235,7 +3235,7 @@ function getTutorial(tutorialStr){
             var rows = JSON.parse(tf);
 
             rows = rows.filter(function(entry) {
-                return entry.discontinue == "0" && entry.technology == technology ;
+                return entry.discontinue == "0" && entry.category == category ;
             });
 
             var path = window.location.pathname;
@@ -3249,10 +3249,10 @@ function getTutorial(tutorialStr){
                         itemName = itemName.replaceAll(" " , "-");
                         nextSubpath = rows[i+1].subpath;
                         nextSubpath = nextSubpath.replaceAll(" " , "-");
-                        nextTechnology = (rows[i+1].technology).toLowerCase();
-                        nextTechnology = nextTechnology.replaceAll(" " , "-");
-                        //nextTutorialTitleURL = myUrl + "tutorials/" + nextTechnology + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
-                        nextTutorialTitleURL = myUrl + "tutorials/" + nextTechnology + "/" + itemName.toLowerCase();
+                        nextcategory = (rows[i+1].category).toLowerCase();
+                        nextcategory = nextcategory.replaceAll(" " , "-");
+                        //nextTutorialTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
+                        nextTutorialTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
 
                         nextTutorialTitle = rows[i+1].title;
                     }
@@ -3264,11 +3264,11 @@ function getTutorial(tutorialStr){
 
 
             var tutorialUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"?target=tutorial";
-            var technologyUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"tutorials/" + technology;
+            var categoryUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"items/" + category;
 
             var newHTML = "<div classXX = 'songContainer' >" + 
-            '<a href ="'+ tutorialUrl +'" class="tutorialTopLinkCls" ' + ' >' + "Tutorials</a>" + " > " + 
-            '<a href ="'+ technologyUrl +'" class="tutorialTopLinkCls"  >' + technology + "</a>" + " > " + 
+            '<a href ="'+ tutorialUrl +'" class="tutorialTopLinkCls" ' + ' >' + "items</a>" + " > " + 
+            '<a href ="'+ categoryUrl +'" class="tutorialTopLinkCls"  >' + category + "</a>" + " > " + 
             '<a href ="' + window.location.href + '" class="tutorialTopLinkCls"  >' + title + "</a>";
             newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
 
@@ -3278,9 +3278,9 @@ function getTutorial(tutorialStr){
 
                 sessionStorage.setItem("data-description", description);
 
-                //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + technology + "'," + "'" + technologyseq + "'," + "'" + subpath + "',"+ "'" + subpathseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
+                //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + category + "'," + "'" + categoryseq + "'," + "'" + subpath + "',"+ "'" + subpathseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
 
-                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
+                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
             }
             newHTML = newHTML + '<div classXX="songDeltsNImg">';
             newHTML = newHTML + '<div classXX="songDelts">'
@@ -3307,7 +3307,7 @@ function getTutorial(tutorialStr){
 
             document.getElementById("tutorialDivId").innerHTML = newHTML;
             refreshCaptcha();
-            showTechnology(technology);
+            showcategory(category);
             //START: Change the background color of the active tutorial link 
             var elemId = "tutorialDiv-" + itemid;
             document.getElementById(elemId).style.backgroundColor = "orange";
@@ -3315,13 +3315,13 @@ function getTutorial(tutorialStr){
 
             var metaDesc = shortdescription   ;
 
-            var metaKey = technology + "," + subpath + "," + title + "," + keywords;
+            var metaKey = category + "," + subpath + "," + title + "," + keywords;
 
             
             document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
             document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
-            //document.title = technology + " " + subpath + ". " + title ;
-            document.title = technology + " - " + title ;
+            //document.title = category + " " + subpath + ". " + title ;
+            document.title = category + " - " + title ;
             
             sessionStorage.setItem("lastUrl", window.location.href);
             // if (localStorage.getItem("cookieAccepted") == "y"){
@@ -3332,7 +3332,7 @@ function getTutorial(tutorialStr){
                 "@context": "https://schema.org/",
                 "@type":"WebSite",
                 "name": title ,
-                "url": "https://smshopify.com/" + tutorialStr,
+                "url": "https://smshopify.com/" + itemstr,
                 "datePublished": "2022-07-10",
                 "description": metaDesc,
                 "thumbnailUrl": "https://smshopify.com/images/banner.png"    
@@ -3357,8 +3357,8 @@ function getTutorial(tutorialStr){
 
 function editItem( btn ){
     itemid = btn.dataset.itemid;
-    technology = btn.dataset.technology;
-    technologyseq = btn.dataset.technologyseq;
+    category = btn.dataset.category;
+    categoryseq = btn.dataset.categoryseq;
     subpath = btn.dataset.subpath;
     subpathseq = btn.dataset.subpathseq;
     title = btn.dataset.title;
@@ -3401,12 +3401,12 @@ function editItem( btn ){
    "<br><br><div class = 'editFieldHead'>Title Sort Sequence: </div><br>" +
    "<input type='text' id='titleseq-" + itemid + "' style='width:95%; margin:auto;' value='" + titleseq + "'>";
    
-   newHTML = newHTML + "<br><br><div class = 'editFieldHead'>Technology: </div><br>" +
-   "<input type='text' id='technology-" + itemid + "' style='width:95%; margin:auto;'  value='" + technology + "'>" ;
+   newHTML = newHTML + "<br><br><div class = 'editFieldHead'>category: </div><br>" +
+   "<input type='text' id='category-" + itemid + "' style='width:95%; margin:auto;'  value='" + category + "'>" ;
 
    newHTML = newHTML +
-           "<br><br><div class = 'editFieldHead'>Technology Sort Sequence: </div><br>" +
-           "<input type='text' id='technologyseq-" + itemid + "' style='width:95%; margin:auto;' value='" + technologyseq + "'>";
+           "<br><br><div class = 'editFieldHead'>category Sort Sequence: </div><br>" +
+           "<input type='text' id='categoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + categoryseq + "'>";
            
    newHTML = newHTML +
    "<br><br><div class = 'editFieldHead'>Path(not in use): </div><br>" +
@@ -4138,7 +4138,7 @@ function showProfile(){
         newHTML = newHTML + "<table class ='scorestablecls' ><tr><th>Quiz</th><th>Score</th><th>Datetime</th></tr>";
         for (var key in scoresList) {
             var obj = scoresList[key];
-            var qzURL = (obj.quiz).split("/tutorials/");
+            var qzURL = (obj.quiz).split("/items/");
             var link = qzURL[1];
 
             newHTML = newHTML + "<tr><td> <a class= 'tutorialLink' href='" + obj.quiz+ "'> " + link +" </a></td><td>" +obj.percent + "% </td><td>" +obj.time + "</td></tr>"
@@ -4245,8 +4245,8 @@ function updateItem(itemid, createNewItem) {
 
         title = document.getElementById("title-" + itemid).value;
 		titleseq = document.getElementById("titleseq-" + itemid).value;
-		technology = document.getElementById("technology-" + itemid).value;
-		technologyseq = document.getElementById("technologyseq-" + itemid).value;
+		category = document.getElementById("category-" + itemid).value;
+		categoryseq = document.getElementById("categoryseq-" + itemid).value;
 		subpath = document.getElementById("subpath-" + itemid).value;
 		subpathseq = document.getElementById("subpathseq-" + itemid).value;
 		shortdescription = document.getElementById("shortdescription-" + itemid).value;
@@ -4287,7 +4287,7 @@ function updateItem(itemid, createNewItem) {
     var StrFunction = "UpdateItem";
 	
     title = title.replaceAll("'", "''");
-	technology = technology.replaceAll("'", "''");
+	category = category.replaceAll("'", "''");
 	subpath = subpath.replaceAll("'", "''");
     shortdescription = shortdescription.replace(/"/g, '\'');
 	shortdescription = shortdescription.replaceAll("'", "''");
@@ -4306,8 +4306,8 @@ function updateItem(itemid, createNewItem) {
             itemid: itemid,
             title: title,
             titleseq: titleseq,
-            technology: technology,
-            technologyseq: technologyseq,
+            category: category,
+            categoryseq: categoryseq,
             subpath: subpath,
             subpathseq: subpathseq,            
             shortdescription: shortdescription,
@@ -5032,7 +5032,7 @@ function saveProject() {
     //console.log("called saveProject");
 
     var myLanguage = document.getElementById("project-language-box").value;
-    var myTechnology = document.getElementById("project-sub-tech-box").value;
+    var mycategory = document.getElementById("project-sub-tech-box").value;
     var myProjectName = document.getElementById("project-name-box").value;
     var myProjectPath = document.getElementById("project-path-box").value;
     var myProjectDetails = tinyMCE.get('project_details').getContent();
@@ -5077,7 +5077,7 @@ function saveProject() {
             data: jQuery.param({
                 usrfunction: "SaveNewProject",
                 language: myLanguage,
-                technology: myTechnology,
+                category: mycategory,
                 project_name: myProjectName,
                 project_details: myProjectDetails,
                 project_path: myProjectPath,
@@ -5131,7 +5131,7 @@ function saveProject() {
             data: jQuery.param({
                 usrfunction: "UpdateProject",
                 language: myLanguage,
-                technology: myTechnology,
+                category: mycategory,
                 project_name: myProjectName,
                 project_details: myProjectDetails,
                 project_path: myProjectPath,
@@ -5198,7 +5198,7 @@ function cancelNewProjectAdd() {
     document.getElementById("AddNewProjectDivId").style.display = "none";
 }
 
-function showTechnology(tech){
+function showcategory(tech){
 
     var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
     var rows = JSON.parse(tf);
@@ -5207,7 +5207,7 @@ function showTechnology(tech){
     if (tech != ""){
         tech = tech.toUpperCase();
         rows = rows.filter(function(entry) {
-            return entry.technology.toUpperCase() == tech  ;
+            return entry.category.toUpperCase() == tech  ;
         });
     }    
 
@@ -5230,7 +5230,7 @@ function searchTutorial(){
     if (searchText != ""){
         searchText = searchText.toUpperCase();
         rows = rows.filter(function(entry) {
-            return entry.title.toUpperCase().includes(searchText) || entry.technology.toUpperCase().includes(searchText) || entry.shortdescription.toUpperCase().includes(searchText) || entry.keywords.toUpperCase().includes(searchText) ;
+            return entry.title.toUpperCase().includes(searchText) || entry.category.toUpperCase().includes(searchText) || entry.shortdescription.toUpperCase().includes(searchText) || entry.keywords.toUpperCase().includes(searchText) ;
         });
     }    
 
@@ -5289,12 +5289,12 @@ function populateTutorialList(rows = "") {
     var itemName = "";
     var path = window.location.pathname;
     var myUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1);
-    var technologySqueezed = "";
-    var technologyOrig = "";
-    var technologyUrl = "";
+    var categorySqueezed = "";
+    var categoryOrig = "";
+    var categoryUrl = "";
 
     var defaultDisplayCount = 1000;
-    var technologyMaxCount = 0;
+    var categoryMaxCount = 0;
     var currDisplayCount = 0;
     
 	for (var i = 0; i < rows.length; i++) {
@@ -5305,60 +5305,60 @@ function populateTutorialList(rows = "") {
         subpath = rows[i].subpath;
         subpath = subpath.replaceAll(" " , "-");
 
-        technologyOrig = rows[i].technology;
-        technology = rows[i].technology;
+        categoryOrig = rows[i].category;
+        category = rows[i].category;
         
-        technology = technology.replaceAll(" " , "-");
+        category = category.replaceAll(" " , "-");
 
-        //tutorialTitleURL = myUrl + "tutorials/" + technology.toLowerCase() + "/" + subpath.toLowerCase() + "/" + itemName.toLowerCase();
-        tutorialTitleURL = myUrl + "tutorials/" + technology.toLowerCase() + "/" + itemName.toLowerCase();
+        //tutorialTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subpath.toLowerCase() + "/" + itemName.toLowerCase();
+        tutorialTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + itemName.toLowerCase();
 
-        technologyUrl = myUrl + "tutorials/" + technologyOrig;
+        categoryUrl = myUrl + "items/" + categoryOrig;
 
-        technologySqueezed = rows[i].technology;		 
-		technologySqueezed = technologySqueezed.replaceAll(' ', '')
+        categorySqueezed = rows[i].category;		 
+		categorySqueezed = categorySqueezed.replaceAll(' ', '')
 
-        technologyMaxCount = sessionStorage.getItem("max-count-" + technologySqueezed);
+        categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  > <div class="technologyHeader" >' ;
+            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="cardsContainerDivClassPadd"  > <div class="categoryHeader" >' ;
             if (the.smusr){
-                innerHTML = innerHTML + rows[i].technologyseq + '. ';
+                innerHTML = innerHTML + rows[i].categoryseq + '. ';
             }   
-            innerHTML = innerHTML + rows[i].technology + 
+            innerHTML = innerHTML + rows[i].category + 
 			
-			//  '<label class="switch technologyToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].technology + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-             '<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
+			//  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+             '<a class="goToTechLink" href ="'+ categoryUrl +'"> GO </a>' +
 			
 			'</div>';
-            startingCharURL= myUrl + "starting/bollywood-tutorials-starting-with-" + rows[i].technology;
+            startingCharURL= myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
 
-         } else if (rows[i].technology != rows[i - 1].technology) {
+         } else if (rows[i].category != rows[i - 1].category) {
 
             
-            if (sessionStorage.getItem("max-count-" +  rows[i - 1].technology) > defaultDisplayCount) {
-                sessionStorage.setItem("display-count-" + rows[i - 1].technology, defaultDisplayCount) ;
-                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i - 1].itemid + '" class="tutorialDiv technologyFooter ' + rows[i - 1].technology + ' " >'  + 			
-                '<button id="showmore-'+ rows[i - 1].technology +'"  type="button" class="showmore-btn" onclick=showMoretutorials("' + rows[i - 1].technology + '") >Show More</button>' +          
+            if (sessionStorage.getItem("max-count-" +  rows[i - 1].category) > defaultDisplayCount) {
+                sessionStorage.setItem("display-count-" + rows[i - 1].category, defaultDisplayCount) ;
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i - 1].itemid + '" class="tutorialDiv categoryFooter ' + rows[i - 1].category + ' " >'  + 			
+                '<button id="showmore-'+ rows[i - 1].category +'"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].category + '") >Show More</button>' +          
                 '</div>';
             } else {
-                sessionStorage.setItem("display-count-" + rows[i - 1].technology, currDisplayCount) ;
+                sessionStorage.setItem("display-count-" + rows[i - 1].category, currDisplayCount) ;
             }
 
            currDisplayCount = 0;
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  ><div class="technologyHeader">' ;
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="cardsContainerDivClassPadd"  ><div class="categoryHeader">' ;
         
             if (the.smusr){
-                innerHTML = innerHTML + rows[i].technologyseq + '. ';
+                innerHTML = innerHTML + rows[i].categoryseq + '. ';
             } 
             
-            innerHTML = innerHTML + rows[i].technology + 
-			//  '<label class="switch technologyToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].technology + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-            '<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
+            innerHTML = innerHTML + rows[i].category + 
+			//  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+            '<a class="goToTechLink" href ="'+ categoryUrl +'"> GO </a>' +
             '</div>';
 
-            startingCharURL= myUrl + "starting/bollywood-tutorials-starting-with-" + rows[i].technology;
+            startingCharURL= myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
          }
 
 		currDisplayCount = currDisplayCount + 1;
@@ -5390,7 +5390,7 @@ function populateTutorialList(rows = "") {
         
         if (previousSubpath == currentSubpath){
             //It is a child tutorial same as previous
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + technologySqueezed +'" >';
+            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + categorySqueezed +'" >';
             innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
             
             if (the.smusr){
@@ -5402,11 +5402,11 @@ function populateTutorialList(rows = "") {
         } else if (nextSubPath == currentSubpath)  {
             //It is a new child tutorial 
 
-            innerHTML = innerHTML + '<div class="tutorialParent '+ technologySqueezed +'" >';
+            innerHTML = innerHTML + '<div class="tutorialParent '+ categorySqueezed +'" >';
             innerHTML = innerHTML +  currentSubpath ;
             innerHTML = innerHTML + '</div>';
 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + technologySqueezed +'" >';
+            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + categorySqueezed +'" >';
             innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
             
             if (the.smusr){
@@ -5417,7 +5417,7 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + '</div>';
         } else {
             //It is not a new child tutorial 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv '+ discontinuedFlgCls + technologySqueezed +'" >';
+            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv '+ discontinuedFlgCls + categorySqueezed +'" >';
             innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
             
             if (the.smusr){
@@ -5434,13 +5434,13 @@ function populateTutorialList(rows = "") {
         }
     }
 
-    if (sessionStorage.getItem("max-count-" +  technologySqueezed) > defaultDisplayCount) {
-        sessionStorage.setItem("display-count-" + technologySqueezed, defaultDisplayCount) ;
-        innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv technologyFooter '+ technologySqueezed + ' " >'  + 			
-        '<button id="showmore-"'+ rows[i - 1].technology +' type="button" class="showmore-btn" onclick=showMoretutorials("' + technologySqueezed + '") >Show More</button>' +          
+    if (sessionStorage.getItem("max-count-" +  categorySqueezed) > defaultDisplayCount) {
+        sessionStorage.setItem("display-count-" + categorySqueezed, defaultDisplayCount) ;
+        innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv categoryFooter '+ categorySqueezed + ' " >'  + 			
+        '<button id="showmore-"'+ rows[i - 1].category +' type="button" class="showmore-btn" onclick=showMoreitems("' + categorySqueezed + '") >Show More</button>' +          
         '</div>';
     }else {
-        sessionStorage.setItem("display-count-" + technologySqueezed, currDisplayCount) ;
+        sessionStorage.setItem("display-count-" + categorySqueezed, currDisplayCount) ;
     }
 
     innerHTML = innerHTML + '</div>';
@@ -5569,7 +5569,7 @@ function populateStoredProjectList() {
 
     for (var i = 0; i < rows.length; i++) {
         var myLanguage = rows[i].language;
-        var myTechnology = rows[i].technology;
+        var mycategory = rows[i].category;
         var myProjectName = rows[i].project_name;
         var myProjectDetails = rows[i].project_details;
         var myProjectPath = rows[i].project_path;
@@ -5614,8 +5614,8 @@ function populateStoredProjectList() {
         }
 
         innerHTML = innerHTML + '<div type="button" class="collapsible" style="height:auto; " onclick="toggleCollapse(this)"> <div class="projectNameNTech">' + myProjectName + '<hr> ' + myLanguage;
-        if (myTechnology != "") {
-            innerHTML = innerHTML + ', ' + myTechnology;
+        if (mycategory != "") {
+            innerHTML = innerHTML + ', ' + mycategory;
         }
 
         innerHTML = innerHTML  + '</div>'+ extensionHTML + "</div>";
@@ -5627,7 +5627,7 @@ function populateStoredProjectList() {
 			'<div style="margin-top: 5px;">' +
 			'<table class="ProjectPropertiesTable">' +
             '<tr class="ProjectPropertiesTR"><td style="background-color: #F1F1F1" >Language </td>' + '<td class="ProjectPropertiesTD"><text>' + myLanguage + '</text>' + '</td></tr>' +
-            '<tr class="ProjectPropertiesTR"><td style="background-color: #F1F1F1">Technology</td>' + '<td class="ProjectPropertiesTD"><text>' + myTechnology + '</text>' + '</td></tr>' +
+            '<tr class="ProjectPropertiesTR"><td style="background-color: #F1F1F1">category</td>' + '<td class="ProjectPropertiesTD"><text>' + mycategory + '</text>' + '</td></tr>' +
             '<tr class="ProjectPropertiesTR"><td style="background-color: #F1F1F1">Project name</td>' + '<td class="ProjectPropertiesTD"><text>' + myProjectName + '</text>' + '</td></tr>' +
             '<tr class="ProjectPropertiesTR"><td style="background-color: #F1F1F1">Project path</td>' + '<td class="ProjectPropertiesTD"><text>' + myProjectPath + '</text>' + '</td></tr>' +
 			'</table>' +
@@ -5712,14 +5712,14 @@ function editProjectDetails(projectId) {
     for (var i = 0; i < rows.length; i++) {
         if (rows[i].project_id == projectId) {
             var myLanguage = rows[i].language;
-            var myTechnology = rows[i].technology;
+            var mycategory = rows[i].category;
             var myProjectName = rows[i].project_name;
             var myProjectDetails = rows[i].project_details;
             var myProjectPath = rows[i].project_path;
             var myProjectFiles = JSON.parse(rows[i].project_files);
 
             document.getElementById("project-language-box").value = myLanguage;
-            document.getElementById("project-sub-tech-box").value = myTechnology;
+            document.getElementById("project-sub-tech-box").value = mycategory;
             document.getElementById("project-name-box").value = myProjectName;
             document.getElementById("project-path-box").value = myProjectPath;
             //console.log("Setting project details" + myProjectDetails);
@@ -6125,7 +6125,8 @@ function register(){
 				
 				if (retstatus == "S"){
 				  document.getElementById("registererrormsg").innerHTML = "Registration completed successfully. Please check your email for account activation.";
-				}
+	
+                }
 				
 				if (retstatus == "F")
 				{
@@ -6413,6 +6414,32 @@ function onMobileBrowser(){
 	  return false;
 	}
 
+}
+
+function providerSelected() {
+    document.getElementById("addresscontainerDiv").style.display = "block";
+}
+
+function setProvAddr(){
+
+    var error_message = "";
+    
+    shipaddress = document.getElementById("shipaddress").value;
+    shipcountry = document.getElementById("shipcountry").value;
+	zipcode = document.getElementById("zipcode").value;
+	zipcode = zipcode.replaceAll(' ', '');
+	shipcity = document.getElementById("shipcity").value;
+	shipstate = document.getElementById("shipstate").value;
+	
+
+	if ((shipaddress.trim() == "") || (shipcountry.trim() == "") || (zipcode.trim() == "") || (shipcity.trim() == "") || (shipstate.trim() == "")) {
+		error_message += "<br>All address fields are required";
+	}
+
+	if (error_message != ""){
+		document.getElementById("providerAddrErrorMsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+		return;
+	}
 }
 function getCookie(c_name)
 {
