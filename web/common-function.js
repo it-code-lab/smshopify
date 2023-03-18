@@ -29,19 +29,113 @@ var the = {
 };
 
 var last_focused_div_id;
+var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 
-// requirejs.config({
-//     //By default load any module IDs from js/lib
-//     baseUrl: 'js/lib',
-//     paths: {
-//         'beautifier': the.beautifier_file
-//     }
-// });
+var revealSecColor = "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
++ "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
-// requirejs(['beautifier'],
-//     function(beautifier) {
-//         the.beautifier = beautifier;
-//     });
++ "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
++ "<option value='#FF6F61' style='background-color: #FF6F61' >#FF6F61</option>"
++ "<option value='#6B5B95' style='background-color: #6B5B95' >#6B5B95</option>"
++ "<option value='#88B04B' style='background-color: #88B04B' >#88B04B</option>"
++ "<option value='#F7CAC9' style='background-color: #F7CAC9' >#F7CAC9</option>"
++ "<option value='#92A8D1' style='background-color: #92A8D1' >#92A8D1</option>"
++ "<option value='#955251' style='background-color: #955251' >#955251</option>"
+
++ "<option value='#B565A7' style='background-color: #B565A7' >#B565A7</option>"
++ "<option value='#009B77' style='background-color: #009B77' >#009B77</option>"
++ "<option value='#D65076' style='background-color: #D65076' >#D65076</option>"
++ "<option value='#45B8AC' style='background-color: #45B8AC' >#45B8AC</option>"
++ "<option value='#EFC050' style='background-color: #EFC050' >#EFC050</option>"
+
++ "<option value='#5B5EA6' style='background-color: #5B5EA6' >#5B5EA6</option>"
++ "<option value='#DFCFBE' style='background-color: #DFCFBE' >#DFCFBE</option>"
++ "<option value='#55B4B0' style='background-color: #55B4B0' >#55B4B0</option>"
++ "<option value='#98B4D4' style='background-color: #98B4D4' >#98B4D4</option>"
++ "<option value='#C3447A' style='background-color: #C3447A' >#C3447A</option>"
+
++ "<option value='#bb00bb' style='background-color: #bb00bb'>#bb00bb</option>"
++ "<option value='#ff0000' style='background-color: #ff0000'>#ff0000</option>"
++ "<option value='#888888' style='background-color: #888888'>#888888</option>"
++ "<option value='#417203' style='background-color: #417203'>#417203</option>"
++ "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
++ "<option value='#7E909A' style='background-color: #7E909A'>#7E909A</option>"
++ "<option value='#A5D8DD' style='background-color: #934f4d'>#A5D8DD</option>"
++ "<option value='#EA6A47' style='background-color: #EA6A47'>#EA6A47</option>"
++ "<option value='#0091D5' style='background-color: #0091D5'>#0091D5</option>"
++ "<option value='#B3C100' style='background-color: #B3C100'>#B3C100</option>"
+
++ "<option value='#4CB5F5' style='background-color: #4CB5F5'>#4CB5F5</option>"
++ "<option value='#6Ab187' style='background-color: #6Ab187'>#6Ab187</option>"
++ "<option value='#DBAE58' style='background-color: #DBAE58'>#DBAE58</option>"
++ "<option value='#488A99' style='background-color: #488A99'>#488A99</option>"
++ "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
+
++ "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
+
+
+textDivColorCtl = "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
++ "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
+
++ "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
++ "<option value='#FF6F61' style='background-color: #FF6F61' >#FF6F61</option>"
++ "<option value='#6B5B95' style='background-color: #6B5B95' >#6B5B95</option>"
++ "<option value='#88B04B' style='background-color: #88B04B' >#88B04B</option>"
++ "<option value='#F7CAC9' style='background-color: #F7CAC9' >#F7CAC9</option>"
++ "<option value='#92A8D1' style='background-color: #92A8D1' >#92A8D1</option>"
++ "<option value='#955251' style='background-color: #955251' >#955251</option>"
+
++ "<option value='#B565A7' style='background-color: #B565A7' >#B565A7</option>"
++ "<option value='#009B77' style='background-color: #009B77' >#009B77</option>"
++ "<option value='#D65076' style='background-color: #D65076' >#D65076</option>"
++ "<option value='#45B8AC' style='background-color: #45B8AC' >#45B8AC</option>"
++ "<option value='#EFC050' style='background-color: #EFC050' >#EFC050</option>"
+
++ "<option value='#5B5EA6' style='background-color: #5B5EA6' >#5B5EA6</option>"
++ "<option value='#DFCFBE' style='background-color: #DFCFBE' >#DFCFBE</option>"
++ "<option value='#55B4B0' style='background-color: #55B4B0' >#55B4B0</option>"
++ "<option value='#98B4D4' style='background-color: #98B4D4' >#98B4D4</option>"
++ "<option value='#C3447A' style='background-color: #C3447A' >#C3447A</option>"
+
++ "<option value='#bb00bb' style='background-color: #bb00bb'>#bb00bb</option>"
++ "<option value='#ff0000' style='background-color: #ff0000'>#ff0000</option>"
++ "<option value='#888888' style='background-color: #888888'>#888888</option>"
++ "<option value='#417203' style='background-color: #417203'>#417203</option>"
++ "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
++ "<option value='#7E909A' style='background-color: #7E909A'>#7E909A</option>"
++ "<option value='#A5D8DD' style='background-color: #934f4d'>#A5D8DD</option>"
++ "<option value='#EA6A47' style='background-color: #EA6A47'>#EA6A47</option>"
++ "<option value='#0091D5' style='background-color: #0091D5'>#0091D5</option>"
++ "<option value='#B3C100' style='background-color: #B3C100'>#B3C100</option>"
+
++ "<option value='#4CB5F5' style='background-color: #4CB5F5'>#4CB5F5</option>"
++ "<option value='#6Ab187' style='background-color: #6Ab187'>#6Ab187</option>"
++ "<option value='#DBAE58' style='background-color: #DBAE58'>#DBAE58</option>"
++ "<option value='#488A99' style='background-color: #488A99'>#488A99</option>"
++ "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
+
++ "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
+
+var secTranition = "<select class='transitionSelect' onchange='updateParentTransition(this)' >"
++ "<option value='Zoom'>Zoom</option>"
++ "<option value='convex'>convex</option>"
++ "<option value='concave'>concave</option>"
++ "<option value='fade'>fade</option>"
++ "<option value='slide'>slide</option>"
+
++ "<option value='slide-in fade-out'>slide-in fade-out</option>"
++ "<option value='fade-in slide-out'>fade-in slide-out</option>"
+
++ "<option value='zoom-in fade-out'>zoom-in fade-out</option>"
+
++ "<option value='convex-in concave-out'>convex-in concave-out</option>"
++ "<option value='convex-in fade-out'>convex-in fade-out</option>"
++ "<option value='none'>none</option>"
++ "</select>";
+
+var mediaSection =  "BGImageURL: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
++ "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
+
 
 
 function any(a, b) {
@@ -1388,35 +1482,7 @@ function addHelp() {
 
 function populateLanguages(fieldId = "language-box") {
 
-    //Auto popolate values in Language Field
 
-    if (the.languageListPopulated) {
-        //return;
-    }
-
-    var LHCAI = the.LanguageHelpCodeAndIds_LclJson;
-    //console.log(LHCAI);
-    var codesWithHelpDetails = JSON.parse(LHCAI);
-
-    var lookup = {};
-    var items = codesWithHelpDetails;
-    var languages = [];
-
-    for (var item, i = 0; item = items[i++];) {
-        var code_language = item.code_language;
-
-        if (!(code_language in lookup)) {
-            lookup[code_language] = 1;
-            if (code_language == undefined) {
-                continue;
-            }
-            languages.push(code_language);
-        }
-    }
-
-    //console.log(languages)
-    autocomplete(document.getElementById(fieldId), languages);
-    the.languageListPopulated = true;
 }
 
 function populateSubCategory() {
@@ -1533,7 +1599,7 @@ function autocomplete(inp, arr) {
                     return false;
                 }
 
-                var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+                var tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
                 //SM: DO NOT DELETE: options to 3 char
                 if (val.length < 2) {
@@ -1596,8 +1662,8 @@ function autocomplete(inp, arr) {
                                             /*close the list of autocompleted values,
                                             (or any other open lists of autocompleted values:*/
                                             closeAllLists();
-                                            if (inp.id == "tutorial-search-box"){
-                                                searchTutorial(); 
+                                            if (inp.id == "item-search-box"){
+                                                searchItem(); 
                                             } else {
                                                 populateSubCategory();
                                             }
@@ -1627,8 +1693,8 @@ function autocomplete(inp, arr) {
                                             /*close the list of autocompleted values,
                                             (or any other open lists of autocompleted values:*/
                                             closeAllLists();
-                                            if (inp.id == "tutorial-search-box"){
-                                                searchTutorial(); 
+                                            if (inp.id == "item-search-box"){
+                                                searchItem(); 
                                             } else {
                                                 populateSubCategory();
                                             }
@@ -1799,9 +1865,9 @@ function getLanguageHelpCodeAndIds() {
     });
 }
 
-function getTutorialList() {
+function getItemsList() {
 
-    var tags = sessionStorage.getItem("tutorialList")
+    var tags = sessionStorage.getItem("itemsList")
     if (tags != null) {
         if ((tags != "")  && (tags != "null")) {
             populateitemsDropDownDisplay();
@@ -1824,7 +1890,7 @@ function getTutorialList() {
 
 			//the.LanguageHelpCodeAndIds_LclJson = response;
 
-            sessionStorage.setItem("tutorialList", JSON.stringify(response));
+            sessionStorage.setItem("itemsList", JSON.stringify(response));
             populateitemsDropDownDisplay();
         },
         error: function(xhr, status, error) {
@@ -1833,8 +1899,35 @@ function getTutorialList() {
         }
     });
 }
+
+function getCategoryList() {
+
+    var tags = sessionStorage.getItem("categoryList")
+    if (tags != null) {
+        if ((tags != "")  && (tags != "null")) {
+            return;
+        }
+    }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "categories"
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function(response) {
+            sessionStorage.setItem("categoryList", JSON.stringify(response));
+        },
+        error: function(xhr, status, error) {
+					  console.log(error);
+					  console.log(xhr);
+        }
+    });
+}
+
 function populateitemsDropDownDisplay(){
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
     var rows = JSON.parse(tf);
     rows = rows.filter(function(entry) {
         return entry.discontinue == "0";
@@ -2612,9 +2705,9 @@ function Show(pageName) {
 	document.getElementById("howtoDivId").style.display = "none";
 	document.getElementById("homeDivId").style.display = "none";
 
-    document.getElementById("tutorialDivId").style.display = "none";
-	document.getElementById("tutorialListDivId").style.display = "none";
-    document.getElementById("tutorialEditDivId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+	document.getElementById("itemListDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "none";
 
     myUrl = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?target=" + pageName;
@@ -2659,7 +2752,7 @@ function Show(pageName) {
     x = document.getElementById("homeLinkId");
     x.classList.remove("active");
 
-    x = document.getElementById("tutorialLinkId");
+    x = document.getElementById("itemLinkId");
     x.classList.remove("active");
 
     populateLanguages("helpTopics-lang-box");
@@ -2751,18 +2844,18 @@ function Show(pageName) {
 		
         //document.getElementById("helpDivMessage").innerHTML = "Click on the help code to view the help details"
 		showHelpDivMessage("Select language to display the help content list available then click on the help code to view the help details");
-    } else if (pageName == "tutorial") {
+    } else if (pageName == "item") {
 		document.getElementById("filescannerDivId").style.display = "none";
 		document.getElementById("projectscannerDivId").style.display = "none"
 		document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
-        document.getElementById("tutorialDivId").style.display = "none";
-		//document.getElementById("tutorialDivId").style.display = "block";
-		//document.getElementById("tutorialDivId").style.width = "100%";
+        document.getElementById("itemDivId").style.display = "none";
+		//document.getElementById("itemDivId").style.display = "block";
+		//document.getElementById("itemDivId").style.width = "100%";
 
-		document.getElementById("tutorialListDivId").style.display = "block";
-		document.getElementById("tutorialListDivId").style.width = "100%";        
-        populateTutorialList();
+		document.getElementById("itemListDivId").style.display = "block";
+		document.getElementById("itemListDivId").style.width = "100%";        
+        populateItemsList();
         $( ".cardsContainerDivClassPadd" ).css( "height", "200px" );
 		
     }else if (pageName == "login"){
@@ -2903,7 +2996,7 @@ function checkURL() {
     var LocationSearchStr = location.search;
     var find = '%20';
     var re = new RegExp(find, 'g');
-    var pageName = "tutorial";
+    var pageName = "item";
     var path = window.location.pathname;
 	
     LocationSearchStr = LocationSearchStr.replace(re, ' ');
@@ -2964,14 +3057,14 @@ function checkURL() {
     if (path.indexOf('items/') > 0) {
         //var songtitle = path.replaceAll("/antaksharee/lyrics/","");
 
-        if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
-            document.getElementById("loaderDivId").style.display = "block";
-            setTimeout(function() {
-                document.getElementById("loaderDivId").style.display = "none";
-                checkURL();
-            }, 500);
-            return;
-        }
+        // if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
+        //     document.getElementById("loaderDivId").style.display = "block";
+        //     setTimeout(function() {
+        //         document.getElementById("loaderDivId").style.display = "none";
+        //         checkURL();
+        //     }, 500);
+        //     return;
+        // }
 
         document.getElementById("languageScanResultDivId").style.display = "none";
         document.getElementById("languageOverride").style.display = "none";
@@ -2987,32 +3080,32 @@ function checkURL() {
         document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
         
-        document.getElementById("tutorialDivId").style.display = "block";
+        document.getElementById("itemDivId").style.display = "block";
 
-        document.getElementById("tutorialEditDivId").style.display = "block"; 
+        document.getElementById("itemEditDivId").style.display = "block"; 
         
 
         var itemstr = path.substring(path.indexOf("items/") + 6);
         
         if (screen.width < 700 || window.innerWidth < 700){
             //document.getElementById("itemsearchDivId").style.display = "none";
-            document.getElementById("tutorialEditDivId").style.display = "none";
+            document.getElementById("itemEditDivId").style.display = "none";
         }else {
-            //populateTutorialList();
+            //populateItemsList();
         }
         
         if (itemstr.indexOf('/') > 0){
             document.getElementById("mainContainer").style.width = "100%"; 
-            document.getElementById("tutorialEditDivId").style.width = "20%";	
-            document.getElementById("tutorialEditDivId").innerHTML = "";
-            getTutorial(itemstr);
+            document.getElementById("itemEditDivId").style.width = "20%";	
+            document.getElementById("itemEditDivId").innerHTML = "";
+            getItem(itemstr);
         }else {
             itemstr = decodeURI(itemstr);
-            document.getElementById("tutorialDivId").style.display = "none";
-            document.getElementById("tutorialEditDivId").style.display = "none";
-            document.getElementById("tutorialListDivId").style.display = "block";
-            document.getElementById("tutorialListDivId").style.width = "100%";
-            //populateTutorialList();
+            document.getElementById("itemDivId").style.display = "none";
+            document.getElementById("itemEditDivId").style.display = "none";
+            document.getElementById("itemListDivId").style.display = "block";
+            document.getElementById("itemListDivId").style.width = "100%";
+            //populateItemsList();
             showcategory(itemstr)
         }
         
@@ -3069,17 +3162,17 @@ function checkURL() {
 
 	}
 
-	 if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
-        document.getElementById("loaderDivId").style.display = "block";
-        setTimeout(function() {
-            //console.log("LanguageHelpCodeAndIds is null. Will retry after 1 seconds");
-            document.getElementById("loaderDivId").style.display = "none";
-            checkURL();
-        }, 1000);
-        return;
-    } else {
-        the.LanguageHelpCodeAndIds_LclJson = JSON.parse(sessionStorage.getItem("LanguageHelpCodeAndIds"));
-    }
+	//  if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
+    //     document.getElementById("loaderDivId").style.display = "block";
+    //     setTimeout(function() {
+    //         //console.log("LanguageHelpCodeAndIds is null. Will retry after 1 seconds");
+    //         document.getElementById("loaderDivId").style.display = "none";
+    //         checkURL();
+    //     }, 1000);
+    //     return;
+    // } else {
+    //     the.LanguageHelpCodeAndIds_LclJson = JSON.parse(sessionStorage.getItem("LanguageHelpCodeAndIds"));
+    // }
 	
     document.getElementById("filescannerDivId").style.display = "none";
     document.getElementById("HelpTopicsDivId").style.display = "none";
@@ -3088,9 +3181,9 @@ function checkURL() {
 	document.getElementById("contactusDivId").style.display = "none";
 	document.getElementById("howtoDivId").style.display = "none";
 	document.getElementById("homeDivId").style.display = "none";
-	document.getElementById("tutorialDivId").style.display = "none";
-    document.getElementById("tutorialListDivId").style.display = "none";
-    document.getElementById("tutorialEditDivId").style.display = "none";    
+	document.getElementById("itemDivId").style.display = "none";
+    document.getElementById("itemListDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "none";    
 
     document.getElementById(pageName + "DivId").style.display = "block";
 
@@ -3163,19 +3256,19 @@ function checkURL() {
 			localStorage.setItem("newWindowFileObj", null);
 		}
 		document.getElementById("filescannerDivId").style.width = "100%";
-	} else if (pageName == "tutorial"){
+	} else if (pageName == "item"){
         document.getElementById("filescannerDivId").style.display = "none";
         document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("projectscannerDivId").style.display = "none";	
         document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";	
-        //document.getElementById("tutorialDivId").style.width = "100%";
-        document.getElementById("tutorialDivId").style.display = "none";
-        document.getElementById("tutorialEditDivId").style.display = "none";
+        //document.getElementById("itemDivId").style.width = "100%";
+        document.getElementById("itemDivId").style.display = "none";
+        document.getElementById("itemEditDivId").style.display = "none";
         
-        document.getElementById("tutorialListDivId").style.width = "100%";	
-        populateTutorialList();
+        document.getElementById("itemListDivId").style.width = "100%";	
+        populateItemsList();
         //document.getElementById("mainContainer").style.width = "100%";
         $( ".cardsContainerDivClassPadd" ).css( "height", "200px" );	
     }
@@ -3191,12 +3284,12 @@ function checkURL() {
 	}
 }
 
-function getTutorial(itemstr){
+function getItem(itemstr){
     $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
-            usrfunction: "getTutorial",
+            usrfunction: "getItem",
             itemstr: itemstr
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -3206,8 +3299,8 @@ function getTutorial(itemstr){
             var itemid = tags[0].itemid;
             var category = tags[0].category;
             var categoryseq = tags[0].categoryseq;
-            var subpath = tags[0].subpath;
-            var subpathseq = tags[0].subpathseq;
+            var subcategory = tags[0].subcategory;
+            var subcategoryseq = tags[0].subcategoryseq;
             var title = tags[0].title;
             var titleseq = tags[0].titleseq;
             var shortdescription = tags[0].shortdescription;
@@ -3220,12 +3313,12 @@ function getTutorial(itemstr){
             var path = window.location.pathname;
             var myUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1)
 
-            //START: Find the next tutorial to be put at the bottom of the page
+            //START: Find the next item to be put at the bottom of the page
 
-		    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+		    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
-            var nextTutorialTitle = "";
-            var nextTutorialTitleURL = "";
+            var nextItemTitle = "";
+            var nextItemTitleURL = "";
             var rows = JSON.parse(tf);
 
             rows = rows.filter(function(entry) {
@@ -3241,29 +3334,29 @@ function getTutorial(itemstr){
                     if (rows[i+1] != undefined) {
                         itemName = rows[i+1].title;
                         itemName = itemName.replaceAll(" " , "-");
-                        nextSubpath = rows[i+1].subpath;
+                        nextSubpath = rows[i+1].subcategory;
                         nextSubpath = nextSubpath.replaceAll(" " , "-");
                         nextcategory = (rows[i+1].category).toLowerCase();
                         nextcategory = nextcategory.replaceAll(" " , "-");
-                        //nextTutorialTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
-                        nextTutorialTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
+                        //nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
+                        nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
 
-                        nextTutorialTitle = rows[i+1].title;
+                        nextItemTitle = rows[i+1].title;
                     }
 
                     break;
                 }
             }
-            //END: Find the next tutorial to be put at the bottom of the page
+            //END: Find the next item to be put at the bottom of the page
 
 
-            var tutorialUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"?target=tutorial";
+            var itemUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"?target=item";
             var categoryUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"items/" + category;
 
             var newHTML = "<div classXX = 'songContainer' >" + 
-            '<a href ="'+ tutorialUrl +'" class="tutorialTopLinkCls" ' + ' >' + "items</a>" + " > " + 
-            '<a href ="'+ categoryUrl +'" class="tutorialTopLinkCls"  >' + category + "</a>" + " > " + 
-            '<a href ="' + window.location.href + '" class="tutorialTopLinkCls"  >' + title + "</a>";
+            '<a href ="'+ itemUrl +'" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " + 
+            '<a href ="'+ categoryUrl +'" class="itemTopLinkCls"  >' + category + "</a>" + " > " + 
+            '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
             newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
 
             if (localStorage.getItem("userLoggedIn") == "n") {
@@ -3272,9 +3365,9 @@ function getTutorial(itemstr){
 
                 sessionStorage.setItem("data-description", description);
 
-                //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + category + "'," + "'" + categoryseq + "'," + "'" + subpath + "',"+ "'" + subpathseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
+                //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + category + "'," + "'" + categoryseq + "'," + "'" + subcategory + "',"+ "'" + subcategoryseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
 
-                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
+                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
             }
             newHTML = newHTML + '<div classXX="songDeltsNImg">';
             newHTML = newHTML + '<div classXX="songDelts">'
@@ -3292,29 +3385,29 @@ function getTutorial(itemstr){
                 newHTML = "<div class = 'songContainer' >Page not found</div>";
             }
 
-            if (nextTutorialTitle != "") {
-                newHTML = newHTML + '<br><br>'  + 'Next: <a href ="' + nextTutorialTitleURL + '" class="tutorialTopLinkCls"  >' + nextTutorialTitle + "</a> <br> <br>";
+            if (nextItemTitle != "") {
+                newHTML = newHTML + '<br><br>'  + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a> <br> <br>";
 
             }
 
             newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Leave a Comment</b>' + document.getElementById("sndmsgdivid").innerHTML;
 
-            document.getElementById("tutorialDivId").innerHTML = newHTML;
+            document.getElementById("itemDivId").innerHTML = newHTML;
             refreshCaptcha();
             showcategory(category);
-            //START: Change the background color of the active tutorial link 
-            var elemId = "tutorialDiv-" + itemid;
+            //START: Change the background color of the active item link 
+            var elemId = "itemDiv-" + itemid;
             document.getElementById(elemId).style.backgroundColor = "orange";
-            //END: Change the background color of the active tutorial link
+            //END: Change the background color of the active item link
 
             var metaDesc = shortdescription   ;
 
-            var metaKey = category + "," + subpath + "," + title + "," + keywords;
+            var metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
             
             document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
             document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
-            //document.title = category + " " + subpath + ". " + title ;
+            //document.title = category + " " + subcategory + ". " + title ;
             document.title = category + " - " + title ;
             
             sessionStorage.setItem("lastUrl", window.location.href);
@@ -3337,7 +3430,7 @@ function getTutorial(itemstr){
 
               
               $('html, body').animate({
-                    scrollTop: $("#tutorialDivId").offset().top - 40
+                    scrollTop: $("#itemDivId").offset().top - 40
                 }, 100);	
             
         },
@@ -3353,8 +3446,8 @@ function editItem( btn ){
     itemid = btn.dataset.itemid;
     category = btn.dataset.category;
     categoryseq = btn.dataset.categoryseq;
-    subpath = btn.dataset.subpath;
-    subpathseq = btn.dataset.subpathseq;
+    subcategory = btn.dataset.subcategory;
+    subcategoryseq = btn.dataset.subcategoryseq;
     title = btn.dataset.title;
     titleseq = btn.dataset.titleseq;
     shortdescription = btn.dataset.shortdescription;
@@ -3404,11 +3497,11 @@ function editItem( btn ){
            
    newHTML = newHTML +
    "<br><br><div class = 'editFieldHead'>Path(not in use): </div><br>" +
-   "<input type='text' id='subpath-" + itemid + "' style='width:95%; margin:auto;' value='" + subpath + "'>";
+   "<input type='text' id='subcategory-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategory + "'>";
 
    newHTML = newHTML +
            "<br><br><div class = 'editFieldHead'>Path Sort Sequence(not in use): </div><br>" +
-           "<input type='text' id='subpathseq-" + itemid + "' style='width:95%; margin:auto;' value='" + subpathseq + "'>";
+           "<input type='text' id='subcategoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategoryseq + "'>";
 
 
 
@@ -3421,9 +3514,130 @@ function editItem( btn ){
 
    toolbarHTML = toolbarHTML  + "<div id='toolBarId' class = 'toolBar'><div>" +
    "<button  title='toggle desc view' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleDescView('" + itemid + "') >TglDesc</button>" + 
-   "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>" + 
+   "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>" ; 
 
-   "<label class='toolBarlabel'>Paragraphs</label>" +
+ //Shop - Topbanner*********************
+
+ toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
+ + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1') ></button>" 
+ + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2') ></button>" 
+ + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3') ></button>" 
+ + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4') ></button>" ;
+
+ 
+ 
+   //Reveal Js Slide - Section - Divs*********************
+
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
+   + "<button title='secTitlePlane1' type='button' style='background: url(/smshopify/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>" 
+
+   + "<button title='secTitleWithBG' type='button' style='background: url(/smshopify/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>" 
+ 
+   + "<button title='SemiTransBG' type='button' style='background: url(/smshopify/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>" 
+
+   + "<button title='SemiTransBG2' type='button' style='background: url(/smshopify/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>" 
+
+   + "<label class='toolBarlabel'>Div - Sections - Lists</label>" 
+
+   + "<button title='secWithList1' type='button' style='background: url(/smshopify/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>" 
+
+   + "<button title='titleWithItems1' type='button' style='background: url(/smshopify/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>" 
+
+   + "<button title='titleWithItems2' type='button' style='background: url(/smshopify/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>" 
+
+   + "<button title='titleWithItems3' type='button' style='background: url(/smshopify/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>" 
+
+   + "<label class='toolBarlabel'>Div - Code Explaination</label>" 
+   + "<button title='titleTextCode1' type='button' style='background: url(/smshopify/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>" 
+   + "<button title='titleTextCode2' type='button' style='background: url(/smshopify/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>" 
+
+   + "<label class='toolBarlabel'>Div - Quiz MCQ</label>" 
+   + "<button title='quizMCQFullScreen' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>" 
+   + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>" 
+
+   + "<label class='toolBarlabel'>Images</label>" 
+   + "<button title='zoomingImage1' type='button' style='background: url(/smshopify/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>" 
+   + "<hr>" 
+   + "<label for='insertInner'>Insert component before active Div:</label>" 
+   + "<input type='checkbox' id='insertInner' >" ;
+   //*************ANIMATION CLASSES************* */
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>" 
+    + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"  
+    + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
+    + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
+    + "<br><br>Ex. " + escape("<div class='fragment fr-rotate-in-center' style='margin:auto; padding-top: 100px;  animation-duration: 4s; animation-delay: 0s; animation-iteration-count: 1'>text</div>")
+    + "<br><br><b>ImageZooming:-</b> kenburns-top;  kenburns-left; kenburns-right; zoomingImg;"
+    + "<br><br><b>Entrances(Reveal):-</b> scale-in-ver-top; scale-in-hor-center; scale-in-hor-right; scale-up-ver-top; slide-left; slide-right"
+    + "<br><br><b>Entrances(Rotate):-</b> rotate-in-center; rotate-in-right; "
+    + "<br><br><b>Entrances(Bounce):-</b> bounce-in-top; bounce-in-right; bounce-in-bottom; bounce-in-left; bounce-in-fwd; "
+    + "<br><br><b>Entrances(Roll):-</b> roll-in-left; roll-in-top; roll-in-right; roll-in-bottom;  "
+    + "<br><br><b>Entrances(Tilt):-</b> tilt-in-top-1; tilt-in-top-2; tilt-in-fwd-tr  "
+    + "<br><br><b>Entrances(Swing):-</b> swing-in-top-fwd; swing-in-left-bck  "
+    + "<br><br><b>Entrances(Text-Expand/Contract):-</b> tracking-in-expand;tracking-in-expand-fwd;tracking-in-contract-bck;tracking-in-contract;text-pop-up-top  "
+    + "<br><br><b>Attention:-</b> shake-vertical; jello-diagonal-1; jello-horizontal;wobble-hor-bottom; wobble-hor-top; bounce-top; bounce-bottom; bounce-left; bounce-right  "
+    + "<br><br><b>Others:-</b> slidingUp10px; slidingUp600px; slidingDown10px; slidingDown600px; slidingleft10px; slidingleft600px; slidingright10px; slidingright600px;"
+    + "<br><br>slideFragmentUp10px;slideFragmentUp600px;slideFragmentDown10px;slideFragmentDown600px;slideFragmentLeft10px;slideFragmentLeft600px;slideFragmentRight10px; slideFragmentRight600px;"
+    + "<br><br> </div>";
+
+   //*************SOUNDS************* */
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Sounds (Click to insert at Carot) </label>" 
+
+   + "<button title='air-in-a-hit' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','air-in-a-hit') >air-in-a-hit</button>" 
+   + "<button title='arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','arrow-whoosh') >arrow-whoosh</button>" 
+   + "<button title='bell-ding-586' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','bell-ding-586') >bell-ding-586</button>" 
+   + "<button title='fast-blow' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-blow') >fast-blow</button>" 
+   + "<button title='fast-sweep' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-sweep') >fast-sweep</button>" 
+   + "<button title='keyboard-key-presses' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','keyboard-key-presses') >keyboard-key-presses</button>" 
+   + "<button title='page-flip-01a' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','page-flip-01a') >page-flip-01a</button>" 
+   + "<button title='paper-slide' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','paper-slide') >paper-slide</button>" 
+   + "<button title='pop' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','pop') >pop</button>" 
+   + "<button title='sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','sand-swish') >sand-swish</button>" 
+   + "<button title='ui-zoom-in' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','ui-zoom-in') >ui-zoom-in</button>" 
+   + "<button title='low-arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-arrow-whoosh') >low-arrow-whoosh</button>" 
+   + "<button title='low-sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-sand-swish') >low-sand-swish</button>" 
+   + "<button title='low-bell-ding' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-bell-ding') >low-bell-ding</button>" ;
+  
+   //*************BACKGROUND SOUNDS************* */
+  toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Background Sounds (Click to insert at Carot) </label>" 
+
+  + "<button title='background1' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background1') >background1</button>" 
+  + "<button title='background2' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background2') >background2</button>" 
+  + "<button title='background3' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background3') >background3</button>" 
+  + "<button title='background4' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background4') >background4</button>" 
+  + "<button title='background5' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background5') >background5</button>" 
+  + "<button title='background6' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background6') >background6</button>" 
+
+   + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>" ;
+
+   //****************IMAGES****************/
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
+   + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>" 
+
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Upload Image</label>"
+   + "Upload Image:(e.g. myimage.png)" +
+   "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
+   +
+   "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
+
+   +
+   "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
+
+   +
+   "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
+   +
+   "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
+   +
+   "<input class='itmUpdBtnSmall' type='button' value='Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='insertImageAtCarot(event);'  >"
+   +
+   "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
+   + "<label class='toolBarlabel'>Search Images (Click to Save)</label>"
+   +"<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
+   + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
+   + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
+   +"<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
+   + "<div class='srchimages'></div>";
+ 
+   toolbarHTML = toolbarHTML  + "<label class='toolBarlabel'>Paragraphs</label>" +
    "<button title='paragraph1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph1') >P1</button>" +
    "<button title='paragraph2 white BG' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph2') >P2</button>" +
    "<label class='toolBarlabel'>Ordered Lists</label>" +
@@ -3456,36 +3670,11 @@ function editItem( btn ){
    "<button title='Quiz1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz1') >Q1</button>" +
    "<button title='Quiz2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz2') >Q2</button>" +
    "<button title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
-
-   "<label for='insertInner'>Insert component before active Div:</label>" +
-   "<input type='checkbox' id='insertInner' >" +
    "</div>" ;
 
-
-
-   toolbarHTML = toolbarHTML +
-   "Upload Image:(e.g. myimage.png)" +
-   "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
-
-   +
-   "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
-
-   +
-   "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
-
-   +
-   "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-   +
-   "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
-   +
-   "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
-   +"<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
-   + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
-   + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
-   +"<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
-   + "<div class='srchimages'></div>"
-   +"</div><br><br><br>";
-
+   //*************END OF TOOLBAR DIV */
+   toolbarHTML = toolbarHTML  + "</div><br><br><br>";
+   //*************END OF TOOLBAR DIV */
 
 
 
@@ -3527,16 +3716,17 @@ function editItem( btn ){
    newHTML = newHTML + "</div>";
    newHTML = newHTML + "</div>";
 
-   document.getElementById("tutorialDivId").innerHTML = newHTML;
-   document.getElementById("tutorialEditDivId").innerHTML = toolbarHTML;
+   document.getElementById("itemDivId").innerHTML = newHTML;
+   document.getElementById("itemEditDivId").innerHTML = toolbarHTML;
 
 
-   document.getElementById("tutorialEditDivId").style.display = "block"; 
+   document.getElementById("itemEditDivId").style.display = "block"; 
 
-   document.getElementById("tutorialDivId").style.width = "100%";	
+   document.getElementById("itemDivId").style.width = "100%";	
 
    document.getElementById("mainContainer").style.width = "100%"; 
-   document.getElementById("tutorialEditDivId").style.width = "20%";
+   document.getElementById("itemEditDivId").style.width = "700px";     
+   document.getElementById("itemListDivId").style.display = "none";  
 
 }
 
@@ -4044,7 +4234,443 @@ function addComponent(itemid, type){
          + "<div id= 'sbmtqzdivid' onmousedown=setLastFocusedDivId(this.id)  class = 'sbmtqz-div' onclick='submitQuiz()'> Submit <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"
          + "<div id= 'retryqzdivid' onmousedown=setLastFocusedDivId(this.id)  class = 'sbmtqz-div' onclick='refreshPage()'> Retry <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
 
+    }else if (type == "secTitlePlane1") {
+
+        var htmlPartOrig = '<div class="slidingUp10px" style="margin:auto; padding-top: 100px">'
+                    + "\n" + 'My Tutorial'  
+                     + "\n" + '</div>';
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + revealSecColor
+                    + secTranition
+                    + mediaSection
+                    + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "shopTopBanner1") {
+
+        var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px">'
+                    + "\n" + '<div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Any tagline</div>'  
+                     + "\n" + '</div>';
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + revealSecColor        
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "shopTopBanner2") {
+
+        var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
+                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(85, 180, 176);"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                     + "\n" + '</div>';
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + allowTogglePreview
+                    + textDivColorCtl
+                    + mediaSection             
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "shopTopBanner3") {
+
+        var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
+                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(85, 180, 176);"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                     + "\n" + '</div>';
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + allowTogglePreview
+                    + textDivColorCtl
+                    + mediaSection             
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "shopTopBanner4") {
+
+        var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
+                    + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:10px; text-align:center; width:50%;  margin:auto ; margin-top:20px; border-radius: 20px;"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                     + "\n" + '</div>';
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + allowTogglePreview
+                    + revealSecColor
+                    + mediaSection             
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "secTitleWithBG") {
+
+        var htmlPartOrig = "<div class='slidingUp10px' style='background: #F6DA66; padding: 20px; border-radius: 20px; margin:auto; width:50%; margin-top: 100px'>"
+                    + "\n" + "Add Title "
+                    + "\n" + "</div>";
+
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + revealSecColor
+                    + secTranition
+                    + mediaSection                    
+                    + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        }else if (type == "SemiTransBG") {
+
+            var htmlPartOrig = "<div class='slidingUp10px semiTransparentWhiteBG boxShadow5' style='opacity: 0.5; padding: 20px; border-radius: 20px; margin:auto; width:50%; margin-top: 100px'>"
+                        + "\n" + "Add Title "
+                        + "\n" + "</div>";
+    
+            htmlPart = escape(htmlPartOrig);
+    
+            var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                        + revealSecColor
+                        + secTranition
+                        + mediaSection                     
+                        + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                        +"</div>";
+    
+            document.getElementById(componentid).innerHTML = partOneHTML 
+                + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                + hdMeDiv 
+                + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        }else if (type == "SemiTransBG2") {
+
+                var htmlPartOrig = "<div class='slidingUp10px semiTransparentBlackBG boxShadow5' style='opacity: 0.5; padding: 20px; border-radius: 20px; margin:auto; width:50%; margin-top: 10px'>"
+                            + "\n" + "Add Title "
+                            + "\n" + "</div>";
+        
+                htmlPart = escape(htmlPartOrig);
+        
+                var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                            + revealSecColor
+                            + secTranition
+                            + mediaSection                     
+                            + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                            +"</div>";
+        
+                document.getElementById(componentid).innerHTML = partOneHTML 
+                    + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + hdMeDiv 
+                    + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        
+        }else if (type == "secWithList1") {
+            var htmlPartOrig = '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff; margin-top:20px;">1. ABC</div>'
+                            + "\n" + '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">2. ABC</div>'
+                            + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">3. ABC</div>'
+                            + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">4. ABC</div>'
+                            + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">5. ABC</div>';
+            htmlPart = escape(htmlPartOrig);
+
+            var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                        + revealSecColor
+                        + secTranition
+                        + mediaSection                      
+                        + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                        +"</div>";
+    
+            document.getElementById(componentid).innerHTML = partOneHTML 
+                + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                + hdMeDiv 
+                + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+            }else if (type == "titleWithItems1") {
+                var htmlPartOrig = '<div style="top: 5px; display:block; background-color: #5B5EA6; margin: auto; padding: 20px;">'
+                + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff" >Heading</div>'
+                + "\n" +  '</div>'
+                + "\n" +  '<div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px  itemsWithBG" style=" background-color: #C3447A; color:#fff; margin-top:20px;">1. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">2. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">3. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">4. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style=" background-color: #C3447A; color:#fff;">5. ABC</div>'
+                + "\n" +  '</div>';
+                htmlPart = escape(htmlPartOrig);
+                var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                            + revealSecColor
+                            + secTranition
+                            + mediaSection                      
+                            + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                            +"</div>";
+        
+                document.getElementById(componentid).innerHTML = partOneHTML 
+                    + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + hdMeDiv 
+                    + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+            }else if (type == "titleWithItems2") {
+                var htmlPartOrig = '<div style="height: 900px;">'
+                + "\n" +  '<div style="float:left; width: 200px; height: 100%; top: 5px; display:block; background-color: #FF6F61; margin: auto; padding: 20px;">'
+                + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: 30px; white-space: pre-wrap; word-wrap: break-word;" >Heading'
+                + "\n" +  '</div>'
+                + "\n" +  '</div>'
+                + "\n" +  '<div style="float:left; padding: 1%">'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style="width:400px; background-color: #5B5EA6; color:#fff; margin-top:20px;">1. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style="width:400px; background-color: #5B5EA6; color:#fff;">2. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style="width:400px; background-color: #5B5EA6; color:#fff;">3. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style="width:400px; background-color: #5B5EA6; color:#fff;">4. ABC</div>'
+                + "\n" +  '<div class="fragment slideFragmentUp600px itemsWithBG" style="width:400px; background-color: #5B5EA6; color:#fff;">5. ABC</div>'
+                + "\n" +  '</div>'
+                + "\n" +  '</div>';
+                htmlPart = escape(htmlPartOrig);
+                var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                            + revealSecColor
+                            + secTranition
+                            + mediaSection                       
+                            + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                            +"</div>";
+        
+                document.getElementById(componentid).innerHTML = partOneHTML 
+                    + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + hdMeDiv 
+                    + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "titleWithItems3") {
+        var htmlPartOrig = '<div style="height: 900px;">'
+        + "\n" +  '<div style="float:left; width: 200px; height: 100%; top: 5px; display:block; background-color: #955251; margin: auto; padding: 20px;">'
+        + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff; white-space: pre-wrap; word-wrap: break-word;" >Heading'
+        + "\n" +  '</div>'
+        + "\n" +  '</div>'
+        + "\n" +  '<div style="float:left; padding: 20px">'
+        + "\n" +  '<ul>'
+        + "\n" +  '<li class="fragment slideFragmentUp600px " style="  color:#fff; margin-top:20px;">1. ABC</li>'
+        + "\n" +  '<li class="fragment slideFragmentUp600px" style=" color:#fff;">2. ABC</li>'
+        + "\n" +  '<li class="fragment slideFragmentUp600px" style="  color:#fff;">3. ABC</li>'
+        + "\n" +  '<li class="fragment slideFragmentUp600px " style="  color:#fff;">4. ABC</li>'
+        + "\n" +  '<li class="fragment slideFragmentUp600px" style=" color:#fff;">5. ABC</li>'
+        + "\n" +  '</ul>'
+        + "\n" +  '</div>'
+        + "\n" +  '</div>';
+        //htmlPartOrig = "Test";
+        htmlPart = escape(htmlPartOrig);
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + revealSecColor
+                    + secTranition
+                    + mediaSection                     
+                    + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+
+        }else if (type == "zoomingImage1") {
+            var htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/smshopify/img/animaker-test9-1414.png">';
+            htmlPart = escape(htmlPartOrig);
+            var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                        + revealSecColor
+                        + secTranition
+                        + mediaSection                     
+                        + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                        +"</div>";
+    
+            document.getElementById(componentid).innerHTML = partOneHTML 
+                + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
+                + hdMeDiv 
+                + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        }else if (type == "titleTextCode1") {
+                var htmlPartOrig = '<div style="height: 900px;">'
+                + "\n" +  '<div style="float:left; width: 200px; height: 100%; top: 5px; display:block; background-color: #FF6F61; margin: auto; padding: 20px;">'
+                + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff; white-space: pre-wrap; word-wrap: break-word;" >Heading'
+                + "\n" +  '</div>'
+                + "\n" +  '</div>'
+                + "\n" +  '<div style="float:left; padding: 1%">'
+                + "\n" + '<div class="fragment infoBox">A statement is a single line of code that performs an action</div>'
+                + "\n" + '<div class="fragment fr-bounce-in-top codeBox5" style="animation-duration: 1s;">'
+                + "\n" + 'int x = 10;'
+                + "\n" +  '</div>'
+                + "\n" +  '</div>'
+                + "\n" +  '</div>';
+                //htmlPartOrig = "Test";
+                htmlPart = escape(htmlPartOrig);
+                var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                            + revealSecColor
+                            + secTranition
+                            + mediaSection                     
+                            + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                            +"</div>";
+        
+                document.getElementById(componentid).innerHTML = partOneHTML 
+                    + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + hdMeDiv 
+                    + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+                
+        }else if (type == "titleTextCode2") {
+                    var htmlPartOrig = '<div class="fragment infoBox">Title</div>'
+                    + "\n" +  '<div class="fragment fr-bounce-in-top codeBox5" style="animation-duration: 1s;">'
+                    + "\n" +  'int x = 10;'
+                    + "\n" +  '</div>';
+                    //htmlPartOrig = "Test";
+                    htmlPart = escape(htmlPartOrig);
+                    var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                                + revealSecColor
+                                + secTranition
+                                + mediaSection                     
+                                + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                                +"</div>";
+            
+                    document.getElementById(componentid).innerHTML = partOneHTML 
+                        + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                        + hdMeDiv 
+                        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        }else if (type == "quizMCQFullScreen") {
+                        var htmlPartOrig = '<div style="top: 0px; display:block; background-color: #5B5EA6; margin: auto; padding: 4%;">'
+                        + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
+                        + "\n" +  '</div>'
+
+                        + "\n" +  '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+
+                        + "\n" +  '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
+                        + "\n" +  '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/smshopify/sounds/bell-ding-586.wav" type="audio/wav"><source data-src="/smshopify/sounds/bell-ding-586.mp3" type="audio/mp3"></audio></div>';
+
+                        //htmlPartOrig = "Test";
+                        htmlPart = escape(htmlPartOrig);
+                        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                                    + revealSecColor
+                                    + secTranition
+                                    + mediaSection                     
+                                    + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                                    +"</div>";
+                
+                        document.getElementById(componentid).innerHTML = partOneHTML 
+                            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                            + hdMeDiv 
+                            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        }else if (type == "quizMCQFullScreenLow") {
+                        var htmlPartOrig = '<div style="top: 0px; display:block; background-color: #5B5EA6; margin: auto; padding: 4%;">'
+                        + "\n" +  '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
+                        + "\n" +  '</div>'
+
+                        + "\n" +  '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+                        + "\n" +  '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+
+                        + "\n" +  '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
+                        + "\n" +  '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/smshopify/sounds/low-bell-ding.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-bell-ding.mp3" type="audio/mp3"></audio></div>';
+
+                        //htmlPartOrig = "Test";
+                        htmlPart = escape(htmlPartOrig);
+                        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                                    + revealSecColor
+                                    + secTranition
+                                    + mediaSection                     
+                                    + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                                    +"</div>";
+                
+                        document.getElementById(componentid).innerHTML = partOneHTML 
+                            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                            + hdMeDiv 
+                            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+    
+                                
+        }else if (type == "zoomingImage1") {
+                    var htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/smshopify/img/animaker-test9-1414.png">';
+                    htmlPart = escape(htmlPartOrig);
+                    var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                                + revealSecColor
+                                + secTranition
+                                + mediaSection                     
+                                + "<button type='button' style='background: url(/smshopify/secimages/"+ type +".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"                
+                                +"</div>";
+            
+                    document.getElementById(componentid).innerHTML = partOneHTML 
+                        + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
+                        + hdMeDiv 
+                        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        
+    }else if ((type == "air-in-a-hit") || (type == "arrow-whoosh") || (type == "bell-ding-586")|| 
+              (type == "fast-blow") || (type == "fast-sweep") || (type == "keyboard-key-presses")|| 
+              (type == "page-flip-01a") || (type == "paper-slide") || (type == "pop")|| (type == "low-bell-ding")|| 
+              (type == "low-arrow-whoosh") || (type == "low-sand-swish") || 
+              (type == "sand-swish") || (type == "ui-zoom-in") ){
+        var htmlToInsert =   "<audio>"
+                           + "<source data-src='/smshopify/sounds/"+ type +".wav' type='audio/wav'>"
+                           + "<source data-src='/smshopify/sounds/"+ type +".mp3' type='audio/mp3'>"
+                           + "</audio>";          
+        insertHTMLAtCaret(escape(htmlToInsert));
+    }else if (type == "code-snippet" ){
+        var htmlToInsert =   "<div class='quizCode'>"
+                        + "<pre><code data-trim data-noescape>"
+                        + "int i = 0;"
+                        + "</code></pre></div>";          
+        insertHTMLAtCaret(escape(htmlToInsert));
+    }else if (type == "secDivText1"){
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + revealSecColor
+                    + secTranition
+                    + "<select class='colorSelect' onchange='updateParentFontColor(this)'>"
+                    + "<option value='#00ffff'>#00ffff</option>"
+                    + "<option value='#bb00bb'>#bb00bb</option>"
+                    + "<option value='#ff0000'>#ff0000</option>"
+                    + "<option value='#888888'>#888888</option>"
+                    + "<option value='#417203'>#417203</option>"
+                    + "<option value='#934f4d'>#934f4d</option>"
+                    + "<option value='salmon'>salmon</option>"
+                    + "</select>"                    
+                    +"</div>";
+        var htmlToInsert =   "<div id= div-" + randomId + " contenteditable='true' class='sectxt' onmousedown=setLastFocusedDivId(this.id) > Text1 Inside SectionDiv " + hdMeDiv +"<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";          
+        insertHTMLAtCaret(htmlToInsert);
     }
+
 
     
 
@@ -4135,7 +4761,7 @@ function showProfile(){
             var qzURL = (obj.quiz).split("/items/");
             var link = qzURL[1];
 
-            newHTML = newHTML + "<tr><td> <a class= 'tutorialLink' href='" + obj.quiz+ "'> " + link +" </a></td><td>" +obj.percent + "% </td><td>" +obj.time + "</td></tr>"
+            newHTML = newHTML + "<tr><td> <a class= 'itemLink' href='" + obj.quiz+ "'> " + link +" </a></td><td>" +obj.percent + "% </td><td>" +obj.time + "</td></tr>"
             
         }
         newHTML = newHTML + "</table>";
@@ -4158,9 +4784,9 @@ function showProfile(){
     document.getElementById("loginSecDivId").style.display = "none";
     document.getElementById("projectscannerDivId").style.display = "none";
     document.getElementById("registerSecDivId").style.display = "none";
-    document.getElementById("tutorialDivId").style.display = "none";
-    document.getElementById("tutorialEditDivId").style.display = "none";
-    document.getElementById("tutorialListDivId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "none";
+    document.getElementById("itemListDivId").style.display = "none";
     document.getElementById("helpDisplayDivId").style.display = "none";
 
 
@@ -4241,8 +4867,8 @@ function updateItem(itemid, createNewItem) {
 		titleseq = document.getElementById("titleseq-" + itemid).value;
 		category = document.getElementById("category-" + itemid).value;
 		categoryseq = document.getElementById("categoryseq-" + itemid).value;
-		subpath = document.getElementById("subpath-" + itemid).value;
-		subpathseq = document.getElementById("subpathseq-" + itemid).value;
+		subcategory = document.getElementById("subcategory-" + itemid).value;
+		subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
 		shortdescription = document.getElementById("shortdescription-" + itemid).value;
 
 		writer = document.getElementById("writer-" + itemid).value;
@@ -4282,7 +4908,7 @@ function updateItem(itemid, createNewItem) {
 	
     title = title.replaceAll("'", "''");
 	category = category.replaceAll("'", "''");
-	subpath = subpath.replaceAll("'", "''");
+	subcategory = subcategory.replaceAll("'", "''");
     shortdescription = shortdescription.replace(/"/g, '\'');
 	shortdescription = shortdescription.replaceAll("'", "''");
     description = description.replaceAll("'", "''");
@@ -4302,8 +4928,8 @@ function updateItem(itemid, createNewItem) {
             titleseq: titleseq,
             category: category,
             categoryseq: categoryseq,
-            subpath: subpath,
-            subpathseq: subpathseq,            
+            subcategory: subcategory,
+            subcategoryseq: subcategoryseq,            
             shortdescription: shortdescription,
             description: description,
             writer: writer,
@@ -4323,9 +4949,9 @@ function updateItem(itemid, createNewItem) {
                 goToLogin();
             }
 
-            sessionStorage.setItem("tutorialList", null);
+            sessionStorage.setItem("itemsList", null);
             //sessionStorage.setItem("itemList", null);
-            getTutorialList();
+            getItemsList();
             if (itemid == "") {
                 //showMdaItems();
 
@@ -4347,6 +4973,135 @@ function updateItem(itemid, createNewItem) {
     });
 }
 
+function saveNewStore(itemid, createNewItem) {
+
+    var usremail = localStorage.getItem("userEmail");
+
+    var title = "(New) Please Edit";
+	
+    if (usremail == null){
+        error_message = "Not authorized";
+        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+        return;        
+    }else if (usremail == "Guest"){
+        error_message = "Not authorized";
+        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+        return;        
+    }
+
+    
+    if (itemid == "" && createNewItem == "y") {
+        if (localStorage.getItem("userLoggedIn") == "n") {
+
+            error_message = "Not authorized";
+            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";            
+            return;
+
+        } else if (localStorage.getItem("userLvl") != "9") {
+            error_message = "Not authorized";
+            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+            return;
+        }
+
+
+    } else {
+        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = red>" + " " + "</font> ";
+
+        title = document.getElementById("title-" + itemid).value;
+		titleseq = 5;
+		category = document.getElementById("category-" + itemid).value;
+		categoryseq = document.getElementById("categoryseq-" + itemid).value;
+		subcategory = document.getElementById("subcategory-" + itemid).value;
+		subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
+		shortdescription = "";
+
+		writer = "";
+		keywords = "";
+		discontinue = "1";
+
+        description = document.getElementById("description-" + itemid).innerHTML;
+		
+	
+        if (localStorage.getItem("userLoggedIn") == "n") {
+
+            error_message = "Not authorized";
+            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+            return;
+
+        } else if (localStorage.getItem("userLvl") != "9") {
+            error_message = "Not authorized";
+            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+            return;
+        }
+    }
+    var StrFunction = "UpdateItem";
+	
+    title = title.replaceAll("'", "''");
+	category = category.replaceAll("'", "''");
+	subcategory = subcategory.replaceAll("'", "''");
+    shortdescription = shortdescription.replace(/"/g, '\'');
+	shortdescription = shortdescription.replaceAll("'", "''");
+    description = description.replaceAll("'", "''");
+    //let regex = /\\/g;
+    description = description.replace(/\\/g, "\\\\");
+
+    writer = writer.replaceAll("'", "''");
+    keywords = keywords.replaceAll("'", "''");
+	
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: {
+            usremail: usremail,
+            itemid: itemid,
+            title: title,
+            titleseq: titleseq,
+            category: category,
+            categoryseq: categoryseq,
+            subcategory: subcategory,
+            subcategoryseq: subcategoryseq,            
+            shortdescription: shortdescription,
+            description: description,
+            writer: writer,
+            keywords: keywords,
+            discontinue: discontinue,
+            createNewItem: createNewItem,
+            usrfunction: StrFunction
+        },
+        type: 'POST',
+        dataType: 'json',
+        success: function(retstatus) {
+            //alert("Inside login success retstatus =" + retstatus);
+            //console.log( "Inside updateItem success retstatus =" + retstatus);
+
+            if (retstatus == "err"){
+                //alert("Please relogin");
+                goToLogin();
+            }
+
+            sessionStorage.setItem("itemsList", null);
+            //sessionStorage.setItem("itemList", null);
+            getItemsList();
+            if (itemid == "") {
+                //showMdaItems();
+
+            } else {
+                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
+            }
+            //displayCart();
+
+        },
+        error: function(xhr, status, error) {
+            if (!itemid == "") {
+                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+            }
+            //alert(xhr);
+
+            //console.log(error);
+            //console.log(xhr);
+        }
+    });
+}
 
 function updateInfo(data){
 
@@ -5194,7 +5949,7 @@ function cancelNewProjectAdd() {
 
 function showcategory(tech){
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
     var rows = JSON.parse(tf);
     var elementId = "menucardparent-" + tech
     elementId = elementId.replaceAll(" ","");
@@ -5205,7 +5960,7 @@ function showcategory(tech){
         });
     }    
 
-    populateTutorialList(rows);
+    populateItemsList(rows);
     
     document.getElementById(elementId).style.width = "95%";
     document.getElementById(elementId).style.maxWidth = "1200px";
@@ -5215,10 +5970,10 @@ function showcategory(tech){
     // document.getElementById(elementId).style.overflow = "expand";
 }
 
-function searchTutorial(){
-    var searchText = document.getElementById("tutorial-search-box").value;
+function searchItem(){
+    var searchText = document.getElementById("item-search-box").value;
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
     var rows = JSON.parse(tf);
 
     if (searchText != ""){
@@ -5228,13 +5983,13 @@ function searchTutorial(){
         });
     }    
 
-    populateTutorialList(rows);
+    populateItemsList(rows);
     $( ".cardsContainerDivClassPadd" ).css( "width", "95%" );
 }
-function populateTutorialDropDown(fieldId = "tutorial-search-box") {
+function populateItemDropDown(fieldId = "item-search-box") {
 
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
     var items = JSON.parse(tf);
 
     //var LHCAI = the.LanguageHelpCodeAndIds_LclJson;
@@ -5256,12 +6011,12 @@ function populateTutorialDropDown(fieldId = "tutorial-search-box") {
     //the.languageListPopulated = true;
 }
 
-function populateTutorialList(rows = "") {
+function populateItemsList(rows = "") {
 
 
     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
 
     if (rows == ""){
@@ -5277,8 +6032,8 @@ function populateTutorialList(rows = "") {
     }
 
    
-    //var innerHTML = "<input id='tutorial-search-box' type='text'	name='tutorial' autocomplete='off' placeholder='search'/>" +
-    //"<button class='buttonCls' onclick='searchTutorial(); return false;' >Update</button>";
+    //var innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
+    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
     var innerHTML = "";
     var itemName = "";
     var path = window.location.pathname;
@@ -5296,16 +6051,16 @@ function populateTutorialList(rows = "") {
         itemName = rows[i].title;
         itemName = itemName.replaceAll(" " , "-");
 
-        subpath = rows[i].subpath;
-        subpath = subpath.replaceAll(" " , "-");
+        subcategory = rows[i].subcategory;
+        subcategory = subcategory.replaceAll(" " , "-");
 
         categoryOrig = rows[i].category;
         category = rows[i].category;
         
         category = category.replaceAll(" " , "-");
 
-        //tutorialTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subpath.toLowerCase() + "/" + itemName.toLowerCase();
-        tutorialTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + itemName.toLowerCase();
+        //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + itemName.toLowerCase();
 
         categoryUrl = myUrl + "items/" + categoryOrig;
 
@@ -5332,7 +6087,7 @@ function populateTutorialList(rows = "") {
             
             if (sessionStorage.getItem("max-count-" +  rows[i - 1].category) > defaultDisplayCount) {
                 sessionStorage.setItem("display-count-" + rows[i - 1].category, defaultDisplayCount) ;
-                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i - 1].itemid + '" class="tutorialDiv categoryFooter ' + rows[i - 1].category + ' " >'  + 			
+                innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv categoryFooter ' + rows[i - 1].category + ' " >'  + 			
                 '<button id="showmore-'+ rows[i - 1].category +'"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].category + '") >Show More</button>' +          
                 '</div>';
             } else {
@@ -5365,15 +6120,15 @@ function populateTutorialList(rows = "") {
         if (i == 0){
             previousSubpath = "";
         } else {
-            previousSubpath = rows[i-1].subpath;
+            previousSubpath = rows[i-1].subcategory;
         }
         
-        currentSubpath = rows[i].subpath;
+        currentSubpath = rows[i].subcategory;
 
         if (i == rows.length - 1) {
             nextSubPath = "";
         } else {
-            nextSubPath = rows[i+1].subpath;
+            nextSubPath = rows[i+1].subcategory;
         }
         
         var discontinuedFlgCls = "";
@@ -5383,9 +6138,9 @@ function populateTutorialList(rows = "") {
         }
         
         if (previousSubpath == currentSubpath){
-            //It is a child tutorial same as previous
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + categorySqueezed +'" >';
-            innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
+            //It is a child item same as previous
+            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild '+ discontinuedFlgCls + categorySqueezed +'" >';
+            innerHTML = innerHTML +  '<a class="itemLink" href ="'+ itemTitleURL +'"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >' ;
             
             if (the.smusr){
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -5394,14 +6149,14 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>' ;
             innerHTML = innerHTML + '</div>';
         } else if (nextSubPath == currentSubpath)  {
-            //It is a new child tutorial 
+            //It is a new child item 
 
-            innerHTML = innerHTML + '<div class="tutorialParent '+ categorySqueezed +'" >';
+            innerHTML = innerHTML + '<div class="itemParent '+ categorySqueezed +'" >';
             innerHTML = innerHTML +  currentSubpath ;
             innerHTML = innerHTML + '</div>';
 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild '+ discontinuedFlgCls + categorySqueezed +'" >';
-            innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
+            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild '+ discontinuedFlgCls + categorySqueezed +'" >';
+            innerHTML = innerHTML +  '<a class="itemLink" href ="'+ itemTitleURL +'"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >' ;
             
             if (the.smusr){
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -5410,9 +6165,9 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>' ;
             innerHTML = innerHTML + '</div>';
         } else {
-            //It is not a new child tutorial 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv '+ discontinuedFlgCls + categorySqueezed +'" >';
-            innerHTML = innerHTML +  '<a class="tutorialLink" href ="'+ tutorialTitleURL +'"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >' ;
+            //It is not a new child item 
+            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv '+ discontinuedFlgCls + categorySqueezed +'" >';
+            innerHTML = innerHTML +  '<a class="itemLink" href ="'+ itemTitleURL +'"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >' ;
             
             if (the.smusr){
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -5430,7 +6185,7 @@ function populateTutorialList(rows = "") {
 
     if (sessionStorage.getItem("max-count-" +  categorySqueezed) > defaultDisplayCount) {
         sessionStorage.setItem("display-count-" + categorySqueezed, defaultDisplayCount) ;
-        innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv categoryFooter '+ categorySqueezed + ' " >'  + 			
+        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv categoryFooter '+ categorySqueezed + ' " >'  + 			
         '<button id="showmore-"'+ rows[i - 1].category +' type="button" class="showmore-btn" onclick=showMoreitems("' + categorySqueezed + '") >Show More</button>' +          
         '</div>';
     }else {
@@ -5438,10 +6193,10 @@ function populateTutorialList(rows = "") {
     }
 
     innerHTML = innerHTML + '</div>';
-    //document.getElementById("tutorialDivId").innerHTML = innerHTML;
-    document.getElementById("tutorialListDivId").style.display = "block";
-    document.getElementById("tutorialListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-    populateTutorialDropDown();
+    //document.getElementById("itemDivId").innerHTML = innerHTML;
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    populateItemDropDown();
 
 }
 
@@ -5476,11 +6231,11 @@ function goToHome(){
     window.location.href = myUrl;
 }
 
-function goToTutorial(){
+function goToItem(){
 
     var path = window.location.pathname;
     var myUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1)
-    myUrl = myUrl +"?target=tutorial";
+    myUrl = myUrl +"?target=item";
     window.location.href = myUrl;
 }
 
@@ -6157,10 +6912,374 @@ function tempShowRegistered(){
 }
 
 function tempSelectStoreType(){
+
+    document.getElementById("registerSecDivId").style.display = "none";
+    document.getElementById("loginSecDivId").style.display = "none";
+    
+
     document.getElementById("providerSecDivId").style.display = "none";
+
+    var tf = JSON.parse(sessionStorage.getItem("categoryList"));
+
+    var rows = JSON.parse(tf);
+
+    
+   
+    //var innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
+    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
+    var innerHTML = "";
+    var itemName = "";
+    var path = window.location.pathname;
+    var myUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1);
+    var categorySqueezed = "";
+    var categoryOrig = "";
+    var categoryUrl = "";
+
+    var defaultDisplayCount = 1000;
+    var categoryMaxCount = 0;
+    var currDisplayCount = 0;
+    
+	for (var i = 0; i < rows.length; i++) {
+ 
+        subcategory = rows[i].subcategory;
+        subcategory = subcategory.replaceAll(" " , "-");
+
+        categoryOrig = rows[i].category;
+        category = rows[i].category;
+        
+        category = category.replaceAll(" " , "-");
+
+        categorySqueezed = rows[i].category;		 
+		categorySqueezed = categorySqueezed.replaceAll(' ', '');
+
+        categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
+
+        if (i == 0) {
+            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="cardsShopTypeSelection" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > <div class="categoryHeader" >' ;
+  
+            innerHTML = innerHTML + rows[i].category + 
+            '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">'+			
+			'</div>';
+
+         } else if (rows[i].category != rows[i - 1].category) {          
+
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="cardsShopTypeSelection" onclick="categoryClicked(' +"'" + categoryOrig + "'" + ')" ><div class="categoryHeader">' ;      
+            
+            innerHTML = innerHTML + rows[i].category + 
+            '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">'+
+            '</div>';
+         }  
+		
+        if (i == rows.length - 1) {
+            innerHTML = innerHTML + '</div>';
+        }
+    }
+
+
+    innerHTML = innerHTML + '</div>';
+    //document.getElementById("itemDivId").innerHTML = innerHTML;
+    document.getElementById("selectStoreTypeDivId").style.display = "block";
+    document.getElementById("selectStoreTypeDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 
     document.getElementById("selectStoreTypeDivId").style.display = "block";
 }
+
+function categoryClicked(categoryName){
+    var tf = JSON.parse(sessionStorage.getItem("categoryList"));
+    var rows = JSON.parse(tf);
+    if (categoryName != ""){
+        categoryName = categoryName.toUpperCase();
+        rows = rows.filter(function(entry) {
+            return entry.category.toUpperCase() == categoryName  ;
+        });
+    }    
+
+
+    var itemstr = categoryName + "/" + rows[0].title;
+    itemstr = itemstr.replaceAll(" ", "-");
+    customizeShop(itemstr);
+    
+
+}
+
+
+function customizeShop(itemstr){
+    document.getElementById("selectStoreTypeDivId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "block";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "block"; 
+    document.getElementById("mainContainer").style.width = "100%"; 
+    document.getElementById("itemEditDivId").style.width = "40%";	
+    document.getElementById("itemEditDivId").innerHTML = "";
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "getItem",
+            itemstr: itemstr
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function(response) {
+
+            tags = JSON.parse(response);
+            var itemid = tags[0].itemid;
+            var category = tags[0].category;
+            var categoryseq = tags[0].categoryseq;
+            var subcategory = tags[0].subcategory;
+            var subcategoryseq = tags[0].subcategoryseq;
+            var title = tags[0].title;
+            var titleseq = tags[0].titleseq;
+            var shortdescription = tags[0].shortdescription;
+            var description = tags[0].description;
+            var writer = tags[0].writer;
+            var keywords = tags[0].keywords;
+            var discontinue = tags[0].discontinue;
+
+
+            var path = window.location.pathname;
+            var myUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1)
+
+            var itemUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"?target=item";
+            var categoryUrl = path.substring(0, path.indexOf('/',path.indexOf('smshopify')) + 1) +"items/" + category;
+
+            // var newHTML = "<div classXX = 'songContainer' >" ; 
+            // newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+        
+            // if (description != undefined){
+            //     if (description != ""){
+            //         newHTML = newHTML + "" +"<div class = 'songLyrics' >" + description + "</div>";
+            //     }
+            // }
+            // newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
+            // document.getElementById("itemDivId").innerHTML = newHTML;
+
+            var newHTML = "<div class = 'songContainer' >";
+
+            newHTML = newHTML + "<input type='text'  id='title-" + itemid + "' style='width:95%; margin:auto;' value='" + title + "'>" ;
+         
+            newHTML = newHTML +  "<div class = 'editFieldHead displayNone'>Title Sort Sequence: </div><br>" + "<input type='text' id='titleseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + titleseq + "'>";
+            newHTML = newHTML + "<div class = 'editFieldHead displayNone'>category: </div><br>" +  "<input type='text' id='category-" + itemid + "' style='display:none; width:95%; margin:auto;'  value='" + category + "'>" ;
+            newHTML = newHTML + "<div class = 'editFieldHead displayNone'>category Sort Sequence: </div><br>" +  "<input type='text' id='categoryseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + categoryseq + "'>";
+            newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Path(not in use): </div><br>" + "<input type='text' id='subcategory-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + subcategory + "'>";
+            newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Path Sort Sequence(not in use): </div><br>" +  "<input type='text' id='subcategoryseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + subcategoryseq + "'>";
+            newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Short Description: </div><br>" +  "<textarea id='shortdescription-" + itemid + "' style='display:none; width:95%; margin:auto;' >" + shortdescription + "</textarea>";
+         
+            toolbarHTML = "";
+            //toolbarHTML =  "<button  type='button' class='itmToggledBtn btn btn-primary' onclick=toggleDescView('" + itemid + "') >Toggle View</button>" + "<br>" ;
+         
+            toolbarHTML = toolbarHTML  + "<div id='toolBarId' class = 'toolBar'><div>" +
+            "<button  title='toggle desc view' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleDescView('" + itemid + "') >TglDesc</button>" + 
+            "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>" ; 
+         
+         
+          
+            //Reveal Js Slide - Section - Divs*********************
+         
+            toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
+            + "<button title='secTitlePlane1' type='button' style='background: url(/smshopify/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>" 
+         
+            + "<button title='secTitleWithBG' type='button' style='background: url(/smshopify/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>" 
+          
+            + "<button title='SemiTransBG' type='button' style='background: url(/smshopify/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>" 
+         
+            + "<button title='SemiTransBG2' type='button' style='background: url(/smshopify/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>" 
+         
+            + "<label class='toolBarlabel'>Div - Sections - Lists</label>" 
+         
+            + "<button title='secWithList1' type='button' style='background: url(/smshopify/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>" 
+         
+            + "<button title='titleWithItems1' type='button' style='background: url(/smshopify/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>" 
+         
+            + "<button title='titleWithItems2' type='button' style='background: url(/smshopify/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>" 
+         
+            + "<button title='titleWithItems3' type='button' style='background: url(/smshopify/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>" 
+         
+            + "<label class='toolBarlabel'>Div - Code Explaination</label>" 
+            + "<button title='titleTextCode1' type='button' style='background: url(/smshopify/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>" 
+            + "<button title='titleTextCode2' type='button' style='background: url(/smshopify/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>" 
+         
+            + "<label class='toolBarlabel'>Div - Quiz MCQ</label>" 
+            + "<button title='quizMCQFullScreen' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>" 
+            + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>" 
+         
+            + "<label class='toolBarlabel'>Images</label>" 
+            + "<button title='zoomingImage1' type='button' style='background: url(/smshopify/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>" 
+            + "<hr>" 
+            + "<label for='insertInner'>Insert component before active Div:</label>" 
+            + "<input type='checkbox' id='insertInner' >" ;
+            //*************ANIMATION CLASSES************* */
+            toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>" 
+             + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"  
+             + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
+             + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
+             + "<br><br>Ex. " + escape("<div class='fragment fr-rotate-in-center' style='margin:auto; padding-top: 100px;  animation-duration: 4s; animation-delay: 0s; animation-iteration-count: 1'>text</div>")
+             + "<br><br><b>ImageZooming:-</b> kenburns-top;  kenburns-left; kenburns-right; zoomingImg;"
+             + "<br><br><b>Entrances(Reveal):-</b> scale-in-ver-top; scale-in-hor-center; scale-in-hor-right; scale-up-ver-top; slide-left; slide-right"
+             + "<br><br><b>Entrances(Rotate):-</b> rotate-in-center; rotate-in-right; "
+             + "<br><br><b>Entrances(Bounce):-</b> bounce-in-top; bounce-in-right; bounce-in-bottom; bounce-in-left; bounce-in-fwd; "
+             + "<br><br><b>Entrances(Roll):-</b> roll-in-left; roll-in-top; roll-in-right; roll-in-bottom;  "
+             + "<br><br><b>Entrances(Tilt):-</b> tilt-in-top-1; tilt-in-top-2; tilt-in-fwd-tr  "
+             + "<br><br><b>Entrances(Swing):-</b> swing-in-top-fwd; swing-in-left-bck  "
+             + "<br><br><b>Entrances(Text-Expand/Contract):-</b> tracking-in-expand;tracking-in-expand-fwd;tracking-in-contract-bck;tracking-in-contract;text-pop-up-top  "
+             + "<br><br><b>Attention:-</b> shake-vertical; jello-diagonal-1; jello-horizontal;wobble-hor-bottom; wobble-hor-top; bounce-top; bounce-bottom; bounce-left; bounce-right  "
+             + "<br><br><b>Others:-</b> slidingUp10px; slidingUp600px; slidingDown10px; slidingDown600px; slidingleft10px; slidingleft600px; slidingright10px; slidingright600px;"
+             + "<br><br>slideFragmentUp10px;slideFragmentUp600px;slideFragmentDown10px;slideFragmentDown600px;slideFragmentLeft10px;slideFragmentLeft600px;slideFragmentRight10px; slideFragmentRight600px;"
+             + "<br><br> </div>";
+         
+            //*************SOUNDS************* */
+            toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Sounds (Click to insert at Carot) </label>" 
+         
+            + "<button title='air-in-a-hit' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','air-in-a-hit') >air-in-a-hit</button>" 
+            + "<button title='arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','arrow-whoosh') >arrow-whoosh</button>" 
+            + "<button title='bell-ding-586' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','bell-ding-586') >bell-ding-586</button>" 
+            + "<button title='fast-blow' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-blow') >fast-blow</button>" 
+            + "<button title='fast-sweep' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-sweep') >fast-sweep</button>" 
+            + "<button title='keyboard-key-presses' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','keyboard-key-presses') >keyboard-key-presses</button>" 
+            + "<button title='page-flip-01a' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','page-flip-01a') >page-flip-01a</button>" 
+            + "<button title='paper-slide' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','paper-slide') >paper-slide</button>" 
+            + "<button title='pop' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','pop') >pop</button>" 
+            + "<button title='sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','sand-swish') >sand-swish</button>" 
+            + "<button title='ui-zoom-in' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','ui-zoom-in') >ui-zoom-in</button>" 
+            + "<button title='low-arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-arrow-whoosh') >low-arrow-whoosh</button>" 
+            + "<button title='low-sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-sand-swish') >low-sand-swish</button>" 
+            + "<button title='low-bell-ding' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-bell-ding') >low-bell-ding</button>" ;
+           
+            //*************BACKGROUND SOUNDS************* */
+           toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Background Sounds (Click to insert at Carot) </label>" 
+         
+           + "<button title='background1' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background1') >background1</button>" 
+           + "<button title='background2' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background2') >background2</button>" 
+           + "<button title='background3' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background3') >background3</button>" 
+           + "<button title='background4' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background4') >background4</button>" 
+           + "<button title='background5' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background5') >background5</button>" 
+           + "<button title='background6' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background6') >background6</button>" 
+         
+            + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>" ;
+         
+            //****************IMAGES****************/
+            toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
+            + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>" 
+         
+            toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Upload Image</label>"
+            + "Upload Image:(e.g. myimage.png)" +
+            "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
+            +
+            "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
+         
+            +
+            "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
+         
+            +
+            "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
+            +
+            "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
+            +
+            "<input class='itmUpdBtnSmall' type='button' value='Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='insertImageAtCarot(event);'  >"
+            +
+            "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
+            + "<label class='toolBarlabel'>Search Images (Click to Save)</label>"
+            +"<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
+            + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
+            + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
+            +"<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
+            + "<div class='srchimages'></div>";
+          
+            toolbarHTML = toolbarHTML  + "<label class='toolBarlabel'>Paragraphs</label>" +
+            "<button title='paragraph1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph1') >P1</button>" +
+            "<button title='paragraph2 white BG' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph2') >P2</button>" +
+            "<label class='toolBarlabel'>Ordered Lists</label>" +
+            "<button title='ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','orderedlist') >OL1</button>" +
+            "<button title='sub-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','suborderedlist') >OL2</button>" +
+            "<label class='toolBarlabel'>Unordered Lists</label>" +
+            "<button title='un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','unorderedlist') >UL1</button>" +
+            "<button title='sub-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','subunorderedlist') >UL2</button>" +
+            "<button title='sub2-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sub2unorderedlist') >UL3</button>" +
+            "<label class='toolBarlabel'>Code Snippets</label>" +
+            "<button title='Code-Dark Intellij' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript1') >Dark</button>" +
+            "<button title='Code-Light-VSCode' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript2') >Light</button>" +
+            "<button title='Code-CommandLine'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript3') >Cmd</button>" +
+            "<label class='toolBarlabel'>Headers</label>" +
+            "<button title='header1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header1') >H1</button>" +
+            "<button title='header2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header2') >H2</button>" +
+            "<button title='header3-padding' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header3') >H3</button>" +
+            "<button title='header3' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header4') >H4</button>" +
+            "<label class='toolBarlabel'>Images</label>" +
+            "<button title='Image-Full-width' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image1') >I1</button>" +
+            "<button title='Image-Smaller' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image2') >I2</button>" +
+            "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image3') >I3</button>" +
+            "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image4') >I@Car</button>" +
+            "<label class='toolBarlabel'>Messages</label>" +
+            "<button title='Warning'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','warning') >Warn</button>" +
+            "<button title='Error' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','error') >Err</button>" +
+            "<button title='Green-Success' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','greenmsg') >Succ</button>" + 
+         
+            "<label class='toolBarlabel'>Quiz</label>" +
+            "<button title='Quiz1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz1') >Q1</button>" +
+            "<button title='Quiz2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz2') >Q2</button>" +
+            "<button title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
+            "</div>" ;
+         
+            //*************END OF TOOLBAR DIV */
+            toolbarHTML = toolbarHTML  + "</div><br><br><br>";
+            //*************END OF TOOLBAR DIV */         
+         
+         
+         
+            newHTML = newHTML + "<br><br>" +
+             "<textarea id='descriptionTextId' class = ''   ></textarea>"
+            +
+            "<div class='editDescriptionDiv' contenteditable='true'  class='span2 fullWidth lyricsDiv' id='description-" + itemid + "'  >" + description + "</div>";
+         
+         
+         
+         
+            //newHTML = newHTML +  "<br><br><div class = 'editFieldHead'>Writer: </div><br>" +  "<input type='text' id='writer-" + itemid + "' style='width:95%; margin:auto;' value='" + writer + "'>";
+         
+            //newHTML = newHTML +  "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +  "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
+         
+         
+            //newHTML = newHTML + "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +  "<input type='text' id='discontinue-" + itemid + "' style='width:95%; margin:auto;' value='" + discontinue + "'>" ;
+         
+            newHTML = newHTML +  "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
+         
+            newHTML = newHTML + "<div class = 'saveChangesDivCls'>" ; 
+            //"<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','n') >Save Changes</button><br>" +
+            newHTML = newHTML + "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Approval</button><br>" +
+            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
+            "</div>" +
+            "<br><br><br><br><br><br><br><br><br></div></div>";
+         
+            newHTML = newHTML + "</div>";
+            newHTML = newHTML + "</div>";
+            newHTML = newHTML + "</div>";
+         
+            document.getElementById("itemDivId").innerHTML = newHTML;
+            document.getElementById("itemEditDivId").innerHTML = toolbarHTML;
+         
+         
+            document.getElementById("itemEditDivId").style.display = "block"; 
+         
+            document.getElementById("itemDivId").style.width = "100%";	
+         
+            document.getElementById("mainContainer").style.width = "100%"; 
+            document.getElementById("itemEditDivId").style.width = "700px";     
+            document.getElementById("itemListDivId").style.display = "none";   
+            
+
+            
+        },
+        error: function(xhr, status, error) {
+            //console.log(error);
+            //console.log(xhr);
+        }
+    });
+}
+
+
+
+
 function setUpMyStore(){
     document.getElementById("registerSecDivId").style.display = "none";
     document.getElementById("providerSecDivId").style.display = "block";
@@ -6417,7 +7536,7 @@ function contactus(){
 
 function toggleHideLeftParent(elem){
     //elem.parentElement.classList.toggleClass("panel-hide-left");
-    $("#tutorialListDivId").toggle( "slide" )
+    $("#itemListDivId").toggle( "slide" )
 }
 function onMobileBrowser(){
 	
@@ -6456,6 +7575,262 @@ function setProvAddr(){
 		return;
 	}
 }
+
+function escape(s) {
+    var escaped = {
+      '<': '&lt;',
+      '>': '&gt;',
+    };
+    return s.replace(/[<>]/g, function (m) {
+      return escaped[m];
+    });
+  }
+
+function updateParentBGVideo(element){
+    element.parentElement.parentElement.dataset.backgroundvideo = element.value;
+    //element.parentElement.parentElement.style.background = url('/smshopify/video/' + element.value);
+
+    var selectedVid = element.parentElement.querySelector('.selectedVid');
+    selectedVid.innerHTML = element.value;
+}
+
+function updateParentBGImage(element){
+    element.parentElement.parentElement.dataset.background = element.value;
+    //element.parentElement.parentElement.style.backgroundImage  = "url('/smshopify/img/" + element.value + "')";
+
+    var parentSecDiv = element.parentElement.parentElement;
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    if (previewDiv.style.display != "none"){
+        previewDiv.style.backgroundImage  = "url('/smshopify/img/" + element.value + "')";
+    }
+
+    var selectedImg = element.parentElement.querySelector('.selectedImg');
+    selectedImg.innerHTML = element.value;
+}
+function updateParentAutoAnimate(element){
+    element.parentElement.parentElement.dataset.autoanimate = element.value;
+}
+
+function updateTextDivColor(element){
+    document.getElementById("textDivId").style.backgroundColor = element.value;
+
+    var rgbColor = hexToRgb(element.value);
+
+    var textColour = getFontColorForRGBbackGroundColor(rgbColor);
+    document.getElementById("textDivId").style.color = textColour;
+
+}
+
+function updateParentBGColor(element){
+    element.parentElement.parentElement.dataset.bgcolor = element.value;
+    //element.parentElement.parentElement.style.backgroundColor = element.value;
+    element.style.backgroundColor = element.value;
+
+    var rgbColor = hexToRgb(element.value);
+
+    var textColour = getFontColorForRGBbackGroundColor(rgbColor);
+
+    var parentSecDiv = element.parentElement.parentElement;
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    if (previewDiv.style.display != "none"){
+        previewDiv.style.backgroundColor = element.value;
+        previewDiv.style.color = textColour;
+    }
+}
+
+function getFontColorForRGBbackGroundColor(rgbColor){
+    var brightness = Math.round(((parseInt(rgbColor.r) * 299) +
+    (parseInt(rgbColor.g) * 587) +
+    (parseInt(rgbColor.b) * 114)) / 1000);
+
+    var textColour = (brightness > 125) ? 'black' : 'white';
+    return textColour;
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+
+function updateParentTransition(element){
+    element.parentElement.parentElement.dataset.transition = element.value;
+    //element.parentElement.parentElement.style.backgroundColor = element.value;
+}
+
+function updateParentFontColor(element){
+    element.parentElement.parentElement.style.color = element.value;
+}
+
+// function updatePreview(componentid){
+//     var tmprHTML = "";
+//     if (document.getElementById("descriptionTextId").style.display == "block"){
+//         tmprHTML = document.getElementById("descriptionTextId").value;
+//     } else {
+//         tmprHTML = document.getElementById(componentid).innerHTML;
+//     }
+//     tmprHTML = tmprHTML.replaceAll("revealTemp", "reveal");
+//     tmprHTML = tmprHTML.replaceAll("deck1Temp", "deck1");
+//     document.getElementById("animoutDivId").innerHTML =  tmprHTML;
+    
+//     setTimeout(function() {
+//         let deck1 = new Reveal( document.querySelector( '.deck1' ), {
+//             embedded: true,
+//             progress: false,
+//             keyboardCondition: 'focused',
+//             plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+//         } );
+
+//         deck1.on( 'fragmentshown', event => {
+//             var elem = event.fragment;
+//             if (elem.classList.contains("countDown5")){
+//                 countDown5();
+//             };
+//             if (elem.classList.contains("showRightAns")){
+//                 showRightAns(elem);
+//             };
+//         } );        
+//         deck1.initialize({disableLayout: true});
+//     }, 3000);
+// }
+
+function updatePreviewDiv(element){
+    var parentSecDiv = element.parentElement;
+    var childTextArea = element;
+    var secText = childTextArea.value;
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+
+    previewDiv.innerHTML = "<div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + secText + "</div></div>";
+
+    if (parentSecDiv.dataset.backgroundvideo == ""){            
+        if (parentSecDiv.dataset.background == ""){
+            //Background color
+            //secProps = secProps + " data-background = '" + parentSecDiv.dataset.bgcolor + "'";
+            previewDiv.style.backgroundColor = parentSecDiv.dataset.bgcolor;
+        }else {
+            //Background image
+            //secProps = secProps + " data-background-image = '/smshopify/img/" + parentSecDiv.dataset.background + "' ";
+            previewDiv.style.backgroundImage  = "url('/smshopify/img/" + parentSecDiv.dataset.background + "')";
+        }
+    }else {
+        //Background video
+        //secProps = secProps + " data-background-video = '/smshopify/video/" + parentSecDiv.dataset.backgroundvideo + "' ";
+    }
+    
+}
+
+function updatePreviewUsingDivs(componentid){
+
+    var elems = document.getElementsByClassName("secdiv");
+
+    var tmprHTML = "<div class='reveal deck1' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>";
+    
+    for(i = 0; i < elems.length; i++){
+
+        var element = elems[i];
+        //var childTextArea = element.querySelector('.secDivTextArea');
+        //var secText = childTextArea.value;
+        var slidesDiv =  element.querySelector('.slides');
+        var secText = slidesDiv.innerHTML
+
+        var secProps = "";
+
+        var transition = element.dataset.transition;
+        secProps = secProps + " data-transition='" + transition + "'";
+
+        if (element.dataset.backgroundvideo == ""){            
+            if (element.dataset.background == ""){
+                //Background color
+                secProps = secProps + " data-background = '" + element.dataset.bgcolor + "'";
+            }else {
+                //Background image
+                secProps = secProps + " data-background-image = '/smshopify/img/" + element.dataset.background + "' ";
+            }
+        }else {
+            //Background video
+            secProps = secProps + " data-background-video = '/smshopify/video/" + element.dataset.backgroundvideo + "' ";
+        }
+
+        if (element.dataset.autoanimate == "Yes"){
+            secProps = secProps + " data-auto-animate ";
+        }
+
+
+        //secText = secText.substring(0, secText.indexOf("#00ffff"));
+        //tmprHTML = tmprHTML + "<section data-transition='" + transition + "'  data-background='" + background + "'  >" + secText + "</section>";
+        tmprHTML = tmprHTML + "<section " + secProps + "  >" + secText + "</section>";
+
+    }
+
+    tmprHTML = tmprHTML + "</div></div>";
+
+    // if (document.getElementById("descriptionTextId").style.display == "block"){
+    //     tmprHTML = document.getElementById("descriptionTextId").value;
+    // } else {
+    //     tmprHTML = document.getElementById(componentid).innerHTML;
+    // }
+
+    // tmprHTML = tmprHTML.replaceAll("revealTemp", "reveal");
+    // tmprHTML = tmprHTML.replaceAll("deck1Temp", "deck1");
+
+    document.getElementById("animoutDivId").innerHTML =  tmprHTML;
+    //document.getElementById("wrapper").innerHTML =  tmprHTML;
+    
+    setTimeout(function() {
+        let deck1 = new Reveal( document.querySelector( '.deck1' ), {
+            embedded: true,
+            progress: false,
+            keyboardCondition: 'focused',
+            plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+        } );
+        // deck1.on( 'slidechanged', () => {
+        //     console.log( 'Deck 1 slide changed' );
+        // } );
+
+        deck1.on( 'fragmentshown', event => {
+            var elem = event.fragment;
+            if (elem.classList.contains("countDown5")){
+                countDown5(elem);
+            };
+            if (elem.classList.contains("showRightAns")){
+                showRightAns(elem);
+            };
+          
+        } );
+        deck1.initialize({
+            disableLayout: true, 
+            autoPlayMedia: false, 
+            autoSlide: 5000, 
+            //loop: true, 
+            slideNumber: true,
+        });
+        deck1.addEventListener( 'fragmentshown', playCurrentFragment );
+        deck1.addEventListener( 'fragmenthidden', playCurrentFragment );
+    }, 3000);
+}
+
+function toggleSecPreview(element){
+    var parentSecDiv = element.parentElement.parentElement;
+    var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
+    var secText = childTextArea.value;
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    var slidesDiv =  previewDiv.querySelector('.slides');
+
+    if (previewDiv.style.display != "none"){
+        
+        childTextArea.style.display = "block";
+        childTextArea.value = slidesDiv.innerHTML;
+        previewDiv.style.display = "none";
+        return;
+    }
+    previewDiv.style.display = "block";
+    childTextArea.style.display = "none";
+}
+
+
 function getCookie(c_name)
 {
 	var c_value = document.cookie;

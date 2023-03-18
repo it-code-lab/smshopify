@@ -28,6 +28,7 @@
          <link href="/smshopify/css/bootstrap.min.css" rel="stylesheet" />
          -->
    <link href="/smshopify/css/codescriber.css" rel="stylesheet" />
+   <link href="/smshopify/css/slidestyles.css" rel="stylesheet" />
    <link href="/smshopify/css/smshopi.css" rel="stylesheet" />
    <link href="/smshopify/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/smshopify/css/smstyleltlimit.css" rel="stylesheet" />
@@ -123,7 +124,7 @@
          <div class="topnav" id="myTopnav">
             <a id="homeLinkId" href="/smshopify/?target=home">HOME</a>
 
-            <a id="tutorialLinkId" href="/smshopify/?target=tutorial">ITEMS <i class="fa fa-caret-down"></i></a>
+            <a id="itemLinkId" href="/smshopify/?target=item">ITEMS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownTutListId" class="dropdown-content">
                <a href="#">Link 1</a>
                <a href="#">Link 2</a>
@@ -187,12 +188,12 @@
                         </div>
                      </div>
                      <div id="homeCardsContainerDivId">
-                        <div class="menucard" onclick="Show('tutorial')"">
+                        <div class="menucard" onclick="Show('item')"">
                            <img src=" /smshopify/images/items.png" alt="items" class="homeCardImg">
                            <div class="homeCardText">items</div>
                            <hr>
                            <div class="cardMsg">items and sample programs.</div>
-                           <!-- <p><button onclick="Show('tutorial')">Go</button></p> -->
+                           <!-- <p><button onclick="Show('item')">Go</button></p> -->
                         </div>
                         <!-- <div class="menucard" onclick="Show('projectscanner')">
                            <img src="/smshopify/images/prjscan.png" alt="Project Scan" class="homeCardImg">
@@ -249,22 +250,22 @@
                <!--***********************START - items LIST DIV************--->
                <!--*************************************************************--->
 
-               <div class='showTutorialListDiv'>Show List
+               <div class='showItemsListDiv'>Show List
                </div>
 
-               <div id="tutorialListDivId">
-                  <div id="itemsearchDivId"><input id='tutorial-search-box' type='text' name='tutorial'
+               <div id="itemListDivId">
+                  <div id="itemsearchDivId"><input id='item-search-box' type='text' name='item'
                         autocomplete='off' placeholder='search' />
                      <button id="itemsearchBtnId" class='searchButtonCls'
-                        onclick='searchTutorial(); return false;'>Search</button>
+                        onclick='searchItem(); return false;'>Search</button>
                   </div>
-                  <div id="tutorialListInnerDivId"></div>
+                  <div id="itemListInnerDivId"></div>
 
                </div>
-               <div id="tutorialDivId">
+               <div id="itemDivId">
                </div>
 
-               <div id="tutorialEditDivId">
+               <div id="itemEditDivId">
                </div>
 
                <!--*************************************************************--->
@@ -1060,10 +1061,15 @@
                </h3>
                <div class="footer-languages">
                   <a href="/smshopify/?target=home">Home</a>
-                  <a href="/smshopify/?target=tutorial">items</a>
+                  <a href="/smshopify/?target=item">items</a>
                   <!-- <a href="/smshopify/?target=projectscanner">Project Scanner</a>
             <a href="/smshopify/?target=filescanner">File Scanner</a> -->
                   <a href="/smshopify/?target=contactus">Contact Us</a>
+
+                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'" onclick="tempSelectStoreType();">Temp-SelectStoreType</a>
+
+                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'" onclick="customizeShop('food-shop/introduction-to-java');">Temp-customizeShop</a>
+
                </div>
             </div>
 
@@ -1125,21 +1131,9 @@
 
    </script>
    <script>
-      getConditionsToIdentifyCodeLanguage();
-      getDistinctCommentsCombination();
-      getLanguageHelpCodeAndIds();
-      getEnvironmentSetUpDetails();
-      getCodeCommentsConditions();
-      getLaguagesSubCatgHelpCodeGroups();
-      getHelpCodeGroupDisplayOrder();
-      /* ***TEMPORARY**SM-T001***Refer User Guide**
-      getStoredProjectList();
-      */
-      getStoredProjectList();
-      getLangForFileExtension();
       getHowToVideos();
-      getTutorialList();
-      getSpecialFiles();
+      getItemsList();
+      getCategoryList();
       checkURL();
    </script>
    <script src="/smshopify/web/onload.js"></script>
