@@ -133,9 +133,18 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
 + "<option value='none'>none</option>"
 + "</select>";
 
+var replaceBannerImg = "Upload Image:(e.g. myimage.png)" + "<input type='text' id='image-banner' style='width:95%; margin:auto;'  value=''>"
++ "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
++ "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-imageelementid='replace-img-' onchange='showImage(event)'>"       
++ "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
++ "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
+
+
 var mediaSection =  "BGImageURL: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
 + "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
 
+var addItemImg = "Add Images: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
++ "<div class='selectedImg'></div>" ;
 
 
 function any(a, b) {
@@ -3518,14 +3527,18 @@ function editItem( btn ){
 
  //Shop - Topbanner*********************
 
- toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
- + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1') ></button>" 
- + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2') ></button>" 
- + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3') ></button>" 
- + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4') ></button>" ;
+ toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopTopBanner</label>" 
+ + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1') ></button>" 
+ + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2') ></button>" 
+ + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3') ></button>" 
+ + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4') ></button>" ;
 
  
- 
+ //Shop - Items*********************
+
+ toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>" 
+ + "<button title='shopItem1' type='button' style='background: url(/smshopify/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>" ;
+
    //Reveal Js Slide - Section - Divs*********************
 
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
@@ -3906,13 +3919,6 @@ function uploadFile(event) {
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
-    // if (saveasnameelementid == 'image-') {
-    //     if (elem.dataset.facing == "front") {
-    //         saveasname = saveasname + "_front.png";
-    //     } else {
-    //         saveasname = saveasname + "_back.png";
-    //     }
-    // }
 
     var errormsgelementid = elem.dataset.errormsgelementid;
 
@@ -4082,6 +4088,58 @@ function SaveImageAndInsertAtCarot(event){
   
       xhttp.send(formData);
     })
+}
+
+function UploadAndReplaceBannerImg(event){
+
+    var elem = event.target;
+    var fileelementid = elem.dataset.fileelementid;
+    var saveasnameelementid = elem.dataset.saveasnameelementid;
+    var itemid = elem.dataset.itemid;
+    popolatenewImageName(itemid);
+    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    saveasname = saveasname.trim();
+    saveasname = saveasname.toLowerCase();
+
+    var errormsgelementid = elem.dataset.errormsgelementid;
+
+    if (!saveasname.includes(".png")) {
+        saveasname = saveasname + ".png";
+    }
+
+    var files = document.getElementById(fileelementid + itemid).files;
+    if (files.length > 0) {
+
+        var formData = new FormData();
+        formData.append("file", files[0]);
+        formData.append("saveasname", saveasname);
+        formData.append("dir", "img");
+
+        var xhttp = new XMLHttpRequest();
+
+        // Set POST method and ajax file path
+        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+
+        // call on request changes state
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var parentSecDiv = elem.parentElement.parentElement;
+                var previewDiv = parentSecDiv.querySelector('.secPreview');
+  
+                if (previewDiv.style.display != "none"){
+                  previewDiv.style.backgroundImage  = "url('" + the.hosturl + "/img/" + saveasname + "')";
+                }
+            }
+        };
+
+        xhttp.send(formData);
+
+    } else {
+        alert("Please select a file");
+    }
+
+
 
 
 }
@@ -4284,7 +4342,8 @@ function addComponent(itemid, type){
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
                     + textDivColorCtl
-                    + mediaSection             
+                    + mediaSection 
+                    + replaceBannerImg            
                     +"</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML 
@@ -4296,7 +4355,7 @@ function addComponent(itemid, type){
     }else if (type == "shopTopBanner3") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
-                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(85, 180, 176);"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); "><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
                      + "\n" + '</div>';
         
         htmlPart = escape(htmlPartOrig);
@@ -4304,7 +4363,8 @@ function addComponent(itemid, type){
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
                     + textDivColorCtl
-                    + mediaSection             
+                    + mediaSection 
+                    + replaceBannerImg            
                     +"</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML 
@@ -4323,8 +4383,34 @@ function addComponent(itemid, type){
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
-                    + revealSecColor
-                    + mediaSection             
+                    + mediaSection     
+                    + replaceBannerImg        
+                    +"</div>";
+
+        document.getElementById(componentid).innerHTML = partOneHTML 
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + hdMeDiv 
+            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+    }else if (type == "shopItem1") {
+
+        var htmlPartOrig = '<div class="" style="display:flex; margin:auto;">'
+                    + "\n" + '<div class="itmImgDivCls" style="backgroundX: red; width:45%; height: 300px; border-radius:20px;box-shadow: 1px 1px 3px #222222;">ItemImage</div>'  
+                     + "\n" + '<div id="shopItemImgDescDivId" class="" style="width:45%;  height: 300px; overflow:auto">'
+                     + "\n" + '<div style="">'
+                     + "\n" + '<div class="itmNameDivCls" style="font-size:2vw; backgroundX: yellow">Item Name</div>'
+                     + "\n" + '<div class="itmDescDivCls" style="font-size:1.5vw;backgroundX: green; height:200px;">Item Description</div>'
+                     + "\n" + '</div>'
+                     + "\n" + '</div>'
+                     + "\n" + '</div>';
+
+        
+        htmlPart = escape(htmlPartOrig);
+
+        var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + allowTogglePreview
+                    + addItemImg             
                     +"</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML 
