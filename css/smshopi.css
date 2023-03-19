@@ -68,10 +68,10 @@
 
   }
 
-  .itmImgDivCls{
+  /* .itmImgDivCls{
     margin: 5px;
     width:45%; height: 280px; border-radius:20px;box-shadow: 1px 1px 3px #222222;
-  }
+  } */
 
   .itmNameAndDesc{
     padding: 10px;
@@ -88,12 +88,16 @@
 
   .myitemImages {
     display: none;
-    vertical-align: middle;
-    width:100%;
+    width: 80%;
+    max-widthX: 400px;
+    height: auto;
+    padding: 10px;
+    margin: auto;
+    box-shadow: rgb(34, 34, 34) 1px 1px 3px;
   }
   
 .itemImageshow-container {
-  max-width: 1000px;
+  max-widthX: 1000px;
   position: relative;
   margin: auto;
 }
@@ -112,9 +116,11 @@
   border-radius: 0 3px 3px 0;
   user-select: none;
 }
-
+.prevItmImg{
+    left: 10px;
+}
 .nextItmImg {
-  right: 0;
+  right: 10px;
   border-radius: 3px 0 0 3px;
 }
 
@@ -124,6 +130,12 @@
 
 .existingItmImages {
     display: block;
+}
+
+.itmImgContainer {
+    /* max-width: 90%; */
+    position: relative;
+    margin: auto;
 }
 .filteredItmImgContainerDiv{
     width: 320px;

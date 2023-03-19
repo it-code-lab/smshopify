@@ -84,7 +84,7 @@ var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
  
   var itemImagesDiv = '<div class="itemImageshow-container">'
 
-  + '<div class="itmImgContainer">'
+  + '<div class="itmImgContainer image1-descXX">'
 
   + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
   + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
@@ -4722,14 +4722,8 @@ function addComponent(itemid, type, elem = "dummy"){
 
     }else if (type == "shopItem1") {
 
-        var htmlPartOrig = '<div class="shopItemCls1" style="display:flex; margin:auto;">'
-                    + "\n" + '<div class="itmImgDivCls" style=" ">'+ itemImagesDiv + '</div>'  
-                     + "\n" + '<div id="shopItemImgDescDivId" class="" style="width:45%;  height: 300px; overflow:auto">'
-                     + "\n" + '<div class="itmNameAndDesc" style="">'
-                     + "\n" + '<div class="itmNameDivCls" style=" ">Item Name</div>'
-                     + "\n" + '<div class="itmDescDivCls" style="font-size:1.5vw;backgroundX: green; height:200px;">Item Description</div>'
-                     + "\n" + '</div>'
-                     + "\n" + '</div>'
+        var htmlPartOrig = '<div class="shopItemCls1" >'
+                    + "\n" + itemImagesDiv   
                      + "\n" + '</div>';
 
         
@@ -5085,7 +5079,9 @@ function addComponent(itemid, type, elem = "dummy"){
         insertHTMLAtCaret(htmlToInsert);
     }
 
-
+    setTimeout(function() {
+        showitemImages(itemImageIndex);
+    }, 1000);
     
 
 }
@@ -8233,7 +8229,10 @@ function plusitemImages(n) {
   function showitemImages(n) {
     let i;
     let itemImages = document.getElementsByClassName("myitemImages");
-  
+    if (itemImages.length < 1){
+        return;
+    }
+
     if (n > itemImages.length) {itemImageIndex = 1}    
     if (n < 1) {itemImageIndex = itemImages.length}
     for (i = 0; i < itemImages.length; i++) {

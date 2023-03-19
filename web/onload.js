@@ -87,6 +87,10 @@ setTimeout(function() {
   updateStatus();
 }, 800);
 
+setTimeout(function() {
+  showitemImages(itemImageIndex);
+}, 800);
+
 function updateStatus() {
 
   var currentDate = new Date();
@@ -104,3 +108,4 @@ function updateStatus() {
   $(currentDayID).toggleClass("today"); //this works at hightlighting today
 
 }
+
