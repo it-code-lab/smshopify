@@ -48,7 +48,7 @@ var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
 
 var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
-    + 'Display Location Online'
+    + 'Display Location on Map'
     + '<input type="checkbox" onclick="showStoreLocationDiv(this);"/>'
     + '<div class="control__indicator"></div>'
     + '</label>'
@@ -6500,7 +6500,10 @@ function showBanner() {
 
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
-        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button>';
+        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button>' +
+        "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Approval</button><br>" +
+        "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>";
+
     }, 800);
 
 }
