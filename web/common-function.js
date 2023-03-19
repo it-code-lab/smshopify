@@ -84,7 +84,7 @@ var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
  
   var itemImagesDiv = '<div class="itemImageshow-container">'
 
-  + '<div class="itmImgContainer image1-descXX">'
+  + '<div class="itmImgContainer">'
 
   + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
   + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
@@ -4485,7 +4485,7 @@ function addComponent(itemid, type, elem = "dummy"){
 
         document.getElementById(componentid).innerHTML = partOneHTML 
             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4531,7 +4531,7 @@ function addComponent(itemid, type, elem = "dummy"){
                     +"</div>";
 
         var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         + hdMeDiv 
         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
@@ -4586,12 +4586,12 @@ function addComponent(itemid, type, elem = "dummy"){
 
         // document.getElementById(componentid).innerHTML = partOneHTML 
         //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         + hdMeDiv 
         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
@@ -4646,12 +4646,12 @@ function addComponent(itemid, type, elem = "dummy"){
 
         // document.getElementById(componentid).innerHTML = partOneHTML 
         //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         + hdMeDiv 
         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
@@ -4704,12 +4704,12 @@ function addComponent(itemid, type, elem = "dummy"){
 
         // document.getElementById(componentid).innerHTML = partOneHTML 
         //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
         + hdMeDiv 
         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
@@ -4737,7 +4737,7 @@ function addComponent(itemid, type, elem = "dummy"){
 
         document.getElementById(componentid).innerHTML = partOneHTML 
             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4758,7 +4758,7 @@ function addComponent(itemid, type, elem = "dummy"){
 
         document.getElementById(componentid).innerHTML = partOneHTML 
             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
         }else if (type == "SemiTransBG") {
@@ -4778,7 +4778,7 @@ function addComponent(itemid, type, elem = "dummy"){
     
             document.getElementById(componentid).innerHTML = partOneHTML 
                 + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                 + hdMeDiv 
                 + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
         }else if (type == "SemiTransBG2") {
@@ -4798,7 +4798,7 @@ function addComponent(itemid, type, elem = "dummy"){
         
                 document.getElementById(componentid).innerHTML = partOneHTML 
                     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                     + hdMeDiv 
                     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
         
@@ -4819,7 +4819,7 @@ function addComponent(itemid, type, elem = "dummy"){
     
             document.getElementById(componentid).innerHTML = partOneHTML 
                 + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                 + hdMeDiv 
                 + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4844,7 +4844,7 @@ function addComponent(itemid, type, elem = "dummy"){
         
                 document.getElementById(componentid).innerHTML = partOneHTML 
                     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                     + hdMeDiv 
                     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4872,7 +4872,7 @@ function addComponent(itemid, type, elem = "dummy"){
         
                 document.getElementById(componentid).innerHTML = partOneHTML 
                     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                     + hdMeDiv 
                     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4903,7 +4903,7 @@ function addComponent(itemid, type, elem = "dummy"){
 
         document.getElementById(componentid).innerHTML = partOneHTML 
             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4920,7 +4920,7 @@ function addComponent(itemid, type, elem = "dummy"){
     
             document.getElementById(componentid).innerHTML = partOneHTML 
                 + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
                 + hdMeDiv 
                 + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4948,7 +4948,7 @@ function addComponent(itemid, type, elem = "dummy"){
         
                 document.getElementById(componentid).innerHTML = partOneHTML 
                     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                    + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                     + hdMeDiv 
                     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
                 
@@ -4968,7 +4968,7 @@ function addComponent(itemid, type, elem = "dummy"){
             
                     document.getElementById(componentid).innerHTML = partOneHTML 
                         + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                         + hdMeDiv 
                         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -4996,7 +4996,7 @@ function addComponent(itemid, type, elem = "dummy"){
                 
                         document.getElementById(componentid).innerHTML = partOneHTML 
                             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                             + hdMeDiv 
                             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
@@ -5024,7 +5024,7 @@ function addComponent(itemid, type, elem = "dummy"){
                 
                         document.getElementById(componentid).innerHTML = partOneHTML 
                             + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
                             + hdMeDiv 
                             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
     
@@ -5041,7 +5041,7 @@ function addComponent(itemid, type, elem = "dummy"){
             
                     document.getElementById(componentid).innerHTML = partOneHTML 
                         + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
+                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>" 
                         + hdMeDiv 
                         + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
         
@@ -8109,7 +8109,7 @@ function updatePreviewDiv(element){
     var secText = childTextArea.value;
     var previewDiv = parentSecDiv.querySelector('.secPreview');
 
-    previewDiv.innerHTML = "<div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + secText + "</div></div>";
+    previewDiv.innerHTML = "<div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + secText + "</div></div>";
 
     if (parentSecDiv.dataset.backgroundvideo == ""){            
         if (parentSecDiv.dataset.background == ""){
@@ -8132,7 +8132,7 @@ function updatePreviewUsingDivs(componentid){
 
     var elems = document.getElementsByClassName("secdiv");
 
-    var tmprHTML = "<div class='reveal deck1' style='width: 65vw; height: 70vh; margin: 10px;'><div class='slides'>";
+    var tmprHTML = "<div class='reveal deck1' style=' margin: 10px;'><div class='slides'>";
     
     for(i = 0; i < elems.length; i++){
 
