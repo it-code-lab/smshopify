@@ -20,3 +20,120 @@
     height: 300px;
     width: 100%;
 }
+
+
+.shopTab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the shopTab */
+  .shopTab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .shopTab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current shopTablink class */
+  .shopTab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the shopTab content */
+  .shopTabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+
+  #DesignOptions > .shopTopBannerBtn{
+    width: 300px !important;
+    height: 150px !important;
+  }
+
+  .shopItemCls1{
+
+  }
+
+  .itmImgDivCls{
+    margin: 5px;
+    width:45%; height: 280px; border-radius:20px;box-shadow: 1px 1px 3px #222222;
+  }
+
+  .itmNameAndDesc{
+    padding: 10px;
+  }
+
+  .itmNameDivCls{
+    font-size:2vw;
+    box-shadow: rgba(63, 63, 64, 0.3) 0px 10px 10px -10px;
+  }
+
+  .itmDescDivCls{
+
+  }
+
+  .myitemImages {
+    display: none;
+    vertical-align: middle;
+    width:100%;
+  }
+  
+.itemImageshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.prevItmImg, .nextItmImg {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.nextItmImg {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prevItmImg:hover, .nextItmImg:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.existingItmImages {
+    display: block;
+}
+.filteredItmImgContainerDiv{
+    width: 320px;
+    height: 220px;
+    position: relative;
+    margin: auto;
+     float: left;
+    /*display: block; */
+}
+.filteredItmImgCls{
+    width: 300px;
+    height: 200px;
+    margin: 5px;
+}

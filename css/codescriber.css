@@ -2149,13 +2149,14 @@ input:checked+.slider:after {
 }
 
 .toolBarlabel {
-  margin: 1px;
-  padding: 1px;
-  font-size: small;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: medium;
   width: 100%;
-  background-color: grey;
-  border-radius: 5px;
-  color: #fff;
+  background-color: rgb(193, 192, 191);
+   border-radius: 5px; 
+  color: #000;
   text-align: center;
 }
 
@@ -2454,7 +2455,7 @@ input:checked+.slider:after {
   color: #F9907A;
 }
 
-.editDescriptionDiv>* .deleteDiv,
+.editDescriptionDiv>* .deleteDiv, .existingItmImages>* .deleteDiv,
 .deleteDiv:hover {
   display: block;
 }

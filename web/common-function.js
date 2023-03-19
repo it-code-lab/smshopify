@@ -26,12 +26,76 @@ var the = {
     smusr:false,
     hosturl: '/smshopify',
     
+    
 };
 
+var itemImageIndex = 1;
 var last_focused_div_id;
-var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 
-var revealSecColor = "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
+var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Preview </button>";
+var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
+var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
+
+
+var shopBannerTabOptions = '<div class="shopTab">' 
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+  + '</div>';
+
+  var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+  + getShopTopBannersList("shopTopBanner")
+  + '</div>'
+  + '<div id="Customizations" class="shopTabcontent">'
+  + revealSecColor
+  + '</div>'
+  + '<div id="Close" class="shopTabcontent">'
+  + '</div>';
+
+  var shopItemTabOptions = '<div class="shopTab">' 
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemCustomizations' + "'" + ')">Customizations</button>'
+
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>'
+  + '</div>';
+
+ 
+  var itemImagesDiv = '<div class="itemImageshow-container">'
+
+  + '<div class="itmImgContainer">'
+
+  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
+  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
+  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
+
+  + '</div>'
+
+  + '<a class="prevItmImg" onclick="plusitemImages(-1)">❮</a>'
+  + '<a class="nextItmImg" onclick="plusitemImages(1)">❯</a>'
+  + '</div>';
+
+  var addItmImagesDiv = "<label class='toolBarlabel'>Images</label>"
++ "<div class='existingItmImages'> </div>"
++ "<input type='text' id='image-banner' style='display:none; width:95%; margin:auto;'  value=''>"
++ "<div style='width: 100%'><br><input type='file' id='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='addImageToItemList(event)'>"       
++ "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
++ "<input id='replaceBannerImg' classX='displayNone' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
+
+
+  var itemCustomizations = ''
+
+  var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
+  + addItmImagesDiv
+  + '</div>'
+  + '<div id="itemCustomizations" class="shopTabcontent">'
+  + itemCustomizations
+  + '</div>'
+  + '<div id="CloseItemCust" class="shopTabcontent">'
+  + '</div>';
+
+
+var revealSecColor = "<label class='toolBarlabel'>Change Banner Color</label>"
++ "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
 + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
 + "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
@@ -74,7 +138,8 @@ var revealSecColor = "<select class='colorSelect' onchange='updateParentBGColor(
 + "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
 
 
-textDivColorCtl = "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
+textDivColorCtl = "<label class='toolBarlabel'>Change Text Background Color</label>"
++ "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
 + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
 + "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
@@ -133,15 +198,17 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
 + "<option value='none'>none</option>"
 + "</select>";
 
-var replaceBannerImg = "Upload Image:(e.g. myimage.png)" + "<input type='text' id='image-banner' style='width:95%; margin:auto;'  value=''>"
-+ "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
-+ "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-imageelementid='replace-img-' onchange='showImage(event)'>"       
+var replaceBannerImg = "<label class='toolBarlabel'>Change Banner Image</label>"
++ "<input type='text' id='image-banner' style='display:none; width:95%; margin:auto;'  value=''>"
++ "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/"  + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
++ "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='showImage(event)'>"       
 + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-+ "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
++ "<input id='replaceBannerImg' class='displayNone' type='button' value='Replace Banner Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
 
 
-var mediaSection =  "BGImageURL: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
-+ "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
+var mediaSection =  "";
+//+ "BGImageURL: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
+//+ "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
 
 var addItemImg = "Add Images: <input type='text' name='txt' value='' onchange='updateParentBGImage(this)'>" 
 + "<div class='selectedImg'></div>" ;
@@ -156,7 +223,9 @@ function setLastFocusedDivId(id) {
     //console.log(id);
 }
 
-
+function hideMe(elem){
+    //elem.style.display = "none";    
+}
 //https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
 function insertImageAtCaret(html) {
     if (html == ""){
@@ -3528,11 +3597,7 @@ function editItem( btn ){
  //Shop - Topbanner*********************
 
  toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopTopBanner</label>" 
- + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1') ></button>" 
- + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2') ></button>" 
- + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3') ></button>" 
- + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4') ></button>" ;
-
+ + getShopTopBannersList(itemid);
  
  //Shop - Items*********************
 
@@ -3743,6 +3808,15 @@ function editItem( btn ){
 
 }
 
+function getShopTopBannersList(itemid){
+
+ return "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ></button>" 
+      + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ></button>" 
+      + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ></button>" 
+      + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ></button>" ;
+
+}
+
 function toggleToolBarView(){
     console.log(document.getElementById("toolBarId").clientHeight);
 
@@ -3755,8 +3829,11 @@ function toggleToolBarView(){
 }
 
 function popolatenewImageName(itemid){
-    document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)+ "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    var name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)+ "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    name = name.replaceAll("#","");
+    document.getElementById("image-" + itemid).value = name;
 }
+
 function loadUNSPLImg(itemid) {
     popolatenewImageName(itemid);
     var imageName = document.getElementById("search-img").value;
@@ -3889,6 +3966,10 @@ function showImage(event) {
     var itemid = elem.dataset.itemid;
     var imageelementid = elem.dataset.imageelementid;
 
+    if (elem.dataset.uploadimgbtnid != null){
+        document.getElementById(elem.dataset.uploadimgbtnid).style.display = "block";
+    }
+
     popolatenewImageName(itemid);
 
     var output = document.getElementById(imageelementid + itemid);
@@ -3896,9 +3977,50 @@ function showImage(event) {
     output.onload = function() {
         URL.revokeObjectURL(output.src) 
     }
-
 }
 
+function addImageToItemList(event) {
+    var elem = event.target;
+    var itemid = elem.dataset.itemid;
+    var imageelementid = elem.dataset.imageelementid;
+    var fileelementid = elem.dataset.fileelementid;
+
+    var saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)+ "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    saveasname = saveasname.replaceAll("#","");
+    saveasname = saveasname.trim();
+    saveasname = saveasname.toLowerCase();
+
+    var files = document.getElementById(fileelementid + itemid).files;
+
+    if (files.length > 0) {
+
+        var formData = new FormData();
+        formData.append("file", files[0]);
+        formData.append("saveasname", saveasname);
+        formData.append("dir", "img");
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+
+        // call on request changes state
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var parentDiv = elem.parentElement.parentElement;
+                var existingHTML = parentDiv.querySelector('.existingItmImages').innerHTML;
+
+                parentDiv.querySelector('.existingItmImages').innerHTML = existingHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + the.hosturl + '/img/'+ saveasname +'">'  + '<button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
+            }
+        };
+
+        xhttp.send(formData);
+
+    } else {
+        alert("Please select a file");
+    }
+
+}
 
 function uploadFile(event) {
     if (localStorage.getItem("userLoggedIn") == "n") {
@@ -4124,8 +4246,9 @@ function UploadAndReplaceBannerImg(event){
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
 
-                var parentSecDiv = elem.parentElement.parentElement;
-                var previewDiv = parentSecDiv.querySelector('.secPreview');
+                //var parentSecDiv = elem.parentElement.parentElement;
+                //var previewDiv = parentSecDiv.querySelector('.secPreview');
+                var previewDiv = document.querySelector('.secPreview');
   
                 if (previewDiv.style.display != "none"){
                   previewDiv.style.backgroundImage  = "url('" + the.hosturl + "/img/" + saveasname + "')";
@@ -4190,20 +4313,25 @@ function removeNewLine(innerHTML){
     innerHTML = innerHTML.replace(/\r\n|\r|\n/g,"")
     return innerHTML;
 }
-function addComponent(itemid, type){
+function addComponent(itemid, type, elem = "dummy"){
+
     var componentid = 'description-' + itemid ;
-    var AllHTML = document.getElementById(componentid).innerHTML;
+    var AllHTML = "" ;    
     var partOneHTML = "";
     var partTwoHTML = "";
-    var checkBox = document.getElementById("insertInner");
-    var findStr = '<div id="' + last_focused_div_id ;
-    if (checkBox.checked == true){
-        partOneHTML = AllHTML.substring(0, AllHTML.indexOf(findStr));
-        partTwoHTML = AllHTML.substring(AllHTML.indexOf(findStr));
 
-    } else {
-        partOneHTML = AllHTML;
+    if (itemid != "shopTopBanner" ){
+        AllHTML = document.getElementById(componentid).innerHTML;
+        var checkBox = document.getElementById("insertInner");
+        var findStr = '<div id="' + last_focused_div_id ;
+        if (checkBox.checked == true){
+            partOneHTML = AllHTML.substring(0, AllHTML.indexOf(findStr));
+            partTwoHTML = AllHTML.substring(AllHTML.indexOf(findStr));    
+        } else {
+            partOneHTML = AllHTML;
+        }
     }
+
     
 
     var randomId = type + "-" + Math.floor(Math.random() * 1000000);
@@ -4315,21 +4443,39 @@ function addComponent(itemid, type){
 
     }else if (type == "shopTopBanner1") {
 
+
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px">'
                     + "\n" + '<div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Any tagline</div>'  
                      + "\n" + '</div>';
         
+
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+        + '<div id="Customizations" class="shopTabcontent">'
+        + revealSecColor
+        + '</div>';
+
+
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
-                    + revealSecColor        
+                    + shopBannerTabOptions
+                    + shopBannerTabContentDivs        
                     +"</div>";
 
-        document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-            + hdMeDiv 
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + hdMeDiv 
+        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+        if (componentid == "description-shopTopBanner"){
+            //document.querySelector('.secdiv').innerHTML = contentToAdd;
+            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+        } else {
+            document.getElementById(componentid).innerHTML = partOneHTML  + contentToAdd + partTwoHTML;
+        }
+        
 
     }else if (type == "shopTopBanner2") {
 
@@ -4339,18 +4485,37 @@ function addComponent(itemid, type){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+        + '<div id="Customizations" class="shopTabcontent">'
+        + textDivColorCtl
+        + replaceBannerImg  
+        + '</div>';
+
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
-                    + textDivColorCtl
-                    + mediaSection 
-                    + replaceBannerImg            
+                    + shopBannerTabOptions
+                    + shopBannerTabContentDivs
                     +"</div>";
 
-        document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-            + hdMeDiv 
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        // document.getElementById(componentid).innerHTML = partOneHTML 
+        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + hdMeDiv 
+        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + hdMeDiv 
+        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+        if (componentid == "description-shopTopBanner"){
+            //document.querySelector('.secdiv').innerHTML = contentToAdd;
+            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+        } else {
+            document.getElementById(componentid).innerHTML = partOneHTML  + contentToAdd + partTwoHTML;
+        }
 
     }else if (type == "shopTopBanner3") {
 
@@ -4360,18 +4525,37 @@ function addComponent(itemid, type){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+        + '<div id="Customizations" class="shopTabcontent">'
+        + textDivColorCtl
+        + replaceBannerImg  
+        + '</div>';
+
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
-                    + textDivColorCtl
-                    + mediaSection 
-                    + replaceBannerImg            
+                    + shopBannerTabOptions
+                    + shopBannerTabContentDivs          
                     +"</div>";
 
-        document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-            + hdMeDiv 
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        // document.getElementById(componentid).innerHTML = partOneHTML 
+        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + hdMeDiv 
+        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + hdMeDiv 
+        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+        if (componentid == "description-shopTopBanner"){
+            //document.querySelector('.secdiv').innerHTML = contentToAdd;
+            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+        } else {
+            document.getElementById(componentid).innerHTML = partOneHTML  + contentToAdd + partTwoHTML;
+        }
 
     }else if (type == "shopTopBanner4") {
 
@@ -4381,25 +4565,44 @@ function addComponent(itemid, type){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+        + '<div id="Customizations" class="shopTabcontent">'
+        + replaceBannerImg  
+        + '</div>';
+
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
-                    + mediaSection     
-                    + replaceBannerImg        
+                    + shopBannerTabOptions
+                    + shopBannerTabContentDivs       
                     +"</div>";
 
-        document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-            + hdMeDiv 
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        // document.getElementById(componentid).innerHTML = partOneHTML 
+        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        //     + hdMeDiv 
+        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='width: 65vw; height: 40vh; margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+        + hdMeDiv 
+        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+        if (componentid == "description-shopTopBanner"){
+            //document.querySelector('.secdiv').innerHTML = contentToAdd;
+            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+        } else {
+            document.getElementById(componentid).innerHTML = partOneHTML  + contentToAdd + partTwoHTML;
+        }
 
     }else if (type == "shopItem1") {
 
-        var htmlPartOrig = '<div class="" style="display:flex; margin:auto;">'
-                    + "\n" + '<div class="itmImgDivCls" style="backgroundX: red; width:45%; height: 300px; border-radius:20px;box-shadow: 1px 1px 3px #222222;">ItemImage</div>'  
+        var htmlPartOrig = '<div class="shopItemCls1" style="display:flex; margin:auto;">'
+                    + "\n" + '<div class="itmImgDivCls" style=" ">'+ itemImagesDiv + '</div>'  
                      + "\n" + '<div id="shopItemImgDescDivId" class="" style="width:45%;  height: 300px; overflow:auto">'
-                     + "\n" + '<div style="">'
-                     + "\n" + '<div class="itmNameDivCls" style="font-size:2vw; backgroundX: yellow">Item Name</div>'
+                     + "\n" + '<div class="itmNameAndDesc" style="">'
+                     + "\n" + '<div class="itmNameDivCls" style=" ">Item Name</div>'
                      + "\n" + '<div class="itmDescDivCls" style="font-size:1.5vw;backgroundX: green; height:200px;">Item Description</div>'
                      + "\n" + '</div>'
                      + "\n" + '</div>'
@@ -4410,7 +4613,8 @@ function addComponent(itemid, type){
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
-                    + addItemImg             
+                    + shopItemTabOptions
+                    + shopItemTabContentDivs              
                     +"</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML 
@@ -7309,23 +7513,15 @@ function customizeShop(itemstr){
          
             //*************END OF TOOLBAR DIV */
             toolbarHTML = toolbarHTML  + "</div><br><br><br>";
-            //*************END OF TOOLBAR DIV */         
-         
-         
+            //*************END OF TOOLBAR DIV */                 
          
             newHTML = newHTML + "<br><br>" +
              "<textarea id='descriptionTextId' class = ''   ></textarea>"
             +
             "<div class='editDescriptionDiv' contenteditable='true'  class='span2 fullWidth lyricsDiv' id='description-" + itemid + "'  >" + description + "</div>";
          
-         
-         
-         
             //newHTML = newHTML +  "<br><br><div class = 'editFieldHead'>Writer: </div><br>" +  "<input type='text' id='writer-" + itemid + "' style='width:95%; margin:auto;' value='" + writer + "'>";
-         
             //newHTML = newHTML +  "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +  "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
-         
-         
             //newHTML = newHTML + "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +  "<input type='text' id='discontinue-" + itemid + "' style='width:95%; margin:auto;' value='" + discontinue + "'>" ;
          
             newHTML = newHTML +  "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
@@ -7684,8 +7880,10 @@ function updateParentBGImage(element){
     element.parentElement.parentElement.dataset.background = element.value;
     //element.parentElement.parentElement.style.backgroundImage  = "url('/smshopify/img/" + element.value + "')";
 
-    var parentSecDiv = element.parentElement.parentElement;
-    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    //var parentSecDiv = element.parentElement.parentElement;
+    //var previewDiv = parentSecDiv.querySelector('.secPreview');
+    var previewDiv = document.querySelector('.secPreview');
+
     if (previewDiv.style.display != "none"){
         previewDiv.style.backgroundImage  = "url('/smshopify/img/" + element.value + "')";
     }
@@ -7699,7 +7897,7 @@ function updateParentAutoAnimate(element){
 
 function updateTextDivColor(element){
     document.getElementById("textDivId").style.backgroundColor = element.value;
-
+    element.style.backgroundColor = element.value;
     var rgbColor = hexToRgb(element.value);
 
     var textColour = getFontColorForRGBbackGroundColor(rgbColor);
@@ -7716,8 +7914,10 @@ function updateParentBGColor(element){
 
     var textColour = getFontColorForRGBbackGroundColor(rgbColor);
 
-    var parentSecDiv = element.parentElement.parentElement;
-    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    //var parentSecDiv = element.parentElement.parentElement;
+    //var previewDiv = parentSecDiv.querySelector('.secPreview');
+    var previewDiv = document.querySelector('.secPreview');
+
     if (previewDiv.style.display != "none"){
         previewDiv.style.backgroundColor = element.value;
         previewDiv.style.color = textColour;
@@ -7898,6 +8098,27 @@ function updatePreviewUsingDivs(componentid){
     }, 3000);
 }
 
+function plusitemImages(n) {
+    showitemImages(itemImageIndex += n);
+  }
+  
+  function currentitemImage(n) {
+    showitemImages(itemImageIndex = n);
+  }
+  
+  function showitemImages(n) {
+    let i;
+    let itemImages = document.getElementsByClassName("myitemImages");
+  
+    if (n > itemImages.length) {itemImageIndex = 1}    
+    if (n < 1) {itemImageIndex = itemImages.length}
+    for (i = 0; i < itemImages.length; i++) {
+      itemImages[i].style.display = "none";  
+    }
+  
+    itemImages[itemImageIndex-1].style.display = "block";  
+  }
+
 function toggleSecPreview(element){
     var parentSecDiv = element.parentElement.parentElement;
     var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
@@ -7916,6 +8137,32 @@ function toggleSecPreview(element){
     childTextArea.style.display = "none";
 }
 
+function openShopTab(evt, shopTabId) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("shopTabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("shopTablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(shopTabId).style.display = "block";
+    evt.currentTarget.className += " active";
+
+    if (shopTabId == "addImages"){
+        var parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
+        var img_list = parentDiv.querySelectorAll('.myitemImages'); // returns NodeList
+        var img_array = [...img_list]; // converts NodeList to Array
+
+        var newHTML = "";
+        img_array.forEach(img => {        
+            newHTML = newHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + img.src + '">  <button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
+               
+        });    
+        parentDiv.querySelector('.existingItmImages').innerHTML = newHTML;
+    }
+}
 
 function getCookie(c_name)
 {
