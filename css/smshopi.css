@@ -282,3 +282,31 @@
     margin-bottom: 10px;
     width: 150px;
   }
+
+  .searchStoreButtonCls{
+    border: none;
+    background-color: #095484;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    min-width: 190px;
+    border-radius: 5px;
+    padding: 4px;
+  }
+
+  .storeNameAvailable{
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #18BC9C;
+    color: #fff;
+  }
+  .storeNameNotAvailable{
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #E74C3C;
+    color: #fff;
+  }
+
+  .storeNmChkDiv{
+    padding: 10px;
+  }

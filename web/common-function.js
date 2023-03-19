@@ -3636,6 +3636,11 @@ function editItem( btn ){
  toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>" 
  + "<button title='shopItem1' type='button' style='background: url(/smshopify/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>" ;
 
+ //Shop - Items*********************
+
+ toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>" 
+ + "<button title='shopName1' type='button' style='background: url(/smshopify/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>" ;
+
    //Reveal Js Slide - Section - Divs*********************
 
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
@@ -4297,7 +4302,10 @@ function UploadAndReplaceBannerImg(event){
 
                 //var parentSecDiv = elem.parentElement.parentElement;
                 //var previewDiv = parentSecDiv.querySelector('.secPreview');
-                var previewDiv = document.querySelector('.secPreview');
+                //var previewDiv = document.querySelector('.secPreview');
+
+                var parentSecDiv = elem.parentElement.parentElement.parentElement;
+                var previewDiv = parentSecDiv.querySelector('.secPreview');
   
                 if (previewDiv.style.display != "none"){
                   previewDiv.style.backgroundImage  = "url('" + the.hosturl + "/img/" + saveasname + "')";
@@ -4379,6 +4387,10 @@ function addComponent(itemid, type, elem = "dummy"){
         } else {
             partOneHTML = AllHTML;
         }
+    } else{
+        setTimeout(function() {
+            document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
+        }, 800);
     }
 
     
@@ -4489,12 +4501,31 @@ function addComponent(itemid, type, elem = "dummy"){
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        }else if (type == "shopName1") {
 
+            var htmlPartOrig = '<div class="storeNmChkDiv"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
+                        + "\n" + '<button id="itemsearchBtnId" class="searchStoreButtonCls" onclick="searchStoreNameItem(); return false;">Check Availability</button>'  
+                         + "\n" + '<div class="storeNameNotAvailable displayNone"></div>'
+                         + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <br> <button  onclick="showBanner()">Design Store banner</button></div>'
+                         + "\n" + '</div>';
+            
+            htmlPart = escape(htmlPartOrig);
+    
+            var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                        + allowTogglePreview  
+                        +"</div>";
+    
+            document.getElementById(componentid).innerHTML = partOneHTML 
+                + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                + hdMeDiv 
+                + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+    
     }else if (type == "shopTopBanner1") {
 
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px">'
-                    + "\n" + '<div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Any tagline</div>'  
+                    + "\n" + '<div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Any tagline</div>'  
                      + "\n" + '</div>';
         
 
@@ -4539,7 +4570,12 @@ function addComponent(itemid, type, elem = "dummy"){
 
         if (componentid == "description-shopTopBanner"){
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
-            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+            if (elem == "addUnderSongLyrics"){
+                document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+            }else {
+                elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+            }
+            
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML  + contentToAdd + partTwoHTML;
         }
@@ -4548,7 +4584,7 @@ function addComponent(itemid, type, elem = "dummy"){
     }else if (type == "shopTopBanner2") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
-                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(85, 180, 176);"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(85, 180, 176);"><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
                      + "\n" + '</div>';
         
         htmlPart = escape(htmlPartOrig);
@@ -4607,7 +4643,7 @@ function addComponent(itemid, type, elem = "dummy"){
     }else if (type == "shopTopBanner3") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
-                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); "><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                    + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); "><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
                      + "\n" + '</div>';
         
         htmlPart = escape(htmlPartOrig);
@@ -4667,7 +4703,7 @@ function addComponent(itemid, type, elem = "dummy"){
     }else if (type == "shopTopBanner4") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; ">'
-                    + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:10px; text-align:center; width:50%;  margin:auto ; margin-top:20px; border-radius: 20px;"><div style="font-size:3vw">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
+                    + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:10px; text-align:center; width:50%;  margin:auto ; margin-top:20px; border-radius: 20px;"><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'  
                      + "\n" + '</div>';
         
         htmlPart = escape(htmlPartOrig);
@@ -6398,6 +6434,65 @@ function searchItem(){
     populateItemsList(rows);
     $( ".cardsContainerDivClassPadd" ).css( "width", "95%" );
 }
+
+
+function searchStoreNameItem(){
+
+    var origSearchText = document.getElementById("store-search-box").value;
+    origSearchText = origSearchText.replaceAll("  ", " ");
+
+    var searchText = origSearchText;
+
+    if (searchText == ""){
+        document.querySelector('.storeNameNotAvailable').innerHTML = "Please enter your store name."
+        document.querySelector('.storeNameNotAvailable').style.display = "block";
+        document.querySelector('.storeNameAvailable').style.display = "none";
+        return;       
+    }
+    if (!searchText.match(/^[0-9a-zA-Z \b]+$/)){
+        document.querySelector('.storeNameNotAvailable').innerHTML = "Only characters and numbers are allowed."
+        document.querySelector('.storeNameNotAvailable').style.display = "block";
+        document.querySelector('.storeNameAvailable').style.display = "none";
+        return;
+    }
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    var rows = JSON.parse(tf);
+
+    if (searchText != ""){
+        searchText = searchText.toUpperCase();
+        rows = rows.filter(function(entry) {
+            return entry.title.toUpperCase() == searchText;
+        });
+    }    
+
+    if (rows.length > 0){
+        document.querySelector('.storeNameNotAvailable').innerHTML = "Store name already taken by someone else. Please try a different name."
+        document.querySelector('.storeNameNotAvailable').style.display = "block";
+        document.querySelector('.storeNameAvailable').style.display = "none";
+        return;         
+    } else {
+        document.querySelector('.storeNameNotAvailable').style.display = "none";
+        document.querySelector('.storeNameAvailable').style.display = "block";
+        localStorage.setItem("storename",origSearchText );
+    }
+
+}
+
+function showBanner(){
+    var elems = document.querySelectorAll('.shopTopBanner');
+    var elems_array = [...elems]; // converts NodeList to Array
+
+    if (elems_array.length == 0){
+        addComponent("shopTopBanner", "shopTopBanner1","addUnderSongLyrics");
+        document.querySelector('.storeNameAvailable').style.display = "none";
+    }
+
+    setTimeout(function() {
+        document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
+    }, 800);
+    
+}
+
 function populateItemDropDown(fieldId = "item-search-box") {
 
 
@@ -8038,7 +8133,10 @@ function updateParentBGColor(element){
 
     //var parentSecDiv = element.parentElement.parentElement;
     //var previewDiv = parentSecDiv.querySelector('.secPreview');
-    var previewDiv = document.querySelector('.secPreview');
+    //var previewDiv = document.querySelector('.secPreview');
+
+    var parentSecDiv = element.parentElement.parentElement.parentElement;
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
 
     if (previewDiv.style.display != "none"){
         previewDiv.style.backgroundColor = element.value;
