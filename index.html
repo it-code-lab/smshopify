@@ -32,6 +32,7 @@
    <link href="/smshopify/css/smshopi.css" rel="stylesheet" />
    <link href="/smshopify/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/smshopify/css/smstyleltlimit.css" rel="stylesheet" />
+   <link href="/smshopify/css/smtheme.css" rel="stylesheet" />
    <!-- 
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
          
@@ -74,7 +75,8 @@
    <script src="/smshopify/js/highlight.min.js"></script>
 
    <!-- For Location Display on Map -->
-   <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'><link rel="stylesheet" href="./style.css">
+   <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'>
+   <link rel="stylesheet" href="./style.css">
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
    <script>
       tinymce.init({
@@ -257,8 +259,8 @@
                </div>
 
                <div id="itemListDivId">
-                  <div id="itemsearchDivId"><input id='item-search-box' type='text' name='item'
-                        autocomplete='off' placeholder='search' />
+                  <div id="itemsearchDivId"><input id='item-search-box' type='text' name='item' autocomplete='off'
+                        placeholder='search' />
                      <button id="itemsearchBtnId" class='searchButtonCls'
                         onclick='searchItem(); return false;'>Search</button>
                   </div>
@@ -531,10 +533,11 @@
                      <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
-                     <button id="registerBtnId" class="helper btnCenterAlign" style="width: 300px" onclick="register();">Register</button>
+                     <button id="registerBtnId" class="helper btnCenterAlign" style="width: 300px"
+                        onclick="register();">Register</button>
                      <!---->
                      <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
-                                    onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button>
+                        onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button>
                      <br>
                      <br>
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
@@ -553,7 +556,7 @@
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> ADDRESS </label>
                      <hr>
 
-                     <div class="addresscontainer" id="addresscontainerDiv" >
+                     <div class="addresscontainer" id="addresscontainerDiv">
                         <div class="addressform">
                            <label class="addressfield">
                               <span class="addressfield__label" for="shipaddress">Address</span>
@@ -586,7 +589,8 @@
                      <label id="providerAddrErrorMsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
-                     <button class="helper btnCenterAlign" style="width: 300px" onclick="setProvAddr();">Select Store Type &nbsp ❯</button>
+                     <button class="helper btnCenterAlign" style="width: 300px" onclick="setProvAddr();">Select Store
+                        Type &nbsp ❯</button>
                      <!---->
                      <br>
                      <br>
@@ -731,7 +735,7 @@
                      </div>
                      <!-- *********Below div will be used to display the results of language identified/not identified after scan***** -->
                      <div id="languageScanResultDivId">
-                        <div id="languageDeterminedDivId" class="displayNone" >
+                        <div id="languageDeterminedDivId" class="displayNone">
                            <div id="msgForLanguageDetermined" class="fullWidth"
                               style=" background-color: #CEEEFC; padding: 5px; text-align: justify; text-justify: inter-word;margin-bottom: 5px;">
                            </div>
@@ -1069,9 +1073,12 @@
             <a href="/smshopify/?target=filescanner">File Scanner</a> -->
                   <a href="/smshopify/?target=contactus">Contact Us</a>
 
-                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'" onclick="tempSelectStoreType();">Temp-SelectStoreType</a>
+                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'"
+                     onmouseout="this.style.color='#888'" onclick="tempSelectStoreType();">Temp-SelectStoreType</a>
 
-                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'" onclick="customizeShop('food-shop/introduction-to-java');">Temp-customizeShop</a>
+                  <a href="#!" style="color: rgb(136, 136, 136);" onmouseover="this.style.color='#000'"
+                     onmouseout="this.style.color='#888'"
+                     onclick="customizeShop('food-shop/introduction-to-java');">Temp-customizeShop</a>
 
                </div>
             </div>

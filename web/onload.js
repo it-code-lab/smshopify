@@ -83,7 +83,7 @@ for (i = 0; i < coll.length; i++) {
 }
 */
 
-setTimeout(function() {
+setTimeout(function () {
   updateStatus();
 }, 800);
 

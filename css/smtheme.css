@@ -1,0 +1,13 @@
+.greenMsg {
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #18BC9C;
+    color: #fff;
+}
+
+.redMsg {
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #E74C3C;
+    color: #fff;
+}

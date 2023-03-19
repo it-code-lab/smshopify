@@ -2155,7 +2155,7 @@ input:checked+.slider:after {
   font-size: 17px;
   width: 100%;
   background-color: rgb(193, 192, 191);
-   /* border-radius: 5px;  */
+  /* border-radius: 5px;  */
   color: #000;
   text-align: center;
 }
@@ -2170,12 +2170,13 @@ input:checked+.slider:after {
   font-size: small;
   width: 100%;
 }
-.itmSecImg{
-  width: 100px; 
-  height:100px ;
+
+.itmSecImg {
+  width: 100px;
+  height: 100px;
   background-size: contain;
   margin: 2px;
-  background-repeat:no-repeat !important;
+  background-repeat: no-repeat !important;
 }
 
 .itmUpdBtnSmall {
@@ -2455,7 +2456,8 @@ input:checked+.slider:after {
   color: #F9907A;
 }
 
-.editDescriptionDiv>* .deleteDiv, .existingItmImages>* .deleteDiv,
+.editDescriptionDiv>* .deleteDiv,
+.existingItmImages>* .deleteDiv,
 .deleteDiv:hover {
   display: block;
 }
