@@ -89,7 +89,7 @@
 
   .myitemImages {
     display: none;
-    width: 80%;
+    width: 95%;
     max-widthX: 400px;
     height: auto;
     padding: 10px;
@@ -118,10 +118,10 @@
   user-select: none;
 }
 .prevItmImg{
-    left: 10px;
+    left: -10px;
 }
 .nextItmImg {
-  right: 10px;
+  right: -10px;
   border-radius: 3px 0 0 3px;
 }
 
@@ -275,4 +275,10 @@
 
   [contentEditable=true]:empty:not(:focus):before {
     content: attr(data-text)
+  }
+
+  .saveItmImgChangesBtn{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 150px;
   }

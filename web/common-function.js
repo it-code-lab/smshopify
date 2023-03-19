@@ -101,7 +101,7 @@ var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
 + "<input type='text' id='image-banner' style='display:none; width:95%; margin:auto;'  value=''>"
 + "<div style='width: 100%'><br><input type='file' id='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='addImageToItemList(event)'>"       
 + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-+ "<input id='replaceBannerImg' classX='displayNone' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
++ "<input id='replaceBannerImg' class='saveItmImgChangesBtn' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
 
 
   var itemCustomizations = ''
@@ -4068,6 +4068,7 @@ function saveItemImgChanges(event){
         newHTML = newHTML + '<img class="myitemImages" src="' + img.src + '">';           
     });    
     parentDiv.querySelector('.itmImgContainer').innerHTML = newHTML;
+    showitemImages(itemImageIndex);
 }
 
 function uploadFile(event) {
@@ -4526,6 +4527,7 @@ function addComponent(itemid, type, elem = "dummy"){
 
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+                    + allowTogglePreview            
                     + shopBannerTabOptions
                     + shopBannerTabContentDivs        
                     +"</div>";
