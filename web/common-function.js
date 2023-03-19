@@ -36,26 +36,48 @@ var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Previ
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
 
+var shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpeninghourscontent section" contenteditable="true">   <div class="header">    <h2>Opening hours</h2>   </div>    <table class="opening-hours-table">  <tr id="MondayStoreHrId" itemprop="storeOpeninghours" > <td>Monday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="TuesdayStoreHrId" itemprop="storeOpeninghours" > <td>Tuesday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="WednesdayStoreHrId" itemprop="storeOpeninghours" > <td>Wednesday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="ThursdayStoreHrId" itemprop="storeOpeninghours" > <td>Thursday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="FridayStoreHrId" itemprop="storeOpeninghours" > <td>Friday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="SaturdayStoreHrId" itemprop="storeOpeninghours" > <td>Saturday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="SundayStoreHrId" itemprop="storeOpeninghours" > <td>Sunday</td><td class="opens">10:00 AM</td> <td>-</td><td class="closes">05:00 PM</td>   </tr>   </table></div></section>';
 
-var shopBannerTabOptions = '<div class="shopTab">' 
-  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
-  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
-  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
-  + '</div>';
+var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
+    + '<label class="control control--checkbox">'
+    + 'Display Hours Online'
+    + '<input type="checkbox" onclick="showStoreHrsDiv(this);"/>'
+    + '<div class="control__indicator"></div>'
+    + '</label>'
+    + '</div>';
 
-  var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
-  + getShopTopBannersList("shopTopBanner")
-  + '</div>'
-  + '<div id="Customizations" class="shopTabcontent">'
-  + revealSecColor
-  + '</div>'
-  + '<div id="Close" class="shopTabcontent">'
-  + '</div>';
+var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
+    + '<label class="control control--checkbox">'
+    + 'Display Location Online'
+    + '<input type="checkbox" onclick="showStoreLocationDiv(this);"/>'
+    + '<div class="control__indicator"></div>'
+    + '</label>'
+    + '</div>';
+
+// var shopBannerTabOptions = '<div class="shopTab">' 
+//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+//   + '</div>';
+
+//   var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+//   + getShopTopBannersList("shopTopBanner")
+//   + '</div>'
+//   + '<div id="Customizations" class="shopTabcontent">'
+//   + revealSecColor
+//   + '</div>'
+//   + '<div id="HoursDiv" class="shopTabcontent">'
+//   + '<div class="displayNoneX">' + shopOpeningHr + '</div>'
+//   + '</div>'
+//   + '<div id="Close" class="shopTabcontent">'
+//   + '</div>';
 
   var shopItemTabOptions = '<div class="shopTab">' 
   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
-  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemCustomizations' + "'" + ')">Customizations</button>'
-
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmNameDiv' + "'" + ')">Name</button>'
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
+  + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>'
   + '</div>';
 
@@ -87,9 +109,19 @@ var shopBannerTabOptions = '<div class="shopTab">'
   var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
   + addItmImagesDiv
   + '</div>'
-  + '<div id="itemCustomizations" class="shopTabcontent">'
-  + itemCustomizations
+
+  + '<div id="itmNameDiv" class="shopTabcontent">'
+  + '<div class="itemName" contenteditable="true" data-text="Enter Item Name Here"></div>'
   + '</div>'
+
+  + '<div id="itmDescDiv" class="shopTabcontent">'
+  + '<div class="itemName" contenteditable="true" data-text="Enter Item Description Here"></div>'
+  + '</div>'
+
+  + '<div id="itemPrice" class="shopTabcontent">'
+  + '<div class="itemClass" contenteditable="true" data-text="Enter Item Price"></div>'
+  + '</div>'
+
   + '<div id="CloseItemCust" class="shopTabcontent">'
   + '</div>';
 
@@ -3818,7 +3850,7 @@ function getShopTopBannersList(itemid){
 }
 
 function toggleToolBarView(){
-    console.log(document.getElementById("toolBarId").clientHeight);
+    //console.log(document.getElementById("toolBarId").clientHeight);
 
     if(document.getElementById("toolBarId").clientHeight > 50){
         document.getElementById("toolBarId").style.height = "50px";
@@ -4020,6 +4052,22 @@ function addImageToItemList(event) {
         alert("Please select a file");
     }
 
+}
+
+function saveItemImgChanges(event){
+    var elem = event.target;
+    var parentDiv = elem.parentElement.parentElement.parentElement.parentElement;
+    //var imagesHTML = parentDiv.querySelector('.existingItmImages').innerHTML;
+
+
+    var img_list = parentDiv.querySelectorAll('.filteredItmImgCls'); // returns NodeList
+    var img_array = [...img_list]; // converts NodeList to Array
+
+    var newHTML = "";
+    img_array.forEach(img => {        
+        newHTML = newHTML + '<img class="myitemImages" src="' + img.src + '">';           
+    });    
+    parentDiv.querySelector('.itmImgContainer').innerHTML = newHTML;
 }
 
 function uploadFile(event) {
@@ -4451,11 +4499,29 @@ function addComponent(itemid, type, elem = "dummy"){
 
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabOptions = '<div class="shopTab">' 
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
+
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
         + getShopTopBannersList("shopTopBanner")
         + '</div>'
         + '<div id="Customizations" class="shopTabcontent">'
         + revealSecColor
+        + '</div>'
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+        + '</div>'  
+ 
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+        + '</div>'  
+ 
+        + '<div id="Close" class="shopTabcontent">'
         + '</div>';
 
 
@@ -4485,12 +4551,31 @@ function addComponent(itemid, type, elem = "dummy"){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabOptions = '<div class="shopTab">' 
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
+
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
         + getShopTopBannersList("shopTopBanner")
         + '</div>'
         + '<div id="Customizations" class="shopTabcontent">'
         + textDivColorCtl
         + replaceBannerImg  
+        + '</div>'  
+
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+        + '</div>'
+
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone" ></div>'
+        + '</div>'  
+
+        + '<div id="Close" class="shopTabcontent">'
         + '</div>';
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
@@ -4525,13 +4610,33 @@ function addComponent(itemid, type, elem = "dummy"){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabOptions = '<div class="shopTab">' 
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
+
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
         + getShopTopBannersList("shopTopBanner")
         + '</div>'
         + '<div id="Customizations" class="shopTabcontent">'
         + textDivColorCtl
         + replaceBannerImg  
+        + '</div>'  
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+        + '</div>'
+
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+        + '</div>' 
+
+        + '<div id="Close" class="shopTabcontent">'
         + '</div>';
+
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
                     + allowTogglePreview
@@ -4565,11 +4670,30 @@ function addComponent(itemid, type, elem = "dummy"){
         
         htmlPart = escape(htmlPartOrig);
 
+        var shopBannerTabOptions = '<div class="shopTab">' 
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+        
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
+
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
         + getShopTopBannersList("shopTopBanner")
         + '</div>'
         + '<div id="Customizations" class="shopTabcontent">'
         + replaceBannerImg  
+        + '</div>'
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+        + '</div>'
+
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+        + '</div>'  
+
+        + '<div id="Close" class="shopTabcontent">'
         + '</div>';
 
         var hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
@@ -8139,15 +8263,28 @@ function toggleSecPreview(element){
 
 function openShopTab(evt, shopTabId) {
     var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("shopTabcontent");
+
+    elem = evt.currentTarget;
+    parent = elem.parentElement.parentElement;
+
+    //tabcontent = document.getElementsByClassName("shopTabcontent");
+    tabcontent = parent.querySelectorAll('.shopTabcontent');
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
-    tablinks = document.getElementsByClassName("shopTablinks");
+
+
+
+    //tablinks = document.getElementsByClassName("shopTablinks");
+    tablinks =  parent.querySelectorAll('.shopTablinks');
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(shopTabId).style.display = "block";
+
+
+
+    //document.getElementById(shopTabId).style.display = "block";
+    parent.querySelector("#" + shopTabId ).style.display = "block";
     evt.currentTarget.className += " active";
 
     if (shopTabId == "addImages"){
@@ -8163,6 +8300,55 @@ function openShopTab(evt, shopTabId) {
         parentDiv.querySelector('.existingItmImages').innerHTML = newHTML;
     }
 }
+
+function showStoreHrsDiv(elem){
+
+    parent = elem.parentElement.parentElement.parentElement;
+
+    if (elem.checked) {
+        parent.querySelector('.storeHrDivCls').style.display = "block";
+    } else {
+        parent.querySelector('.storeHrDivCls').style.display = "none";
+    }
+}
+
+function showStoreLocationDiv(elem){
+    parent = elem.parentElement.parentElement.parentElement;
+
+    if (elem.checked) {
+        parent.querySelector('.storeOnMap').style.display = "block";
+    } else {
+        parent.querySelector('.storeOnMap').style.display = "none";
+        return;
+    }
+
+    (() => {
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+          alert("Geolocation is not supported by your browser");
+        }
+    
+        function success(position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          getMap(latitude, longitude);
+        }
+    
+        function error() {
+          alert("Unable to retrieve location");
+        }
+    
+        function getMap(latitude, longitude) {
+          const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+          L.marker([latitude, longitude]).addTo(map);
+        }
+        
+      })();
+}
+
 
 function getCookie(c_name)
 {

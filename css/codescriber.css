@@ -2152,10 +2152,10 @@ input:checked+.slider:after {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px;
-  font-size: medium;
+  font-size: 17px;
   width: 100%;
   background-color: rgb(193, 192, 191);
-   border-radius: 5px; 
+   /* border-radius: 5px;  */
   color: #000;
   text-align: center;
 }
