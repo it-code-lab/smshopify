@@ -86,14 +86,14 @@ var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
 
   + '<div class="itmImgContainer">'
 
-  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
-  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
-  + '<img class="myitemImages" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
+  + '<img class="myitemImages" style="display:block" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
+  + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
+  + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
 
   + '</div>'
 
-  + '<a class="prevItmImg" onclick="plusitemImages(-1)">❮</a>'
-  + '<a class="nextItmImg" onclick="plusitemImages(1)">❯</a>'
+  + '<a class="prevItmImg" onclick="plusitemImages(-1, this)">❮</a>'
+  + '<a class="nextItmImg" onclick="plusitemImages(1, this)">❯</a>'
   + '</div>';
 
   var addItmImagesDiv = "<label class='toolBarlabel'>Images</label>"
@@ -3496,7 +3496,7 @@ function getItem(itemstr){
             }
 
             if (nextItemTitle != "") {
-                newHTML = newHTML + '<br><br>'  + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a> <br> <br>";
+                newHTML = newHTML + '<br><br><div class="bottomNavigationCls">'  + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
 
             }
 
@@ -4069,11 +4069,18 @@ function saveItemImgChanges(event){
     var img_array = [...img_list]; // converts NodeList to Array
 
     var newHTML = "";
-    img_array.forEach(img => {        
-        newHTML = newHTML + '<img class="myitemImages" src="' + img.src + '">';           
+    var oneDisplayed = 0;
+    img_array.forEach(img => {   
+        if (oneDisplayed == 0) {
+            newHTML = newHTML + '<img class="myitemImages" style="display:block" src="' + img.src + '">'; 
+            oneDisplayed = 1;  
+        }  else {
+            newHTML = newHTML + '<img class="myitemImages" style="display:none" src="' + img.src + '">';
+        }  
+                
     });    
     parentDiv.querySelector('.itmImgContainer').innerHTML = newHTML;
-    showitemImages(itemImageIndex);
+    //showitemImages(itemImageIndex);
 }
 
 function uploadFile(event) {
@@ -4506,7 +4513,7 @@ function addComponent(itemid, type, elem = "dummy"){
             var htmlPartOrig = '<div class="storeNmChkDiv"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
                         + "\n" + '<button id="itemsearchBtnId" class="searchStoreButtonCls" onclick="searchStoreNameItem(); return false;">Check Availability</button>'  
                          + "\n" + '<div class="storeNameNotAvailable displayNone"></div>'
-                         + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <br> <button  onclick="showBanner()">Design Store banner</button></div>'
+                         + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <br> <button class="searchStoreButtonCls" onclick="showBanner()">Design Store banner</button></div>'
                          + "\n" + '</div>';
             
             htmlPart = escape(htmlPartOrig);
@@ -4571,7 +4578,7 @@ function addComponent(itemid, type, elem = "dummy"){
         if (componentid == "description-shopTopBanner"){
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
             if (elem == "addUnderSongLyrics"){
-                document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+                document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd  ;
             }else {
                 elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
             }
@@ -4773,11 +4780,17 @@ function addComponent(itemid, type, elem = "dummy"){
                     + shopItemTabContentDivs              
                     +"</div>";
 
-        document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-            + hdMeDiv 
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+                        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+                        + hdMeDiv 
+                        + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+        
+        if (elem == "addUnderSongLyrics"){
+            document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd  ;
+        }else {
+            document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
+        }            
+        
 
     }else if (type == "secTitleWithBG") {
 
@@ -5117,9 +5130,9 @@ function addComponent(itemid, type, elem = "dummy"){
         insertHTMLAtCaret(htmlToInsert);
     }
 
-    setTimeout(function() {
-        showitemImages(itemImageIndex);
-    }, 1000);
+    // setTimeout(function() {
+    //     showitemImages(itemImageIndex);
+    // }, 1000);
     
 
 }
@@ -6482,17 +6495,23 @@ function showBanner(){
     var elems = document.querySelectorAll('.shopTopBanner');
     var elems_array = [...elems]; // converts NodeList to Array
 
-    if (elems_array.length == 0){
-        addComponent("shopTopBanner", "shopTopBanner1","addUnderSongLyrics");
-        document.querySelector('.storeNameAvailable').style.display = "none";
+    if (elems_array.length > 0){
+        return;
     }
 
+    addComponent("shopTopBanner", "shopTopBanner1","addUnderSongLyrics");
+    document.querySelector('.storeNameAvailable').style.display = "none";
+ 
     setTimeout(function() {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
+        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button>';
     }, 800);
     
 }
 
+function addShopItem(){
+    addComponent("shopTopBanner", "shopItem1","addUnderSongLyrics");
+}
 function populateItemDropDown(fieldId = "item-search-box") {
 
 
@@ -8318,28 +8337,36 @@ function updatePreviewUsingDivs(componentid){
     }, 3000);
 }
 
-function plusitemImages(n) {
-    showitemImages(itemImageIndex += n);
+function plusitemImages(n, elem) {
+    showitemImages(itemImageIndex += n, elem);
   }
   
-  function currentitemImage(n) {
-    showitemImages(itemImageIndex = n);
+  function currentitemImage(n, elem) {
+    showitemImages(itemImageIndex = n, elem);
   }
   
-  function showitemImages(n) {
-    let i;
-    let itemImages = document.getElementsByClassName("myitemImages");
+  function showitemImages(n, elem = "dummy") {
+    var i;
+    var itemImages = document.getElementsByClassName("myitemImages");
     if (itemImages.length < 1){
         return;
     }
 
-    if (n > itemImages.length) {itemImageIndex = 1}    
-    if (n < 1) {itemImageIndex = itemImages.length}
-    for (i = 0; i < itemImages.length; i++) {
-      itemImages[i].style.display = "none";  
+    if (elem != "dummy"){
+        var parent = elem.parentElement;
+        //itemImages = parent.querySelectorAll(".myitemImages");
+        itemImages = parent.getElementsByClassName("myitemImages");
+
+        if (n > itemImages.length) {itemImageIndex = 1}    
+        if (n < 1) {itemImageIndex = itemImages.length}
+        for (i = 0; i < itemImages.length; i++) {
+          itemImages[i].style.display = "none";  
+        }  
+        itemImages[itemImageIndex-1].style.display = "block";  
+    }else {
+
     }
-  
-    itemImages[itemImageIndex-1].style.display = "block";  
+
   }
 
 function toggleSecPreview(element){

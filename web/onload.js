@@ -87,9 +87,9 @@ setTimeout(function() {
   updateStatus();
 }, 800);
 
-setTimeout(function() {
-  showitemImages(itemImageIndex);
-}, 800);
+// setTimeout(function() {
+//   showitemImages(itemImageIndex);
+// }, 800);
 
 function updateStatus() {
 
