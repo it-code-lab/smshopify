@@ -40,19 +40,39 @@ var shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpening
 
 var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
-    + 'Display Hours Online'
-    + '<input type="checkbox" onclick="showStoreHrsDiv(this);"/>'
+    + 'Display Daily Hours'
+    + '<input class="showStoreHr" type="checkbox" onclick="showStoreHrsDiv(this);"/>'
     + '<div class="control__indicator"></div>'
     + '</label>'
-    + '</div>';
+    + '</div>'
+    + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+
+    + '<div class="checkbox-wrapper-21">'
+    + '<label class="control control--checkbox">'
+    + 'Display Availability Information'
+    + '<input class="showStoreAvail" type="checkbox" onclick="showStoreAvailDiv(this);"/>'
+    + '<div class="control__indicator"></div>'
+    + '</label>'
+    + '</div>'
+    + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>'  ;
 
 var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
     + 'Display Location on Map'
-    + '<input type="checkbox" onclick="showStoreLocationDiv(this);"/>'
+    + '<input class="showStoreLoc" type="checkbox" onclick="showStoreLocationDiv(this);"/>'
     + '<div class="control__indicator"></div>'
     + '</label>'
-    + '</div>';
+    + '</div>'
+    + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+
+    + '<div class="checkbox-wrapper-21">'
+    + '<label class="control control--checkbox">'
+    + 'Display Location From Address'
+    + '<input class="showStoreAddr" type="checkbox" onclick="showStoreAddrDiv(this);"/>'
+    + '<div class="control__indicator"></div>'
+    + '</label>'
+    + '</div>'
+    + '<div id="storeAddrDivId" contenteditable="true" data-text="Enter Address Here" class="storeAddr displayNone"></div>'  ;
 
 // var shopBannerTabOptions = '<div class="shopTab">' 
 //   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
@@ -4554,11 +4574,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+            + shopOpeningHrCheckBox 
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+            + shopLocationCheckBox 
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4614,11 +4634,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + '</div>'
 
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+            + shopOpeningHrCheckBox 
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone" ></div>'
+            + shopLocationCheckBox 
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4673,11 +4693,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + replaceBannerImg
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+            + shopOpeningHrCheckBox 
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+            + shopLocationCheckBox 
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4732,11 +4752,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + replaceBannerImg
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+            + shopOpeningHrCheckBox 
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+            + shopLocationCheckBox 
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4781,7 +4801,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopItemTabContentDivs
             + "</div>";
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5437,65 +5457,179 @@ function updateItem(itemid, createNewItem) {
 
 function saveNewStore(itemid, createNewItem) {
 
+    document.querySelector(".shopSmErr").style.display = "none";
+    //document.getElementByClassName("shopSmErr").style.display = "none";
     var usremail = localStorage.getItem("userEmail");
 
-    var title = "(New) Please Edit";
+    //var title = "(New) Please Edit";
 
-    if (usremail == null) {
-        error_message = "Not authorized";
-        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-        return;
-    } else if (usremail == "Guest") {
-        error_message = "Not authorized";
-        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+    // if (usremail == null) {
+    //     error_message = "Not authorized";
+    //     document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+    //     return;
+    // } else if (usremail == "Guest") {
+    //     error_message = "Not authorized";
+    //     document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+    //     return;
+    // }
+
+
+    // if (itemid == "" && createNewItem == "y") {
+    //     if (localStorage.getItem("userLoggedIn") == "n") {
+
+    //         error_message = "Not authorized";
+    //         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+    //         return;
+
+    //     } else if (localStorage.getItem("userLvl") != "9") {
+    //         error_message = "Not authorized";
+    //         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+    //         return;
+    //     }
+
+
+    // } else {
+
+    var errorInfo = "";
+    var storename= localStorage.getItem("storename");
+    var bannerhtml = document.querySelector(".shopTopBanner").innerHTML;
+    var displayhoursflag = document.querySelector(".showStoreHr").checked ? '1': '0' ;
+    var hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
+    var availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+
+    if (document.querySelector(".showStoreAvail").checked){
+        if (availabilityinfo == ""){
+            errorInfo = errorInfo + "Hours availability is checked but information is not provided."+ "<br>";
+        }        
+    }
+   
+    var displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1': '0' ;
+    var maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    var uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
+
+    if (document.querySelector(".showStoreAddr").checked){
+        if (uselocationfromaddress == ""){
+            errorInfo = errorInfo + "Location address is checked but information is not provided."+ "<br>";
+        }        
+    }
+
+    var allItems = document.querySelectorAll(".storeItemDivCls");
+    for(i =0; i <allItems.length; i++ ){
+        if (allItems[i].querySelector('.itemName').innerHTML == ""){
+            errorInfo = errorInfo + "Name has not been provided for one or more items added."+ "<br>";
+            break;
+        }
+    }
+
+    if (errorInfo != ""){
+        document.querySelector(".shopSmErr").style.display = "block";
+        document.querySelector(".shopSmErr").innerHTML = errorInfo;
+        
+        //document.getElementByClassName("shopSmErr").style.display = "block";
+        //document.getElementByClassName("shopSmErr").innerHTML = errorInfo;
         return;
     }
 
+    var category = localStorage.getItem("storetype");
+    var categoryseq = localStorage.getItem("storecatsequence");
+    var titleseq = 1;
+    var title = storename;
+    var titleseq = 1;
+    var subcategory = "";
+    var subcategoryseq = "1";
+    var shortdescription = "";
+    var description = "";
+    var writer = "";
+    var keywords = "";
+    var discontinue = "1";
+    var StrFunction = "SubmitForReview";
 
-    if (itemid == "" && createNewItem == "y") {
-        if (localStorage.getItem("userLoggedIn") == "n") {
 
-            error_message = "Not authorized";
-            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-            return;
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: {
+            usremail: usremail,
+            itemid: itemid,
+            title: title,
+            titleseq: titleseq,
+            category: category,
+            categoryseq: categoryseq,
+            subcategory: subcategory,
+            subcategoryseq: subcategoryseq,
+            shortdescription: shortdescription,
+            description: description,
+            writer: writer,
+            keywords: keywords,
+            discontinue: discontinue,
+            createNewItem: createNewItem,
+            itemprice: "",
+            itemimages:"",
+            itemdescription:"",
+            displaylocationflag:displaylocationflag,
+            maplocationcoordinates: maplocationcoordinates,
+            address: "",
+            uselocationfromaddress:uselocationfromaddress,
+            coordinatesfromaddress: "",
+            displayhoursflag: displayhoursflag,
+            hourshtml: hourshtml,
+            availabilityinfo: availabilityinfo,
+            storename: storename,
+            bannerhtml:bannerhtml,
+            usrfunction: StrFunction
 
-        } else if (localStorage.getItem("userLvl") != "9") {
-            error_message = "Not authorized";
-            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-            return;
+        },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            //alert("Inside login success retstatus =" + retstatus);
+            //console.log( "Inside updateItem success retstatus =" + retstatus);
+
+            if (retstatus == "err") {
+                //alert("Please relogin");
+                goToLogin();
+            }
+
+            sessionStorage.setItem("itemsList", null);
+            //sessionStorage.setItem("itemList", null);
+            getItemsList();
+            if (itemid == "") {
+                //showMdaItems();
+
+            } else {
+                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
+            }
+            //displayCart();
+
+        },
+        error: function (xhr, status, error) {
+            if (!itemid == "") {
+                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+            }
         }
+    });
 
 
-    } else {
-        document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = red>" + " " + "</font> ";
-
-        title = document.getElementById("title-" + itemid).value;
-        titleseq = 5;
-        category = document.getElementById("category-" + itemid).value;
-        categoryseq = document.getElementById("categoryseq-" + itemid).value;
-        subcategory = document.getElementById("subcategory-" + itemid).value;
-        subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
-        shortdescription = "";
-
-        writer = "";
-        keywords = "";
-        discontinue = "1";
-
-        description = document.getElementById("description-" + itemid).innerHTML;
 
 
-        if (localStorage.getItem("userLoggedIn") == "n") {
 
-            error_message = "Not authorized";
-            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-            return;
 
-        } else if (localStorage.getItem("userLvl") != "9") {
-            error_message = "Not authorized";
-            document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-            return;
-        }
-    }
+
+    document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = red>" + " " + "</font> ";
+
+    title = document.getElementById("title-" + itemid).value;
+    titleseq = 5;
+    category = document.getElementById("category-" + itemid).value;
+    categoryseq = document.getElementById("categoryseq-" + itemid).value;
+    subcategory = document.getElementById("subcategory-" + itemid).value;
+    subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
+    shortdescription = "";
+
+    writer = "";
+    keywords = "";
+    discontinue = "1";
+
+    description = document.getElementById("description-" + itemid).innerHTML;
+   
     var StrFunction = "UpdateItem";
 
     title = title.replaceAll("'", "''");
@@ -5557,10 +5691,6 @@ function saveNewStore(itemid, createNewItem) {
             if (!itemid == "") {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
             }
-            //alert(xhr);
-
-            //console.log(error);
-            //console.log(xhr);
         }
     });
 }
@@ -6500,9 +6630,9 @@ function showBanner() {
 
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
-        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button>' +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Approval</button><br>" +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>";
+        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button> <div class="shopSmErr displayNone redMsg"></div>' +
+        "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Approval</button>" +
+        "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
 
     }, 800);
 
@@ -7385,6 +7515,8 @@ function register() {
                 document.getElementById("registerBtnId").style.display = "none";
 
                 document.getElementById("createMyStoreBtnId").style.display = "block";
+
+                localStorage.setItem("userEmail", StrEmail);
             }
 
             if (retstatus == "F") {
@@ -7499,6 +7631,10 @@ function categoryClicked(categoryName) {
         });
     }
 
+    var categorySeq = rows[0].categoryseq;
+
+    localStorage.setItem("storecatsequence", categorySeq);
+    localStorage.setItem("storetype", categoryName);
 
     var itemstr = categoryName + "/" + rows[0].title;
     itemstr = itemstr.replaceAll(" ", "-");
@@ -8389,8 +8525,30 @@ function openShopTab(evt, shopTabId) {
     }
 }
 
-function showStoreHrsDiv(elem) {
+function deselectOtherInputCheckBox(elem){
+    //elem.checked = false;
+    
+    parent = elem.parentElement.parentElement.parentElement;
+    var allInputCheckBoxes = parent.querySelectorAll("input");
+    for(i=0; i <allInputCheckBoxes.length; i++ ){
+        if (allInputCheckBoxes[i] != elem){
+            allInputCheckBoxes[i].checked = false;
+        }
+    }
+}
+function showStoreAvailDiv(elem) {
+    deselectOtherInputCheckBox(elem);
+    parent = elem.parentElement.parentElement.parentElement;
 
+    if (elem.checked) {
+        parent.querySelector('.storeAvail').style.display = "block";
+    } else {
+        parent.querySelector('.storeAvail').style.display = "none";
+    }
+}
+
+function showStoreHrsDiv(elem) {
+    deselectOtherInputCheckBox(elem);
     parent = elem.parentElement.parentElement.parentElement;
 
     if (elem.checked) {
@@ -8400,7 +8558,20 @@ function showStoreHrsDiv(elem) {
     }
 }
 
+function showStoreAddrDiv(elem) {
+    deselectOtherInputCheckBox(elem);
+    parent = elem.parentElement.parentElement.parentElement;
+
+    if (elem.checked) {
+        parent.querySelector('.storeAddr').style.display = "block";
+    } else {
+        parent.querySelector('.storeAddr').style.display = "none";
+        return;
+    }
+}
+
 function showStoreLocationDiv(elem) {
+    deselectOtherInputCheckBox(elem);
     parent = elem.parentElement.parentElement.parentElement;
 
     if (elem.checked) {
@@ -8422,6 +8593,8 @@ function showStoreLocationDiv(elem) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             getMap(latitude, longitude);
+            localStorage.setItem("latitude", latitude);
+            localStorage.setItem("longitude", longitude);
         }
 
         function error() {

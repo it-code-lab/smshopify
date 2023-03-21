@@ -334,3 +334,13 @@
 .storeNmChkDiv {
     padding: 10px;
 }
+
+.submitShopAppr{
+    margin: auto;
+    margin-top: 150px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+}
