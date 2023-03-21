@@ -36,7 +36,7 @@ var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Previ
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
 
-var shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpeninghourscontent section" contenteditable="true">   <div class="header">    <h2>Opening hours</h2>   </div>    <table class="opening-hours-table">  <tr id="MondayStoreHrId" itemprop="storeOpeninghours" > <td>Monday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="TuesdayStoreHrId" itemprop="storeOpeninghours" > <td>Tuesday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="WednesdayStoreHrId" itemprop="storeOpeninghours" > <td>Wednesday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="ThursdayStoreHrId" itemprop="storeOpeninghours" > <td>Thursday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="FridayStoreHrId" itemprop="storeOpeninghours" > <td>Friday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="SaturdayStoreHrId" itemprop="storeOpeninghours" > <td>Saturday</td><td class="opens">09:00 AM</td> <td>-</td><td class="closes">08:00 PM</td>   </tr>  <tr id="SundayStoreHrId" itemprop="storeOpeninghours" > <td>Sunday</td><td class="opens">10:00 AM</td> <td>-</td><td class="closes">05:00 PM</td>   </tr>   </table></div></section>';
+var shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpeninghourscontent section" contenteditable="true">   <div class="header">    <h2>Opening hours</h2>   </div>    <table class="opening-hours-table">  <tr id="MondayStoreHrId"> <td>Monday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="TuesdayStoreHrId"> <td>Tuesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="WednesdayStoreHrId"> <td>Wednesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="ThursdayStoreHrId"> <td>Thursday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="FridayStoreHrId"> <td>Friday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SaturdayStoreHrId"> <td>Saturday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SundayStoreHrId"> <td>Sunday</td><td>10:00 AM</td> <td>-</td><td>05:00 PM</td>   </tr>   </table></div></section>';
 
 var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
@@ -54,7 +54,7 @@ var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
     + '<div class="control__indicator"></div>'
     + '</label>'
     + '</div>'
-    + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>'  ;
+    + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
 
 var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
@@ -72,7 +72,7 @@ var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
     + '<div class="control__indicator"></div>'
     + '</label>'
     + '</div>'
-    + '<div id="storeAddrDivId" contenteditable="true" data-text="Enter Address Here" class="storeAddr displayNone"></div>'  ;
+    + '<div id="storeAddrDivId" contenteditable="true" data-text="Enter Address Here" class="storeAddr displayNone"></div>';
 
 // var shopBannerTabOptions = '<div class="shopTab">' 
 //   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
@@ -135,11 +135,11 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
-    + '<div class="itemName" contenteditable="true" data-text="Enter Item Description Here"></div>'
+    + '<div class="itemDescription" contenteditable="true" data-text="Enter Item Description Here"></div>'
     + '</div>'
 
     + '<div id="itemPrice" class="shopTabcontent">'
-    + '<div class="itemClass" contenteditable="true" data-text="Enter Item Price"></div>'
+    + '<div class="itemPrice" contenteditable="true" data-text="Enter Item Price"></div>'
     + '</div>'
 
     + '<div id="CloseItemCust" class="shopTabcontent">'
@@ -4574,11 +4574,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox 
+            + shopOpeningHrCheckBox
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox 
+            + shopLocationCheckBox
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4634,11 +4634,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + '</div>'
 
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox 
+            + shopOpeningHrCheckBox
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox 
+            + shopLocationCheckBox
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4693,11 +4693,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + replaceBannerImg
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox 
+            + shopOpeningHrCheckBox
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox 
+            + shopLocationCheckBox
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -4752,11 +4752,11 @@ function addComponent(itemid, type, elem = "dummy") {
             + replaceBannerImg
             + '</div>'
             + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox 
+            + shopOpeningHrCheckBox
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox 
+            + shopLocationCheckBox
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5491,40 +5491,40 @@ function saveNewStore(itemid, createNewItem) {
     // } else {
 
     var errorInfo = "";
-    var storename= localStorage.getItem("storename");
+    var storename = localStorage.getItem("storename");
     var bannerhtml = document.querySelector(".shopTopBanner").innerHTML;
-    var displayhoursflag = document.querySelector(".showStoreHr").checked ? '1': '0' ;
+    var displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
     var hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
     var availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
 
-    if (document.querySelector(".showStoreAvail").checked){
-        if (availabilityinfo == ""){
-            errorInfo = errorInfo + "Hours availability is checked but information is not provided."+ "<br>";
-        }        
+    if (document.querySelector(".showStoreAvail").checked) {
+        if (availabilityinfo == "") {
+            errorInfo = errorInfo + "Hours availability is checked but information is not provided." + "<br>";
+        }
     }
-   
-    var displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1': '0' ;
+
+    var displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     var maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
     var uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
 
-    if (document.querySelector(".showStoreAddr").checked){
-        if (uselocationfromaddress == ""){
-            errorInfo = errorInfo + "Location address is checked but information is not provided."+ "<br>";
-        }        
+    if (document.querySelector(".showStoreAddr").checked) {
+        if (uselocationfromaddress == "") {
+            errorInfo = errorInfo + "Location address is checked but information is not provided." + "<br>";
+        }
     }
 
     var allItems = document.querySelectorAll(".storeItemDivCls");
-    for(i =0; i <allItems.length; i++ ){
-        if (allItems[i].querySelector('.itemName').innerHTML == ""){
-            errorInfo = errorInfo + "Name has not been provided for one or more items added."+ "<br>";
+    for (i = 0; i < allItems.length; i++) {
+        if (allItems[i].querySelector('.itemName').innerHTML == "") {
+            errorInfo = errorInfo + "Name has not been provided for one or more items added." + "<br>";
             break;
         }
     }
 
-    if (errorInfo != ""){
+    if (errorInfo != "") {
         document.querySelector(".shopSmErr").style.display = "block";
         document.querySelector(".shopSmErr").innerHTML = errorInfo;
-        
+
         //document.getElementByClassName("shopSmErr").style.display = "block";
         //document.getElementByClassName("shopSmErr").innerHTML = errorInfo;
         return;
@@ -5532,7 +5532,6 @@ function saveNewStore(itemid, createNewItem) {
 
     var category = localStorage.getItem("storetype");
     var categoryseq = localStorage.getItem("storecatsequence");
-    var titleseq = 1;
     var title = storename;
     var titleseq = 1;
     var subcategory = "";
@@ -5541,7 +5540,13 @@ function saveNewStore(itemid, createNewItem) {
     var description = "";
     var writer = "";
     var keywords = "";
-    var discontinue = "1";
+    var discontinue = "0";
+
+    var itemprice = "";
+    var itemimages = "";
+    var itemdescription = "";
+
+
     var StrFunction = "SubmitForReview";
 
 
@@ -5562,44 +5567,25 @@ function saveNewStore(itemid, createNewItem) {
             keywords: keywords,
             discontinue: discontinue,
             createNewItem: createNewItem,
-            itemprice: "",
-            itemimages:"",
-            itemdescription:"",
-            displaylocationflag:displaylocationflag,
+            itemprice: itemprice,
+            itemimages: itemimages,
+            itemdescription: itemdescription,
+            displaylocationflag: displaylocationflag,
             maplocationcoordinates: maplocationcoordinates,
             address: "",
-            uselocationfromaddress:uselocationfromaddress,
+            uselocationfromaddress: uselocationfromaddress,
             coordinatesfromaddress: "",
             displayhoursflag: displayhoursflag,
             hourshtml: hourshtml,
             availabilityinfo: availabilityinfo,
             storename: storename,
-            bannerhtml:bannerhtml,
+            bannerhtml: bannerhtml,
             usrfunction: StrFunction
 
         },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
-            //alert("Inside login success retstatus =" + retstatus);
-            //console.log( "Inside updateItem success retstatus =" + retstatus);
-
-            if (retstatus == "err") {
-                //alert("Please relogin");
-                goToLogin();
-            }
-
-            sessionStorage.setItem("itemsList", null);
-            //sessionStorage.setItem("itemList", null);
-            getItemsList();
-            if (itemid == "") {
-                //showMdaItems();
-
-            } else {
-                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
-            }
-            //displayCart();
-
         },
         error: function (xhr, status, error) {
             if (!itemid == "") {
@@ -5609,90 +5595,71 @@ function saveNewStore(itemid, createNewItem) {
     });
 
 
+    for (i = 0; i < allItems.length; i++) {
 
+        title = allItems[i].querySelector('.itemName').innerHTML;
+        titleseq = 2 + i;
 
+        itemprice = allItems[i].querySelector('.itemPrice').innerHTML;
+        itemimages = allItems[i].querySelector('.itemImageshow-container').innerHTML;
+        itemdescription = allItems[i].querySelector('.itemDescription').innerHTML;
 
+        hourshtml = "";
+        availabilityinfo = "";
+        maplocationcoordinates = "";
+        uselocationfromaddress = "";
+        bannerhtml = "";
 
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            data: {
+                usremail: usremail,
+                itemid: itemid,
+                title: title,
+                titleseq: titleseq,
+                category: category,
+                categoryseq: categoryseq,
+                subcategory: subcategory,
+                subcategoryseq: subcategoryseq,
+                shortdescription: shortdescription,
+                description: description,
+                writer: writer,
+                keywords: keywords,
+                discontinue: discontinue,
+                createNewItem: createNewItem,
+                itemprice: itemprice,
+                itemimages: itemimages,
+                itemdescription: itemdescription,
+                displaylocationflag: displaylocationflag,
+                maplocationcoordinates: maplocationcoordinates,
+                address: "",
+                uselocationfromaddress: uselocationfromaddress,
+                coordinatesfromaddress: "",
+                displayhoursflag: displayhoursflag,
+                hourshtml: hourshtml,
+                availabilityinfo: availabilityinfo,
+                storename: storename,
+                bannerhtml: bannerhtml,
+                usrfunction: StrFunction
 
-    document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = red>" + " " + "</font> ";
-
-    title = document.getElementById("title-" + itemid).value;
-    titleseq = 5;
-    category = document.getElementById("category-" + itemid).value;
-    categoryseq = document.getElementById("categoryseq-" + itemid).value;
-    subcategory = document.getElementById("subcategory-" + itemid).value;
-    subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
-    shortdescription = "";
-
-    writer = "";
-    keywords = "";
-    discontinue = "1";
-
-    description = document.getElementById("description-" + itemid).innerHTML;
-   
-    var StrFunction = "UpdateItem";
-
-    title = title.replaceAll("'", "''");
-    category = category.replaceAll("'", "''");
-    subcategory = subcategory.replaceAll("'", "''");
-    shortdescription = shortdescription.replace(/"/g, '\'');
-    shortdescription = shortdescription.replaceAll("'", "''");
-    description = description.replaceAll("'", "''");
-    //let regex = /\\/g;
-    description = description.replace(/\\/g, "\\\\");
-
-    writer = writer.replaceAll("'", "''");
-    keywords = keywords.replaceAll("'", "''");
-
-
-    $.ajax({
-        url: the.hosturl + '/php/process.php',
-        data: {
-            usremail: usremail,
-            itemid: itemid,
-            title: title,
-            titleseq: titleseq,
-            category: category,
-            categoryseq: categoryseq,
-            subcategory: subcategory,
-            subcategoryseq: subcategoryseq,
-            shortdescription: shortdescription,
-            description: description,
-            writer: writer,
-            keywords: keywords,
-            discontinue: discontinue,
-            createNewItem: createNewItem,
-            usrfunction: StrFunction
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (retstatus) {
-            //alert("Inside login success retstatus =" + retstatus);
-            //console.log( "Inside updateItem success retstatus =" + retstatus);
-
-            if (retstatus == "err") {
-                //alert("Please relogin");
-                goToLogin();
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (retstatus) {
+                if (i == allItems.length - 1) {
+                    sessionStorage.setItem("itemsList", null);
+                    getItemsList();
+                }
+            },
+            error: function (xhr, status, error) {
+                if (!itemid == "") {
+                    document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+                }
             }
+        });
+    }
 
-            sessionStorage.setItem("itemsList", null);
-            //sessionStorage.setItem("itemList", null);
-            getItemsList();
-            if (itemid == "") {
-                //showMdaItems();
 
-            } else {
-                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
-            }
-            //displayCart();
-
-        },
-        error: function (xhr, status, error) {
-            if (!itemid == "") {
-                document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
-            }
-        }
-    });
 }
 
 function updateInfo(data) {
@@ -6631,8 +6598,8 @@ function showBanner() {
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
         document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button> <div class="shopSmErr displayNone redMsg"></div>' +
-        "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Approval</button>" +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
+            "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Approval</button>" +
+            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
 
     }, 800);
 
@@ -7621,11 +7588,11 @@ function tempSelectStoreType() {
     document.getElementById("selectStoreTypeDivId").style.display = "block";
 }
 
-function categoryClicked(categoryName) {
+function categoryClicked(categoryNameOrig) {
     var tf = JSON.parse(sessionStorage.getItem("categoryList"));
     var rows = JSON.parse(tf);
-    if (categoryName != "") {
-        categoryName = categoryName.toUpperCase();
+    if (categoryNameOrig != "") {
+        categoryName = categoryNameOrig.toUpperCase();
         rows = rows.filter(function (entry) {
             return entry.category.toUpperCase() == categoryName;
         });
@@ -7634,9 +7601,9 @@ function categoryClicked(categoryName) {
     var categorySeq = rows[0].categoryseq;
 
     localStorage.setItem("storecatsequence", categorySeq);
-    localStorage.setItem("storetype", categoryName);
+    localStorage.setItem("storetype", categoryNameOrig);
 
-    var itemstr = categoryName + "/" + rows[0].title;
+    var itemstr = categoryNameOrig + "/" + rows[0].title;
     itemstr = itemstr.replaceAll(" ", "-");
     customizeShop(itemstr);
 
@@ -8525,13 +8492,13 @@ function openShopTab(evt, shopTabId) {
     }
 }
 
-function deselectOtherInputCheckBox(elem){
+function deselectOtherInputCheckBox(elem) {
     //elem.checked = false;
-    
+
     parent = elem.parentElement.parentElement.parentElement;
     var allInputCheckBoxes = parent.querySelectorAll("input");
-    for(i=0; i <allInputCheckBoxes.length; i++ ){
-        if (allInputCheckBoxes[i] != elem){
+    for (i = 0; i < allInputCheckBoxes.length; i++) {
+        if (allInputCheckBoxes[i] != elem) {
             allInputCheckBoxes[i].checked = false;
         }
     }
