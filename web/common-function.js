@@ -32,7 +32,7 @@ var the = {
 var itemImageIndex = 1;
 var last_focused_div_id;
 
-var allowTogglePreview = "<button onclick='toggleSecPreview(this)'> Toggle Preview </button>";
+var allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
 
@@ -3426,187 +3426,13 @@ function getItem(itemstr) {
         success: function (response) {
 
             tags = JSON.parse(response);
-            var itemid = tags[0].itemid;
-            var category = tags[0].category;
-            var categoryseq = tags[0].categoryseq;
-            var subcategory = tags[0].subcategory;
-            var subcategoryseq = tags[0].subcategoryseq;
-            var title = tags[0].title;
-            var titleseq = tags[0].titleseq;
-            var shortdescription = tags[0].shortdescription;
-            var description = tags[0].description;
-            var writer = tags[0].writer;
-            var keywords = tags[0].keywords;
-            var discontinue = tags[0].discontinue;
-
-
-            var path = window.location.pathname;
-            var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
-
-            //START: Find the next item to be put at the bottom of the page
-
-            var tf = JSON.parse(sessionStorage.getItem("itemsList"));
-
-            var nextItemTitle = "";
-            var nextItemTitleURL = "";
-            var allRows = JSON.parse(tf);
-
-            var rows = allRows.filter(function (entry) {
-                return entry.discontinue == "0" && entry.category == category;
-            });
-
-            var path = window.location.pathname;
-
-            var storeRow = allRows.filter(function (entry) {
-                return entry.discontinue == "0" && entry.title == tags[0].storename;
-            });
-
-            //var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
-
-            // for (var i = 0; i < rows.length; i++) {
-            //     if (rows[i].itemid == itemid) {
-
-            //         if (rows[i + 1] != undefined) {
-            //             itemName = rows[i + 1].title;
-            //             itemName = itemName.replaceAll(" ", "-");
-            //             nextSubpath = rows[i + 1].subcategory;
-            //             nextSubpath = nextSubpath.replaceAll(" ", "-");
-            //             nextcategory = (rows[i + 1].category).toLowerCase();
-            //             nextcategory = nextcategory.replaceAll(" ", "-");
-            //             //nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
-            //             nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
-
-            //             nextItemTitle = rows[i + 1].title;
-            //         }
-
-            //         break;
-            //     }
-            // }
-            //END: Find the next item to be put at the bottom of the page
-
-
-            var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
-            var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
-
-            var newHTML = "<div classXX = 'songContainer' >" +
-                '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
-                '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
-                '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-            newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
-
-            if (localStorage.getItem("userLoggedIn") == "n") {
-
-            } else if (localStorage.getItem("userLvl") == "9") {
-
-                sessionStorage.setItem("data-description", description);
-
-                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+            if (tags[0].title == "Create My Store"){
+                getCreateStore(tags);
+            }else if (tags[0].title != tags[0].storename) {
+                getShopItem(tags);
+            }else{
+                getFullShopDetails(tags, itemstr);
             }
-            newHTML = newHTML + '<div classXX="songDeltsNImg">';
-            newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
-
-
-            if (tags[0].itemimages != undefined) {
-                if (tags[0].itemimages != "") {
-                    newHTML = newHTML   
-                             + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
-                }
-            }
-
-            newHTML = newHTML + '<div class="container-justify-grid-300x300"><div>';
-
-            if (tags[0].itemprice != undefined) {
-                if (tags[0].itemprice != "") {
-                    newHTML = newHTML   
-                             + '<div class="itemPrice ">' +  tags[0].itemprice + '</div>';
-                }
-            }
-
-            if (tags[0].itemdescription != undefined) {
-                if (tags[0].itemdescription != "") {
-                    newHTML = newHTML   
-                             + '<div class="itemDescription ">' +  tags[0].itemdescription + '</div>';
-                }
-            }
-            
-            newHTML = newHTML + '</div>';
-
-            if (storeRow[0].displaylocationflag != undefined) {
-                if (storeRow[0].displaylocationflag != "xyx") {
-                    newHTML = newHTML   
-                             + '<div id="storeMapDivId" >' + '</div>';
-
-                    
-                    setTimeout(function () {
-                        var latitude = 28.2683684;
-                        var longitude = 78.6824194000001;
-                        //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                        const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                        L.marker([latitude, longitude]).addTo(map);
-                    }, 800);
-
-                }
-            }
-            if (storeRow[0].displayhoursflag != undefined) {
-                if (storeRow[0].displayhoursflag != "xyz") {
-                    newHTML = newHTML   
-                             + '<div>' + storeRow[0].hourshtml + '</div>';
-                }
-            }
-            newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
-            // if (description == undefined) {
-            //     newHTML = "<div class = 'songContainer' >Page not found</div>";
-            // }
-
-            // if (nextItemTitle != "") {
-            //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
-
-            // }
-
-            newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
-
-            document.getElementById("itemDivId").innerHTML = newHTML;
-            refreshCaptcha();
-            showcategory(category);
-            //START: Change the background color of the active item link 
-            var elemId = "itemDiv-" + itemid;
-            document.getElementById(elemId).style.backgroundColor = "orange";
-            //END: Change the background color of the active item link
-
-            var metaDesc = shortdescription;
-
-            var metaKey = category + "," + subcategory + "," + title + "," + keywords;
-
-
-            document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
-            document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
-            //document.title = category + " " + subcategory + ". " + title ;
-            document.title = category + " - " + title;
-
-            sessionStorage.setItem("lastUrl", window.location.href);
-            // if (localStorage.getItem("cookieAccepted") == "y"){
-            //     document.getElementById("cookie-div-id").style.display = "none"
-            // }
-
-            const structuredData = {
-                "@context": "https://schema.org/",
-                "@type": "WebSite",
-                "name": title,
-                "url": "https://smshopify.com/" + itemstr,
-                "datePublished": "2022-07-10",
-                "description": metaDesc,
-                "thumbnailUrl": "https://smshopify.com/images/banner.png"
-            };
-
-            let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
-            jsonLdScript.innerHTML = JSON.stringify(structuredData);
-
-
-            $('html, body').animate({
-                scrollTop: $("#itemDivId").offset().top - 40
-            }, 100);
-
         },
         error: function (xhr, status, error) {
             //console.log(error);
@@ -3615,23 +3441,486 @@ function getItem(itemstr) {
     });
 }
 
+function getCreateStore(tags, itemstr) {
+    var itemid = tags[0].itemid;
+    var category = tags[0].category;
+    var categoryseq = tags[0].categoryseq;
+    var subcategory = tags[0].subcategory;
+    var subcategoryseq = tags[0].subcategoryseq;
+    var title = tags[0].title;
+    var titleseq = tags[0].titleseq;
+    var shortdescription = tags[0].shortdescription;
+    var description = tags[0].description;
+    var writer = tags[0].writer;
+    var keywords = tags[0].keywords;
+    var discontinue = tags[0].discontinue;
+
+
+    var path = window.location.pathname;
+    var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+
+    //START: Find the next item to be put at the bottom of the page
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
+    var nextItemTitle = "";
+    var nextItemTitleURL = "";
+    var allRows = JSON.parse(tf);
+
+    var rows = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.category == category;
+    });
+
+    var path = window.location.pathname;
+
+    var storeRow = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.title == tags[0].storename;
+    });
+
+    var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
+    var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
+
+    var newHTML = "<div classXX = 'songContainer' >" +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
+        '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+
+    if (localStorage.getItem("userLoggedIn") == "n") {
+
+    } else if (localStorage.getItem("userLvl") == "9") {
+
+        sessionStorage.setItem("data-description", description);
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+    }
+    newHTML = newHTML + '<div classXX="songDeltsNImg">';
+    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" ;
+
+
+
+    if (tags[0].description != undefined) {
+        if (tags[0].description != "") {
+            newHTML = newHTML
+                + '<div class="itemDescription ">' + tags[0].description + '</div>';
+        }
+    }
+
+
+    newHTML = newHTML  + "</div>" + "</div>";
+
+    newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + "</div> <br> <br>";
+
+
+    newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
+
+    document.getElementById("itemDivId").innerHTML = newHTML;
+    refreshCaptcha();
+    showcategory(category);
+    //START: Change the background color of the active item link 
+    var elemId = "itemDiv-" + itemid;
+    document.getElementById(elemId).style.backgroundColor = "orange";
+    //END: Change the background color of the active item link
+
+    var metaDesc = shortdescription;
+
+    var metaKey = category + "," + subcategory + "," + title + "," + keywords;
+
+
+    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
+    document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+    //document.title = category + " " + subcategory + ". " + title ;
+    document.title = category + " - " + title;
+
+    sessionStorage.setItem("lastUrl", window.location.href);
+    // if (localStorage.getItem("cookieAccepted") == "y"){
+    //     document.getElementById("cookie-div-id").style.display = "none"
+    // }
+
+    const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "WebSite",
+        "name": title,
+        "url": "https://smshopify.com/" + itemstr,
+        "datePublished": "2022-07-10",
+        "description": metaDesc,
+        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+    };
+
+    let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+    jsonLdScript.innerHTML = JSON.stringify(structuredData);
+
+
+    $('html, body').animate({
+        scrollTop: $("#itemDivId").offset().top - 40
+    }, 100);
+
+}
+
+function getShopItem(tags, itemstr) {
+
+    var itemid = tags[0].itemid;
+    var category = tags[0].category;
+    var categoryseq = tags[0].categoryseq;
+    var subcategory = tags[0].subcategory;
+    var subcategoryseq = tags[0].subcategoryseq;
+    var title = tags[0].title;
+    var titleseq = tags[0].titleseq;
+    var shortdescription = tags[0].shortdescription;
+    var description = tags[0].description;
+    var writer = tags[0].writer;
+    var keywords = tags[0].keywords;
+    var discontinue = tags[0].discontinue;
+
+
+    var path = window.location.pathname;
+    var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+
+    //START: Find the next item to be put at the bottom of the page
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
+    var nextItemTitle = "";
+    var nextItemTitleURL = "";
+    var allRows = JSON.parse(tf);
+
+    var rows = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.category == category;
+    });
+
+    var path = window.location.pathname;
+
+    var storeRow = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.title == tags[0].storename;
+    });
+
+    var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
+    var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
+
+    var newHTML = "<div classXX = 'songContainer' >" +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
+        '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+
+    if (localStorage.getItem("userLoggedIn") == "n") {
+
+    } else if (localStorage.getItem("userLvl") == "9") {
+
+        sessionStorage.setItem("data-description", description);
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+    }
+    newHTML = newHTML + '<div classXX="songDeltsNImg">';
+    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
+
+
+    if (tags[0].itemimages != undefined) {
+        if (tags[0].itemimages != "") {
+            newHTML = newHTML
+                + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
+        }
+    }
+
+    newHTML = newHTML + '<div class="container-justify-grid-300x300"><div>';
+
+    if (tags[0].itemprice != undefined) {
+        if (tags[0].itemprice != "") {
+            newHTML = newHTML
+                + '<div class="itemPrice ">' + tags[0].itemprice + '</div>';
+        }
+    }
+
+    if (tags[0].itemdescription != undefined) {
+        if (tags[0].itemdescription != "") {
+            newHTML = newHTML
+                + '<div class="itemDescription ">' + tags[0].itemdescription + '</div>';
+        }
+    }
+
+    newHTML = newHTML + '</div>';
+
+    if (storeRow[0].displaylocationflag != undefined) {
+        if (storeRow[0].displaylocationflag != "xyx") {
+            newHTML = newHTML
+                + '<div id="storeMapDivId" >' + '</div>';
+
+
+            setTimeout(function () {
+                var latitude = 28.2683684;
+                var longitude = 78.6824194000001;
+                //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                L.marker([latitude, longitude]).addTo(map);
+            }, 800);
+
+        }
+    }
+    if (storeRow[0].displayhoursflag != undefined) {
+        if (storeRow[0].displayhoursflag != "xyz") {
+            newHTML = newHTML
+                + '<div>' + storeRow[0].hourshtml + '</div>';
+        }
+    }
+    newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
+    // if (description == undefined) {
+    //     newHTML = "<div class = 'songContainer' >Page not found</div>";
+    // }
+
+    // if (nextItemTitle != "") {
+    //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
+
+    // }
+
+    newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
+
+    document.getElementById("itemDivId").innerHTML = newHTML;
+    refreshCaptcha();
+    showcategory(category);
+    //START: Change the background color of the active item link 
+    var elemId = "itemDiv-" + itemid;
+    document.getElementById(elemId).style.backgroundColor = "orange";
+    //END: Change the background color of the active item link
+
+    var metaDesc = shortdescription;
+
+    var metaKey = category + "," + subcategory + "," + title + "," + keywords;
+
+
+    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
+    document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+    //document.title = category + " " + subcategory + ". " + title ;
+    document.title = category + " - " + title;
+
+    sessionStorage.setItem("lastUrl", window.location.href);
+    // if (localStorage.getItem("cookieAccepted") == "y"){
+    //     document.getElementById("cookie-div-id").style.display = "none"
+    // }
+
+    const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "WebSite",
+        "name": title,
+        "url": "https://smshopify.com/" + itemstr,
+        "datePublished": "2022-07-10",
+        "description": metaDesc,
+        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+    };
+
+    let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+    jsonLdScript.innerHTML = JSON.stringify(structuredData);
+
+
+    $('html, body').animate({
+        scrollTop: $("#itemDivId").offset().top - 40
+    }, 100);
+
+
+}
+
+function getFullShopDetails(tags, itemstr) {
+
+    var itemid = tags[0].itemid;
+    var category = tags[0].category;
+    var categoryseq = tags[0].categoryseq;
+    var subcategory = tags[0].subcategory;
+    var subcategoryseq = tags[0].subcategoryseq;
+    var title = tags[0].title;
+    var titleseq = tags[0].titleseq;
+    var shortdescription = tags[0].shortdescription;
+    var description = tags[0].description;
+    var writer = tags[0].writer;
+    var keywords = tags[0].keywords;
+    var discontinue = tags[0].discontinue;
+
+
+    var path = window.location.pathname;
+    var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+
+    //START: Find the next item to be put at the bottom of the page
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
+    var nextItemTitle = "";
+    var nextItemTitleURL = "";
+    var allRows = JSON.parse(tf);
+
+    var rows = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.category == category;
+    });
+
+    var path = window.location.pathname;
+
+    var storeItems = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title != tags[0].storename;
+    });
+
+
+    var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
+    var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
+
+    var newHTML = "<div classXX = 'songContainer' >" +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
+        '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+
+    if (localStorage.getItem("userLoggedIn") == "n") {
+
+    } else if (localStorage.getItem("userLvl") == "9") {
+
+        sessionStorage.setItem("data-description", description);
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
+
+        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+
+    }
+    newHTML = newHTML + '<div classXX="songDeltsNImg">';
+    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
+
+    if (tags[0].bannerhtml != undefined) {
+        if (tags[0].bannerhtml != "") {
+            newHTML = newHTML
+                + '<div class="slides">' + tags[0].bannerhtml + '</div>';
+        }
+    }
+    
+    if (tags[0].displaylocationflag != undefined) {
+        if (tags[0].displaylocationflag != "xyx") {
+            newHTML = newHTML
+                + '<div id="storeMapDivId" >xxx<br><br><br>' + '</div>';
+
+
+            setTimeout(function () {
+                var latitude = 28.2683684;
+                var longitude = 78.6824194000001;
+                //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                L.marker([latitude, longitude]).addTo(map);
+            }, 800);
+
+        }
+    }
+    if (tags[0].displayhoursflag != undefined) {
+        if (tags[0].displayhoursflag != "xyz") {
+            newHTML = newHTML
+                + '<div>' + tags[0].hourshtml + '</div>';
+        }
+    }
+
+    for(i=0; i < storeItems.length; i++){
+        newHTML = newHTML + '<div classXX="container-justify-grid-300x300"><div>';
+        
+        if (storeItems[i].itemimages != undefined) {
+            if (storeItems[i].itemimages != "") {
+                newHTML = newHTML + '<div class="itemImageshow-container"><div class="itmImgContainer">' + storeItems[i].itemimages + '</div></div>';
+                newHTML = newHTML + '</div>';
+            }
+        }
+
+
+
+        if (storeItems[i].itemprice != undefined) {
+            if (storeItems[i].itemprice != "") {
+                newHTML = newHTML
+                    + '<div><div class="itemPrice ">' + storeItems[i].itemprice + '</div>';
+            }
+        }
+
+        if (storeItems[i].itemdescription != undefined) {
+            if (storeItems[i].itemdescription != "") {
+                newHTML = newHTML
+                    + '<div class="itemDescription ">' + storeItems[i].itemdescription + '</div>';
+            }
+        }
+
+        newHTML = newHTML + '</div>';
+
+    }
+
+    newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
+    // if (description == undefined) {
+    //     newHTML = "<div class = 'songContainer' >Page not found</div>";
+    // }
+
+    // if (nextItemTitle != "") {
+    //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
+
+    // }
+
+    newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
+
+    document.getElementById("itemDivId").innerHTML = newHTML;
+    refreshCaptcha();
+    showcategory(category);
+    //START: Change the background color of the active item link 
+    var elemId = "itemDiv-" + itemid;
+    document.getElementById(elemId).style.backgroundColor = "orange";
+    //END: Change the background color of the active item link
+
+    var metaDesc = shortdescription;
+
+    var metaKey = category + "," + subcategory + "," + title + "," + keywords;
+
+
+    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
+    document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+    //document.title = category + " " + subcategory + ". " + title ;
+    document.title = category + " - " + title;
+
+    sessionStorage.setItem("lastUrl", window.location.href);
+    // if (localStorage.getItem("cookieAccepted") == "y"){
+    //     document.getElementById("cookie-div-id").style.display = "none"
+    // }
+
+    const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "WebSite",
+        "name": title,
+        "url": "https://smshopify.com/" + itemstr,
+        "datePublished": "2022-07-10",
+        "description": metaDesc,
+        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+    };
+
+    let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+    jsonLdScript.innerHTML = JSON.stringify(structuredData);
+
+
+    $('html, body').animate({
+        scrollTop: $("#itemDivId").offset().top - 40
+    }, 100);
+
+
+}
+
 //REF:https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2-lat1);  // deg2rad below
-    var dLon = deg2rad(lon2-lon1); 
-    var a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2)
-      ; 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c; // Distance in km
     return d;
-  }
-  
-  function deg2rad(deg) {
-    return deg * (Math.PI/180)
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
 }
 
 function editItem(btn) {
@@ -3903,8 +4192,8 @@ function editItem(btn) {
 
     newHTML = newHTML +
         "<div class = 'saveChangesDivCls'>" +
-        "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','n') >Save Changes</button><br>" +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','y') >Save As New Item</button><br>" +
+        "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
+        "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','y') >Save As New Item</button><br>" +
         "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
         "</div>" +
         "<br><br><br><br><br><br><br><br><br></div></div>";
@@ -5343,7 +5632,7 @@ function refreshPage() {
     window.location.href = path;
 }
 
-function updateItem(itemid, createNewItem) {
+function updateDescription(itemid, createNewItem) {
 
     var usremail = localStorage.getItem("userEmail");
 
@@ -5448,7 +5737,7 @@ function updateItem(itemid, createNewItem) {
             return;
         }
     }
-    var StrFunction = "UpdateItem";
+    var StrFunction = "UpdateDesc";
 
     title = title.replaceAll("'", "''");
     category = category.replaceAll("'", "''");
@@ -5554,7 +5843,7 @@ function saveNewStore(itemid, createNewItem) {
 
     var errorInfo = "";
     var storename = localStorage.getItem("storename");
-    var bannerhtml = document.querySelector(".shopTopBanner").innerHTML;
+    var bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
     var displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
     var hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
     var availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
@@ -7907,7 +8196,7 @@ function customizeShop(itemstr) {
             newHTML = newHTML + "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
 
             newHTML = newHTML + "<div class = 'saveChangesDivCls'>";
-            //"<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','n') >Save Changes</button><br>" +
+            //"<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
             newHTML = newHTML + "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Approval</button><br>" +
                 "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
                 "</div>" +

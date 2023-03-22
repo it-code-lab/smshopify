@@ -344,3 +344,7 @@
     flex-direction: column;
     display: flex;
 }
+
+.togglePreviewBtn{
+    display: none;
+}
