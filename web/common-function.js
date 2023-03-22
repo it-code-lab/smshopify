@@ -3449,34 +3449,39 @@ function getItem(itemstr) {
 
             var nextItemTitle = "";
             var nextItemTitleURL = "";
-            var rows = JSON.parse(tf);
+            var allRows = JSON.parse(tf);
 
-            rows = rows.filter(function (entry) {
+            var rows = allRows.filter(function (entry) {
                 return entry.discontinue == "0" && entry.category == category;
             });
 
             var path = window.location.pathname;
-            var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
 
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].itemid == itemid) {
+            var storeRow = allRows.filter(function (entry) {
+                return entry.discontinue == "0" && entry.title == tags[0].storename;
+            });
 
-                    if (rows[i + 1] != undefined) {
-                        itemName = rows[i + 1].title;
-                        itemName = itemName.replaceAll(" ", "-");
-                        nextSubpath = rows[i + 1].subcategory;
-                        nextSubpath = nextSubpath.replaceAll(" ", "-");
-                        nextcategory = (rows[i + 1].category).toLowerCase();
-                        nextcategory = nextcategory.replaceAll(" ", "-");
-                        //nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
-                        nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
+            //var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
 
-                        nextItemTitle = rows[i + 1].title;
-                    }
+            // for (var i = 0; i < rows.length; i++) {
+            //     if (rows[i].itemid == itemid) {
 
-                    break;
-                }
-            }
+            //         if (rows[i + 1] != undefined) {
+            //             itemName = rows[i + 1].title;
+            //             itemName = itemName.replaceAll(" ", "-");
+            //             nextSubpath = rows[i + 1].subcategory;
+            //             nextSubpath = nextSubpath.replaceAll(" ", "-");
+            //             nextcategory = (rows[i + 1].category).toLowerCase();
+            //             nextcategory = nextcategory.replaceAll(" ", "-");
+            //             //nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
+            //             nextItemTitleURL = myUrl + "items/" + nextcategory + "/" + itemName.toLowerCase();
+
+            //             nextItemTitle = rows[i + 1].title;
+            //         }
+
+            //         break;
+            //     }
+            // }
             //END: Find the next item to be put at the bottom of the page
 
 
@@ -3495,32 +3500,71 @@ function getItem(itemstr) {
 
                 sessionStorage.setItem("data-description", description);
 
-                //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + category + "'," + "'" + categoryseq + "'," + "'" + subcategory + "',"+ "'" + subcategoryseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
-
                 newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
             }
             newHTML = newHTML + '<div classXX="songDeltsNImg">';
-            newHTML = newHTML + '<div classXX="songDelts">'
+            newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
 
 
-            if (description != undefined) {
-                if (description != "") {
-                    newHTML = newHTML + "" + "<div class = 'songLyrics' >" + description + "</div>";
+            if (tags[0].itemimages != undefined) {
+                if (tags[0].itemimages != "") {
+                    newHTML = newHTML   
+                             + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
                 }
             }
 
-            newHTML = newHTML + "</div>";
-            newHTML = newHTML + "</div>";
-            if (description == undefined) {
-                newHTML = "<div class = 'songContainer' >Page not found</div>";
+            newHTML = newHTML + '<div class="container-justify-grid-300x300"><div>';
+
+            if (tags[0].itemprice != undefined) {
+                if (tags[0].itemprice != "") {
+                    newHTML = newHTML   
+                             + '<div class="itemPrice ">' +  tags[0].itemprice + '</div>';
+                }
             }
 
-            if (nextItemTitle != "") {
-                newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
-
+            if (tags[0].itemdescription != undefined) {
+                if (tags[0].itemdescription != "") {
+                    newHTML = newHTML   
+                             + '<div class="itemDescription ">' +  tags[0].itemdescription + '</div>';
+                }
             }
+            
+            newHTML = newHTML + '</div>';
 
-            newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Leave a Comment</b>' + document.getElementById("sndmsgdivid").innerHTML;
+            if (storeRow[0].displaylocationflag != undefined) {
+                if (storeRow[0].displaylocationflag != "xyx") {
+                    newHTML = newHTML   
+                             + '<div id="storeMapDivId" >' + '</div>';
+
+                    
+                    setTimeout(function () {
+                        var latitude = 28.2683684;
+                        var longitude = 78.6824194000001;
+                        //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                        const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                        L.marker([latitude, longitude]).addTo(map);
+                    }, 800);
+
+                }
+            }
+            if (storeRow[0].displayhoursflag != undefined) {
+                if (storeRow[0].displayhoursflag != "xyz") {
+                    newHTML = newHTML   
+                             + '<div>' + storeRow[0].hourshtml + '</div>';
+                }
+            }
+            newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
+            // if (description == undefined) {
+            //     newHTML = "<div class = 'songContainer' >Page not found</div>";
+            // }
+
+            // if (nextItemTitle != "") {
+            //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
+
+            // }
+
+            newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
 
             document.getElementById("itemDivId").innerHTML = newHTML;
             refreshCaptcha();
@@ -3571,6 +3615,24 @@ function getItem(itemstr) {
     });
 }
 
+//REF:https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+  
+  function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
 
 function editItem(btn) {
     itemid = btn.dataset.itemid;

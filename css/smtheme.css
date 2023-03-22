@@ -18,3 +18,31 @@
     background-color: #3498DB;
     color: #fff;
 }
+
+.container-textalign-center{
+    text-align: center;
+}
+
+/* https://www.freecodecamp.org/news/how-to-make-your-html-responsive-by-adding-a-single-line-of-css-2a62de81e431/ */
+/* justify inner div center align distribute */
+
+.container-justify-grid-400x400 {  
+    display: grid;  
+    grid-gap: 5px;  
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-rows: repeat(100, 400px);  
+}
+
+.container-justify-grid-300x300 {  
+    display: grid;  
+    grid-gap: 20px;  
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(2, 300px);  
+}
+
+.container-justify-grid-200x200 {  
+    display: grid;  
+    grid-gap: 5px;  
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: repeat(100, 200px);  
+}
