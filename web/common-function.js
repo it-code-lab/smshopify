@@ -3505,7 +3505,7 @@ function getCreateStore(tags, itemstr) {
     if (tags[0].description != undefined) {
         if (tags[0].description != "") {
             newHTML = newHTML
-                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
+                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge slide-in-left" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
         }
     }
 
@@ -4889,8 +4889,8 @@ function addComponent(itemid, type, elem = "dummy") {
 
         var htmlPartOrig = '<div class="storeNmChkDiv"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
             + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
-            + "\n" + '<div class="storeNameNotAvailable displayNone"></div>'
-            + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner ❯ </button></div>'
+            + "\n" + '<div class="storeNameNotAvailable displayNone scale-in-center" style="animation-duration: 0.2"></div>'
+            + "\n" + '<div class="storeNameAvailable displayNone scale-in-center" style="animation-duration: 0.2">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner ❯ </button></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -4947,7 +4947,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopBannerTabContentDivs
             + "</div>";
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -4956,6 +4956,11 @@ function addComponent(itemid, type, elem = "dummy") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
             if (elem == "addUnderSongLyrics") {
                 document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+
+                setTimeout(function () {
+                    document.querySelector('.shopTopBnrCls').classList.remove("scale-in-center");
+                }, 500);
+
             } else {
                 elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
             }
@@ -5157,13 +5162,22 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopItemTabContentDivs
             + "</div>";
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
         if (elem == "addUnderSongLyrics") {
             document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+
+
+            setTimeout(function () {
+                var allItems = document.querySelectorAll(".shopItemCls");
+                for (i = 0; i < allItems.length; i++) {
+                    allItems[i].classList.remove("scale-in-center");
+                }
+                
+            }, 500);
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -7977,6 +7991,9 @@ function categoryClicked(categoryNameOrig) {
     document.querySelector("#storeSelectedDivId").style.display = "block";
     document.querySelector("#selectStoreTypeDivId").style.display = "none";
 
+    setTimeout(function () {
+        document.querySelector('#storeSelectedDivId').classList.remove("slide-in-left");
+    }, 1000);    
 }
 
 

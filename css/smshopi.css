@@ -320,8 +320,8 @@
 .storeNameAvailable {
     padding: 10px;
     margin: 10px auto;
-    background-color: #18BC9C;
-    color: #fff;
+    /* background-color: #18BC9C; */
+    color: #000;
 }
 
 .storeNameNotAvailable {
