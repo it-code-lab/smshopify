@@ -26,6 +26,13 @@
     color: #fff;
 }
 
+.red_bg{
+    background-color: #E74C3C !important;
+}
+
+.red_font{
+    color: #E74C3C !important;
+}
 /**************TEXT ALIGNMENT******************/
 /*********************************************/
 
@@ -117,6 +124,20 @@
   .width_200px{
     width: 200px;
   }
+  /***************FONT SIZE**********************/
+  /****************************************** */
+  .fontsize_18px{
+    font-size: 18px;
+  }
+
+  /***************FONT SIZE**********************/
+  /****************************************** */
+  .font_family_style1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+
+
 
 /**************************BUTTONS***************************/
 /****REF: https://sharkcoder.com/visual/shapes************* */

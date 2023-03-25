@@ -99,6 +99,7 @@ var shopItemTabOptions = '<div class="shopTab">'
     + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
     + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
     + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>'
+    + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
     + '</div>';
 
 
@@ -118,7 +119,7 @@ var itemImagesDiv = '<div class="itemImageshow-container">'
 
 var addItmImagesDiv = "<label class='toolBarlabel'>Images</label>"
     + "<div class='existingItmImages'> </div>"
-    + "<input type='text' id='image-banner' style='display:none; width:95%; margin:auto;'  value=''>"
+    + "<input type='text' style='display:none; width:95%; margin:auto;'  value=''>"
     + "<div style='width: 100%'><br><input type='file' id='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='addImageToItemList(event)'>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
     + "<input id='replaceBannerImg' class='saveItmImgChangesBtn' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
@@ -143,8 +144,10 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="CloseItemCust" class="shopTabcontent">'
+    + '</div>'
+    
+    + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
-
 
 var revealSecColor = "<label class='toolBarlabel'>Change Banner Color</label>"
     + "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
@@ -251,7 +254,7 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
     + "</select>";
 
 var replaceBannerImg = "<label class='toolBarlabel'>Change Banner Image</label>"
-    + "<input type='text' id='image-banner' style='display:none; width:95%; margin:auto;'  value=''>"
+    + "<input type='text'  style='display:none; width:95%; margin:auto;'  value=''>"
     + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
     + "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='showImage(event)'>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
@@ -3185,7 +3188,7 @@ function checkURL() {
     }
 
     if (path.indexOf('items/') > 0) {
-        //var songtitle = path.replaceAll("/antaksharee/lyrics/","");
+        //var shoptitle = path.replaceAll("/antaksharee/lyrics/","");
 
         // if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
         //     document.getElementById("loaderDivId").style.display = "block";
@@ -3480,11 +3483,11 @@ function getCreateStore(tags, itemstr) {
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-    var newHTML = "<div classXX = 'songContainer' >" +
+    var newHTML = "<div classXX = 'shopContainer' >" +
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 class='font_family_style1' > " + title + "</h1></div>";
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
@@ -3497,15 +3500,15 @@ function getCreateStore(tags, itemstr) {
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
-    newHTML = newHTML + '<div classXX="songDeltsNImg">';
-    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" ;
+    newHTML = newHTML + '<div classXX="shopDeltsNImg">';
+    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >" ;
 
 
 
     if (tags[0].description != undefined) {
         if (tags[0].description != "") {
             newHTML = newHTML
-                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge slide-in-left" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
+                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
         }
     }
 
@@ -3605,11 +3608,11 @@ function getShopItem(tags, itemstr) {
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-    var newHTML = "<div classXX = 'songContainer' >" +
+    var newHTML = "<div classXX = 'shopContainer' >" +
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
@@ -3622,8 +3625,8 @@ function getShopItem(tags, itemstr) {
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
-    newHTML = newHTML + '<div classXX="songDeltsNImg">';
-    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
+    newHTML = newHTML + '<div classXX="shopDeltsNImg">';
+    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
 
     if (tags[0].itemimages != undefined) {
@@ -3676,7 +3679,7 @@ function getShopItem(tags, itemstr) {
     }
     newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
     // if (description == undefined) {
-    //     newHTML = "<div class = 'songContainer' >Page not found</div>";
+    //     newHTML = "<div class = 'shopContainer' >Page not found</div>";
     // }
 
     // if (nextItemTitle != "") {
@@ -3771,11 +3774,11 @@ function getFullShopDetails(tags, itemstr) {
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-    var newHTML = "<div classXX = 'songContainer' >" +
+    var newHTML = "<div classXX = 'shopContainer' >" +
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-    newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
@@ -3789,8 +3792,8 @@ function getFullShopDetails(tags, itemstr) {
         newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
-    newHTML = newHTML + '<div classXX="songDeltsNImg">';
-    newHTML = newHTML + '<div classXX="songDelts">' + "<div class = 'songLyrics' >" + "<div class = 'storeItemDivCls' >";
+    newHTML = newHTML + '<div classXX="shopDeltsNImg">';
+    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
     if (tags[0].bannerhtml != undefined) {
         if (tags[0].bannerhtml != "") {
@@ -3855,7 +3858,7 @@ function getFullShopDetails(tags, itemstr) {
 
     newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
     // if (description == undefined) {
-    //     newHTML = "<div class = 'songContainer' >Page not found</div>";
+    //     newHTML = "<div class = 'shopContainer' >Page not found</div>";
     // }
 
     // if (nextItemTitle != "") {
@@ -3959,7 +3962,7 @@ function editItem(btn) {
         }
     });
 
-    var newHTML = "<div class = 'songContainer' >";
+    var newHTML = "<div class = 'shopContainer' >";
     newHTML = newHTML + " ";
 
 
@@ -4887,10 +4890,10 @@ function addComponent(itemid, type, elem = "dummy") {
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
     } else if (type == "shopName1") {
 
-        var htmlPartOrig = '<div class="storeNmChkDiv"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
+        var htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
             + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
-            + "\n" + '<div class="storeNameNotAvailable displayNone scale-in-center" style="animation-duration: 0.2"></div>'
-            + "\n" + '<div class="storeNameAvailable displayNone scale-in-center" style="animation-duration: 0.2">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner ❯ </button></div>'
+            + "\n" + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
+            + "\n" + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -4954,12 +4957,15 @@ function addComponent(itemid, type, elem = "dummy") {
 
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
-            if (elem == "addUnderSongLyrics") {
-                document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+            if (elem == "addUndershopLyrics") {
+                document.querySelector('.shopLyrics').innerHTML = document.querySelector('.shopLyrics').innerHTML + contentToAdd;
 
                 setTimeout(function () {
-                    document.querySelector('.shopTopBnrCls').classList.remove("scale-in-center");
-                }, 500);
+                    var allItems = document.querySelectorAll(".shopTopBnrCls");
+                    for (i = 0; i < allItems.length; i++) {
+                        allItems[i].classList.remove("scale-in-center");
+                    }                
+                }, 500); 
 
             } else {
                 elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
@@ -5017,7 +5023,7 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5025,6 +5031,12 @@ function addComponent(itemid, type, elem = "dummy") {
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
             elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+            setTimeout(function () {
+                var allItems = document.querySelectorAll(".shopTopBnrCls");
+                for (i = 0; i < allItems.length; i++) {
+                    allItems[i].classList.remove("scale-in-center");
+                }                
+            }, 500); 
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -5077,7 +5089,7 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5085,6 +5097,12 @@ function addComponent(itemid, type, elem = "dummy") {
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
             elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+            setTimeout(function () {
+                var allItems = document.querySelectorAll(".shopTopBnrCls");
+                for (i = 0; i < allItems.length; i++) {
+                    allItems[i].classList.remove("scale-in-center");
+                }                
+            }, 500); 
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -5135,7 +5153,7 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + hdMeDiv 
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
-        var contentToAdd = "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5143,6 +5161,14 @@ function addComponent(itemid, type, elem = "dummy") {
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
             elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+
+            setTimeout(function () {
+                var allItems = document.querySelectorAll(".shopTopBnrCls");
+                for (i = 0; i < allItems.length; i++) {
+                    allItems[i].classList.remove("scale-in-center");
+                }                
+            }, 500); 
+
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -5163,20 +5189,19 @@ function addComponent(itemid, type, elem = "dummy") {
             + "</div>";
 
         var contentToAdd = "<div id= div-" + randomId + " class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
-        if (elem == "addUnderSongLyrics") {
-            document.querySelector('.songLyrics').innerHTML = document.querySelector('.songLyrics').innerHTML + contentToAdd;
+        if (elem == "addUndershopLyrics") {
+            document.querySelector('.shopLyrics').innerHTML = document.querySelector('.shopLyrics').innerHTML + contentToAdd;
 
 
             setTimeout(function () {
                 var allItems = document.querySelectorAll(".shopItemCls");
                 for (i = 0; i < allItems.length; i++) {
                     allItems[i].classList.remove("scale-in-center");
-                }
-                
+                }                
             }, 500);
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
@@ -6959,24 +6984,31 @@ function showBanner() {
     var elems_array = [...elems]; // converts NodeList to Array
 
     if (elems_array.length > 0) {
+        
+        refreshStoreName();
+        document.querySelector('.storeNameAvailable').style.display = "none";
         return;
     }
 
-    addComponent("shopTopBanner", "shopTopBanner1", "addUnderSongLyrics");
+    addComponent("shopTopBanner", "shopTopBanner1", "addUndershopLyrics");
     document.querySelector('.storeNameAvailable').style.display = "none";
+    refreshStoreName();
 
-    setTimeout(function () {
-        document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
-        document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
-            "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Approval</button>" +
-            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
-
-    }, 800);
 
 }
 
+function refreshStoreName(){
+    setTimeout(function () {
+        document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
+        document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
+            "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
+            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
+
+    }, 100);
+}
+
 function addShopItem() {
-    addComponent("shopTopBanner", "shopItem1", "addUnderSongLyrics");
+    addComponent("shopTopBanner", "shopItem1", "addUndershopLyrics");
 }
 function populateItemDropDown(fieldId = "item-search-box") {
 
@@ -8038,18 +8070,18 @@ function customizeShop(itemstr) {
             var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
             var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-            // var newHTML = "<div classXX = 'songContainer' >" ; 
-            // newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+            // var newHTML = "<div classXX = 'shopContainer' >" ; 
+            // newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
 
             // if (description != undefined){
             //     if (description != ""){
-            //         newHTML = newHTML + "" +"<div class = 'songLyrics' >" + description + "</div>";
+            //         newHTML = newHTML + "" +"<div class = 'shopLyrics' >" + description + "</div>";
             //     }
             // }
             // newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
             // document.getElementById("itemDivId").innerHTML = newHTML;
 
-            var newHTML = "<div class = 'songContainer' >";
+            var newHTML = "<div class = 'shopContainer' >";
 
             newHTML = newHTML + "<input type='text'  id='title-" + itemid + "' style='width:95%; margin:auto;' value='" + title + "'>";
 
@@ -8232,7 +8264,7 @@ function customizeShop(itemstr) {
 
             newHTML = newHTML + "<div class = 'saveChangesDivCls'>";
             //"<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
-            newHTML = newHTML + "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Approval</button><br>" +
+            newHTML = newHTML + "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('" + itemid + "','y') >Submit for Review</button><br>" +
                 "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
                 "</div>" +
                 "<br><br><br><br><br><br><br><br><br></div></div>";
@@ -8431,8 +8463,12 @@ function forgotpw() {
 }
 function contactus() {
     document.getElementById("contactuserrormsg").innerHTML = "<font color = #cc0000>" + " " + "</font> ";
-    var StrEmail = document.getElementById("contactusemailid").value
-    var StrName = document.getElementById("contactusname").value
+    var StrEmail = document.querySelector(".contactusemailidCls").value
+    //var StrEmail = document.getElementById("contactusemailid").value
+
+    var StrName = document.querySelector(".contactusnameCls").value    
+    //var StrName = document.getElementById("contactusname").value
+
     var StrComment = document.getElementById("contactus_msg").value;
     //console.log(window.location.pathname);
 
@@ -8476,7 +8512,7 @@ function contactus() {
     }
     StrComment = StrComment + "<br><br><br>" + window.location.pathname;
 
-    if (the.captcha != document.getElementById("enteredCaptchaText").value) {
+    if (the.captcha != document.getElementsByClassName("enteredCaptchaTextCls").value) {
         if ((localStorage.getItem("userLoggedIn") == "n") || (localStorage.getItem("userLvl") != "9")) {
             error_message = "Entered code is incorrect";
             document.getElementById("contactuserrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
@@ -8875,6 +8911,12 @@ function openShopTab(evt, shopTabId) {
 
         });
         parentDiv.querySelector('.existingItmImages').innerHTML = newHTML;
+    }
+
+    if ( shopTabId =="deleteItem"){
+        var parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
+        parentDiv.innHTML = "";
+        parentDiv.style.display = "none";
     }
 }
 
