@@ -32,7 +32,23 @@ var the = {
 var itemImageIndex = 1;
 var last_focused_div_id;
 
+const ui = {
+    userConfirmation: async (message) => createConfirm(message)
+}
 
+const createConfirm = (message) => {
+    return new Promise((complete, failed) => {
+        $('#confirmMessage').text(message)
+
+        $('#confirmYes').off('click');
+        $('#confirmNo').off('click');
+
+        $('#confirmYes').on('click', () => { $('.confirmBG').hide(); complete(true); });
+        $('#confirmNo').on('click', () => { $('.confirmBG').hide(); complete(false); });
+
+        $('.confirmBG').show();
+    });
+}
 
 var allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
@@ -8917,37 +8933,24 @@ function openShopTab(evt, shopTabId) {
 
     if (shopTabId == "deleteItem") {
 
-        const ui = {
-            confirm: async (message) => createConfirm(message)
-        }
-        
-        const createConfirm = (message) => {
-            return new Promise((complete, failed) => {
-                $('#confirmMessage').text(message)
-        
-                $('#confirmYes').off('click');
-                $('#confirmNo').off('click');
-        
-                $('#confirmYes').on('click', () => { $('.confirm').hide(); complete(true); });
-                $('#confirmNo').on('click', () => { $('.confirm').hide(); complete(false); });
-        
-                $('.confirm').show();
-            });
-        }
-        
-        const save = async () => {
-            const confirm = await ui.confirm('Are you sure you want delete the item?');
-            
-            if(confirm){
-                var parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
-                parentDiv.innHTML = "";
-                parentDiv.style.display = "none";
-            } 
-        }    
+        deleteItem(evt.currentTarget.parentElement.parentElement.parentElement.parentElement);
 
     }
 }
+async function deleteItem(elem) {
 
+    const confirm = await ui.userConfirmation('Are you sure you want delete the item?');
+    
+    if(confirm){
+        //var parentDiv = elem;
+
+        elem.parentNode.removeChild(elem);
+
+        //parentDiv.innHTML = "";
+        //parentDiv.style.display = "none";
+    } 
+   
+}
 function deselectOtherInputCheckBox(elem) {
     //elem.checked = false;
 
