@@ -32,6 +32,8 @@ var the = {
 var itemImageIndex = 1;
 var last_focused_div_id;
 
+
+
 var allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
@@ -117,7 +119,7 @@ var itemImagesDiv = '<div class="itemImageshow-container">'
     + '<a class="nextItmImg" onclick="plusitemImages(1, this)">❯</a>'
     + '</div>';
 
-var addItmImagesDiv = "<label class='toolBarlabel'>Images</label>"
+var addItmImagesDiv = ""
     + "<div class='existingItmImages'> </div>"
     + "<input type='text' style='display:none; width:95%; margin:auto;'  value=''>"
     + "<div style='width: 100%'><br><input type='file' id='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='addImageToItemList(event)'>"
@@ -145,7 +147,7 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
 
     + '<div id="CloseItemCust" class="shopTabcontent">'
     + '</div>'
-    
+
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
@@ -3429,11 +3431,11 @@ function getItem(itemstr) {
         success: function (response) {
 
             tags = JSON.parse(response);
-            if (tags[0].title == "Create My Store"){
+            if (tags[0].title == "Create My Store") {
                 getCreateStore(tags);
-            }else if (tags[0].title != tags[0].storename) {
+            } else if (tags[0].title != tags[0].storename) {
                 getShopItem(tags);
-            }else{
+            } else {
                 getFullShopDetails(tags, itemstr);
             }
         },
@@ -3496,12 +3498,12 @@ function getCreateStore(tags, itemstr) {
         sessionStorage.setItem("data-description", description);
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
     newHTML = newHTML + '<div classXX="shopDeltsNImg">';
-    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >" ;
+    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >";
 
 
 
@@ -3513,7 +3515,7 @@ function getCreateStore(tags, itemstr) {
     }
 
 
-    newHTML = newHTML  + "</div>" + "</div>";
+    newHTML = newHTML + "</div>" + "</div>";
 
     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + "</div> <br> <br>";
 
@@ -3621,7 +3623,7 @@ function getShopItem(tags, itemstr) {
         sessionStorage.setItem("data-description", description);
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
@@ -3789,7 +3791,7 @@ function getFullShopDetails(tags, itemstr) {
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
 
         //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid    + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
     newHTML = newHTML + '<div classXX="shopDeltsNImg">';
@@ -3801,7 +3803,7 @@ function getFullShopDetails(tags, itemstr) {
                 + '<div class="slides">' + tags[0].bannerhtml + '</div>';
         }
     }
-    
+
     if (tags[0].displaylocationflag != undefined) {
         if (tags[0].displaylocationflag != "xyx") {
             newHTML = newHTML
@@ -3826,9 +3828,9 @@ function getFullShopDetails(tags, itemstr) {
         }
     }
 
-    for(i=0; i < storeItems.length; i++){
+    for (i = 0; i < storeItems.length; i++) {
         newHTML = newHTML + '<div classXX="container-justify-grid-300x300"><div>';
-        
+
         if (storeItems[i].itemimages != undefined) {
             if (storeItems[i].itemimages != "") {
                 newHTML = newHTML + '<div class="itemImageshow-container"><div class="itmImgContainer">' + storeItems[i].itemimages + '</div></div>';
@@ -4951,9 +4953,9 @@ function addComponent(itemid, type, elem = "dummy") {
             + "</div>";
 
         var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
@@ -4964,8 +4966,8 @@ function addComponent(itemid, type, elem = "dummy") {
                     var allItems = document.querySelectorAll(".shopTopBnrCls");
                     for (i = 0; i < allItems.length; i++) {
                         allItems[i].classList.remove("scale-in-center");
-                    }                
-                }, 500); 
+                    }
+                }, 500);
 
             } else {
                 elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
@@ -5024,9 +5026,9 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
@@ -5035,8 +5037,8 @@ function addComponent(itemid, type, elem = "dummy") {
                 var allItems = document.querySelectorAll(".shopTopBnrCls");
                 for (i = 0; i < allItems.length; i++) {
                     allItems[i].classList.remove("scale-in-center");
-                }                
-            }, 500); 
+                }
+            }, 500);
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -5090,9 +5092,9 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
@@ -5101,8 +5103,8 @@ function addComponent(itemid, type, elem = "dummy") {
                 var allItems = document.querySelectorAll(".shopTopBnrCls");
                 for (i = 0; i < allItems.length; i++) {
                     allItems[i].classList.remove("scale-in-center");
-                }                
-            }, 500); 
+                }
+            }, 500);
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
         }
@@ -5154,9 +5156,9 @@ function addComponent(itemid, type, elem = "dummy") {
         //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         var contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
+            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
-            + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
 
         if (componentid == "description-shopTopBanner") {
             //document.querySelector('.secdiv').innerHTML = contentToAdd;
@@ -5166,8 +5168,8 @@ function addComponent(itemid, type, elem = "dummy") {
                 var allItems = document.querySelectorAll(".shopTopBnrCls");
                 for (i = 0; i < allItems.length; i++) {
                     allItems[i].classList.remove("scale-in-center");
-                }                
-            }, 500); 
+                }
+            }, 500);
 
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
@@ -5201,7 +5203,7 @@ function addComponent(itemid, type, elem = "dummy") {
                 var allItems = document.querySelectorAll(".shopItemCls");
                 for (i = 0; i < allItems.length; i++) {
                     allItems[i].classList.remove("scale-in-center");
-                }                
+                }
             }, 500);
         } else {
             document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
@@ -6984,7 +6986,7 @@ function showBanner() {
     var elems_array = [...elems]; // converts NodeList to Array
 
     if (elems_array.length > 0) {
-        
+
         refreshStoreName();
         document.querySelector('.storeNameAvailable').style.display = "none";
         return;
@@ -6997,7 +6999,7 @@ function showBanner() {
 
 }
 
-function refreshStoreName(){
+function refreshStoreName() {
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
@@ -7932,12 +7934,12 @@ function tempSelectStoreType() {
     // document.getElementById("selectStoreTypeDivId").style.display = "block";
 }
 
-function populateStoreType(divid){
+function populateStoreType(divid) {
     document.getElementById(divid).innerHTML = getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     document.getElementById(divid).style.display = "block";
 }
 
-function getStoreTypeList(){
+function getStoreTypeList() {
     var tf = JSON.parse(sessionStorage.getItem("categoryList"));
 
     var rows = JSON.parse(tf);
@@ -8025,7 +8027,7 @@ function categoryClicked(categoryNameOrig) {
 
     setTimeout(function () {
         document.querySelector('#storeSelectedDivId').classList.remove("slide-in-left");
-    }, 1000);    
+    }, 1000);
 }
 
 
@@ -8466,7 +8468,7 @@ function contactus() {
     var StrEmail = document.querySelector(".contactusemailidCls").value
     //var StrEmail = document.getElementById("contactusemailid").value
 
-    var StrName = document.querySelector(".contactusnameCls").value    
+    var StrName = document.querySelector(".contactusnameCls").value
     //var StrName = document.getElementById("contactusname").value
 
     var StrComment = document.getElementById("contactus_msg").value;
@@ -8913,10 +8915,36 @@ function openShopTab(evt, shopTabId) {
         parentDiv.querySelector('.existingItmImages').innerHTML = newHTML;
     }
 
-    if ( shopTabId =="deleteItem"){
-        var parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
-        parentDiv.innHTML = "";
-        parentDiv.style.display = "none";
+    if (shopTabId == "deleteItem") {
+
+        const ui = {
+            confirm: async (message) => createConfirm(message)
+        }
+        
+        const createConfirm = (message) => {
+            return new Promise((complete, failed) => {
+                $('#confirmMessage').text(message)
+        
+                $('#confirmYes').off('click');
+                $('#confirmNo').off('click');
+        
+                $('#confirmYes').on('click', () => { $('.confirm').hide(); complete(true); });
+                $('#confirmNo').on('click', () => { $('.confirm').hide(); complete(false); });
+        
+                $('.confirm').show();
+            });
+        }
+        
+        const save = async () => {
+            const confirm = await ui.confirm('Are you sure you want delete the item?');
+            
+            if(confirm){
+                var parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
+                parentDiv.innHTML = "";
+                parentDiv.style.display = "none";
+            } 
+        }    
+
     }
 }
 
