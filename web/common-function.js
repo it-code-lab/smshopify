@@ -4249,13 +4249,23 @@ function editItem(btn) {
 
 }
 
+// function getShopTopBannersList_Old(itemid) {
+
+//     return "<label class='informationBox'>If you want to change the design of your store banner above, use the button below to change design</label>"
+//         + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ></button>"
+//         + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ></button>"
+//         + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ></button>"
+//         + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ></button>";
+
+// }
+
 function getShopTopBannersList(itemid) {
 
     return "<label class='informationBox'>If you want to change the design of your store banner above, use the button below to change design</label>"
-        + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ></button>"
-        + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ></button>"
-        + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ></button>"
-        + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ></button>";
+        + "<div title='shopTopBanner1' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/smshopify/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
+        + "<div title='shopTopBanner2' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/smshopify/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
+        + "<div title='shopTopBanner3' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/smshopify/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
+        + "<div title='shopTopBanner4' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/smshopify/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>";
 
 }
 
@@ -7029,10 +7039,10 @@ function refreshStoreName() {
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
-            var allItems = document.querySelectorAll(".shopTopBannerBtn");
-            for (i = 0; i < allItems.length; i++) {
-                allItems[i].classList.add("max_4box_responsive");
-            }            
+            // var allItems = document.querySelectorAll(".shopTopBannerBtn");
+            // for (i = 0; i < allItems.length; i++) {
+            //     allItems[i].classList.add("max_4box_responsive");
+            // }            
     }, 100);
 }
 

@@ -67,7 +67,7 @@
 /* justify inner div center align distribute */
 
 .max_4box_responsive {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     width: 100%;
     float: left;
 }
@@ -209,6 +209,14 @@
 
 
 
+/***************SHADOWS*********************************/
+/**********https://getcssscan.com/css-box-shadow-examples?ref=beautifulbuttons-bottom************/
+.hover_shadow1:hover {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px !important;
+}
+
+
+
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
 
@@ -216,6 +224,3 @@
 
 /*****************CLIP PATh GENERATOR*********************************/
 /**********https://bennettfeely.com/clippy/ ****************/
-
-/***************SHADOWS*********************************/
-/**********https://getcssscan.com/css-box-shadow-examples?ref=beautifulbuttons-bottom************/
