@@ -1388,7 +1388,7 @@ i.loaderDot:nth-child(3) {
 }
 
 #selectStoreTypeDivId {
-  max-width: 1000px;
+  /* max-width: 1000px; */
   overflow: auto;
 }
 
@@ -2610,6 +2610,9 @@ ul.unordered-list-arrow li:before {
 
 #itemDivId {
   width: 100%;
+  padding: 10px;
+  max-width: 1400px;
+  margin: auto;
 }
 
 

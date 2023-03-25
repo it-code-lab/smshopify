@@ -26,17 +26,37 @@
     color: #fff;
 }
 
-.red_bg{
+.informationBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 17px;
+    width: 100%;
+    background-color: #3498DB;
+    color: #fff;
+    text-align: center;
+
+}
+
+.red_bg {
     background-color: #E74C3C !important;
 }
 
-.red_font{
+.red_font {
     color: #E74C3C !important;
 }
+
+/**************CURSOR******************/
+/*********************************************/
+
+cursor_pointer {
+    cursor: pointer !important;
+}
+
 /**************TEXT ALIGNMENT******************/
 /*********************************************/
 
-.container-textalign-center{
+.container-textalign-center {
     text-align: center;
 }
 
@@ -46,25 +66,53 @@
 /* https://www.freecodecamp.org/news/how-to-make-your-html-responsive-by-adding-a-single-line-of-css-2a62de81e431/ */
 /* justify inner div center align distribute */
 
-.container-justify-grid-400x400 {  
-    display: grid;  
-    grid-gap: 5px;  
+.max_4box_responsive {
+    margin-top: 2.5rem;
+    width: 100%;
+    float: left;
+}
+
+@media (min-width: 640px) {
+    .max_4box_responsive {
+        width: 50%;
+        /* padding-right: 2.5rem; */
+    }
+}
+
+@media (min-width: 768px) {
+    .max_4box_responsive {
+        width: 33.3333%;
+        /* padding-right: 1.5rem; */
+    }
+}
+
+@media (min-width: 1024px) {
+    .max_4box_responsive {
+        width: 25%;
+        /* padding-right: 3rem; */
+    }
+}
+
+
+.container-justify-grid-400x400 {
+    display: grid;
+    grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-template-rows: repeat(100, 400px);  
+    grid-template-rows: repeat(100, 400px);
 }
 
-.container-justify-grid-300x300 {  
-    display: grid;  
-    grid-gap: 20px;  
+.container-justify-grid-300x300 {
+    display: grid;
+    grid-gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: repeat(2, 300px);  
+    grid-template-rows: repeat(2, 300px);
 }
 
-.container-justify-grid-200x200 {  
-    display: grid;  
-    grid-gap: 5px;  
+.container-justify-grid-200x200 {
+    display: grid;
+    grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-template-rows: repeat(100, 200px);  
+    grid-template-rows: repeat(100, 200px);
 }
 
 .centerAlignBorderBox {
@@ -79,22 +127,22 @@
 /* *************************SHAPES***************************/
 /****REF: https://sharkcoder.com/visual/shapes**************/
 
-.angledEdge{
+.angledEdge {
     padding: 5px;
     text-align: center;
     position: relative;
     color: #fff;
-  }
-  
-  .angledEdge::before {
+}
+
+.angledEdge::before {
     content: "";
     position: absolute;
     right: 0;
-      top: 0;
-      z-index: -1;
+    top: 0;
+    z-index: -1;
     transform: skewX(-30deg);
     background-color: rgb(12, 105, 148);
-  
+
     bottom: 0;
     content: "";
     height: 100%;
@@ -103,38 +151,39 @@
     position: absolute;
     right: 0;
     top: 0;
-  
-  }
 
-  /***************WIDTH**********************/
-  /****************************************** */
-  .width_60px{
+}
+
+/***************WIDTH**********************/
+/****************************************** */
+.width_60px {
     width: 60px;
-  }
+}
 
 
-  .width_100px{
+.width_100px {
     width: 100px;
-  }
+}
 
-  .width_150px{
+.width_150px {
     width: 150px;
-  }
+}
 
-  .width_200px{
+.width_200px {
     width: 200px;
-  }
-  /***************FONT SIZE**********************/
-  /****************************************** */
-  .fontsize_18px{
-    font-size: 18px;
-  }
+}
 
-  /***************FONT SIZE**********************/
-  /****************************************** */
-  .font_family_style1{
+/***************FONT SIZE**********************/
+/****************************************** */
+.fontsize_18px {
+    font-size: 18px;
+}
+
+/***************FONT SIZE**********************/
+/****************************************** */
+.font_family_style1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
+}
 
 
 
@@ -142,7 +191,7 @@
 /**************************BUTTONS***************************/
 /****REF: https://sharkcoder.com/visual/shapes************* */
 
-  .button_type1 {
+.button_type1 {
     padding: 4px;
     border: none;
     -webkit-border-radius: 5px;
@@ -152,18 +201,18 @@
     font-size: 16px;
     color: #fff;
     cursor: pointer;
-  }
-  
-  .button_type1:hover {
+}
+
+.button_type1:hover {
     background-color: #04AA6D;
-  }
+}
 
 
 
-  /* ******ANIMATIONS*********************************/
-  /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
+/* ******ANIMATIONS*********************************/
+/* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
 
 
 
- /* ******CLIP PATh GENERATOR*********************************/
-  /**********https://bennettfeely.com/clippy/ ****************/
+/* ******CLIP PATh GENERATOR*********************************/
+/**********https://bennettfeely.com/clippy/ ****************/

@@ -396,3 +396,18 @@ input.confirmBtn {
 input.confirmBtn:hover {
     background: #ccc;
 }
+
+.itemDescription{
+    height: 150px;
+    background-color: #fff;
+}
+
+.itemName, .itemPrice{
+    height: 100px;
+    background-color: #fff;
+}
+
+.storeAvail{
+    height: 150px;
+    background-color: #fff;
+}

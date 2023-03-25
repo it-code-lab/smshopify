@@ -56,7 +56,8 @@ var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Cu
 
 var shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpeninghourscontent section" contenteditable="true">   <div class="header">    <h2>Opening hours</h2>   </div>    <table class="opening-hours-table">  <tr id="MondayStoreHrId"> <td>Monday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="TuesdayStoreHrId"> <td>Tuesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="WednesdayStoreHrId"> <td>Wednesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="ThursdayStoreHrId"> <td>Thursday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="FridayStoreHrId"> <td>Friday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SaturdayStoreHrId"> <td>Saturday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SundayStoreHrId"> <td>Sunday</td><td>10:00 AM</td> <td>-</td><td>05:00 PM</td>   </tr>   </table></div></section>';
 
-var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
+var shopOpeningHrCheckBox = "<label class='informationBox'>To display the store hours, select the options below. You can update the daily hours</label>"
+    + '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
     + 'Display Daily Hours'
     + '<input class="showStoreHr" type="checkbox" onclick="showStoreHrsDiv(this);"/>'
@@ -74,7 +75,8 @@ var shopOpeningHrCheckBox = '<div class="checkbox-wrapper-21">'
     + '</div>'
     + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
 
-var shopLocationCheckBox = '<div class="checkbox-wrapper-21">'
+var shopLocationCheckBox = "<label class='informationBox'>Provide your location information so that the interested shoppers can contact you.</label>"
+    + '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
     + 'Display Location on Map'
     + '<input class="showStoreLoc" type="checkbox" onclick="showStoreLocationDiv(this);"/>'
@@ -154,6 +156,7 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
+    + "<label class='informationBox'>Enter the details of the item/service</label>"
     + '<div class="itemDescription" contenteditable="true" data-text="Enter Item Description Here"></div>'
     + '</div>'
 
@@ -167,7 +170,7 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
-var revealSecColor = "<label class='toolBarlabel'>Change Banner Color</label>"
+var revealSecColor = "<label class='informationBox'>If you want to change the color in the Banner above, select from the list</label>"
     + "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
     + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
@@ -211,7 +214,7 @@ var revealSecColor = "<label class='toolBarlabel'>Change Banner Color</label>"
     + "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
 
 
-textDivColorCtl = "<label class='toolBarlabel'>Change Text Background Color</label>"
+textDivColorCtl = "<label class='informationBox'>If you want to change the color in the banner above, pick from the below list</label>"
     + "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
     + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
@@ -271,7 +274,7 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
     + "<option value='none'>none</option>"
     + "</select>";
 
-var replaceBannerImg = "<label class='toolBarlabel'>Change Banner Image</label>"
+var replaceBannerImg = "<label class='informationBox'>If you want to change the image in the banner above, use the button below to replace image</label>"
     + "<input type='text'  style='display:none; width:95%; margin:auto;'  value=''>"
     + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
     + "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='showImage(event)'>"
@@ -3448,6 +3451,8 @@ function getItem(itemstr) {
 
             tags = JSON.parse(response);
             if (tags[0].title == "Create My Store") {
+                document.getElementById("itemListDivId").style.display = "none";
+                document.getElementById("itemEditDivId").style.display = "none";
                 getCreateStore(tags);
             } else if (tags[0].title != tags[0].storename) {
                 getShopItem(tags);
@@ -3540,10 +3545,12 @@ function getCreateStore(tags, itemstr) {
 
     document.getElementById("itemDivId").innerHTML = newHTML;
     refreshCaptcha();
-    showcategory(category);
+    //showcategory(category);
     //START: Change the background color of the active item link 
-    var elemId = "itemDiv-" + itemid;
-    document.getElementById(elemId).style.backgroundColor = "orange";
+    
+    
+    //var elemId = "itemDiv-" + itemid;
+    //document.getElementById(elemId).style.backgroundColor = "orange";
     //END: Change the background color of the active item link
 
     var metaDesc = shortdescription;
@@ -4244,7 +4251,8 @@ function editItem(btn) {
 
 function getShopTopBannersList(itemid) {
 
-    return "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ></button>"
+    return "<label class='informationBox'>If you want to change the design of your store banner above, use the button below to change design</label>"
+        + "<button title='shopTopBanner1' type='button' style='background: url(/smshopify/secimages/shopTopBanner1.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ></button>"
         + "<button title='shopTopBanner2' type='button' style='background: url(/smshopify/secimages/shopTopBanner2.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ></button>"
         + "<button title='shopTopBanner3' type='button' style='background: url(/smshopify/secimages/shopTopBanner3.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ></button>"
         + "<button title='shopTopBanner4' type='button' style='background: url(/smshopify/secimages/shopTopBanner4.png); background-size: contain;' class='shopTopBannerBtn btn btn-primary' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ></button>";
@@ -4930,7 +4938,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px;background-color: rgb(91, 94, 166); color: white;">'
-            + "\n" + '<div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Any tagline</div>'
+            + "\n" + '<div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div contenteditable="true" style="font-size:1vw" data-text="Any tagline"></div>'
             + "\n" + '</div>';
 
 
@@ -6985,7 +6993,7 @@ function searchStoreNameItem() {
     }
 
     if (rows.length > 0) {
-        document.querySelector('.storeNameNotAvailable').innerHTML = "Store name already taken by someone else. Please try a different name."
+        document.querySelector('.storeNameNotAvailable').innerHTML = "Store name is already taken by someone else. Please try a different name."
         document.querySelector('.storeNameNotAvailable').style.display = "block";
         document.querySelector('.storeNameAvailable').style.display = "none";
         return;
@@ -7992,7 +8000,7 @@ function getStoreTypeList() {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="cardsShopTypeSelection" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > <div class="categoryHeader" >';
+            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > <div class="categoryHeader" >';
 
             innerHTML = innerHTML + rows[i].category +
                 '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">' +
@@ -8000,7 +8008,7 @@ function getStoreTypeList() {
 
         } else if (rows[i].category != rows[i - 1].category) {
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="cardsShopTypeSelection" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" ><div class="categoryHeader">';
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" ><div class="categoryHeader">';
 
             innerHTML = innerHTML + rows[i].category +
                 '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">' +
@@ -8657,8 +8665,9 @@ function updateParentBGColor(element) {
     //var previewDiv = parentSecDiv.querySelector('.secPreview');
     //var previewDiv = document.querySelector('.secPreview');
 
-    var parentSecDiv = element.parentElement.parentElement.parentElement;
-    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    //var parentSecDiv = element.parentElement.parentElement.parentElement;
+    var previewDiv = element.parentElement.parentElement.parentElement;
+    //var previewDiv = parentSecDiv.querySelector('.secPreview');
 
     if (previewDiv.style.display != "none") {
 
@@ -8923,7 +8932,7 @@ function openShopTab(evt, shopTabId) {
         var img_list = parentDiv.querySelectorAll('.myitemImages'); // returns NodeList
         var img_array = [...img_list]; // converts NodeList to Array
 
-        var newHTML = "";
+        var newHTML = "<label class='informationBox'>Add/remove item images using the buttons below</label>";
         img_array.forEach(img => {
             newHTML = newHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + img.src + '">  <button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
 
