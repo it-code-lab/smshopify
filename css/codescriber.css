@@ -2645,9 +2645,9 @@ ul.unordered-list-arrow li:before {
   max-width: 500px;
 }
 
-#itemsearchBtnId {
+/* #itemsearchBtnId {
   width: 60px;
-}
+} */
 
 .searchButtonCls {
   border: none;

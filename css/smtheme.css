@@ -1,3 +1,10 @@
+/******************PAGE THEME********************/
+/**********https://bootswatch.com/flatly/********************/
+/******************https://treact.owaiskhan.me/components/landingPages/RestaurantLandingPage***********************/
+
+
+/**************MESSAGE BOXES******************/
+/*********************************************/
 .greenMsg {
     padding: 10px;
     margin: 10px auto;
@@ -19,9 +26,15 @@
     color: #fff;
 }
 
+/**************TEXT ALIGNMENT******************/
+/*********************************************/
+
 .container-textalign-center{
     text-align: center;
 }
+
+/**************RESPONSIVE BOX ARRANGEMENTS******************/
+/***********************************************************/
 
 /* https://www.freecodecamp.org/news/how-to-make-your-html-responsive-by-adding-a-single-line-of-css-2a62de81e431/ */
 /* justify inner div center align distribute */
@@ -46,3 +59,83 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-rows: repeat(100, 200px);  
 }
+
+.centerAlignBorderBox {
+    box-shadow: 1px 1px 3px #222222;
+    background-color: #f9f9fb;
+    padding: 5px;
+    margin: auto;
+    text-align: center;
+}
+
+
+/* *************************SHAPES***************************/
+/****REF: https://sharkcoder.com/visual/shapes**************/
+
+.angledEdge{
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    color: #fff;
+  }
+  
+  .angledEdge::before {
+    content: "";
+    position: absolute;
+    right: 0;
+      top: 0;
+      z-index: -1;
+    transform: skewX(-30deg);
+    background-color: rgb(12, 105, 148);
+  
+    bottom: 0;
+    content: "";
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  
+  }
+
+  /***************WIDTH**********************/
+  /****************************************** */
+  .width_60px{
+    width: 60px;
+  }
+
+
+  .width_100px{
+    width: 100px;
+  }
+
+  .width_150px{
+    width: 150px;
+  }
+
+  .width_200px{
+    width: 200px;
+  }
+
+/**************************BUTTONS***************************/
+/****REF: https://sharkcoder.com/visual/shapes************* */
+
+  .button_type1 {
+    padding: 4px;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #095484;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .button_type1:hover {
+    background-color: #04AA6D;
+  }
+
+  /* ******CLIP PATh GENERATOR*********************************/
+  /**********https://bennettfeely.com/clippy/ ****************/

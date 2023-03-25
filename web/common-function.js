@@ -3505,7 +3505,7 @@ function getCreateStore(tags, itemstr) {
     if (tags[0].description != undefined) {
         if (tags[0].description != "") {
             newHTML = newHTML
-                + '<div class="itemDescription ">' + tags[0].description + '</div>';
+                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
         }
     }
 
@@ -3552,6 +3552,11 @@ function getCreateStore(tags, itemstr) {
 
     let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
     jsonLdScript.innerHTML = JSON.stringify(structuredData);
+
+    setTimeout(function () {
+        populateStoreType("selectStoreTypeDivId");
+    }, 10);
+
 
 
     $('html, body').animate({
@@ -4883,9 +4888,9 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopName1") {
 
         var htmlPartOrig = '<div class="storeNmChkDiv"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
-            + "\n" + '<button id="itemsearchBtnId" class="searchStoreButtonCls" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+            + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
             + "\n" + '<div class="storeNameNotAvailable displayNone"></div>'
-            + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <button class="searchStoreButtonCls" onclick="showBanner()">Design Store banner ❯ </button></div>'
+            + "\n" + '<div class="storeNameAvailable displayNone">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner ❯ </button></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -6948,7 +6953,7 @@ function showBanner() {
 
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
-        document.querySelector('.bottomNavigationCls').innerHTML = '<button  class="searchStoreButtonCls" onclick="addShopItem(); return false;">Add Item</button> <div class="shopSmErr displayNone redMsg"></div>' +
+        document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Approval</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
 
@@ -7870,10 +7875,23 @@ function tempSelectStoreType() {
 
     document.getElementById("registerSecDivId").style.display = "none";
     document.getElementById("loginSecDivId").style.display = "none";
-
-
     document.getElementById("providerSecDivId").style.display = "none";
+    //document.getElementById("itemDivId").innerHTML = innerHTML;
+    populateStoreType("selectStoreTypeDivId");
 
+    // document.getElementById("selectStoreTypeDivId").style.display = "block";
+
+    // document.getElementById("selectStoreTypeDivId").innerHTML = getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+
+    // document.getElementById("selectStoreTypeDivId").style.display = "block";
+}
+
+function populateStoreType(divid){
+    document.getElementById(divid).innerHTML = getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById(divid).style.display = "block";
+}
+
+function getStoreTypeList(){
     var tf = JSON.parse(sessionStorage.getItem("categoryList"));
 
     var rows = JSON.parse(tf);
@@ -7932,11 +7950,8 @@ function tempSelectStoreType() {
 
 
     innerHTML = innerHTML + '</div>';
-    //document.getElementById("itemDivId").innerHTML = innerHTML;
-    document.getElementById("selectStoreTypeDivId").style.display = "block";
-    document.getElementById("selectStoreTypeDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    return innerHTML;
 
-    document.getElementById("selectStoreTypeDivId").style.display = "block";
 }
 
 function categoryClicked(categoryNameOrig) {
@@ -7956,8 +7971,11 @@ function categoryClicked(categoryNameOrig) {
 
     var itemstr = categoryNameOrig + "/" + rows[0].title;
     itemstr = itemstr.replaceAll(" ", "-");
-    customizeShop(itemstr);
-
+    //customizeShop(itemstr);
+    document.querySelector(".itemDescription").style.display = "block";
+    document.querySelector("#storeSelectedDivId").innerHTML = categoryNameOrig;
+    document.querySelector("#storeSelectedDivId").style.display = "block";
+    document.querySelector("#selectStoreTypeDivId").style.display = "none";
 
 }
 
