@@ -152,16 +152,16 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="itmNameDiv" class="shopTabcontent">'
-    + '<div class="itemName" contenteditable="true" data-text="Enter Item Name Here"></div>'
+    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here"></div>'
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
     + "<label class='informationBox'>Enter the details of the item/service</label>"
-    + '<div class="itemDescription" contenteditable="true" data-text="Enter Item Description Here"></div>'
+    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here"></div>'
     + '</div>'
 
     + '<div id="itemPrice" class="shopTabcontent">'
-    + '<div class="itemPrice" contenteditable="true" data-text="Enter Item Price"></div>'
+    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price"></div>'
     + '</div>'
 
     + '<div id="CloseItemCust" class="shopTabcontent">'
@@ -7029,7 +7029,10 @@ function refreshStoreName() {
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
-
+            var allItems = document.querySelectorAll(".shopTopBannerBtn");
+            for (i = 0; i < allItems.length; i++) {
+                allItems[i].classList.add("max_4box_responsive");
+            }            
     }, 100);
 }
 
@@ -8000,18 +8003,22 @@ function getStoreTypeList() {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > <div class="categoryHeader" >';
+            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > ';
 
-            innerHTML = innerHTML + rows[i].category +
-                '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">' +
+            innerHTML = innerHTML + 
+                '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' +
+                '<div class="shopCategoryHeader" >' + 
+                rows[i].category +
                 '</div>';
 
         } else if (rows[i].category != rows[i - 1].category) {
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" ><div class="categoryHeader">';
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" >';
 
-            innerHTML = innerHTML + rows[i].category +
-                '<img src="' + the.hosturl + '/images/banner.png" alt="items" class="homeCardImg">' +
+            innerHTML = innerHTML + 
+                '<img src="' + the.hosturl + '/images/'+ categoryOrig +'.png" alt="items" class="storeCategoryImg">' +
+                '<div class="shopCategoryHeader">' +
+                rows[i].category +
                 '</div>';
         }
 

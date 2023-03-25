@@ -35,7 +35,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 10px 12px;
     transition: 0.3s;
     font-size: 17px;
 }
@@ -61,7 +61,7 @@
 }
 
 #DesignOptions>.shopTopBannerBtn {
-    width: 300px !important;
+    /* width: 300px !important; */
     height: 150px !important;
 }
 
@@ -397,12 +397,12 @@ input.confirmBtn:hover {
     background: #ccc;
 }
 
-.itemDescription{
+.itemDescriptionCls{
     height: 150px;
     background-color: #fff;
 }
 
-.itemName, .itemPrice{
+.itemNameCls, .itemPriceCls{
     height: 100px;
     background-color: #fff;
 }
@@ -410,4 +410,29 @@ input.confirmBtn:hover {
 .storeAvail{
     height: 150px;
     background-color: #fff;
+}
+
+.shopCategoryHeader{
+    background-color: #ccc;
+    margin: auto;
+    text-align: center;
+    height: 50px;
+}
+
+
+.shopCategoryDisplay {
+     padding: 1vw;
+    /*border-radius: 5px; */
+    box-shadow: rgb(247, 199, 122) 0px 22px 70px 4px;
+     /* box-shadow: rgb(247, 199, 122) 0px 5px 15px; */
+}
+
+.storeCategoryImg{
+    width: 100%;
+    height: 200px;
+}
+
+.shopCategoryDisplay:hover {
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
