@@ -4927,7 +4927,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopName1") {
 
         var htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
-            + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+            + "\n" + '<button id="itemsearchBtnId" class="button_type1 width_150px" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
             + "\n" + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
             + "\n" + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
             + "\n" + '</div>';
@@ -7048,6 +7048,12 @@ function refreshStoreName() {
 
 function addShopItem() {
     addComponent("shopTopBanner", "shopItem1", "addUndershopLyrics");
+    var allItems = document.querySelectorAll(".secPreview");
+
+    var elem = allItems[allItems.length - 1].querySelector(".itmImgContainer");
+    
+    //scrollElementToTopOfScreenInstantly(elem);
+    scrollElementToTopWithOffset(elem, -200);
 }
 function populateItemDropDown(fieldId = "item-search-box") {
 
@@ -8971,14 +8977,25 @@ function openShopTab(evt, shopTabId) {
 }
 
 function scrollElementToTopOfScreenInstantly(elem) {
-    elem.scrollIntoView({ behavior: "instant", block: "start", inline: "nearest" });
+    elem.scrollIntoView({ behavior: "instant", block: "start" });
+    //elem.scrollIntoView({ behavior: "instant", block: "start", inline: "nearest" });
 
 }
 
 
 function scrollElementToTopOfScreenSmoothly(elem) {
-    elem.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    elem.scrollIntoView({ behavior: "smooth", block: "start" });
+    //elem.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
+}
+
+function scrollElementAlignToTop(elem) {
+    elem.scrollIntoView();
+}
+
+function scrollElementToTopWithOffset(elem, yOffset){
+    const y = elem.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({top: y, behavior: 'smooth'});
 }
 
 async function deleteItem(elem) {
