@@ -3150,7 +3150,7 @@ function checkURL() {
     var LocationSearchStr = location.search;
     var find = '%20';
     var re = new RegExp(find, 'g');
-    var pageName = "item";
+    var pageName = "";
     var path = window.location.pathname;
 
     LocationSearchStr = LocationSearchStr.replace(re, ' ');
@@ -3341,12 +3341,13 @@ function checkURL() {
     document.getElementById("itemListDivId").style.display = "none";
     document.getElementById("itemEditDivId").style.display = "none";
 
-    document.getElementById(pageName + "DivId").style.display = "block";
+    
 
     populateLanguages("helpTopics-lang-box");
     try {
         x = document.getElementById(pageName + "LinkId");
         x.className += " active";
+        document.getElementById(pageName + "DivId").style.display = "block";
     } catch {
     }
 
@@ -3435,6 +3436,32 @@ function checkURL() {
 
         document.getElementById("itemListDivId").style.width = "100%";
 
+        populateItemsList();
+        //document.getElementById("mainContainer").style.width = "100%";
+        $(".cardsContainerDivClassPadd").css("height", "200px");
+    } else if (pageName == "") {
+
+        if (sessionStorage.getItem("itemsList") == null) {
+            document.getElementById("loaderDivId").style.display = "block";
+            setTimeout(function() {
+                document.getElementById("loaderDivId").style.display = "none";
+                checkURL();
+            }, 500);
+            return;
+        }
+
+        document.getElementById("filescannerDivId").style.display = "none";
+        document.getElementById("HelpTopicsDivId").style.display = "none";
+        document.getElementById("projectscannerDivId").style.display = "none";
+        document.getElementById("helpDisplayDivId").style.display = "none";
+        document.getElementById("contactusDivId").style.display = "none";
+        document.getElementById("howtoDivId").style.display = "none";
+        //document.getElementById("itemDivId").style.width = "100%";
+        document.getElementById("itemDivId").style.display = "none";
+        document.getElementById("itemEditDivId").style.display = "none";
+
+        document.getElementById("itemListDivId").style.width = "100%";
+
         //Likely request for store item display
         var storename = path.substring(path.indexOf(the.hosturl) + the.hosturl.length + 1);
 
@@ -3442,8 +3469,7 @@ function checkURL() {
         //populateItemsList();
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
-    }
-    else if (pageName == "home") {
+    }else if (pageName == "home") {
         document.getElementById("filescannerDivId").style.display = "none";
         document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("projectscannerDivId").style.display = "none";
@@ -7033,12 +7059,12 @@ function showcategory(tech) {
 
     populateItemsList(rows);
 
-    document.getElementById(elementId).style.width = "95%";
-    document.getElementById(elementId).style.maxWidth = "1200px";
-    document.getElementById(elementId).style.float = "none";
-    document.getElementById(elementId).style.top = "20px";
-    document.getElementById(elementId).style.margin = "auto";
-    // document.getElementById(elementId).style.overflow = "expand";
+    // document.getElementById(elementId).style.width = "95%";
+    // document.getElementById(elementId).style.maxWidth = "1200px";
+    // document.getElementById(elementId).style.float = "none";
+    // document.getElementById(elementId).style.top = "20px";
+    // document.getElementById(elementId).style.margin = "auto";
+
 }
 
 
@@ -7221,6 +7247,9 @@ function populateItemsList(rows = "") {
     var categorySqueezed = "";
     var categoryOrig = "";
     var categoryUrl = "";
+    var storename = "";
+
+    var storenameUrl = "";
 
     var defaultDisplayCount = 1000;
     var categoryMaxCount = 0;
@@ -7236,13 +7265,14 @@ function populateItemsList(rows = "") {
 
         categoryOrig = rows[i].category;
         category = rows[i].category;
+        storename = rows[i].storename;
 
         category = category.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
 
-        categoryUrl = myUrl + "items/" + categoryOrig;
+        storenameUrl = myUrl + storename;
 
         categorySqueezed = rows[i].category;
         categorySqueezed = categorySqueezed.replaceAll(' ', '')
@@ -7250,19 +7280,19 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="cardsContainerDivClassPadd"  > <div class="categoryHeader" >';
+            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="categoryHeader" >';
             if (the.smusr) {
                 innerHTML = innerHTML + rows[i].categoryseq + '. ';
             }
-            innerHTML = innerHTML + rows[i].category +
+            innerHTML = innerHTML + rows[i].storename +
 
                 //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + categoryUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
 
                 '</div>';
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
 
-        } else if (rows[i].category != rows[i - 1].category) {
+        } else if (rows[i].storename != rows[i - 1].storename) {
 
 
             if (sessionStorage.getItem("max-count-" + rows[i - 1].category) > defaultDisplayCount) {
@@ -7276,15 +7306,15 @@ function populateItemsList(rows = "") {
 
             currDisplayCount = 0;
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="cardsContainerDivClassPadd"  ><div class="categoryHeader">';
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="categoryHeader">';
 
             if (the.smusr) {
                 innerHTML = innerHTML + rows[i].categoryseq + '. ';
             }
 
-            innerHTML = innerHTML + rows[i].category +
+            innerHTML = innerHTML + rows[i].storename +
                 //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + categoryUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
                 '</div>';
 
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
@@ -7297,19 +7327,19 @@ function populateItemsList(rows = "") {
         }
 
 
-        if (i == 0) {
-            previousSubpath = "";
-        } else {
-            previousSubpath = rows[i - 1].subcategory;
-        }
+        // if (i == 0) {
+        //     previousSubpath = "";
+        // } else {
+        //     previousSubpath = rows[i - 1].subcategory;
+        // }
 
-        currentSubpath = rows[i].subcategory;
+        // currentSubpath = rows[i].subcategory;
 
-        if (i == rows.length - 1) {
-            nextSubPath = "";
-        } else {
-            nextSubPath = rows[i + 1].subcategory;
-        }
+        // if (i == rows.length - 1) {
+        //     nextSubPath = "";
+        // } else {
+        //     nextSubPath = rows[i + 1].subcategory;
+        // }
 
         var discontinuedFlgCls = "";
 
@@ -7317,34 +7347,34 @@ function populateItemsList(rows = "") {
             discontinuedFlgCls = " discontinued ";
         }
 
-        if (previousSubpath == currentSubpath) {
-            //It is a child item same as previous
-            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + categorySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+        // if (previousSubpath == currentSubpath) {
+        //     //It is a child item same as previous
+        //     innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + categorySqueezed + '" >';
+        //     innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
-            }
+        //     if (the.smusr) {
+        //         innerHTML = innerHTML + rows[i].titleseq + '. ';
+        //     }
 
-            innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
-        } else if (nextSubPath == currentSubpath) {
-            //It is a new child item 
+        //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        //     innerHTML = innerHTML + '</div>';
+        // } else if (nextSubPath == currentSubpath) {
+        //     //It is a new child item 
 
-            innerHTML = innerHTML + '<div class="itemParent ' + categorySqueezed + '" >';
-            innerHTML = innerHTML + currentSubpath;
-            innerHTML = innerHTML + '</div>';
+        //     innerHTML = innerHTML + '<div class="itemParent ' + categorySqueezed + '" >';
+        //     innerHTML = innerHTML + currentSubpath;
+        //     innerHTML = innerHTML + '</div>';
 
-            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + categorySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+        //     innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + categorySqueezed + '" >';
+        //     innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
-            }
+        //     if (the.smusr) {
+        //         innerHTML = innerHTML + rows[i].titleseq + '. ';
+        //     }
 
-            innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
-        } else {
+        //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        //     innerHTML = innerHTML + '</div>';
+        // } else {
             //It is not a new child item 
             innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
             innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
@@ -7355,7 +7385,7 @@ function populateItemsList(rows = "") {
 
             innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
             innerHTML = innerHTML + '</div>';
-        }
+        // }
 
 
         if (i == rows.length - 1) {
@@ -7415,6 +7445,8 @@ function populateStoreItemsList(rows = "") {
     var storename = "";
     var storenameUrl = "";
 
+    var category = "";
+
     var defaultDisplayCount = 1000;
     var storenameMaxCount = 0;
     var currDisplayCount = 0;
@@ -7426,13 +7458,14 @@ function populateStoreItemsList(rows = "") {
 
         storenameOrig = rows[i].storename;
         storename = rows[i].storename;
-
+        category = rows[i].category;
         storename = storename.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/"  + storename.toLowerCase() + "/"  + itemName.toLowerCase();
 
-        storenameUrl = myUrl + "items/" + storenameOrig;
+        //storenameUrl = myUrl + "items/" + storenameOrig;
+        storenameUrl = myUrl + storenameOrig;
 
         storenameSqueezed = rows[i].storename;
         storenameSqueezed = storenameSqueezed.replaceAll(' ', '')
@@ -7440,7 +7473,7 @@ function populateStoreItemsList(rows = "") {
         storenameMaxCount = sessionStorage.getItem("max-count-" + storenameSqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '" class="cardsContainerDivClassPadd"  > <div class="storenameHeader" >';
+            innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="storenameHeader" >';
             // if (the.smusr) {
             //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
             // }
@@ -7466,7 +7499,7 @@ function populateStoreItemsList(rows = "") {
 
             currDisplayCount = 0;
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '" class="cardsContainerDivClassPadd"  ><div class="storenameHeader">';
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="storenameHeader">';
 
             // if (the.smusr) {
             //     innerHTML = innerHTML + rows[i].storenameseq + '. ';

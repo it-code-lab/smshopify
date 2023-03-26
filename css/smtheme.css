@@ -23,6 +23,14 @@
     padding: 10px !important;
 }
 
+/***************Zindex**********************/
+/****************************************** */
+
+.z_index10{
+    z-index: 10 !important;
+
+}
+
 /***************WIDTH**********************/
 /****************************************** */
 .width_60px {
@@ -131,6 +139,11 @@
     background-color: #E74C3C !important;
 }
 
+.white_bg {
+    background-color: #fff !important;
+}
+
+
 .red_font {
     color: #E74C3C !important;
 }
@@ -157,34 +170,61 @@
 
 .max_4box_responsive {
     /* margin-top: 1rem; */
-    width: 100%;
-    float: left;
+    width: 100% !important;
+    float: left !important;
+    margin: 0px !important;
 }
 
 @media (min-width: 640px) {
     .max_4box_responsive {
-        width: 50%;
+        width: 50% !important;
         /* padding-right: 2.5rem; */
     }
 }
 
 @media (min-width: 768px) {
     .max_4box_responsive {
-        width: 33.3333%;
+        width: 33.3333% !important;
         /* padding-right: 1.5rem; */
     }
 }
 
 @media (min-width: 1024px) {
     .max_4box_responsive {
-        width: 25%;
+        width: 25% !important;
         /* padding-right: 3rem; */
     }
 }
 
 
 
+.max_4box_responsive_withmargin {
+    /* margin-top: 1rem; */
+    width: 94% !important;
+    float: left !important;
+    margin: 2vw !important;
+}
 
+@media (min-width: 640px) {
+    .max_4box_responsive_withmargin {
+        width: 45% !important;
+        /* padding-right: 2.5rem; */
+    }
+}
+
+@media (min-width: 768px) {
+    .max_4box_responsive_withmargin {
+        width: 28.4% !important;
+        /* padding-right: 1.5rem; */
+    }
+}
+
+@media (min-width: 1024px) {
+    .max_4box_responsive_withmargin {
+        width: 20.5% !important;
+        /* padding-right: 3rem; */
+    }
+}
 
 
 
@@ -192,18 +232,19 @@
     /* margin-top: 1rem; */
     width: 100%;
     float: left;
+    margin: 0px !important;
 }
 
 @media (min-width: 640px) {
     .max_3box_responsive {
-        width: 50%;
+        width: 50% !important;
         /* padding-right: 2.5rem; */
     }
 }
 
 @media (min-width: 768px) {
     .max_3box_responsive {
-        width: 33.3333%;
+        width: 33.3333% !important;
         /* padding-right: 1.5rem; */
     }
 }
@@ -211,26 +252,27 @@
 
 .max_2box_responsive {
     /* margin-top: 1rem; */
-    width: 100%;
-    float: left;
+    width: 100% !important;
+    float: left !important;
+    margin: 0px !important;
 }
 
 @media (min-width: 640px) {
     .max_2box_responsive {
-        width: 50%;
+        width: 50% !important;
         /* padding-right: 2.5rem; */
     }
 }
 
 .max_2box_responsive_withsidenav {
     /* margin-top: 1rem; */
-    width: 100%;
-    float: left;
+    width: 100% !important;
+    float: left !important;
 }
 
 @media (min-width: 1024px) {
     .max_2box_responsive_withsidenav {
-        width: 50%;
+        width: 50% !important;
         /* padding-right: 2.5rem; */
     }
 }
@@ -337,9 +379,12 @@
 }
 
 .bottom_shadow {
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
 }
 
+.shadow_1{
+    box-shadow: rgb(34, 34, 34) 1px 1px 2px !important;
+}
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
 
