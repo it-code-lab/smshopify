@@ -3211,14 +3211,14 @@ function checkURL() {
     if (path.indexOf('items/') > 0) {
         //var shoptitle = path.replaceAll("/antaksharee/lyrics/","");
 
-        // if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
-        //     document.getElementById("loaderDivId").style.display = "block";
-        //     setTimeout(function() {
-        //         document.getElementById("loaderDivId").style.display = "none";
-        //         checkURL();
-        //     }, 500);
-        //     return;
-        // }
+        if (sessionStorage.getItem("itemsList") == null) {
+            document.getElementById("loaderDivId").style.display = "block";
+            setTimeout(function() {
+                document.getElementById("loaderDivId").style.display = "none";
+                checkURL();
+            }, 500);
+            return;
+        }
 
         document.getElementById("languageScanResultDivId").style.display = "none";
         document.getElementById("languageOverride").style.display = "none";
@@ -4927,7 +4927,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopName1") {
 
         var htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
-            + "\n" + '<button id="itemsearchBtnId" class="button_type1 width_150px" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+            + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
             + "\n" + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
             + "\n" + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
             + "\n" + '</div>';
@@ -7036,7 +7036,7 @@ function showBanner() {
 function refreshStoreName() {
     setTimeout(function () {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
-        document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
+        document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1 width_150px" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
         // var allItems = document.querySelectorAll(".shopTopBannerBtn");
