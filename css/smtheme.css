@@ -7,21 +7,22 @@
 /**************Common Basic Styles******************/
 /*********************************************/
 
-.text_align_center{
+.text_align_center {
     text-align: center !important;
 }
 
-.margin_auto{
+.margin_auto {
     margin: auto !important;
 }
 
-.font_size_12px{
+.font_size_12px {
     font-size: 12px !important;
 }
 
-.padding_10px{
+.padding_10px {
     padding: 10px !important;
 }
+
 /***************WIDTH**********************/
 /****************************************** */
 .width_60px {
@@ -49,6 +50,25 @@
     max-width: 300px !important;
 }
 
+.maxwidth_400px {
+    max-width: 400px !important;
+}
+
+.height_50px {
+    height: 50px !important;
+}
+
+.height_100px {
+    height: 100px !important;
+}
+
+.height_200px {
+    height: 200px !important;
+}
+
+.height_300px {
+    height: 300px !important;
+}
 
 .minheight_100px {
     min-height: 100px !important;
@@ -61,10 +81,15 @@
 .minheight_300px {
     min-height: 300px !important;
 }
+
 /***************FONT SIZE**********************/
 /****************************************** */
 .fontsize_18px {
     font-size: 18px;
+}
+
+.fullwidthdummydiv {
+    width: 100%;
 }
 
 /**************MESSAGE BOXES******************/
@@ -311,7 +336,9 @@
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px !important;
 }
 
-
+.bottom_shadow {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
 
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
