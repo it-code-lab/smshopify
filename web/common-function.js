@@ -3208,6 +3208,8 @@ function checkURL() {
 
     }
 
+
+
     if (path.indexOf('items/') > 0) {
         //var shoptitle = path.replaceAll("/antaksharee/lyrics/","");
 
@@ -3411,6 +3413,16 @@ function checkURL() {
         }
         document.getElementById("filescannerDivId").style.width = "100%";
     } else if (pageName == "item") {
+
+        if (sessionStorage.getItem("itemsList") == null) {
+            document.getElementById("loaderDivId").style.display = "block";
+            setTimeout(function() {
+                document.getElementById("loaderDivId").style.display = "none";
+                checkURL();
+            }, 500);
+            return;
+        }
+
         document.getElementById("filescannerDivId").style.display = "none";
         document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("projectscannerDivId").style.display = "none";
@@ -3422,7 +3434,12 @@ function checkURL() {
         document.getElementById("itemEditDivId").style.display = "none";
 
         document.getElementById("itemListDivId").style.width = "100%";
-        populateItemsList();
+
+        //Likely request for store item display
+        var storename = path.substring(path.indexOf(the.hosturl) + the.hosturl.length + 1);
+
+        displayStore(storename);
+        //populateItemsList();
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
     }
@@ -3438,6 +3455,24 @@ function checkURL() {
     }
 }
 
+function displayStore(storename){
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    var allRows = JSON.parse(tf);
+
+    var storeRow = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.title == storename;
+    });
+
+    if (storeRow.length > 0){
+        document.getElementById("itemDivId").style.display = "block";
+        getItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title );
+    }else{
+        document.getElementById("itemDivId").innerHTML = "Sorry. The select resource is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+        document.getElementById("itemDivId").style.display = "block";
+    }
+
+}
 function getItem(itemstr) {
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -3634,10 +3669,12 @@ function getOneItemOfShop(tags, itemstr) {
 
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
+    var storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category +"/" + storeRow[0].title;
 
     var newHTML = "<div classXX = 'shopContainer' >" +
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
+        '<a href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
     //END - Navigation Links
 
@@ -3732,7 +3769,10 @@ function getOneItemOfShop(tags, itemstr) {
 
     document.getElementById("itemDivId").innerHTML = newHTML;
     refreshCaptcha();
+
     showcategory(category);
+    showAllShopItemsInLeftPane(storeRow[0].title);
+
     //START: Change the background color of the active item link 
     var elemId = "itemDiv-" + itemid;
     document.getElementById(elemId).style.backgroundColor = "orange";
@@ -7001,6 +7041,31 @@ function showcategory(tech) {
     // document.getElementById(elementId).style.overflow = "expand";
 }
 
+
+function showAllShopItemsInLeftPane(storename) {
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    var rows = JSON.parse(tf);
+    var elementId = "menucardparent-" + storename
+    elementId = elementId.replaceAll(" ", "");
+    if (storename != "") {
+        storename = storename.toUpperCase();
+        rows = rows.filter(function (entry) {
+            return (entry.storename != null) && (entry.storename.toUpperCase() == storename) && (entry.storename != entry.title);
+        });
+    }
+
+    populateStoreItemsList(rows);
+
+    document.getElementById(elementId).style.width = "95%";
+    document.getElementById(elementId).style.maxWidth = "1200px";
+    document.getElementById(elementId).style.float = "none";
+    document.getElementById(elementId).style.top = "20px";
+    document.getElementById(elementId).style.margin = "auto";
+
+    // document.getElementById(elementId).style.overflow = "expand";
+}
+
 function searchItem() {
     var searchText = document.getElementById("item-search-box").value;
 
@@ -7314,6 +7379,198 @@ function populateItemsList(rows = "") {
     populateItemDropDown();
 
 }
+
+
+
+
+function populateStoreItemsList(rows = "") {
+
+
+    //console.log(document.getElementById("cardsContainerDivId").innerHTML);
+
+    var tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
+
+    if (rows == "") {
+        rows = JSON.parse(tf);
+    }
+
+
+    if (the.smusr) {
+    } else {
+        rows = rows.filter(function (entry) {
+            return entry.discontinue == "0";
+        });
+    }
+
+
+    //var innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
+    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
+    var innerHTML = "";
+    var itemName = "";
+    var path = window.location.pathname;
+    var myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+    var storenameSqueezed = "";
+    var storenameOrig = "";
+    var storename = "";
+    var storenameUrl = "";
+
+    var defaultDisplayCount = 1000;
+    var storenameMaxCount = 0;
+    var currDisplayCount = 0;
+
+    for (var i = 0; i < rows.length; i++) {
+
+        itemName = rows[i].title;
+        itemName = itemName.replaceAll(" ", "-");
+
+        storenameOrig = rows[i].storename;
+        storename = rows[i].storename;
+
+        storename = storename.replaceAll(" ", "-");
+
+        //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
+
+        storenameUrl = myUrl + "items/" + storenameOrig;
+
+        storenameSqueezed = rows[i].storename;
+        storenameSqueezed = storenameSqueezed.replaceAll(' ', '')
+
+        storenameMaxCount = sessionStorage.getItem("max-count-" + storenameSqueezed);
+
+        if (i == 0) {
+            innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '" class="cardsContainerDivClassPadd"  > <div class="storenameHeader" >';
+            // if (the.smusr) {
+            //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
+            // }
+            innerHTML = innerHTML + rows[i].storename +
+
+                //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+
+                '</div>';
+            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
+
+        } else if (rows[i].storename != rows[i - 1].storename) {
+
+
+            if (sessionStorage.getItem("max-count-" + rows[i - 1].storename) > defaultDisplayCount) {
+                sessionStorage.setItem("display-count-" + rows[i - 1].storename, defaultDisplayCount);
+                innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv storenameFooter ' + rows[i - 1].storename + ' " >' +
+                    '<button id="showmore-' + rows[i - 1].storename + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].storename + '") >Show More</button>' +
+                    '</div>';
+            } else {
+                sessionStorage.setItem("display-count-" + rows[i - 1].storename, currDisplayCount);
+            }
+
+            currDisplayCount = 0;
+
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '" class="cardsContainerDivClassPadd"  ><div class="storenameHeader">';
+
+            // if (the.smusr) {
+            //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
+            // }
+
+            innerHTML = innerHTML + rows[i].storename +
+                //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+                '</div>';
+
+            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
+        }
+
+        currDisplayCount = currDisplayCount + 1;
+
+        if (currDisplayCount >= defaultDisplayCount) {
+            continue;
+        }
+
+
+        // if (i == 0) {
+        //     previousSubpath = "";
+        // } else {
+        //     previousSubpath = rows[i - 1].substorename;
+        // }
+
+        // currentSubpath = rows[i].substorename;
+
+        // if (i == rows.length - 1) {
+        //     nextSubPath = "";
+        // } else {
+        //     nextSubPath = rows[i + 1].substorename;
+        // }
+
+        var discontinuedFlgCls = "";
+
+        if (rows[i].discontinue == "1") {
+            discontinuedFlgCls = " discontinued ";
+        }
+
+        // if (previousSubpath == currentSubpath) {
+        //     //It is a child item same as previous
+        //     innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + storenameSqueezed + '" >';
+        //     innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+
+        //     if (the.smusr) {
+        //         innerHTML = innerHTML + rows[i].titleseq + '. ';
+        //     }
+
+        //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        //     innerHTML = innerHTML + '</div>';
+        // } else if (nextSubPath == currentSubpath) {
+        //     //It is a new child item 
+
+        //     innerHTML = innerHTML + '<div class="itemParent ' + storenameSqueezed + '" >';
+        //     innerHTML = innerHTML + currentSubpath;
+        //     innerHTML = innerHTML + '</div>';
+
+        //     innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv itemChild ' + discontinuedFlgCls + storenameSqueezed + '" >';
+        //     innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+
+        //     if (the.smusr) {
+        //         innerHTML = innerHTML + rows[i].titleseq + '. ';
+        //     }
+
+        //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        //     innerHTML = innerHTML + '</div>';
+        // } else {
+            //It is not a new child item 
+            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
+            innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+
+            if (the.smusr) {
+                innerHTML = innerHTML + rows[i].titleseq + '. ';
+            }
+
+            innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+            innerHTML = innerHTML + '</div>';
+        // }
+
+
+        if (i == rows.length - 1) {
+            innerHTML = innerHTML + '</div>';
+        }
+    }
+
+    if (sessionStorage.getItem("max-count-" + storenameSqueezed) > defaultDisplayCount) {
+        sessionStorage.setItem("display-count-" + storenameSqueezed, defaultDisplayCount);
+        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv storenameFooter ' + storenameSqueezed + ' " >' +
+            '<button id="showmore-"' + rows[i - 1].storename + ' type="button" class="showmore-btn" onclick=showMoreitems("' + storenameSqueezed + '") >Show More</button>' +
+            '</div>';
+    } else {
+        sessionStorage.setItem("display-count-" + storenameSqueezed, currDisplayCount);
+    }
+
+    innerHTML = innerHTML + '</div>';
+    //document.getElementById("itemDivId").innerHTML = innerHTML;
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    populateItemDropDown();
+
+}
+
+
 
 function handleShowToggle(checkbox) {
     var categorySqueezed = checkbox.dataset.cat;

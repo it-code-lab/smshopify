@@ -1920,7 +1920,7 @@ button.btnNewWindow::before {
 }
 
 /* SM: End: ***********Above styles are for cards on home page **************/
-.categoryHeader {
+.categoryHeader, .storenameHeader {
   background-color: #2C3E50;
   /*width: 98%;*/
   color: #fff;
