@@ -87,7 +87,6 @@
 .myitemImages {
     display: none;
     width: 95%;
-    max-widthX: 400px;
     height: auto;
     padding: 10px;
     margin: auto;
@@ -95,7 +94,6 @@
 }
 
 .itemImageshow-container {
-    max-widthX: 1000px;
     position: relative;
     margin: auto;
 }

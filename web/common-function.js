@@ -3455,7 +3455,7 @@ function getItem(itemstr) {
                 document.getElementById("itemEditDivId").style.display = "none";
                 getCreateStore(tags);
             } else if (tags[0].title != tags[0].storename) {
-                getShopItem(tags);
+                getOneItemOfShop(tags);
             } else {
                 getFullShopDetails(tags, itemstr);
             }
@@ -3593,7 +3593,7 @@ function getCreateStore(tags, itemstr) {
 
 }
 
-function getShopItem(tags, itemstr) {
+function getOneItemOfShop(tags, itemstr) {
 
     var itemid = tags[0].itemid;
     var category = tags[0].category;
@@ -3688,11 +3688,10 @@ function getShopItem(tags, itemstr) {
             setTimeout(function () {
                 var latitude = 28.2683684;
                 var longitude = 78.6824194000001;
-                //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
                 const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
-            }, 800);
+            }, 10);
 
         }
     }
@@ -3830,17 +3829,16 @@ function getFullShopDetails(tags, itemstr) {
     if (tags[0].displaylocationflag != undefined) {
         if (tags[0].displaylocationflag != "xyx") {
             newHTML = newHTML
-                + '<div id="storeMapDivId" >xxx<br><br><br>' + '</div>';
+                + '<div id="storeMapDivId" >&nbsp; <br><br><br>' + '</div>';
 
 
             setTimeout(function () {
                 var latitude = 28.2683684;
                 var longitude = 78.6824194000001;
-                //const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
                 const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
-            }, 800);
+            }, 10);
 
         }
     }
