@@ -25,6 +25,7 @@ var the = {
     filelvlhelp: null,
     smusr: false,
     hosturl: '/smshopify',
+    newImageName: '',
 
 
 };
@@ -140,7 +141,8 @@ var itemImagesDiv = '<div class="itemImageshow-container">'
 var addItmImagesDiv = ""
     + "<div class='existingItmImages'> </div>"
     + "<input type='text' style='display:none; width:95%; margin:auto;'  value=''>"
-    + "<div style='width: 100%'><br><input type='file' id='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='addImageToItemList(event)'>"
+    + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
+    + "<div style='width: 100%'><br><input type='file' class='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='addImageToItemList(event)'>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
     + "<input id='replaceBannerImg' class='saveItmImgChangesBtn' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
 
@@ -277,7 +279,7 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
 var replaceBannerImg = "<label class='informationBox'>If you want to change the image in the banner above, use the button below to replace image</label>"
     + "<input type='text'  style='display:none; width:95%; margin:auto;'  value=''>"
     + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
-    + "<br><input type='file' id='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png, image/gif, image/jpeg' onchange='showImage(event)'>"
+    + "<br><input type='file' class='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='showImage(event)'>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
     + "<input id='replaceBannerImg' class='displayNone' type='button' value='Replace Banner Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
 
@@ -3517,6 +3519,9 @@ function getItem(itemstr) {
                 getCreateStore(tags);
             } else if (tags[0].title != tags[0].storename) {
                 getOneItemOfShop(tags);
+                $(".cardsContainerDivClassPadd").css("width", "95%");
+                $(".cardsContainerDivClassPadd").css("margin", "auto");
+                $(".cardsContainerDivClassPadd").css("float", "none");
             } else {
                 document.getElementById("itemListDivId").style.display = "none";
                 document.getElementById("itemEditDivId").style.display = "none";               
@@ -3570,7 +3575,7 @@ function getCreateStore(tags, itemstr) {
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
     var newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
     newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 class='font_family_style1' > " + title + "</h1></div>";
@@ -3698,7 +3703,7 @@ function getOneItemOfShop(tags, itemstr) {
     var storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category +"/" + storeRow[0].title;
 
     var newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
@@ -3882,7 +3887,7 @@ function getFullShopDetails(tags, itemstr) {
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
     var newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
+        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
     
@@ -4395,7 +4400,13 @@ function toggleToolBarView() {
 function popolatenewImageName(itemid) {
     var name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
     name = name.replaceAll("#", "");
-    document.getElementById("image-" + itemid).value = name;
+    the.newImageName = name;
+    try{
+        document.getElementById("image-" + itemid).value = name;
+    }catch{
+
+    }
+    
 }
 
 function loadUNSPLImg(itemid) {
@@ -4554,7 +4565,9 @@ function addImageToItemList(event) {
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
-    var files = document.getElementById(fileelementid + itemid).files;
+    var elemClassname = fileelementid + itemid;
+
+    var files = elem.parentElement.querySelector("." + elemClassname).files;
 
     if (files.length > 0) {
 
@@ -4611,24 +4624,30 @@ function saveItemImgChanges(event) {
 }
 
 function uploadFile(event) {
-    if (localStorage.getItem("userLoggedIn") == "n") {
+    // if (localStorage.getItem("userLoggedIn") == "n") {
+    //     error_message = "Not authorized";
+    //     return;
 
-        error_message = "Not authorized";
-        return;
-
-    } else if (localStorage.getItem("userLvl") != "9") {
-        error_message = "Not authorized";
-        return;
-    }
+    // } else if (localStorage.getItem("userLvl") != "9") {
+    //     error_message = "Not authorized";
+    //     return;
+    // }
     var elem = event.target;
     var fileelementid = elem.dataset.fileelementid;
     var saveasnameelementid = elem.dataset.saveasnameelementid;
     var itemid = elem.dataset.itemid;
 
-    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    //var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+
+    var saveasname = '';
+    try {
+        saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    }catch{
+        saveasname = the.newImageName;  
+    }
+    
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
-
 
     var errormsgelementid = elem.dataset.errormsgelementid;
 
@@ -4637,45 +4656,130 @@ function uploadFile(event) {
         saveasname = saveasname + ".png";
     }
 
-    var files = document.getElementById(fileelementid + itemid).files;
+    //var files = document.getElementById(fileelementid + itemid).files;
+
+    var elemClassname = fileelementid + itemid;
+
+    var files = elem.parentElement.querySelector("." + elemClassname).files;
 
     if (files.length > 0) {
 
-        var formData = new FormData();
-        formData.append("file", files[0]);
-        formData.append("saveasname", saveasname);
-        formData.append("dir", "img");
+        resizeImage({
+            file: files[0],
+            maxSize: 500
+        }).then(function (resizedImage) {
+            //console.log("upload resized image")
+            uploadFileAsName(resizedImage, saveasname);
 
-        var xhttp = new XMLHttpRequest();
+        }).catch(function (err) {
+            console.error(err);
+        });     
 
-        // Set POST method and ajax file path
-        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-
-        // call on request changes state
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-
-                var response = this.responseText;
-                //console.log(response);
-
-                document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-                /*
-           if(response == 1){
-              alert("Upload successfully.");
-           }else{
-              alert("File not uploaded.");
-           }
-           */
-            }
-        };
-
-        // Send request with data
-        xhttp.send(formData);
 
     } else {
         alert("Please select a file");
     }
 
+}
+
+function uploadFileAsName(file, saveasname){
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("saveasname", saveasname);
+    formData.append("dir", "img");
+
+    var xhttp = new XMLHttpRequest();
+
+    // Set POST method and ajax file path
+    xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+
+    // call on request changes state
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = this.responseText;
+            document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
+        }
+    };
+
+    // Send request with data
+    xhttp.send(formData);
+}
+
+function resizeImage (settings) {
+    var file = settings.file;
+    var maxSize = settings.maxSize;
+    var reader = new FileReader();
+    var image = new Image();
+    var canvas = document.createElement('canvas');
+
+    var dataURItoBlob = function(dataURL) {
+        var BASE64_MARKER = ';base64,';
+        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = parts[1];
+    
+            return new Blob([raw], {type: contentType});
+        }
+    
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+    
+        var uInt8Array = new Uint8Array(rawLength);
+    
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+    
+        return new Blob([uInt8Array], {type: contentType});
+    };
+
+    // var dataURItoBlob = function (dataURI) {
+    //     var bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
+    //         atob(dataURI.split(',')[1]) :
+    //         unescape(dataURI.split(',')[1]);
+    //     var mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    //     var max = bytes.length;
+    //     var ia = new Uint8Array(max);
+    //     for (var i = 0; i < max; i++)
+    //         ia[i] = bytes.charCodeAt(i);
+    //     return new Blob([ia], { type: mime });
+    // };
+    var resize = function () {
+        var width = image.width;
+        var height = image.height;
+        if (width > height) {
+            if (width > maxSize) {
+                height *= maxSize / width;
+                width = maxSize;
+            }
+        } else {
+            if (height > maxSize) {
+                width *= maxSize / height;
+                height = maxSize;
+            }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+
+        //0.9 is the quality
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        return dataURItoBlob(dataUrl);
+    };
+    return new Promise(function (ok, no) {
+        if (!file.type.match(/image.*/)) {
+            no(new Error("Not an image"));
+            return;
+        }
+        reader.onload = function (readerEvent) {
+            image.onload = function () { return ok(resize()); };
+            image.src = readerEvent.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
 }
 
 function uploadAndInsertFile(event) {
@@ -4693,7 +4797,14 @@ function uploadAndInsertFile(event) {
     var saveasnameelementid = elem.dataset.saveasnameelementid;
     var itemid = elem.dataset.itemid;
 
-    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    //var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    var saveasname = '';
+    try {
+        saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    }catch{
+        saveasname = the.newImageName;  
+    }
+    
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
@@ -4703,35 +4814,51 @@ function uploadAndInsertFile(event) {
         saveasname = saveasname + ".png";
     }
 
-    var files = document.getElementById(fileelementid + itemid).files;
+    //var files = document.getElementById(fileelementid + itemid).files;
+
+    var elemClassname = fileelementid + itemid;
+
+    var files = elem.parentElement.querySelector("." + elemClassname).files;
 
     if (files.length > 0) {
 
-        var formData = new FormData();
-        formData.append("file", files[0]);
-        formData.append("saveasname", saveasname);
-        formData.append("dir", "img");
 
-        var xhttp = new XMLHttpRequest();
 
-        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+        resizeImage({
+            file: files[0],
+            maxSize: 500
+        }).then(function (resizedImage) {
+            var formData = new FormData();
+            formData.append("file", resizedImage);
+            formData.append("saveasname", saveasname);
+            formData.append("dir", "img");
+    
+            var xhttp = new XMLHttpRequest();
+    
+            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+    
+            // call on request changes state
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+    
+                    var response = this.responseText;
+                    //console.log(response);
+    
+                    document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
+                    var imagename = document.getElementById("image-" + itemid).value;
+                    var randomId = "div-" + Math.floor(Math.random() * 1000000);
+                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+                    insertImageAtCaret(Str);
+                }
+            };
+    
+            xhttp.send(formData);
 
-        // call on request changes state
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+        }).catch(function (err) {
+            console.error(err);
+        });  
 
-                var response = this.responseText;
-                //console.log(response);
-
-                document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-                var imagename = document.getElementById("image-" + itemid).value;
-                var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
-                insertImageAtCaret(Str);
-            }
-        };
-
-        xhttp.send(formData);
+ 
 
     } else {
         alert("Please select a file");
@@ -4754,6 +4881,7 @@ function SaveImageAndInsertAtCarot(event) {
     var saveasnameelementid = elem.dataset.saveasnameelementid;
     var itemid = elem.dataset.itemid;
     popolatenewImageName(itemid);
+
     var saveasname = document.getElementById(saveasnameelementid + itemid).value;
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
@@ -4807,7 +4935,14 @@ function UploadAndReplaceBannerImg(event) {
     var saveasnameelementid = elem.dataset.saveasnameelementid;
     var itemid = elem.dataset.itemid;
     popolatenewImageName(itemid);
-    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+
+    var saveasname = '';
+    try {
+        saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    }catch{
+        saveasname = the.newImageName;  
+    }
+    
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
@@ -4817,38 +4952,52 @@ function UploadAndReplaceBannerImg(event) {
         saveasname = saveasname + ".png";
     }
 
-    var files = document.getElementById(fileelementid + itemid).files;
+    //var files = document.getElementById(fileelementid + itemid).files;
+
+    var elemClassname = fileelementid + itemid;
+
+    var files = elem.parentElement.querySelector("." + elemClassname).files;
+
     if (files.length > 0) {
 
-        var formData = new FormData();
-        formData.append("file", files[0]);
-        formData.append("saveasname", saveasname);
-        formData.append("dir", "img");
-
-        var xhttp = new XMLHttpRequest();
-
-        // Set POST method and ajax file path
-        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-
-        // call on request changes state
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-
-                //var parentSecDiv = elem.parentElement.parentElement;
-                //var previewDiv = parentSecDiv.querySelector('.secPreview');
-                //var previewDiv = document.querySelector('.secPreview');
-
-                var parentSecDiv = elem.parentElement.parentElement.parentElement;
-                var previewDiv = parentSecDiv.querySelector('.secPreview');
-
-                if (previewDiv.style.display != "none") {
-                    var bannerDiv = previewDiv.querySelector('.shopTopBanner');
-                    bannerDiv.style.backgroundImage = "url('" + the.hosturl + "/img/" + saveasname + "')";
+        resizeImage({
+            file: files[0],
+            maxSize: 500
+        }).then(function (resizedImage) {
+            var formData = new FormData();
+            formData.append("file", resizedImage);
+            formData.append("saveasname", saveasname);
+            formData.append("dir", "img");
+    
+            var xhttp = new XMLHttpRequest();
+    
+            // Set POST method and ajax file path
+            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+    
+            // call on request changes state
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+    
+                    //var parentSecDiv = elem.parentElement.parentElement;
+                    //var previewDiv = parentSecDiv.querySelector('.secPreview');
+                    //var previewDiv = document.querySelector('.secPreview');
+    
+                    //Mar-26:Added one more parent for banner img
+                    var parentSecDiv = elem.parentElement.parentElement.parentElement.parentElement;
+                    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    
+                    if (previewDiv.style.display != "none") {
+                        var bannerDiv = previewDiv.querySelector('.shopTopBanner');
+                        bannerDiv.style.backgroundImage = "url('" + the.hosturl + "/img/" + saveasname + "')";
+                    }
                 }
-            }
-        };
+            };
+    
+            xhttp.send(formData);
 
-        xhttp.send(formData);
+        }).catch(function (err) {
+            console.error(err);
+        });  
 
     } else {
         alert("Please select a file");
@@ -5060,7 +5209,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px;background-color: rgb(91, 94, 166); color: white;">'
-            + "\n" + '<div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div contenteditable="true" style="font-size:1vw" data-text="Any tagline"></div>'
+            + "\n" + '<div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div contenteditable="true" style="font-size:15px" data-text="Any tagline"></div>'
             + "\n" + '</div>';
 
 
@@ -5127,7 +5276,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner2") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-2175.png&quot;);">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -5192,7 +5341,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner3") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -5258,7 +5407,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner4") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/smshopify/img/loops-in-java-5570.png&quot;); ">'
-            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:10px; text-align:center; width:50%;  margin:auto ;  border-radius: 20px;"><div style="font-size:3vw" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:1vw">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:20px; text-align:center; width:80%;  margin:auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -5398,7 +5547,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
     } else if (type == "SemiTransBG2") {
 
-        var htmlPartOrig = "<div class='slidingUp10px semiTransparentBlackBG boxShadow5' style='opacity: 0.5; padding: 20px; border-radius: 20px; margin:auto; width:50%; margin-top: 10px'>"
+        var htmlPartOrig = "<div class='slidingUp10px semiTransparentBlackBG boxShadow5' style='opacity: 0.5; padding: 20px; border-radius: 20px; margin:auto; width:80%; margin-top: 10px'>"
             + "\n" + "Add Title "
             + "\n" + "</div>";
 
@@ -8017,7 +8166,7 @@ function login() {
             //console.log( "Inside login success retstatus =" + retstatus);
 
             if (retstatus.substring(0, 2) == "6S") {
-                document.getElementById("loginerrormsg").innerHTML = "Login Successful"
+                //document.getElementById("loginerrormsg").innerHTML = "Login Successful"
 
                 loggedIn = "Y";
                 document.getElementById("loginLinkId").style.display = "none";

@@ -19,6 +19,7 @@
 .shopTopBanner {
     height: 300px;
     width: 100%;
+    background-size: cover;
 }
 
 
@@ -453,3 +454,4 @@ input.confirmBtn:hover {
 .filteredItmImgContainerDiv:hover .deleteDiv{
     background-color: #E74C3C;
 }
+

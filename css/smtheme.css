@@ -200,28 +200,28 @@
 
 .max_4box_responsive_withmargin {
     /* margin-top: 1rem; */
-    width: 94% !important;
-    float: left !important;
-    margin: 2vw !important;
+    width: 94% ;
+    float: left ;
+    margin: 2vw ;
 }
 
 @media (min-width: 640px) {
     .max_4box_responsive_withmargin {
-        width: 45% !important;
+        width: 45% ;
         /* padding-right: 2.5rem; */
     }
 }
 
 @media (min-width: 768px) {
     .max_4box_responsive_withmargin {
-        width: 28.4% !important;
+        width: 28.4% ;
         /* padding-right: 1.5rem; */
     }
 }
 
 @media (min-width: 1024px) {
     .max_4box_responsive_withmargin {
-        width: 20.5% !important;
+        width: 20.5% ;
         /* padding-right: 3rem; */
     }
 }
