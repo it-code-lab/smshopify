@@ -3547,8 +3547,8 @@ function getCreateStore(tags, itemstr) {
     refreshCaptcha();
     //showcategory(category);
     //START: Change the background color of the active item link 
-    
-    
+
+
     //var elemId = "itemDiv-" + itemid;
     //document.getElementById(elemId).style.backgroundColor = "orange";
     //END: Change the background color of the active item link
@@ -7039,10 +7039,10 @@ function refreshStoreName() {
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
-            // var allItems = document.querySelectorAll(".shopTopBannerBtn");
-            // for (i = 0; i < allItems.length; i++) {
-            //     allItems[i].classList.add("max_4box_responsive");
-            // }            
+        // var allItems = document.querySelectorAll(".shopTopBannerBtn");
+        // for (i = 0; i < allItems.length; i++) {
+        //     allItems[i].classList.add("max_4box_responsive");
+        // }            
     }, 100);
 }
 
@@ -8015,9 +8015,9 @@ function getStoreTypeList() {
         if (i == 0) {
             innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" > ';
 
-            innerHTML = innerHTML + 
+            innerHTML = innerHTML +
                 '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' +
-                '<div class="shopCategoryHeader" >' + 
+                '<div class="shopCategoryHeader" >' +
                 rows[i].category +
                 '</div>';
 
@@ -8025,8 +8025,8 @@ function getStoreTypeList() {
 
             innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '" class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="categoryClicked(' + "'" + categoryOrig + "'" + ')" >';
 
-            innerHTML = innerHTML + 
-                '<img src="' + the.hosturl + '/images/'+ categoryOrig +'.png" alt="items" class="storeCategoryImg">' +
+            innerHTML = innerHTML +
+                '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' +
                 '<div class="shopCategoryHeader">' +
                 rows[i].category +
                 '</div>';
@@ -8962,20 +8962,38 @@ function openShopTab(evt, shopTabId) {
         deleteItem(evt.currentTarget.parentElement.parentElement.parentElement.parentElement);
 
     }
+
+    scrollElementToTopOfScreenInstantly(evt.currentTarget.parentElement.parentElement.parentElement);
+
+    // $('html, body').animate({
+    //     scrollTop: evt.currentTarget.parentElement.offset().top - 40        
+    // }, 100);
 }
+
+function scrollElementToTopOfScreenInstantly(elem) {
+    elem.scrollIntoView({ behavior: "instant", block: "start", inline: "nearest" });
+
+}
+
+
+function scrollElementToTopOfScreenSmoothly(elem) {
+    elem.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
+}
+
 async function deleteItem(elem) {
 
     const confirm = await ui.userConfirmation('Are you sure you want delete the item?');
-    
-    if(confirm){
+
+    if (confirm) {
         //var parentDiv = elem;
 
         elem.parentNode.removeChild(elem);
 
         //parentDiv.innHTML = "";
         //parentDiv.style.display = "none";
-    } 
-   
+    }
+
 }
 function deselectOtherInputCheckBox(elem) {
     //elem.checked = false;

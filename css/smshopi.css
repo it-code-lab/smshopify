@@ -42,7 +42,8 @@
 
 /* Change background color of buttons on hover */
 .shopTab button:hover {
-    background-color: #ddd;
+    background-color: #5f5d5d;
+    color: #fff;
 }
 
 /* Create an active/current shopTablink class */
@@ -439,6 +440,12 @@ input.confirmBtn:hover {
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
+
+.shopCategoryDisplay:hover .shopCategoryHeader {
+    background-color: #766f03;
+    color: #fff;
+}
+
 
 .storeBannerImg{
     width: 100%;
