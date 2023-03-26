@@ -158,7 +158,7 @@
     font-family: Lucida Console;
     border-radius: 4px;
     margin: 10px;
-    box-shadow: 0 0 10px black;
+    /* box-shadow: 0 0 10px black; */
     padding: 0 10px 0 10px;
     overflow: hidden;
     display: inline-block;

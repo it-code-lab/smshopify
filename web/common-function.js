@@ -3637,31 +3637,33 @@ function getOneItemOfShop(tags, itemstr) {
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "items</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+    //END - Navigation Links
+
     newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
+    //END - Item name Heading
+
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
     } else if (localStorage.getItem("userLvl") == "9") {
 
         sessionStorage.setItem("data-description", description);
-
-        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords +  '" data-discontinue= "' + discontinue  + '" onclick="editItem(this)" >Edit</button>';
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
-
-        //newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemprice= "' + tags[0].itemprice + '" data-itemimages= "' + tags[0].itemimages + '" data-itemdescription= "' + tags[0].itemdescription + '" data-displaylocationflag= "' + tags[0].displaylocationflag + '" data-maplocationcoordinates= "' + tags[0].maplocationcoordinates + '" data-address= "' + tags[0].address + '" data-uselocationfromaddress= "' + tags[0].uselocationfromaddress + '" data-coordinatesfromaddress= "' + tags[0].coordinatesfromaddress + '" data-displayhoursflag= "' + tags[0].displayhoursflag + '" data-hourshtml= "' + tags[0].hourshtml + '" data-availabilityinfo= "' + tags[0].availabilityinfo + '" data-storename= "' + tags[0].storename + '" data-bannerhtml= "' + tags[0].bannerhtml + '" data-reviewed= "' + tags[0].reviewed   + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+         newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
-    newHTML = newHTML + '<div classXX="shopDeltsNImg">';
-    newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
+     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
 
+    //Start: div class="itemImageshow-container"
     if (tags[0].itemimages != undefined) {
         if (tags[0].itemimages != "") {
             newHTML = newHTML
                 + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
         }
     }
+    //End: div class="itemImageshow-container"
 
-    newHTML = newHTML + '<div class="container-justify-grid-300x300"><div>';
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px">';
 
     if (tags[0].itemprice != undefined) {
         if (tags[0].itemprice != "") {
@@ -3677,12 +3679,17 @@ function getOneItemOfShop(tags, itemstr) {
         }
     }
 
-    newHTML = newHTML + '</div>';
+    newHTML = newHTML + '</div></div>';
+    //End: max_2box_responsive
+
+
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
 
     if (storeRow[0].displaylocationflag != undefined) {
         if (storeRow[0].displaylocationflag != "xyx") {
             newHTML = newHTML
-                + '<div id="storeMapDivId" >' + '</div>';
+                + '<div id="storeMapDivId" class="minheight_200px"> &nbsp;<br><br><br></div>';
 
 
             setTimeout(function () {
@@ -3698,10 +3705,18 @@ function getOneItemOfShop(tags, itemstr) {
     if (storeRow[0].displayhoursflag != undefined) {
         if (storeRow[0].displayhoursflag != "xyz") {
             newHTML = newHTML
-                + '<div>' + storeRow[0].hourshtml + '</div>';
+                + '<div class="font_size_12px">' + storeRow[0].hourshtml + '</div>';
         }
     }
-    newHTML = newHTML + "</div></div>" + "</div>" + "</div>" + "</div>";
+    newHTML = newHTML + '</div></div>';
+    //End: max_2box_responsive
+
+
+    newHTML = newHTML + "</div></div></div>";
+    //End1: storeItemDivCls
+    //End2: shopLyrics
+    //End3: shopContainer
+
     // if (description == undefined) {
     //     newHTML = "<div class = 'shopContainer' >Page not found</div>";
     // }
