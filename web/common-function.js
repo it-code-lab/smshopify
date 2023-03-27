@@ -5221,6 +5221,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
             + '</div>';
 
@@ -5236,6 +5237,10 @@ function addComponent(itemid, type, elem = "dummy") {
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + '</div>'
+
+            + '<div id="AboutStoreDiv" class="shopTabcontent">'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5287,6 +5292,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
             + '</div>';
 
@@ -5304,6 +5310,10 @@ function addComponent(itemid, type, elem = "dummy") {
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + '</div>'
+
+            + '<div id="AboutStoreDiv" class="shopTabcontent">'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5352,7 +5362,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
-
+            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
             + '</div>';
 
@@ -5369,6 +5379,10 @@ function addComponent(itemid, type, elem = "dummy") {
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + '</div>'
+
+            + '<div id="AboutStoreDiv" class="shopTabcontent">'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5418,7 +5432,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
-
+            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
             + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
             + '</div>';
 
@@ -5434,6 +5448,10 @@ function addComponent(itemid, type, elem = "dummy") {
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + '</div>'
+
+            + '<div id="AboutStoreDiv" class="shopTabcontent">'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -6211,9 +6229,9 @@ function saveNewStore(itemid, createNewItem) {
         }
     }
 
-    var allItems = document.querySelectorAll(".storeItemDivCls");
+    var allItems = document.querySelectorAll(".shopItemCls");
     for (i = 0; i < allItems.length; i++) {
-        if (allItems[i].querySelector('.itemName').innerHTML == "") {
+        if (allItems[i].querySelector('.itemNameCls').innerHTML == "") {
             errorInfo = errorInfo + "Name has not been provided for one or more items added." + "<br>";
             break;
         }
@@ -6235,7 +6253,7 @@ function saveNewStore(itemid, createNewItem) {
     var subcategory = "";
     var subcategoryseq = "1";
     var shortdescription = "";
-    var description = "";
+    var description = document.querySelector(".storeDescriptionCls").innerHTML;
     var writer = "";
     var keywords = "";
     var discontinue = "0";
@@ -6295,12 +6313,12 @@ function saveNewStore(itemid, createNewItem) {
 
     for (i = 0; i < allItems.length; i++) {
 
-        title = allItems[i].querySelector('.itemName').innerHTML;
+        title = allItems[i].querySelector('.itemNameCls').innerHTML;
         titleseq = 2 + i;
 
-        itemprice = allItems[i].querySelector('.itemPrice').innerHTML;
+        itemprice = allItems[i].querySelector('.itemPriceCls').innerHTML;
         itemimages = allItems[i].querySelector('.itemImageshow-container').innerHTML;
-        itemdescription = allItems[i].querySelector('.itemDescription').innerHTML;
+        itemdescription = allItems[i].querySelector('.itemDescriptionCls').innerHTML;
 
         hourshtml = "";
         availabilityinfo = "";

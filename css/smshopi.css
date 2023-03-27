@@ -400,7 +400,7 @@ input.confirmBtn:hover {
     background: #ccc;
 }
 
-.itemDescriptionCls{
+.itemDescriptionCls, .storeDescriptionCls{
     height: 150px;
     background-color: #fff;
 }
