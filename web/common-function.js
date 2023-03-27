@@ -102,24 +102,6 @@ var shopLocationCheckBox = "<label class='informationBox'>Provide your location 
     + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode"> </div> </label> </div>  </div>'
     + '</div>';
 
-// var shopBannerTabOptions = '<div class="shopTab">' 
-//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
-//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
-//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
-//   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
-//   + '</div>';
-
-//   var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
-//   + getShopTopBannersList("shopTopBanner")
-//   + '</div>'
-//   + '<div id="Customizations" class="shopTabcontent">'
-//   + revealSecColor
-//   + '</div>'
-//   + '<div id="HoursDiv" class="shopTabcontent">'
-//   + '<div class="displayNoneX">' + shopOpeningHr + '</div>'
-//   + '</div>'
-//   + '<div id="Close" class="shopTabcontent">'
-//   + '</div>';
 
 var shopItemTabOptions = '<div class="shopTab">'
     + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
@@ -5206,7 +5188,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
     } else if (type == "shopName1") {
 
-        var htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" autocomplete="off" placeholder="Enter Your Store Name ">'
+        var htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name ">'
             + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
             + "\n" + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
             + "\n" + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
@@ -5360,7 +5342,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner3") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -5426,7 +5408,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner4") {
 
         var htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/smshopify/img/loops-in-java-5570.png&quot;); ">'
-            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7; padding-top: 100px; padding:20px; text-align:center; width:80%;  margin:auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);

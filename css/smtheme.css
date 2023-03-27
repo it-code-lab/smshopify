@@ -15,6 +15,9 @@
     margin: auto !important;
 }
 
+.margin_5px{
+    margin: 5px;
+}
 .font_size_12px {
     font-size: 12px !important;
 }
