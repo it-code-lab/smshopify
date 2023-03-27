@@ -51,6 +51,7 @@ const createConfirm = (message) => {
     });
 }
 
+var nextShopTabBtnDiv = "<div class='nextShopTabBtnDiv'> <button class='button_type1 width_100px' onclick='gotoNextTab(this)'>Next</button></div>"
 var allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
@@ -140,19 +141,23 @@ var itemCustomizations = ''
 
 var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + addItmImagesDiv
+    + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="itmNameDiv" class="shopTabcontent">'
     + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here"></div>'
+    + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
     + "<label class='informationBox'>Enter the details of the item/service</label>"
     + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here"></div>'
+    + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="itemPrice" class="shopTabcontent">'
     + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price"></div>'
+    + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="CloseItemCust" class="shopTabcontent">'
@@ -5203,19 +5208,25 @@ function addComponent(itemid, type, elem = "dummy") {
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
             + getShopTopBannersList("shopTopBanner")
             + '</div>'
+
             + '<div id="Customizations" class="shopTabcontent">'
             + revealSecColor
+            + nextShopTabBtnDiv
             + '</div>'
+
             + '<div id="HoursDiv" class="shopTabcontent">'
             + shopOpeningHrCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
             + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5274,21 +5285,26 @@ function addComponent(itemid, type, elem = "dummy") {
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
             + getShopTopBannersList("shopTopBanner")
             + '</div>'
+
             + '<div id="Customizations" class="shopTabcontent">'
             + textDivColorCtl
             + replaceBannerImg
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="HoursDiv" class="shopTabcontent">'
             + shopOpeningHrCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
             + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5344,20 +5360,26 @@ function addComponent(itemid, type, elem = "dummy") {
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
             + getShopTopBannersList("shopTopBanner")
             + '</div>'
+
             + '<div id="Customizations" class="shopTabcontent">'
             + textDivColorCtl
             + replaceBannerImg
+            + nextShopTabBtnDiv
             + '</div>'
+
             + '<div id="HoursDiv" class="shopTabcontent">'
             + shopOpeningHrCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
             + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -5414,19 +5436,25 @@ function addComponent(itemid, type, elem = "dummy") {
         var shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
             + getShopTopBannersList("shopTopBanner")
             + '</div>'
+
             + '<div id="Customizations" class="shopTabcontent">'
             + replaceBannerImg
+            + nextShopTabBtnDiv
             + '</div>'
+
             + '<div id="HoursDiv" class="shopTabcontent">'
             + shopOpeningHrCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="LocationDiv" class="shopTabcontent">'
             + shopLocationCheckBox
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
             + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + nextShopTabBtnDiv
             + '</div>'
 
             + '<div id="Close" class="shopTabcontent">'
@@ -9414,6 +9442,26 @@ function toggleSecPreview(element) {
     childTextArea.style.display = "none";
 }
 
+function gotoNextTab(elem){
+
+    var parent = elem.parentElement.parentElement.parentElement;
+    var tablinks = parent.querySelectorAll('.shopTablinks');
+    var tabcontent = parent.querySelectorAll('.shopTabcontent');
+
+    for (i = 0; i < tablinks.length; i++) {
+        if (tablinks[i].classList.contains("active")){
+
+            tablinks[i].classList.remove("active");
+            tabcontent[i].style.display = "none";
+            tablinks[i+1].classList.add("active");
+            tabcontent[i+1].style.display = "block";
+            break;
+        }
+        
+    }
+
+
+}
 function openShopTab(evt, shopTabId) {
     var i, tabcontent, tablinks;
 

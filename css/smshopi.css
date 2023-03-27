@@ -164,6 +164,7 @@
     padding: 0 10px 0 10px;
     overflow: hidden;
     display: inline-block;
+    font-size: small;
 }
 
 .storeOpeninghourscontent {
@@ -468,4 +469,15 @@ input.confirmBtn:hover {
     float: left;
     margin: 5px;
     cursor: pointer;
+}
+.hdMeDivCls{
+    position: relative;
+}
+.nextShopTabBtnDiv{
+    position: absolute;
+    bottom: 0px;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
 }
