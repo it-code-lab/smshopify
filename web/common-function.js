@@ -166,22 +166,22 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
-var colorList = ["#00ffff" , "#34568B" ,"#FF6F61" , "#6B5B95" ,"#88B04B" , "#F7CAC9" ,"#92A8D1" , "#955251" ,"#B565A7" , "#009B77" ,"#D65076" , "#45B8AC" ,"#EFC050" , "#5B5EA6" ,"#DFCFBE" , "#55B4B0" ,"#98B4D4" , "#C3447A" ,"#bb00bb" , "#ff0000" ,"#888888" , "#417203" ,"#934f4d" , "#7E909A" ,"#A5D8DD" , "#EA6A47" ,"#0091D5" , "#B3C100" ,"#4CB5F5" , "#6Ab187" ,"#DBAE58" , "#488A99" ,"#934f4d"];
+var colorList = ["#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
 
 var revealSecColor = getSecColors();
 
-function getSecColors(){
+function getSecColors() {
     var retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
-    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='"+ colorStr +"' style='background-color:"+ colorStr +"' onclick='updateParentBGColor(this)' ></div>" );
+    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateParentBGColor(this)' ></div>");
     return retHTML;
 }
-var textDivColorCtl= getTextColors();
+var textDivColorCtl = getTextColors();
 
-function getTextColors(){
+function getTextColors() {
     var retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
-    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='"+ colorStr +"' style='background-color:"+ colorStr +"' onclick='updateTextDivColor(this)' ></div>" );
+    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateTextDivColor(this)' ></div>");
     return retHTML;
-}    
+}
 
 // textDivColorCtl = "<label class='informationBox'>If you want to change the color in the banner above, pick from the below list</label>"
 //     + "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
@@ -3457,7 +3457,7 @@ function displayStore(storename) {
 
     var storeRow = allRows.filter(function (entry) {
         var title = entry.title;
-        var titleSpaceReplaced = title.replaceAll(' ','-');
+        var titleSpaceReplaced = title.replaceAll(' ', '-');
         return entry.discontinue == "0" && titleSpaceReplaced.toUpperCase() == storename.toUpperCase();
     });
 
@@ -3886,6 +3886,8 @@ function getFullShopDetails(tags, itemstr) {
 
     //End: div class="slides"
 
+    //Start: Have Info- Desc/Hours/Location under one parent div
+    newHTML = newHTML + '<div class="flex_container_align_center">';
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
 
@@ -3922,9 +3924,17 @@ function getFullShopDetails(tags, itemstr) {
     newHTML = newHTML + '</div></div>';
     //End: max_2box_responsive
 
-    newHTML = newHTML + '<div class="fullwidthdummydiv bottom_shadow">&nbsp;</div>';
+    newHTML = newHTML + '</div>';
+    //End: Have Info- Desc/Hours/Location under one parent div
+
+
+    //newHTML = newHTML + '<div class="fullwidthdummydiv bottom_shadow">&nbsp;</div>';
 
     for (i = 0; i < storeItems.length; i++) {
+
+        //Start: Have Item image, Details under one parent div
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1">';
+
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
 
@@ -3935,6 +3945,11 @@ function getFullShopDetails(tags, itemstr) {
         }
         //End: div class="itemImageshow-container"
 
+        newHTML = newHTML + '</div></div>';
+        //End: max_2box_responsive
+
+        //Start: max_2box_responsive
+        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
 
         if (storeItems[i].itemprice != undefined) {
             if (storeItems[i].itemprice != "") {
@@ -3952,8 +3967,12 @@ function getFullShopDetails(tags, itemstr) {
 
         newHTML = newHTML + '</div></div>';
         //End: max_2box_responsive
+
+        newHTML = newHTML + '</div>';
+        //End: Have Item image, Details under one parent div
     }
-    newHTML = newHTML + '<div class="fullwidthdummydiv height_300px"></div>';
+
+    //newHTML = newHTML + '<div class="fullwidthdummydiv height_300px"></div>';
 
 
 
@@ -9442,22 +9461,22 @@ function toggleSecPreview(element) {
     childTextArea.style.display = "none";
 }
 
-function gotoNextTab(elem){
+function gotoNextTab(elem) {
 
     var parent = elem.parentElement.parentElement.parentElement;
     var tablinks = parent.querySelectorAll('.shopTablinks');
     var tabcontent = parent.querySelectorAll('.shopTabcontent');
 
     for (i = 0; i < tablinks.length; i++) {
-        if (tablinks[i].classList.contains("active")){
+        if (tablinks[i].classList.contains("active")) {
 
             tablinks[i].classList.remove("active");
             tabcontent[i].style.display = "none";
-            tablinks[i+1].classList.add("active");
-            tabcontent[i+1].style.display = "block";
+            tablinks[i + 1].classList.add("active");
+            tabcontent[i + 1].style.display = "block";
             break;
         }
-        
+
     }
 
 

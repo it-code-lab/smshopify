@@ -88,11 +88,16 @@
 
 .myitemImages {
     display: none;
-    width: 95%;
-    height: auto;
-    padding: 10px;
+    /* width: 95%;
+    height: auto; */
+
+    /* padding: 10px; */
+
     margin: auto;
     box-shadow: rgb(34, 34, 34) 1px 1px 3px;
+    height: 300px;
+    width: auto;
+    border-radius: 20px;
 }
 
 .itemImageshow-container {
@@ -225,7 +230,7 @@
     padding: 5px;
 }
 
-.checkbox-wrapper-21{
+.checkbox-wrapper-21 {
     margin-bottom: 10px;
 }
 
@@ -357,35 +362,44 @@
 
 
 
-.confirmBG{
+.confirmBG {
     display: none;
-    position: fixed; /* Stay in place */
-    z-index: 25; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    position: fixed;
+    /* Stay in place */
+    z-index: 25;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
 }
+
 .confirmBox {
-     /* position: absolute; 
+    /* position: absolute; 
      left: 50%;
     top: 50%; 
     width: auto;
     height: auto; */
     background-color: #fff;
     min-width: 350px;
-     padding: 20px; 
-     text-align: center;
+    padding: 20px;
+    text-align: center;
 
     margin: auto;
 
     border: 1px solid #888;
-     width: 80%; 
-     max-width: 500px;
+    width: 80%;
+    max-width: 500px;
 }
 
 
@@ -402,22 +416,24 @@ input.confirmBtn:hover {
     background: #ccc;
 }
 
-.itemDescriptionCls, .storeDescriptionCls{
+.itemDescriptionCls,
+.storeDescriptionCls {
     height: 150px;
     background-color: #fff;
 }
 
-.itemNameCls, .itemPriceCls {
+.itemNameCls,
+.itemPriceCls {
     height: 100px;
     background-color: #fff;
 }
 
-.storeAvail{
+.storeAvail {
     height: 150px;
     background-color: #fff;
 }
 
-.shopCategoryHeader{
+.shopCategoryHeader {
     background-color: #ccc;
     margin: auto;
     text-align: center;
@@ -426,13 +442,13 @@ input.confirmBtn:hover {
 
 
 .shopCategoryDisplay {
-     padding: 1vw;
+    padding: 1vw;
     /*border-radius: 5px; */
     box-shadow: rgb(247, 199, 122) 0px 22px 70px 4px;
-     /* box-shadow: rgb(247, 199, 122) 0px 5px 15px; */
+    /* box-shadow: rgb(247, 199, 122) 0px 5px 15px; */
 }
 
-.storeCategoryImg{
+.storeCategoryImg {
     width: 100%;
     height: 200px;
 }
@@ -448,21 +464,21 @@ input.confirmBtn:hover {
 }
 
 
-.storeBannerImg{
+.storeBannerImg {
     width: 100%;
     height: 100%;
 }
 
-.filteredItmImgContainerDiv:hover .deleteDiv{
+.filteredItmImgContainerDiv:hover .deleteDiv {
     background-color: #E74C3C;
 }
 
-.addressfield__input{
+.addressfield__input {
     background-color: #fff;
     border: 1px solid #d4d3d3;
 }
 
-.colorPickerDiv{
+.colorPickerDiv {
     height: 30px;
     width: 30px;
     border-radius: 5px;
@@ -470,14 +486,20 @@ input.confirmBtn:hover {
     margin: 5px;
     cursor: pointer;
 }
-.hdMeDivCls{
+
+.hdMeDivCls {
     position: relative;
 }
-.nextShopTabBtnDiv{
+
+.nextShopTabBtnDiv {
     position: absolute;
     bottom: 0px;
     margin: auto;
     width: 100%;
     text-align: center;
     padding: 5px;
+}
+
+#storeMapDivId {
+    box-shadow: rgb(34, 34, 34) 1px 1px 3px;
 }
