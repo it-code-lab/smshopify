@@ -93,7 +93,14 @@ var shopLocationCheckBox = "<label class='informationBox'>Provide your location 
     + '<div class="control__indicator"></div>'
     + '</label>'
     + '</div>'
-    + '<div id="storeAddrDivId" contenteditable="true" data-text="Enter Address Here" class="storeAddr displayNone"></div>';
+    + '<div id="storeAddrDivId" class="storeAddr displayNone">'
+    + '<div class="addresscontainer" id="addresscontainerDiv"> <div class="addressform"> <label class="addressfield"> <span class="addressfield__label" for="shopaddressline1">Address</span>'
+    + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
+    + '<div contenteditable="true" class="addressfield__input"  id="shopcity"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
+    + '<div contenteditable="true" class="addressfield__input"  id="shopstate"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
+    + '<div contenteditable="true" class="addressfield__input"  id="shopcountry"> </div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
+    + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode"> </div> </label> </div>  </div>'
+    + '</div>';
 
 // var shopBannerTabOptions = '<div class="shopTab">' 
 //   + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
@@ -3217,7 +3224,7 @@ function checkURL() {
 
         if (sessionStorage.getItem("itemsList") == null) {
             document.getElementById("loaderDivId").style.display = "block";
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
@@ -3343,7 +3350,7 @@ function checkURL() {
     document.getElementById("itemListDivId").style.display = "none";
     document.getElementById("itemEditDivId").style.display = "none";
 
-    
+
 
     populateLanguages("helpTopics-lang-box");
     try {
@@ -3419,7 +3426,7 @@ function checkURL() {
 
         if (sessionStorage.getItem("itemsList") == null) {
             document.getElementById("loaderDivId").style.display = "block";
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
@@ -3445,7 +3452,7 @@ function checkURL() {
 
         if (sessionStorage.getItem("itemsList") == null) {
             document.getElementById("loaderDivId").style.display = "block";
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
@@ -3471,7 +3478,7 @@ function checkURL() {
         //populateItemsList();
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
-    }else if (pageName == "home") {
+    } else if (pageName == "home") {
         document.getElementById("filescannerDivId").style.display = "none";
         document.getElementById("HelpTopicsDivId").style.display = "none";
         document.getElementById("projectscannerDivId").style.display = "none";
@@ -3483,7 +3490,7 @@ function checkURL() {
     }
 }
 
-function displayStore(storename){
+function displayStore(storename) {
 
     var tf = JSON.parse(sessionStorage.getItem("itemsList"));
     var allRows = JSON.parse(tf);
@@ -3492,10 +3499,10 @@ function displayStore(storename){
         return entry.discontinue == "0" && entry.title == storename;
     });
 
-    if (storeRow.length > 0){
+    if (storeRow.length > 0) {
         document.getElementById("itemDivId").style.display = "block";
-        getItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title );
-    }else{
+        getItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
+    } else {
         document.getElementById("itemDivId").innerHTML = "Sorry. The select resource is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
         document.getElementById("itemDivId").style.display = "block";
     }
@@ -3524,7 +3531,7 @@ function getItem(itemstr) {
                 $(".cardsContainerDivClassPadd").css("float", "none");
             } else {
                 document.getElementById("itemListDivId").style.display = "none";
-                document.getElementById("itemEditDivId").style.display = "none";               
+                document.getElementById("itemEditDivId").style.display = "none";
                 getFullShopDetails(tags, itemstr);
             }
         },
@@ -3700,7 +3707,7 @@ function getOneItemOfShop(tags, itemstr) {
 
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
-    var storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category +"/" + storeRow[0].title;
+    var storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category + "/" + storeRow[0].title;
 
     var newHTML = "<div classXX = 'shopContainer' >" +
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
@@ -3718,9 +3725,9 @@ function getOneItemOfShop(tags, itemstr) {
     } else if (localStorage.getItem("userLvl") == "9") {
 
         sessionStorage.setItem("data-description", description);
-         newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
     }
-     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
+    newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
 
     //Start: div class="itemImageshow-container"
@@ -3890,7 +3897,7 @@ function getFullShopDetails(tags, itemstr) {
         '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
         '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
         '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-    
+
     //END - Navigation Links
 
     newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
@@ -3905,7 +3912,7 @@ function getFullShopDetails(tags, itemstr) {
         newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
-    newHTML = newHTML  + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
+    newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
     //Start: div class="slides"
     if (tags[0].bannerhtml != undefined) {
@@ -3986,7 +3993,7 @@ function getFullShopDetails(tags, itemstr) {
     }
     newHTML = newHTML + '<div class="fullwidthdummydiv height_300px"></div>';
 
- 
+
 
     newHTML = newHTML + "</div></div></div></div></div>";
     //End1: storeItemDivCls
@@ -4002,10 +4009,10 @@ function getFullShopDetails(tags, itemstr) {
     //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
 
     // }
-    
+
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
 
-    
+
 
     document.getElementById("itemDivId").innerHTML = newHTML;
     refreshCaptcha();
@@ -4401,12 +4408,12 @@ function popolatenewImageName(itemid) {
     var name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
     name = name.replaceAll("#", "");
     the.newImageName = name;
-    try{
+    try {
         document.getElementById("image-" + itemid).value = name;
-    }catch{
+    } catch {
 
     }
-    
+
 }
 
 function loadUNSPLImg(itemid) {
@@ -4572,26 +4579,38 @@ function addImageToItemList(event) {
     if (files.length > 0) {
 
         var formData = new FormData();
-        formData.append("file", files[0]);
-        formData.append("saveasname", saveasname);
-        formData.append("dir", "img");
 
-        var xhttp = new XMLHttpRequest();
+        resizeImage({
+            file: files[0],
+            maxSize: 500
+        }).then(function (resizedImage) {
 
-        xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+            formData.append("file", resizedImage);
+            formData.append("saveasname", saveasname);
+            formData.append("dir", "img");
 
-        // call on request changes state
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            var xhttp = new XMLHttpRequest();
 
-                var parentDiv = elem.parentElement.parentElement;
-                var existingHTML = parentDiv.querySelector('.existingItmImages').innerHTML;
+            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
 
-                parentDiv.querySelector('.existingItmImages').innerHTML = existingHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + the.hosturl + '/img/' + saveasname + '">' + '<button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
-            }
-        };
+            // call on request changes state
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
 
-        xhttp.send(formData);
+                    var parentDiv = elem.parentElement.parentElement;
+                    var existingHTML = parentDiv.querySelector('.existingItmImages').innerHTML;
+
+                    parentDiv.querySelector('.existingItmImages').innerHTML = existingHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + the.hosturl + '/img/' + saveasname + '">' + '<button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
+                }
+            };
+
+            xhttp.send(formData);
+        }).catch(function (err) {
+            console.error(err);
+        });
+
+
+
 
     } else {
         alert("Please select a file");
@@ -4642,10 +4661,10 @@ function uploadFile(event) {
     var saveasname = '';
     try {
         saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    }catch{
-        saveasname = the.newImageName;  
+    } catch {
+        saveasname = the.newImageName;
     }
-    
+
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
@@ -4673,7 +4692,7 @@ function uploadFile(event) {
 
         }).catch(function (err) {
             console.error(err);
-        });     
+        });
 
 
     } else {
@@ -4682,7 +4701,7 @@ function uploadFile(event) {
 
 }
 
-function uploadFileAsName(file, saveasname){
+function uploadFileAsName(file, saveasname) {
     var formData = new FormData();
     formData.append("file", file);
     formData.append("saveasname", saveasname);
@@ -4705,35 +4724,35 @@ function uploadFileAsName(file, saveasname){
     xhttp.send(formData);
 }
 
-function resizeImage (settings) {
+function resizeImage(settings) {
     var file = settings.file;
     var maxSize = settings.maxSize;
     var reader = new FileReader();
     var image = new Image();
     var canvas = document.createElement('canvas');
 
-    var dataURItoBlob = function(dataURL) {
+    var dataURItoBlob = function (dataURL) {
         var BASE64_MARKER = ';base64,';
         if (dataURL.indexOf(BASE64_MARKER) == -1) {
             var parts = dataURL.split(',');
             var contentType = parts[0].split(':')[1];
             var raw = parts[1];
-    
-            return new Blob([raw], {type: contentType});
+
+            return new Blob([raw], { type: contentType });
         }
-    
+
         var parts = dataURL.split(BASE64_MARKER);
         var contentType = parts[0].split(':')[1];
         var raw = window.atob(parts[1]);
         var rawLength = raw.length;
-    
+
         var uInt8Array = new Uint8Array(rawLength);
-    
+
         for (var i = 0; i < rawLength; ++i) {
             uInt8Array[i] = raw.charCodeAt(i);
         }
-    
-        return new Blob([uInt8Array], {type: contentType});
+
+        return new Blob([uInt8Array], { type: contentType });
     };
 
     // var dataURItoBlob = function (dataURI) {
@@ -4801,10 +4820,10 @@ function uploadAndInsertFile(event) {
     var saveasname = '';
     try {
         saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    }catch{
-        saveasname = the.newImageName;  
+    } catch {
+        saveasname = the.newImageName;
     }
-    
+
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
@@ -4832,18 +4851,18 @@ function uploadAndInsertFile(event) {
             formData.append("file", resizedImage);
             formData.append("saveasname", saveasname);
             formData.append("dir", "img");
-    
+
             var xhttp = new XMLHttpRequest();
-    
+
             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-    
+
             // call on request changes state
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-    
+
                     var response = this.responseText;
                     //console.log(response);
-    
+
                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                     var imagename = document.getElementById("image-" + itemid).value;
                     var randomId = "div-" + Math.floor(Math.random() * 1000000);
@@ -4851,14 +4870,14 @@ function uploadAndInsertFile(event) {
                     insertImageAtCaret(Str);
                 }
             };
-    
+
             xhttp.send(formData);
 
         }).catch(function (err) {
             console.error(err);
-        });  
+        });
 
- 
+
 
     } else {
         alert("Please select a file");
@@ -4939,10 +4958,10 @@ function UploadAndReplaceBannerImg(event) {
     var saveasname = '';
     try {
         saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    }catch{
-        saveasname = the.newImageName;  
+    } catch {
+        saveasname = the.newImageName;
     }
-    
+
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
 
@@ -4968,36 +4987,36 @@ function UploadAndReplaceBannerImg(event) {
             formData.append("file", resizedImage);
             formData.append("saveasname", saveasname);
             formData.append("dir", "img");
-    
+
             var xhttp = new XMLHttpRequest();
-    
+
             // Set POST method and ajax file path
             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-    
+
             // call on request changes state
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-    
+
                     //var parentSecDiv = elem.parentElement.parentElement;
                     //var previewDiv = parentSecDiv.querySelector('.secPreview');
                     //var previewDiv = document.querySelector('.secPreview');
-    
+
                     //Mar-26:Added one more parent for banner img
                     var parentSecDiv = elem.parentElement.parentElement.parentElement.parentElement;
                     var previewDiv = parentSecDiv.querySelector('.secPreview');
-    
+
                     if (previewDiv.style.display != "none") {
                         var bannerDiv = previewDiv.querySelector('.shopTopBanner');
                         bannerDiv.style.backgroundImage = "url('" + the.hosturl + "/img/" + saveasname + "')";
                     }
                 }
             };
-    
+
             xhttp.send(formData);
 
         }).catch(function (err) {
             console.error(err);
-        });  
+        });
 
     } else {
         alert("Please select a file");
@@ -6197,7 +6216,12 @@ function saveNewStore(itemid, createNewItem) {
 
     var displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     var maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
-    var uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
+    //var uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
+    var uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").value + "~" +
+        "shopcity^" + document.getElementById("shopcity").value + "~" +
+        "shopstate^" + document.getElementById("shopstate").value + "~" +
+        "shopcountry^" + document.getElementById("shopcountry").value + "~" +
+        "shoppostalcode^" + document.getElementById("shoppostalcode").value;
 
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
@@ -7337,7 +7361,7 @@ function addShopItem() {
     var allItems = document.querySelectorAll(".secPreview");
 
     var elem = allItems[allItems.length - 1].querySelector(".itmImgContainer");
-    
+
     //scrollElementToTopOfScreenInstantly(elem);
     scrollElementToTopWithOffset(elem, -200);
 }
@@ -7524,16 +7548,16 @@ function populateItemsList(rows = "") {
         //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
         //     innerHTML = innerHTML + '</div>';
         // } else {
-            //It is not a new child item 
-            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+        //It is not a new child item 
+        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
+        innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
-            }
+        if (the.smusr) {
+            innerHTML = innerHTML + rows[i].titleseq + '. ';
+        }
 
-            innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
+        innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        innerHTML = innerHTML + '</div>';
         // }
 
 
@@ -7611,7 +7635,7 @@ function populateStoreItemsList(rows = "") {
         storename = storename.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/"  + storename.toLowerCase() + "/"  + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
 
         //storenameUrl = myUrl + "items/" + storenameOrig;
         storenameUrl = myUrl + storenameOrig;
@@ -7717,16 +7741,16 @@ function populateStoreItemsList(rows = "") {
         //     innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
         //     innerHTML = innerHTML + '</div>';
         // } else {
-            //It is not a new child item 
-            innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
-            innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+        //It is not a new child item 
+        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
+        innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
-            }
+        if (the.smusr) {
+            innerHTML = innerHTML + rows[i].titleseq + '. ';
+        }
 
-            innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
+        innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        innerHTML = innerHTML + '</div>';
         // }
 
 
@@ -9478,9 +9502,9 @@ function scrollElementAlignToTop(elem) {
     elem.scrollIntoView();
 }
 
-function scrollElementToTopWithOffset(elem, yOffset){
+function scrollElementToTopWithOffset(elem, yOffset) {
     const y = elem.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({top: y, behavior: 'smooth'});
+    window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
 async function deleteItem(elem) {

@@ -7,7 +7,7 @@
 }
 
 .addressfield {
-    width: 100%;
+    width: 98%;
     display: flex;
     flex-direction: column;
     border: 1px solid gray;
@@ -405,7 +405,7 @@ input.confirmBtn:hover {
     background-color: #fff;
 }
 
-.itemNameCls, .itemPriceCls, .storeAddr{
+.itemNameCls, .itemPriceCls {
     height: 100px;
     background-color: #fff;
 }
@@ -455,3 +455,7 @@ input.confirmBtn:hover {
     background-color: #E74C3C;
 }
 
+.addressfield__input{
+    background-color: #fff;
+    border: 1px solid #d4d3d3;
+}
