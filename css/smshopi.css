@@ -459,3 +459,12 @@ input.confirmBtn:hover {
     background-color: #fff;
     border: 1px solid #d4d3d3;
 }
+
+.colorPickerDiv{
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    float: left;
+    margin: 5px;
+    cursor: pointer;
+}

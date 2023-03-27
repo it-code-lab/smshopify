@@ -161,92 +161,65 @@ var shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
-var revealSecColor = "<label class='informationBox'>If you want to change the color in the Banner above, select from the list</label>"
-    + "<select class='colorSelect' onchange='updateParentBGColor(this)'>"
-    + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
+var colorList = ["#00ffff" , "#34568B" ,"#FF6F61" , "#6B5B95" ,"#88B04B" , "#F7CAC9" ,"#92A8D1" , "#955251" ,"#B565A7" , "#009B77" ,"#D65076" , "#45B8AC" ,"#EFC050" , "#5B5EA6" ,"#DFCFBE" , "#55B4B0" ,"#98B4D4" , "#C3447A" ,"#bb00bb" , "#ff0000" ,"#888888" , "#417203" ,"#934f4d" , "#7E909A" ,"#A5D8DD" , "#EA6A47" ,"#0091D5" , "#B3C100" ,"#4CB5F5" , "#6Ab187" ,"#DBAE58" , "#488A99" ,"#934f4d"];
 
-    + "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
-    + "<option value='#FF6F61' style='background-color: #FF6F61' >#FF6F61</option>"
-    + "<option value='#6B5B95' style='background-color: #6B5B95' >#6B5B95</option>"
-    + "<option value='#88B04B' style='background-color: #88B04B' >#88B04B</option>"
-    + "<option value='#F7CAC9' style='background-color: #F7CAC9' >#F7CAC9</option>"
-    + "<option value='#92A8D1' style='background-color: #92A8D1' >#92A8D1</option>"
-    + "<option value='#955251' style='background-color: #955251' >#955251</option>"
+var revealSecColor = getSecColors();
 
-    + "<option value='#B565A7' style='background-color: #B565A7' >#B565A7</option>"
-    + "<option value='#009B77' style='background-color: #009B77' >#009B77</option>"
-    + "<option value='#D65076' style='background-color: #D65076' >#D65076</option>"
-    + "<option value='#45B8AC' style='background-color: #45B8AC' >#45B8AC</option>"
-    + "<option value='#EFC050' style='background-color: #EFC050' >#EFC050</option>"
+function getSecColors(){
+    var retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
+    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='"+ colorStr +"' style='background-color:"+ colorStr +"' onclick='updateParentBGColor(this)' ></div>" );
+    return retHTML;
+}
+var textDivColorCtl= getTextColors();
 
-    + "<option value='#5B5EA6' style='background-color: #5B5EA6' >#5B5EA6</option>"
-    + "<option value='#DFCFBE' style='background-color: #DFCFBE' >#DFCFBE</option>"
-    + "<option value='#55B4B0' style='background-color: #55B4B0' >#55B4B0</option>"
-    + "<option value='#98B4D4' style='background-color: #98B4D4' >#98B4D4</option>"
-    + "<option value='#C3447A' style='background-color: #C3447A' >#C3447A</option>"
+function getTextColors(){
+    var retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
+    colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='"+ colorStr +"' style='background-color:"+ colorStr +"' onclick='updateTextDivColor(this)' ></div>" );
+    return retHTML;
+}    
 
-    + "<option value='#bb00bb' style='background-color: #bb00bb'>#bb00bb</option>"
-    + "<option value='#ff0000' style='background-color: #ff0000'>#ff0000</option>"
-    + "<option value='#888888' style='background-color: #888888'>#888888</option>"
-    + "<option value='#417203' style='background-color: #417203'>#417203</option>"
-    + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
-    + "<option value='#7E909A' style='background-color: #7E909A'>#7E909A</option>"
-    + "<option value='#A5D8DD' style='background-color: #934f4d'>#A5D8DD</option>"
-    + "<option value='#EA6A47' style='background-color: #EA6A47'>#EA6A47</option>"
-    + "<option value='#0091D5' style='background-color: #0091D5'>#0091D5</option>"
-    + "<option value='#B3C100' style='background-color: #B3C100'>#B3C100</option>"
+// textDivColorCtl = "<label class='informationBox'>If you want to change the color in the banner above, pick from the below list</label>"
+//     + "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
+//     + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
 
-    + "<option value='#4CB5F5' style='background-color: #4CB5F5'>#4CB5F5</option>"
-    + "<option value='#6Ab187' style='background-color: #6Ab187'>#6Ab187</option>"
-    + "<option value='#DBAE58' style='background-color: #DBAE58'>#DBAE58</option>"
-    + "<option value='#488A99' style='background-color: #488A99'>#488A99</option>"
-    + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
+//     + "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
+//     + "<option value='#FF6F61' style='background-color: #FF6F61' >#FF6F61</option>"
+//     + "<option value='#6B5B95' style='background-color: #6B5B95' >#6B5B95</option>"
+//     + "<option value='#88B04B' style='background-color: #88B04B' >#88B04B</option>"
+//     + "<option value='#F7CAC9' style='background-color: #F7CAC9' >#F7CAC9</option>"
+//     + "<option value='#92A8D1' style='background-color: #92A8D1' >#92A8D1</option>"
+//     + "<option value='#955251' style='background-color: #955251' >#955251</option>"
 
-    + "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
+//     + "<option value='#B565A7' style='background-color: #B565A7' >#B565A7</option>"
+//     + "<option value='#009B77' style='background-color: #009B77' >#009B77</option>"
+//     + "<option value='#D65076' style='background-color: #D65076' >#D65076</option>"
+//     + "<option value='#45B8AC' style='background-color: #45B8AC' >#45B8AC</option>"
+//     + "<option value='#EFC050' style='background-color: #EFC050' >#EFC050</option>"
 
+//     + "<option value='#5B5EA6' style='background-color: #5B5EA6' >#5B5EA6</option>"
+//     + "<option value='#DFCFBE' style='background-color: #DFCFBE' >#DFCFBE</option>"
+//     + "<option value='#55B4B0' style='background-color: #55B4B0' >#55B4B0</option>"
+//     + "<option value='#98B4D4' style='background-color: #98B4D4' >#98B4D4</option>"
+//     + "<option value='#C3447A' style='background-color: #C3447A' >#C3447A</option>"
 
-textDivColorCtl = "<label class='informationBox'>If you want to change the color in the banner above, pick from the below list</label>"
-    + "<select class='colorSelect' onchange='updateTextDivColor(this)'>"
-    + "<option value='#00ffff' style='background-color: #00ffff' >#00ffff</option>"
+//     + "<option value='#bb00bb' style='background-color: #bb00bb'>#bb00bb</option>"
+//     + "<option value='#ff0000' style='background-color: #ff0000'>#ff0000</option>"
+//     + "<option value='#888888' style='background-color: #888888'>#888888</option>"
+//     + "<option value='#417203' style='background-color: #417203'>#417203</option>"
+//     + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
+//     + "<option value='#7E909A' style='background-color: #7E909A'>#7E909A</option>"
+//     + "<option value='#A5D8DD' style='background-color: #934f4d'>#A5D8DD</option>"
+//     + "<option value='#EA6A47' style='background-color: #EA6A47'>#EA6A47</option>"
+//     + "<option value='#0091D5' style='background-color: #0091D5'>#0091D5</option>"
+//     + "<option value='#B3C100' style='background-color: #B3C100'>#B3C100</option>"
 
-    + "<option value='#34568B' style='background-color: #34568B' >#34568B</option>"
-    + "<option value='#FF6F61' style='background-color: #FF6F61' >#FF6F61</option>"
-    + "<option value='#6B5B95' style='background-color: #6B5B95' >#6B5B95</option>"
-    + "<option value='#88B04B' style='background-color: #88B04B' >#88B04B</option>"
-    + "<option value='#F7CAC9' style='background-color: #F7CAC9' >#F7CAC9</option>"
-    + "<option value='#92A8D1' style='background-color: #92A8D1' >#92A8D1</option>"
-    + "<option value='#955251' style='background-color: #955251' >#955251</option>"
+//     + "<option value='#4CB5F5' style='background-color: #4CB5F5'>#4CB5F5</option>"
+//     + "<option value='#6Ab187' style='background-color: #6Ab187'>#6Ab187</option>"
+//     + "<option value='#DBAE58' style='background-color: #DBAE58'>#DBAE58</option>"
+//     + "<option value='#488A99' style='background-color: #488A99'>#488A99</option>"
+//     + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
 
-    + "<option value='#B565A7' style='background-color: #B565A7' >#B565A7</option>"
-    + "<option value='#009B77' style='background-color: #009B77' >#009B77</option>"
-    + "<option value='#D65076' style='background-color: #D65076' >#D65076</option>"
-    + "<option value='#45B8AC' style='background-color: #45B8AC' >#45B8AC</option>"
-    + "<option value='#EFC050' style='background-color: #EFC050' >#EFC050</option>"
-
-    + "<option value='#5B5EA6' style='background-color: #5B5EA6' >#5B5EA6</option>"
-    + "<option value='#DFCFBE' style='background-color: #DFCFBE' >#DFCFBE</option>"
-    + "<option value='#55B4B0' style='background-color: #55B4B0' >#55B4B0</option>"
-    + "<option value='#98B4D4' style='background-color: #98B4D4' >#98B4D4</option>"
-    + "<option value='#C3447A' style='background-color: #C3447A' >#C3447A</option>"
-
-    + "<option value='#bb00bb' style='background-color: #bb00bb'>#bb00bb</option>"
-    + "<option value='#ff0000' style='background-color: #ff0000'>#ff0000</option>"
-    + "<option value='#888888' style='background-color: #888888'>#888888</option>"
-    + "<option value='#417203' style='background-color: #417203'>#417203</option>"
-    + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
-    + "<option value='#7E909A' style='background-color: #7E909A'>#7E909A</option>"
-    + "<option value='#A5D8DD' style='background-color: #934f4d'>#A5D8DD</option>"
-    + "<option value='#EA6A47' style='background-color: #EA6A47'>#EA6A47</option>"
-    + "<option value='#0091D5' style='background-color: #0091D5'>#0091D5</option>"
-    + "<option value='#B3C100' style='background-color: #B3C100'>#B3C100</option>"
-
-    + "<option value='#4CB5F5' style='background-color: #4CB5F5'>#4CB5F5</option>"
-    + "<option value='#6Ab187' style='background-color: #6Ab187'>#6Ab187</option>"
-    + "<option value='#DBAE58' style='background-color: #DBAE58'>#DBAE58</option>"
-    + "<option value='#488A99' style='background-color: #488A99'>#488A99</option>"
-    + "<option value='#934f4d' style='background-color: #934f4d'>#934f4d</option>"
-
-    + "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
+//     + "<option value='salmon' style='background-color: salmon'>salmon</option> </select>";
 
 var secTranition = "<select class='transitionSelect' onchange='updateParentTransition(this)' >"
     + "<option value='Zoom'>Zoom</option>"
@@ -3478,14 +3451,16 @@ function displayStore(storename) {
     var allRows = JSON.parse(tf);
 
     var storeRow = allRows.filter(function (entry) {
-        return entry.discontinue == "0" && entry.title == storename;
+        var title = entry.title;
+        var titleSpaceReplaced = title.replaceAll(' ','-');
+        return entry.discontinue == "0" && titleSpaceReplaced.toUpperCase() == storename.toUpperCase();
     });
 
     if (storeRow.length > 0) {
         document.getElementById("itemDivId").style.display = "block";
         getItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
     } else {
-        document.getElementById("itemDivId").innerHTML = "Sorry. The select resource is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+        document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
         document.getElementById("itemDivId").style.display = "block";
     }
 
@@ -7440,10 +7415,11 @@ function populateItemsList(rows = "") {
         category = rows[i].category;
         storename = rows[i].storename;
 
+        var storeNameSpaceReplaced = storename.replaceAll(" ", "-");
         category = category.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
 
         storenameUrl = myUrl + storename;
 
@@ -7460,7 +7436,7 @@ function populateItemsList(rows = "") {
             innerHTML = innerHTML + rows[i].storename +
 
                 //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
 
                 '</div>';
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
@@ -7487,7 +7463,7 @@ function populateItemsList(rows = "") {
 
             innerHTML = innerHTML + rows[i].storename +
                 //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
                 '</div>';
 
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
@@ -7634,8 +7610,10 @@ function populateStoreItemsList(rows = "") {
         category = rows[i].category;
         storename = storename.replaceAll(" ", "-");
 
+        categorySpaceReplaced = category.replaceAll(" ", "-");
+
         //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
 
         //storenameUrl = myUrl + "items/" + storenameOrig;
         storenameUrl = myUrl + storenameOrig;
@@ -7653,7 +7631,7 @@ function populateStoreItemsList(rows = "") {
             innerHTML = innerHTML + rows[i].storename +
 
                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
 
                 '</div>';
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
@@ -7680,7 +7658,7 @@ function populateStoreItemsList(rows = "") {
 
             innerHTML = innerHTML + rows[i].storename +
                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl + '"> GO </a>' +
+                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
                 '</div>';
 
             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
@@ -9175,22 +9153,25 @@ function updateParentAutoAnimate(element) {
 }
 
 function updateTextDivColor(element) {
-    document.getElementById("textDivId").style.backgroundColor = element.value;
-    element.style.backgroundColor = element.value;
-    var rgbColor = hexToRgb(element.value);
+    var rgbColor = hexToRgb(element.dataset.clr);
+    //var rgbColor = element.style.backgroundColor;
+    document.getElementById("textDivId").style.backgroundColor = element.style.backgroundColor;
+    //element.style.backgroundColor = element.value;    
 
     var textColour = getFontColorForRGBbackGroundColor(rgbColor);
     document.getElementById("textDivId").style.color = textColour;
-
 }
 
 function updateParentBGColor(element) {
-    element.parentElement.parentElement.dataset.bgcolor = element.value;
+    //element.parentElement.parentElement.dataset.bgcolor = element.value;
+
+    //element.parentElement.parentElement.dataset.bgcolor = element.style.backgroundColor;
+
     //element.parentElement.parentElement.style.backgroundColor = element.value;
-    element.style.backgroundColor = element.value;
+    //element.style.backgroundColor = element.value;
 
-    var rgbColor = hexToRgb(element.value);
-
+    var rgbColor = hexToRgb(element.dataset.clr);
+    //var rgbColor = element.dataset.clr;
     var textColour = getFontColorForRGBbackGroundColor(rgbColor);
 
     //var parentSecDiv = element.parentElement.parentElement;
@@ -9204,7 +9185,7 @@ function updateParentBGColor(element) {
     if (previewDiv.style.display != "none") {
 
         var bannerDiv = previewDiv.querySelector('.shopTopBanner');
-        bannerDiv.style.backgroundColor = element.value;
+        bannerDiv.style.backgroundColor = element.style.backgroundColor;;
         bannerDiv.style.color = textColour;
     }
 }
