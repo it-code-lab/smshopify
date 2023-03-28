@@ -96,8 +96,8 @@
     margin: auto;
     box-shadow: rgb(34, 34, 34) 1px 1px 3px;
     height: 300px;
-    width: auto;
-    border-radius: 20px;
+    width: 300px;
+    /* border-radius: 20px; */
 }
 
 .itemImageshow-container {

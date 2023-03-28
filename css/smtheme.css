@@ -18,6 +18,11 @@
 .margin_5px{
     margin: 5px;
 }
+
+.marginbottom_50px{
+    margin-bottom: 50px;
+}
+
 .font_size_12px {
     font-size: 12px !important;
 }

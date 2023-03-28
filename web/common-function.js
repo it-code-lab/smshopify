@@ -3933,7 +3933,7 @@ function getFullShopDetails(tags, itemstr) {
     for (i = 0; i < storeItems.length; i++) {
 
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -6360,7 +6360,7 @@ function saveNewStore(itemid, createNewItem) {
                 subcategory: subcategory,
                 subcategoryseq: subcategoryseq,
                 shortdescription: shortdescription,
-                description: description,
+                description: "",
                 writer: writer,
                 keywords: keywords,
                 discontinue: discontinue,
@@ -6384,10 +6384,10 @@ function saveNewStore(itemid, createNewItem) {
             type: 'POST',
             dataType: 'json',
             success: function (retstatus) {
-                if (i == allItems.length - 1) {
-                    sessionStorage.setItem("itemsList", null);
-                    getItemsList();
-                }
+                // if (i == allItems.length - 1) {
+                //     sessionStorage.setItem("itemsList", null);
+                //     getItemsList();
+                // }
             },
             error: function (xhr, status, error) {
                 if (!itemid == "") {
