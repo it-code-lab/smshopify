@@ -51,7 +51,7 @@ const createConfirm = (message) => {
     });
 }
 
-var nextShopTabBtnDiv = "<div class='nextShopTabBtnDiv'> <button class='button_type1 width_100px' onclick='gotoNextTab(this)'>Next</button></div>"
+var nextShopTabBtnDiv = "<div class='nextShopTabBtnDiv'> <button class='button_type2 width_100px' onclick='gotoNextTab(this)'>Next</button></div>"
 var allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 var showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
 var showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Customizations </button>";
@@ -3891,10 +3891,28 @@ function getFullShopDetails(tags, itemstr) {
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
 
+    if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")){
+        var addrfields = tags[0].uselocationfromaddress.split("~");
+        var shopAddr = "<div class='shpAddrClass'>";
+        for (i = 0; i< addrfields.length; i++ ){
+            tempval = addrfields[i].split("^");
+            if (tempval[1] != "") {
+                if (shopAddr != "<div class='shpAddrClass'>"){
+                    shopAddr = shopAddr + ", " + tempval[1] ;
+                } else{
+                    shopAddr = shopAddr + "Address: " +  tempval[1] ;
+                }
+                
+            }
+            
+        }
+        newHTML = newHTML + shopAddr + '</div>';
+    }
+
     if (tags[0].displaylocationflag != undefined) {
         if (tags[0].displaylocationflag != "xyx") {
             newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>';
+                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
 
             setTimeout(function () {
@@ -3907,6 +3925,9 @@ function getFullShopDetails(tags, itemstr) {
 
         }
     }
+
+
+
 
     newHTML = newHTML + '</div></div>';
     //End: max_2box_responsive
@@ -6188,7 +6209,9 @@ function updateDescription(itemid, createNewItem) {
     });
 }
 
-function saveNewStore(itemid, createNewItem) {
+async function saveNewStore(itemid, createNewItem) {
+
+
 
     document.querySelector(".shopSmErr").style.display = "none";
     //document.getElementByClassName("shopSmErr").style.display = "none";
@@ -6239,11 +6262,11 @@ function saveNewStore(itemid, createNewItem) {
     var displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     var maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
     //var uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
-    var uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").value + "~" +
-        "shopcity^" + document.getElementById("shopcity").value + "~" +
-        "shopstate^" + document.getElementById("shopstate").value + "~" +
-        "shopcountry^" + document.getElementById("shopcountry").value + "~" +
-        "shoppostalcode^" + document.getElementById("shoppostalcode").value;
+    var uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
+        "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
+        "shopstate^" + document.getElementById("shopstate").innerHTML + "~" +
+        "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
+        "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
 
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
@@ -6265,6 +6288,12 @@ function saveNewStore(itemid, createNewItem) {
 
         //document.getElementByClassName("shopSmErr").style.display = "block";
         //document.getElementByClassName("shopSmErr").innerHTML = errorInfo;
+        return;
+    }
+
+    const confirm = await ui.userConfirmation('By this submission you are confirming that the details you have provided are accurate and legal. Invalid submissions will result in your account getting disabled.');
+
+    if (!confirm) {
         return;
     }
 
@@ -6332,6 +6361,10 @@ function saveNewStore(itemid, createNewItem) {
         }
     });
 
+    if (allItems.length == 0){
+        document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+        return;
+    }
 
     for (i = 0; i < allItems.length; i++) {
 
@@ -6384,15 +6417,20 @@ function saveNewStore(itemid, createNewItem) {
             type: 'POST',
             dataType: 'json',
             success: function (retstatus) {
-                // if (i == allItems.length - 1) {
+                 if (i == allItems.length - 1) {
+                    document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+
                 //     sessionStorage.setItem("itemsList", null);
                 //     getItemsList();
-                // }
+                 }
             },
             error: function (xhr, status, error) {
-                if (!itemid == "") {
-                    document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
-                }
+                //if (!itemid == "") {
+                    //document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+                    
+                    document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+                    return;
+                //}
             }
         });
     }

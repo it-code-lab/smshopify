@@ -98,7 +98,13 @@
     height: 300px;
     width: 300px;
     /* border-radius: 20px; */
+    /* transition: all .6s ease;
+    z-index: 500; */
 }
+
+/* .myitemImages:hover{
+    transform: scale(2);
+} */
 
 .itemImageshow-container {
     position: relative;
@@ -502,4 +508,8 @@ input.confirmBtn:hover {
 
 #storeMapDivId {
     box-shadow: rgb(34, 34, 34) 1px 1px 3px;
+}
+
+.shpAddrClass{
+    padding: 5px;
 }

@@ -393,6 +393,21 @@
     background-color: #04AA6D;
 }
 
+.button_type2 {
+    padding: 4px;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #7d7d7d;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button_type2:hover {
+    background-color: #5a5c5b;
+}
 
 
 /***************SHADOWS*********************************/
