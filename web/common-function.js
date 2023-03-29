@@ -131,10 +131,10 @@ var itemImagesDiv = '<div class="itemImageshow-container">'
 var addItmImagesDiv = ""
     + "<div class='existingItmImages'> </div>"
     + "<input type='text' style='display:none; width:95%; margin:auto;'  value=''>"
-    + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
-    + "<div style='width: 100%'><br><input type='file' class='image-replace-banner' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='addImageToItemList(event)'>"
+    + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' onerror='this.style.display= " + '"none"' + "' alt='select image'  />"
+    + "<div style='width: 100%'><br><label class='button_type2 width_150px margintop_10px'><input type='file' class='image-replace-banner displayNone' data-itemid='banner' data-fileelementid='image-replace-' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='addImageToItemList(event)'><i class='fa fa-cloud-upload'></i>Upload Image</label>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-    + "<input id='replaceBannerImg' class='saveItmImgChangesBtn' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
+    + "<input id='replaceBannerImg' class='saveItmImgChangesBtn button_type2 width_150px' type='button' value='Save' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='saveItemImgChanges(event);'  > </div>";
 
 
 var itemCustomizations = ''
@@ -171,7 +171,7 @@ var colorList = ["#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9
 var revealSecColor = getSecColors();
 
 function getSecColors() {
-    var retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
+    var retHTML = "<label class='informationBox'>If you want to change the color in the banner above, click on the color below</label> ";
     colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateParentBGColor(this)' ></div>");
     return retHTML;
 }
@@ -245,10 +245,10 @@ var secTranition = "<select class='transitionSelect' onchange='updateParentTrans
 
 var replaceBannerImg = "<label class='informationBox'>If you want to change the image in the banner above, use the button below to replace image</label>"
     + "<input type='text'  style='display:none; width:95%; margin:auto;'  value=''>"
-    + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' alt='Select Image'  />"
-    + "<br><input type='file' class='image-replace-banner' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='showImage(event)'>"
+    + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' onerror='this.style.display= " + '"none"' + "' alt='select image'  />"
+    + "<br><label class='button_type2 width_200px margintop_10px'><input type='file' class='image-replace-banner displayNone' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='showImage(event)'><i class='fa fa-cloud-upload'></i>Upload Image</label>"
     + "<br><label  style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-    + "<input id='replaceBannerImg' class='displayNone' type='button' value='Replace Banner Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
+    + "<input id='replaceBannerImg' class='displayNone button_type2 width_200px' type='button' value='Replace Banner Image' data-itemid='banner'  data-saveasnameelementid='image-' data-fileelementid='image-replace-'  onclick='UploadAndReplaceBannerImg(event);'  >";
 
 
 var mediaSection = "";
@@ -3543,11 +3543,15 @@ function getCreateStore(tags, itemstr) {
     var itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     var categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-    var newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
-        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
-        '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
-    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 class='font_family_style1' > " + title + "</h1></div>";
+    var newHTML = "" ;
+
+    newHTML = newHTML + "<div classXX = 'shopContainer' >" ;
+
+    //**********DO NOT DELETE********/
+    // newHTML = newHTML +  '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
+    //     '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
+    //     '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+    // newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 class='font_family_style1' > " + title + "</h1></div>";
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
@@ -4557,6 +4561,7 @@ function showImage(event) {
     popolatenewImageName(itemid);
 
     var output = document.getElementById(imageelementid + itemid);
+    output.style.display = "block";
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function () {
         URL.revokeObjectURL(output.src)
@@ -4565,6 +4570,8 @@ function showImage(event) {
 
 function addImageToItemList(event) {
     var elem = event.target;
+    //elem.style.display = "block";
+
     var itemid = elem.dataset.itemid;
     var imageelementid = elem.dataset.imageelementid;
     var fileelementid = elem.dataset.fileelementid;
@@ -4599,7 +4606,7 @@ function addImageToItemList(event) {
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
 
-                    var parentDiv = elem.parentElement.parentElement;
+                    var parentDiv = elem.parentElement.parentElement.parentElement;
                     var existingHTML = parentDiv.querySelector('.existingItmImages').innerHTML;
 
                     parentDiv.querySelector('.existingItmImages').innerHTML = existingHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + the.hosturl + '/img/' + saveasname + '">' + '<button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
@@ -6291,7 +6298,7 @@ async function saveNewStore(itemid, createNewItem) {
         return;
     }
 
-    const confirm = await ui.userConfirmation('By this submission you are confirming that the details you have provided are accurate and legal. Invalid submissions will result in your account getting disabled.');
+    const confirm = await ui.userConfirmation('By this submission you are confirming that the details you have provided are accurate and legal. Invalid/unfair submissions will result in your account getting disabled.');
 
     if (!confirm) {
         return;
@@ -8550,7 +8557,7 @@ function tempSelectStoreType() {
 }
 
 function populateStoreType(divid) {
-    document.getElementById(divid).innerHTML = getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById(divid).innerHTML = '<label class="form_header_label1 scale-up-ver-top"> SELECT STORE TYPE </label><hr>' +  getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     document.getElementById(divid).style.display = "block";
 }
 

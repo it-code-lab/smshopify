@@ -5,7 +5,8 @@
 
 
 /**************Common Basic Styles******************/
-/*********************************************/
+/*margin, padding, font size, alignment */
+/****************************************************/
 
 .text_align_center {
     text-align: center !important;
@@ -23,6 +24,10 @@
     margin-bottom: 50px;
 }
 
+.margintop_10px{
+    margin-top: 10px;
+}
+
 .font_size_12px {
     font-size: 12px !important;
 }
@@ -31,6 +36,13 @@
     padding: 10px !important;
 }
 
+/***************Label**********************/
+/****************************************** */
+.form_header_label1{
+    font-size: 14px;
+    font-weight: 900;
+    color: #333;
+}
 /***************Zindex**********************/
 /****************************************** */
 
@@ -40,6 +52,7 @@
 }
 
 /***************WIDTH**********************/
+/*max min width height*/
 /****************************************** */
 .width_60px {
     width: 60px !important;
@@ -109,6 +122,7 @@
 }
 
 /**************MESSAGE BOXES******************/
+/*Colors, message color, div color,*/
 /*********************************************/
 .greenMsg {
     padding: 10px;
@@ -375,6 +389,7 @@
 
 
 /**************************BUTTONS***************************/
+/*Buttons*/
 /****REF: https://sharkcoder.com/visual/shapes************* */
 
 .button_type1 {
@@ -399,10 +414,11 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background-color: #7d7d7d;
+    background-color: #a3a3a3;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
+    text-align: center;
 }
 
 .button_type2:hover {
@@ -411,6 +427,7 @@
 
 
 /***************SHADOWS*********************************/
+/*shadows, borders*/
 /**********https://getcssscan.com/css-box-shadow-examples?ref=beautifulbuttons-bottom************/
 .hover_shadow1:hover {
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px !important;
