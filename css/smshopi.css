@@ -128,11 +128,13 @@
 }
 
 .prevItmImg {
-    left: -10px;
+    /* left: -10px; */
+    right: calc(50% + 140px);
 }
 
 .nextItmImg {
-    right: -10px;
+    /* right: -10px; */
+    left: calc(50% + 140px);
     border-radius: 3px 0 0 3px;
 }
 
@@ -517,3 +519,7 @@ input.confirmBtn:hover {
 .shopDescriptionCls{
     border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
 }
+.shopItemTitle, .shopItemPrice, .shopItemLastupdatedate{
+    font-weight: bold;
+}
+

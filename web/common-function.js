@@ -124,8 +124,8 @@ var itemImagesDiv = '<div class="itemImageshow-container">'
 
     + '</div>'
 
-    + '<a class="prevItmImg" onclick="plusitemImages(-1, this)">❮</a>'
-    + '<a class="nextItmImg" onclick="plusitemImages(1, this)">❯</a>'
+    + '<a class="prevItmImg navbtn" onclick="plusitemImages(-1, this)">❮</a>'
+    + '<a class="nextItmImg navbtn" onclick="plusitemImages(1, this)">❯</a>'
     + '</div>';
 
 var addItmImagesDiv = ""
@@ -3972,7 +3972,7 @@ function getFullShopDetails(tags, itemstr) {
 
         if (storeItems[i].itemimages != undefined) {
             if (storeItems[i].itemimages != "") {
-                newHTML = newHTML + '<div class="itemImageshow-container"><div class="itmImgContainer">' + storeItems[i].itemimages + '</div></div>';
+                newHTML = newHTML + '<div class="itemImageshow-container">' + storeItems[i].itemimages + '</div>';
             }
         }
         //End: div class="itemImageshow-container"
@@ -3983,17 +3983,31 @@ function getFullShopDetails(tags, itemstr) {
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
 
+        if (storeItems[i].title != undefined) {
+            if (storeItems[i].title != "") {
+                newHTML = newHTML
+                    + '<div class="shopItemTitle ">' + storeItems[i].title + '</div>';
+            }
+        }
+
         if (storeItems[i].itemprice != undefined) {
             if (storeItems[i].itemprice != "") {
                 newHTML = newHTML
-                    + '<div class="itemPrice ">' + storeItems[i].itemprice + '</div>';
+                    + '<div class="shopItemPrice ">' + storeItems[i].itemprice + '</div>';
             }
         }
 
         if (storeItems[i].itemdescription != undefined) {
             if (storeItems[i].itemdescription != "") {
                 newHTML = newHTML
-                    + '<div class="itemDescription ">' + storeItems[i].itemdescription + '</div>';
+                    + '<div class="shopItemDescription padding_20px">' + storeItems[i].itemdescription + '</div>';
+            }
+        }
+
+        if (storeItems[i].lastupdatedate != undefined) {
+            if (storeItems[i].lastupdatedate != "") {
+                newHTML = newHTML
+                    + '<div class="shopItemLastupdatedate ">Updated: ' + (storeItems[i].lastupdatedate).substring(0, 10) + '</div>';
             }
         }
 
@@ -4071,6 +4085,26 @@ function getFullShopDetails(tags, itemstr) {
         scrollTop: $("#itemDivId").offset().top - 40
     }, 100);
 
+    setTimeout(function () {
+        hideImageNavBtns();
+    }, 0);
+
+}
+
+function hideImageNavBtns(){
+   var imgContainers = document.querySelectorAll(".itemImageshow-container");
+
+   for (i = 0; i < imgContainers.length; i++) {
+    images = imgContainers[i].querySelectorAll(".myitemImages");
+    if (images.length < 2){
+        var btns = imgContainers[i].querySelectorAll(".navbtn");
+
+        for(j = 0; j < btns.length; j++ ){
+            btns[j].style.display = "none";
+        }
+    }
+    
+    }
 
 }
 
