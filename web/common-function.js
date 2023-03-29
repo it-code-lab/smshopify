@@ -3888,6 +3888,13 @@ function getFullShopDetails(tags, itemstr) {
         }
     }
 
+    if (tags[0].description != undefined) {
+        if (tags[0].description != "") {
+            newHTML = newHTML
+                + '<div class="shopDescriptionCls bgcolor_2 padding_50px color_white margin_10px">' + tags[0].description + '</div>';
+        }
+    }
+
     //End: div class="slides"
 
     //Start: Have Info- Desc/Hours/Location under one parent div
@@ -3900,7 +3907,7 @@ function getFullShopDetails(tags, itemstr) {
         var shopAddr = "<div class='shpAddrClass'>";
         for (i = 0; i< addrfields.length; i++ ){
             tempval = addrfields[i].split("^");
-            if (tempval[1] != "") {
+            if (tempval[1].trim() != "") {
                 if (shopAddr != "<div class='shpAddrClass'>"){
                     shopAddr = shopAddr + ", " + tempval[1] ;
                 } else{

@@ -20,6 +20,10 @@
     margin: 5px;
 }
 
+.margin_10px{
+    margin: 10px;
+}
+
 .marginbottom_50px{
     margin-bottom: 50px;
 }
@@ -34,6 +38,14 @@
 
 .padding_10px {
     padding: 10px !important;
+}
+
+.padding_20px {
+    padding: 20px !important;
+}
+
+.padding_50px {
+    padding: 50px !important;
 }
 
 /***************Label**********************/
@@ -165,6 +177,10 @@
     background-color: #eee;
 }
 
+.bgcolor_2{
+    background-color: rgb(117, 89, 218);
+}
+
 .white_bg {
     background-color: #fff !important;
 }
@@ -174,6 +190,9 @@
     color: #E74C3C !important;
 }
 
+.color_white{
+    color: #fff;
+}
 /**************CURSOR******************/
 /*********************************************/
 
@@ -455,3 +474,7 @@
 
 /*****************CLIP PATh GENERATOR*********************************/
 /**********https://bennettfeely.com/clippy/ ****************/
+
+
+/*****************BORDER RADIUS GENERATOR*********************************/
+/**https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Border-radius_generator***

@@ -513,3 +513,7 @@ input.confirmBtn:hover {
 .shpAddrClass{
     padding: 5px;
 }
+
+.shopDescriptionCls{
+    border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
+}
