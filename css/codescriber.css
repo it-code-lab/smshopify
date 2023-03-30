@@ -403,7 +403,7 @@ li.day>a>i {
 li.day:before {
   content: "\f07b";
   /* FontAwesome Unicode */
-  font-family: FontAwesome;
+  font-family: FontAwesome, Arial, Helvetica, sans-serif;
   display: inline-block;
   margin-left: -1.3em;
   /* same as padding-left set on li */
@@ -419,7 +419,7 @@ li.day>ul {
 li.day>ul>li:before {
   content: "\f0a9";
   /* FontAwesome Unicode */
-  font-family: FontAwesome;
+  font-family: FontAwesome, Arial, Helvetica, sans-serif;
   display: inline-block;
   margin-left: -1.3em;
   /* same as padding-left set on li */
@@ -453,7 +453,6 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   text-align: left;
   outline: none;
   font-size: 15px;
-  color: #000;
   margin-bottom: 10px;
   margin-top: 10px;
   box-shadow: 0 2px 5px #ccc;
@@ -478,7 +477,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   margin: 2px;
 }
 
-#projectscannerDivId {
+/* #projectscannerDivId {
   resize: horizontal;
   overflow: hidden;
   background-color: #fff;
@@ -487,7 +486,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   min-height: 88vh;
   overflow: auto;
   padding: 0px;
-}
+} */
 
 #StoredPrjInnerDivId {
   background-color: #AFAEAE;
@@ -787,7 +786,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   padding: 5px;
 }
 
-#addHelpSpan {
+/* #addHelpSpan {
   cursor: pointer;
   margin-right: 20px;
   margin-left: 50px;
@@ -796,7 +795,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 #addHelpSpanI {
   font-size: 16px;
   color: green;
-}
+} */
 
 #helpLangoverrideMsg {
   color: #fcc40a;
@@ -981,7 +980,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   margin: auto;
   text-align: center;
   width: 100%;
-  font-family: Georgia !important;
+  font-family: Georgia, Arial, Helvetica, sans-serif !important;
   font-size: 60px;
 }
 
@@ -1383,7 +1382,8 @@ i.loaderDot:nth-child(3) {
 #accActivatedDivId,
 #forgotPWDivId,
 #providerSecDivId {
-  max-width: 700px;
+  /* max-width: 700px; */
+  max-width: 500px;
   width: 90%;
 }
 
@@ -1461,7 +1461,6 @@ i.loaderDot:nth-child(3) {
 
 #menu1-toggle {
   display: none;
-  /**/
   /* hide the checkbox */
 }
 
@@ -1576,10 +1575,10 @@ i.loaderDot:nth-child(3) {
 
 /* SM: Start: ***********Below styles are for help message display **************/
 
-:rootXX {
+/* :rootXX {
   --cs: 30px;
   --br: 20px;
-}
+} */
 
 .root {
   display: flex;
@@ -1725,7 +1724,7 @@ a.fileLink:hover{
 }
 
 button.btnNewWindow::before {
-  font-family: fontAwesome;
+  font-family: fontAwesome, Arial, Helvetica, sans-serif;
   content: "\f08e";
 }
 
@@ -1817,7 +1816,7 @@ button.btnNewWindow::before {
   margin: auto;*/
   text-align: center;
 
-  font-family: arial;
+  font-family: Arial, Helvetica, sans-serif;
   /* width: 95%; */
   /* float: left; */
   padding: 0px;
@@ -1843,7 +1842,7 @@ button.btnNewWindow::before {
   margin: auto;*/
   text-align: center;
 
-  font-family: arial;
+  font-family: Arial, Helvetica, sans-serif;
   /* width: 95%; */
   /* float: left; */
   padding: 0px;
@@ -1861,15 +1860,12 @@ button.btnNewWindow::before {
   display: none;
 }
 
-.itemChild {
-  /* background-color:bisque; */
-  /* background-color: #ECF0F1; */
-}
+
 
 .menucard {
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
   text-align: center;
-  font-family: arial;
+  font-family: Arial, Helvetica, sans-serif;
   float: left;
   margin: 10px;
   cursor: pointer;
@@ -2136,9 +2132,9 @@ input:checked+.slider:after {
   color: #556377;
 }
 
-.itemTitleH2 {
+/* .itemTitleH2 {
   font-size: small;
-}
+} */
 
 .saveChangesDivCls {
   display: flex;
@@ -2284,7 +2280,6 @@ input:checked+.slider:after {
   background-color: #095484;
   font-size: 16px;
   color: #fff;
-  cursor: pointer;
 }
 
 .sbmtqz-div:hover {
@@ -2488,7 +2483,7 @@ input:checked+.slider:after {
   margin: 5px;
 }
 
-.sbmtqz-div {
+/* .sbmtqz-div {
   margin: auto;
   text-align: center;
   width: 200px;
@@ -2496,7 +2491,7 @@ input:checked+.slider:after {
   border-radius: 5px;
   padding: 5px;
 
-}
+} */
 
 #retryqzdivid {
   display: none;
@@ -2534,7 +2529,6 @@ input:checked+.slider:after {
 ul.unordered-list-arrow {
   list-style: none;
   --icon-space: 1.3em;
-  list-style: none;
   padding: 0;
 }
 
@@ -2545,7 +2539,7 @@ ul.unordered-list-arrow li {
 ul.unordered-list-arrow li:before {
   content: "\f04b";
   /* FontAwesome Unicode */
-  font-family: FontAwesome;
+  font-family: FontAwesome, Arial, Helvetica, sans-serif;
   display: inline-block;
   margin-left: calc(var(--icon-space) * -1);
   width: var(--icon-space);
@@ -2589,7 +2583,7 @@ ul.unordered-list-arrow li:before {
 
 #itemDivId {
   resize: horizontal;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: #fff;
   display: none;
   /* height: 100vh;  */
@@ -2608,12 +2602,12 @@ ul.unordered-list-arrow li:before {
   margin: 20px;
 }
 
-#itemDivId {
+/* #itemDivId {
   width: 100%;
   padding: 10px;
   max-width: 1100px;
   margin: auto;
-}
+} */
 
 
 #itemListDivId {
@@ -2824,7 +2818,7 @@ footer {
 
 .goToTechLink {
   float: right;
-  margin: 0px;
+  /* margin: 0px; */
   padding: 0px;
   cursor: pointer;
   background-color: #F9907A;
