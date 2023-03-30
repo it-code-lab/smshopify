@@ -2772,7 +2772,7 @@ function getOneItemOfShop(tags, itemstr) {
     let discontinue = tags[0].discontinue;
 
 
-    path = window.location.pathname;
+    let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
 
     //START: Find the next item to be put at the bottom of the page
@@ -2789,7 +2789,7 @@ function getOneItemOfShop(tags, itemstr) {
 
     let categorySpaceReplaced = category.replaceAll(" ", "-");
 
-    let path = window.location.pathname;
+    //let path = window.location.pathname;
 
     let storeRow = allRows.filter(function (entry) {
         return entry.discontinue == "0" && entry.title == tags[0].storename;
@@ -2958,7 +2958,7 @@ function getFullShopDetails(tags, itemstr) {
     let discontinue = tags[0].discontinue;
 
 
-    path = window.location.pathname;
+    let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
 
     //START: Find the next item to be put at the bottom of the page
@@ -2973,7 +2973,7 @@ function getFullShopDetails(tags, itemstr) {
         return entry.discontinue == "0" && entry.category == category;
     });
 
-    let path = window.location.pathname;
+    //let path = window.location.pathname;
 
     let storeItems = allRows.filter(function (entry) {
         return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title != tags[0].storename;

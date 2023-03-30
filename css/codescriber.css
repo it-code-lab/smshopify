@@ -2596,18 +2596,22 @@ ul.unordered-list-arrow li:before {
   border-right: 1px solid #c8c8c8;
   border-left: 1px solid #c8c8c8;
   z-index: 10;
+  width: 100%;
+  padding: 10px;
+  max-width: 1100px;
+  margin: auto;
 }
 
 #itemDivId>div:not(.header3-desc) {
   margin: 20px;
 }
 
-/* #itemDivId {
+ /* #itemDivId {
   width: 100%;
   padding: 10px;
   max-width: 1100px;
   margin: auto;
-} */
+}  */
 
 
 #itemListDivId {
