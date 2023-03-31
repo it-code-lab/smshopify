@@ -171,14 +171,14 @@ let colorList = ["#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9
 
 let revealSecColor = getSecColors();
 
-function getItemButtons(){
+function getItemButtons() {
     let tempHTML = "";
-    tempHTML = tempHTML + "<div class='itemBtnsDiv'>" ;
+    tempHTML = tempHTML + "<div class='itemBtnsDiv'>";
     tempHTML = tempHTML + "<div class='itmbtn'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div>"; //color_red_heart, color_light_pink
     tempHTML = tempHTML + "<div class='itmbtn'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='provideReview(this)'><i class='fa fa-star color_yellow_star'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='reportItem(this)'><i class='fa fa-warning color_brown'></i></div>";
-    tempHTML = tempHTML + "</div>" ;
+    tempHTML = tempHTML + "</div>";
     return tempHTML;
 }
 
@@ -859,7 +859,7 @@ function autocomplete(inp, arr) {
             "input",
             function (e) {
                 //document.getElementById("SVDReviewDiv").style.display = "none";
-                let a, b,  val = this.value;
+                let a, b, val = this.value;
                 let strPos;
                 /*close any already open lists of autocompleted values*/
                 //closeAllLists();
@@ -1959,7 +1959,7 @@ function Show(pageName) {
         let x = document.getElementById("myTopnav");
         x.className = "topnav";
 
-    } 
+    }
 
     document.getElementById("helpDisplayDivId").style.display = "block";
     //Update url
@@ -2256,7 +2256,7 @@ function checkURL() {
 
 
     //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        
+
 
     let LocationSearchStr = location.search;
     let find = '%20';
@@ -2296,6 +2296,7 @@ function checkURL() {
         if (localStorage.getItem("userLvl") == "9") {
             the.smusr = true;
         }
+        
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
@@ -2310,6 +2311,8 @@ function checkURL() {
                     }
                     document.getElementById("logoutLinkId").style.display = "none";
                     document.getElementById("profileLinkId").style.display = "none";
+                }else{
+                    getFavoritesList();
                 }
             },
             error: function (xhr, status, error) {
@@ -2677,9 +2680,9 @@ function getCreateStore(tags, itemstr) {
     //let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     //let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
 
-    let newHTML = "" ;
+    let newHTML = "";
 
-    newHTML = newHTML + "<div classXX = 'shopContainer' >" ;
+    newHTML = newHTML + "<div classXX = 'shopContainer' >";
 
     //**********DO NOT DELETE********/
     // newHTML = newHTML +  '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
@@ -3038,20 +3041,20 @@ function getFullShopDetails(tags, itemstr) {
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
 
-    if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")){
+    if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")) {
         let addrfields = tags[0].uselocationfromaddress.split("~");
         let shopAddr = "<div class='shpAddrClass'>";
-        for (let i = 0; i< addrfields.length; i++ ){
+        for (let i = 0; i < addrfields.length; i++) {
             let tempval = addrfields[i].split("^");
             if (tempval[1].trim() != "") {
-                if (shopAddr != "<div class='shpAddrClass'>"){
-                    shopAddr = shopAddr + ", " + tempval[1] ;
-                } else{
-                    shopAddr = shopAddr + "Address: " +  tempval[1] ;
+                if (shopAddr != "<div class='shpAddrClass'>") {
+                    shopAddr = shopAddr + ", " + tempval[1];
+                } else {
+                    shopAddr = shopAddr + "Address: " + tempval[1];
                 }
-                
+
             }
-            
+
         }
         newHTML = newHTML + shopAddr + '</div>';
     }
@@ -3101,7 +3104,7 @@ function getFullShopDetails(tags, itemstr) {
     for (let i = 0; i < storeItems.length; i++) {
 
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px" data-itemid="'+ storeItems[i].itemid +'">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -3120,7 +3123,7 @@ function getFullShopDetails(tags, itemstr) {
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
 
         newHTML = newHTML + getItemButtons();
-                    
+
         if (storeItems[i].title != undefined) {
             if (storeItems[i].title != "") {
                 newHTML = newHTML
@@ -3227,24 +3230,30 @@ function getFullShopDetails(tags, itemstr) {
         hideImageNavBtns();
     }, 0);
 
+    setTimeout(function () {
+        colorFavoriteItems();
+    }, 10);
 }
 
-function hideImageNavBtns(){
-   let imgContainers = document.querySelectorAll(".itemImageshow-container");
+function hideImageNavBtns() {
+    let imgContainers = document.querySelectorAll(".itemImageshow-container");
 
-   for (let i = 0; i < imgContainers.length; i++) {
-    let images = imgContainers[i].querySelectorAll(".myitemImages");
-    if (images.length < 2){
-        let btns = imgContainers[i].querySelectorAll(".navbtn");
+    for (let i = 0; i < imgContainers.length; i++) {
+        let images = imgContainers[i].querySelectorAll(".myitemImages");
+        if (images.length < 2) {
+            let btns = imgContainers[i].querySelectorAll(".navbtn");
 
-        for(j = 0; j < btns.length; j++ ){
-            btns[j].style.display = "none";
+            for (j = 0; j < btns.length; j++) {
+                btns[j].style.display = "none";
+            }
         }
-    }
-    
+
     }
 
 }
+
+
+
 
 //REF:https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -5546,7 +5555,7 @@ async function saveNewStore(itemid, createNewItem) {
         }
     });
 
-    if (allItems.length == 0){
+    if (allItems.length == 0) {
         document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
         return;
     }
@@ -5602,19 +5611,19 @@ async function saveNewStore(itemid, createNewItem) {
             type: 'POST',
             dataType: 'json',
             success: function (retstatus) {
-                 if (i == allItems.length - 1) {
+                if (i == allItems.length - 1) {
                     document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
 
-                //     sessionStorage.setItem("itemsList", null);
-                //     getItemsList();
-                 }
+                    //     sessionStorage.setItem("itemsList", null);
+                    //     getItemsList();
+                }
             },
             error: function (xhr, status, error) {
                 //if (!itemid == "") {
-                    //document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
-                    
-                    document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
-                    return;
+                //document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+
+                document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+                return;
                 //}
             }
         });
@@ -7452,7 +7461,7 @@ function login() {
                 localStorage.setItem("userEmail", StrEmail);
                 //getStoredProjectList();
 
-                getFavoritesList();
+                //getFavoritesList();
 
                 let myUrl = window.location.protocol + "//" + window.location.host +
                     window.location.pathname;
@@ -7462,7 +7471,7 @@ function login() {
                 if (lastUrl == null) {
                     lastUrl = myUrl + "?target=" + "home"
                 }
-                
+
                 window.open(lastUrl, "_self");
 
             }
@@ -7733,7 +7742,7 @@ function register() {
 // }
 
 function populateStoreType(divid) {
-    document.getElementById(divid).innerHTML = '<label class="form_header_label1 scale-up-ver-top"> SELECT STORE TYPE </label><hr>' +  getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById(divid).innerHTML = '<label class="form_header_label1 scale-up-ver-top"> SELECT STORE TYPE </label><hr>' + getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     document.getElementById(divid).style.display = "block";
 }
 
@@ -8659,7 +8668,7 @@ function showitemImages(n, elem = "dummy") {
             itemImages[i].style.display = "none";
         }
         itemImages[itemImageIndex - 1].style.display = "block";
-    } 
+    }
 
 }
 
@@ -8702,7 +8711,7 @@ function gotoNextTab(elem) {
 
 }
 function openShopTab(evt, shopTabId) {
-    let  tabcontent, tablinks;
+    let tabcontent, tablinks;
 
     let elem = evt.currentTarget;
     parent = elem.parentElement.parentElement;
@@ -8899,16 +8908,16 @@ function logCommon(msg) {
     //console.log("At " + new Date().toLocaleString() + " from common-functions.js " + msg )
 }
 
-function markFavourite(elem){
+function markFavourite(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites" 
-                    + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                    + "</div>";
-        
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites"
+            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "</div>";
+
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
-    }else {
+    } else {
 
         let innerIcon = elem.querySelector(".fa");
 
@@ -8916,22 +8925,22 @@ function markFavourite(elem){
             innerIcon.classList.remove('color_light_pink');
             innerIcon.classList.add('color_red_heart');
             addToFavorites(elem);
-            let tempHTML = "Added to your favourites" 
-                        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                        + "</div>";
-            
+            let tempHTML = "Added to your favourites"
+                + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                + "</div>";
+
             document.getElementById("popupDivId").innerHTML = tempHTML;
             placePopupUnderClickedBtn(elem);
-        }else {
-            
+        } else {
+
 
             innerIcon.classList.remove('color_red_heart');
             innerIcon.classList.add('color_light_pink');
             removeFromFavorites(elem);
-            let tempHTML = "Removed from your favourites" 
-                        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                        + "</div>";
-            
+            let tempHTML = "Removed from your favourites"
+                + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                + "</div>";
+
             document.getElementById("popupDivId").innerHTML = tempHTML;
             placePopupUnderClickedBtn(elem);
         }
@@ -8940,34 +8949,34 @@ function markFavourite(elem){
     }
 }
 
-function openItemChat(elem){
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the store owner " 
-                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                   + "</div>";
-    
+function openItemChat(elem) {
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the store owner "
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
+
     document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);    
+    placePopupUnderClickedBtn(elem);
 }
 
-function provideReview(elem){
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item " 
-                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                   + "</div>";
-    
+function provideReview(elem) {
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
+
     document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);    
+    placePopupUnderClickedBtn(elem);
 }
 
-function reportItem(elem){
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item " 
-                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                   + "</div>";
-    
+function reportItem(elem) {
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
+
     document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);    
+    placePopupUnderClickedBtn(elem);
 }
 
 
@@ -8975,26 +8984,27 @@ function reportItem(elem){
 //     //let tempHTML = '';
 //     //document.getElementById("popupDivId").innerHTML = tempHTML;
 //     //document.getElementById("popupDivId").innerHTML = "<iframe src=\"../HtmlPage1.html\" height=\"300\" width=\"300\" ></iframe>";
-    
+
 //     //$("#popupDivId").attr("src", "http://localhost/smshopify/?target=login");
 
 //     $('#popupDivId').html('<iframe id="iframe" src="http://localhost/smshopify/?target=login" width="300" height="300"></iframe>');
 
 //     //placePopupUnderClickedBtn(elem);
 // }
-function placePopupUnderClickedBtn(elem){
+function placePopupUnderClickedBtn(elem) {
     $("#popupDivId").css({
         'position': 'absolute',
-            'left': elem.parentElement.offsetLeft,
-            'top': elem.offsetTop + elem.clientHeight + 50,
-            'display': 'block'
+        'left': elem.parentElement.offsetLeft,
+        'top': elem.offsetTop + elem.clientHeight + 50,
+        'display': 'block'
     })
     //}).show("slow").delay(3000).hide("slow");
 }
 
-function closePopup(){
+function closePopup() {
     $("#popupDivId").css({
-        'display': 'none'});
+        'display': 'none'
+    });
 }
 
 function removeFromFavorites(elem) {
@@ -9009,7 +9019,7 @@ function removeFromFavorites(elem) {
     if (tags != null) {
         if ((tags != "") && (tags != undefined) && (tags != [])) {
             favitemsArr = JSON.parse(tags);
-        }        
+        }
     }
 
     favitemsArr = favitemsArr.filter(e => e !== itemid);
@@ -9031,7 +9041,7 @@ function addToFavorites(elem) {
     if (tags != null) {
         if ((tags != "") && (tags != undefined) && (tags != [])) {
             favitemsArr = JSON.parse(tags);
-        }        
+        }
     }
 
 
@@ -9039,19 +9049,19 @@ function addToFavorites(elem) {
 
     if (!elementIndex != -1) {
         favitemsArr.push(itemid);
-    } 
+    }
     updateFavoriteItems(favitemsArr);
     localStorage.setItem("favitems", JSON.stringify(favitemsArr));
 }
 
-function updateFavoriteItems(favitemsArr){
+function updateFavoriteItems(favitemsArr) {
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "updatefavorites",
-            favitems : JSON.stringify(favitemsArr)
+            favitems: JSON.stringify(favitemsArr)
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
@@ -9082,8 +9092,11 @@ function getFavoritesList() {
             // console.log(tags[0]);
             // console.log(tags[0].favoriteitems);
 
-            localStorage.setItem("favitems", JSON.stringify(tags[0].favoriteitems));
-            localStorage.setItem("favstores", JSON.stringify(tags[0].favoritestores));
+            // localStorage.setItem("favitems", JSON.stringify(tags[0].favoriteitems));
+            // localStorage.setItem("favstores", JSON.stringify(tags[0].favoritestores));
+
+            localStorage.setItem("favitems", tags[0].favoriteitems);
+            localStorage.setItem("favstores", tags[0].favoritestores);
 
             //localStorage.setItem("favsList", JSON.stringify(response));
         },
@@ -9092,4 +9105,36 @@ function getFavoritesList() {
             //  console.log(xhr);
         }
     });
+}
+
+function colorFavoriteItems() {
+    let itmContainers = document.querySelectorAll(".itemContainerCls");
+
+    let tags = localStorage.getItem("favitems");
+
+    let favitemsArr = [];
+
+
+    if (tags != null) {
+        if ((tags != "") && (tags != undefined) && (tags != [])) {
+            favitemsArr = JSON.parse(tags);
+        } else {
+            return;
+        }
+    } else {
+        return;
+    }
+
+    for (let i = 0; i < itmContainers.length; i++) {
+
+        let itemid = itmContainers[i].dataset.itemid;
+        let elementIndex = favitemsArr.indexOf(itemid);
+
+        if (elementIndex != -1) {
+            let innerIcon = itmContainers[i].querySelector(".fa");
+            innerIcon.classList.remove('color_light_pink');
+            innerIcon.classList.add('color_red_heart');
+        }
+    }
+
 }
