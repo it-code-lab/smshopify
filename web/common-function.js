@@ -174,7 +174,7 @@ let revealSecColor = getSecColors();
 function getItemButtons(){
     let tempHTML = "";
     tempHTML = tempHTML + "<div class='itemBtnsDiv'>" ;
-    tempHTML = tempHTML + "<div class='itmbtn'  onclick='markFavourite(this)'><i class='fa fa-heart color_red_heart'></i></div>";
+    tempHTML = tempHTML + "<div class='itmbtn'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div>"; //color_red_heart, color_light_pink
     tempHTML = tempHTML + "<div class='itmbtn'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='provideReview(this)'><i class='fa fa-star color_yellow_star'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='reportItem(this)'><i class='fa fa-warning color_brown'></i></div>";
@@ -7450,7 +7450,10 @@ function login() {
                 localStorage.setItem("userLvl", retstatus.substring(2, 3));
                 localStorage.setItem("userdata", retstatus.substring(3));
                 localStorage.setItem("userEmail", StrEmail);
-                getStoredProjectList();
+                //getStoredProjectList();
+
+                getFavoritesList();
+
                 let myUrl = window.location.protocol + "//" + window.location.host +
                     window.location.pathname;
 
@@ -8902,19 +8905,92 @@ function logCommon(msg) {
 }
 
 function markFavourite(elem){
-    let tempHTML = "<div>Login to add this item to your favourites " 
+    if (localStorage.getItem("userLoggedIn") == "n") {
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites" 
+                    + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                    + "</div>";
+        
+        document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        placePopupUnderClickedBtn(elem);
+    }else {
+
+        let innerIcon = elem.querySelector(".fa");
+
+        if (innerIcon.classList.contains('color_light_pink')) {
+            innerIcon.classList.remove('color_light_pink');
+            innerIcon.classList.add('color_red_heart');
+            addToFavorites();
+            let tempHTML = "Added to your favourites" 
+                        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                        + "</div>";
+            
+            document.getElementById("popupDivId").innerHTML = tempHTML;
+            placePopupUnderClickedBtn(elem);
+        }else {
+            
+
+            innerIcon.classList.remove('color_red_heart');
+            innerIcon.classList.add('color_light_pink');
+            removeFromFavorites();
+            let tempHTML = "Removed from your favourites" 
+                        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                        + "</div>";
+            
+            document.getElementById("popupDivId").innerHTML = tempHTML;
+            placePopupUnderClickedBtn(elem);
+        }
+
+
+    }
+}
+
+function openItemChat(elem){
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the store owner " 
                   + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
                    + "</div>";
     
     document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);
+    placePopupUnderClickedBtn(elem);    
 }
 
+function provideReview(elem){
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item " 
+                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                   + "</div>";
+    
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+
+    placePopupUnderClickedBtn(elem);    
+}
+
+function reportItem(elem){
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item " 
+                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                   + "</div>";
+    
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+
+    placePopupUnderClickedBtn(elem);    
+}
+
+
+// function popupLogin(){
+//     //let tempHTML = '';
+//     //document.getElementById("popupDivId").innerHTML = tempHTML;
+//     //document.getElementById("popupDivId").innerHTML = "<iframe src=\"../HtmlPage1.html\" height=\"300\" width=\"300\" ></iframe>";
+    
+//     //$("#popupDivId").attr("src", "http://localhost/smshopify/?target=login");
+
+//     $('#popupDivId').html('<iframe id="iframe" src="http://localhost/smshopify/?target=login" width="300" height="300"></iframe>');
+
+//     //placePopupUnderClickedBtn(elem);
+// }
 function placePopupUnderClickedBtn(elem){
     $("#popupDivId").css({
         'position': 'absolute',
-            'left': elem.offsetLeft,
+            'left': elem.parentElement.offsetLeft,
             'top': elem.offsetTop + elem.clientHeight + 50,
             'display': 'block'
     })
@@ -8924,4 +9000,65 @@ function placePopupUnderClickedBtn(elem){
 function closePopup(){
     $("#popupDivId").css({
         'display': 'none'});
+}
+
+function removeFromFavorites() {
+}
+
+function addToFavorites() {
+
+    let tags = JSON.parse(JSON.parse(localStorage.getItem("favsList")));
+
+    let favitems = "";
+    let favstores = "";
+
+    if (tags != null) {
+        if ((tags[0].favoriteitems != "") && (tags[0].favoriteitems != "null")) {
+            favitems = JSON.parse(tags[0].favoriteitems);
+        }
+        if ((tags[0].favoritestores != "") && (tags[0].favoritestores != "null")) {
+            favstores = JSON.parse(tags[0].favoritestores);
+        }        
+    }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "updatefavorites",
+            favitems : favitems,
+            favstores : favstores
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+        },
+        error: function (xhr, status, error) {
+        }
+    });
+}
+
+function getFavoritesList() {
+
+    let tags = localStorage.getItem("favsList")
+    if ((tags != null) && (tags != undefined)) {
+        if ((tags != "") && (tags != "null")) {
+            return;
+        }
+    }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "getfavorites"
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            localStorage.setItem("favsList", JSON.stringify(response));
+        },
+        error: function (xhr, status, error) {
+             console.log(error);
+             console.log(xhr);
+        }
+    });
 }
