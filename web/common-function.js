@@ -51,6 +51,7 @@ const createConfirm = (message) => {
     });
 }
 
+
 let nextShopTabBtnDiv = "<div class='nextShopTabBtnDiv'> <button class='button_type2 width_100px' onclick='gotoNextTab(this)'>Next</button></div>"
 let allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
 let showBannerOptionsBtn = "<button onclick='showBannerOptions(this)'> Design Options </button>";
@@ -169,6 +170,17 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
 let colorList = ["#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
 
 let revealSecColor = getSecColors();
+
+function getItemButtons(){
+    let tempHTML = "";
+    tempHTML = tempHTML + "<div class='itemBtnsDiv'>" ;
+    tempHTML = tempHTML + "<div class='itmbtn'  onclick='markFavourite(this)'><i class='fa fa-heart color_red_heart'></i></div>";
+    tempHTML = tempHTML + "<div class='itmbtn'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
+    tempHTML = tempHTML + "<div class='itmbtn' onclick='provideReview(this)'><i class='fa fa-star color_yellow_star'></i></div>";
+    tempHTML = tempHTML + "<div class='itmbtn' onclick='reportItem(this)'><i class='fa fa-warning color_brown'></i></div>";
+    tempHTML = tempHTML + "</div>" ;
+    return tempHTML;
+}
 
 function getSecColors() {
     let retHTML = "<label class='informationBox'>If you want to change the color in the banner above, click on the color below</label> ";
@@ -3107,6 +3119,8 @@ function getFullShopDetails(tags, itemstr) {
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
 
+        newHTML = newHTML + getItemButtons();
+                    
         if (storeItems[i].title != undefined) {
             if (storeItems[i].title != "") {
                 newHTML = newHTML
@@ -8885,4 +8899,29 @@ function getCookie(c_name) {
 
 function logCommon(msg) {
     //console.log("At " + new Date().toLocaleString() + " from common-functions.js " + msg )
+}
+
+function markFavourite(elem){
+    let tempHTML = "<div>Login to add this item to your favourites " 
+                  + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+                   + "</div>";
+    
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+
+    placePopupUnderClickedBtn(elem);
+}
+
+function placePopupUnderClickedBtn(elem){
+    $("#popupDivId").css({
+        'position': 'absolute',
+            'left': elem.offsetLeft,
+            'top': elem.offsetTop + elem.clientHeight + 50,
+            'display': 'block'
+    })
+    //}).show("slow").delay(3000).hide("slow");
+}
+
+function closePopup(){
+    $("#popupDivId").css({
+        'display': 'none'});
 }

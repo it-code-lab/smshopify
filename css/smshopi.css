@@ -521,3 +521,33 @@ input.confirmBtn:hover {
     font-weight: bold;
 }
 
+.itemBtnsDiv{
+    /* display: flex;
+    flex-direction: row; */
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.itmbtn{
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 30px;
+    border-radius: 50%;
+    background-color: #dbdcec;
+
+}
+
+.itmbtn:hover{
+    background-color: #8e8ec4;
+}
+
+.popupDivCls{
+    display: none;
+    z-index: 300;
+    background: #F7C77A;
+    padding: 20px;
+}
