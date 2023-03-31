@@ -3101,7 +3101,7 @@ function getFullShopDetails(tags, itemstr) {
     for (let i = 0; i < storeItems.length; i++) {
 
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px" data-itemid="'+ storeItems[i].itemid +'">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -7462,13 +7462,8 @@ function login() {
                 if (lastUrl == null) {
                     lastUrl = myUrl + "?target=" + "home"
                 }
+                
                 window.open(lastUrl, "_self");
-
-                //window.open(myUrl + "?target=" + "projectscanner", "_self");
-
-
-                //document.getElementById("addNewProjBtnId").style.display = "block";
-                //localStorage.setItem("userLoggedIn", "y");
 
             }
 
@@ -8920,7 +8915,7 @@ function markFavourite(elem){
         if (innerIcon.classList.contains('color_light_pink')) {
             innerIcon.classList.remove('color_light_pink');
             innerIcon.classList.add('color_red_heart');
-            addToFavorites();
+            addToFavorites(elem);
             let tempHTML = "Added to your favourites" 
                         + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
                         + "</div>";
@@ -8932,7 +8927,7 @@ function markFavourite(elem){
 
             innerIcon.classList.remove('color_red_heart');
             innerIcon.classList.add('color_light_pink');
-            removeFromFavorites();
+            removeFromFavorites(elem);
             let tempHTML = "Removed from your favourites" 
                         + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
                         + "</div>";
@@ -9002,32 +8997,61 @@ function closePopup(){
         'display': 'none'});
 }
 
-function removeFromFavorites() {
-}
+function removeFromFavorites(elem) {
 
-function addToFavorites() {
+    let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
 
-    let tags = JSON.parse(JSON.parse(localStorage.getItem("favsList")));
+    let tags = localStorage.getItem("favitems");
 
-    let favitems = "";
-    let favstores = "";
+    let favitemsArr = [];
+
 
     if (tags != null) {
-        if ((tags[0].favoriteitems != "") && (tags[0].favoriteitems != "null")) {
-            favitems = JSON.parse(tags[0].favoriteitems);
-        }
-        if ((tags[0].favoritestores != "") && (tags[0].favoritestores != "null")) {
-            favstores = JSON.parse(tags[0].favoritestores);
+        if ((tags != "") && (tags != undefined) && (tags != [])) {
+            favitemsArr = JSON.parse(tags);
         }        
     }
+
+    favitemsArr = favitemsArr.filter(e => e !== itemid);
+
+    updateFavoriteItems(favitemsArr);
+
+    localStorage.setItem("favitems", JSON.stringify(favitemsArr));
+}
+
+function addToFavorites(elem) {
+
+    let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
+
+    let tags = localStorage.getItem("favitems");
+
+    let favitemsArr = [];
+
+
+    if (tags != null) {
+        if ((tags != "") && (tags != undefined) && (tags != [])) {
+            favitemsArr = JSON.parse(tags);
+        }        
+    }
+
+
+    const elementIndex = favitemsArr.indexOf(itemid)
+
+    if (!elementIndex != -1) {
+        favitemsArr.push(itemid);
+    } 
+    updateFavoriteItems(favitemsArr);
+    localStorage.setItem("favitems", JSON.stringify(favitemsArr));
+}
+
+function updateFavoriteItems(favitemsArr){
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "updatefavorites",
-            favitems : favitems,
-            favstores : favstores
+            favitems : JSON.stringify(favitemsArr)
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
@@ -9039,7 +9063,7 @@ function addToFavorites() {
 
 function getFavoritesList() {
 
-    let tags = localStorage.getItem("favsList")
+    let tags = localStorage.getItem("favitems")
     if ((tags != null) && (tags != undefined)) {
         if ((tags != "") && (tags != "null")) {
             return;
@@ -9054,11 +9078,18 @@ function getFavoritesList() {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
-            localStorage.setItem("favsList", JSON.stringify(response));
+            let tags = JSON.parse(response);
+            // console.log(tags[0]);
+            // console.log(tags[0].favoriteitems);
+
+            localStorage.setItem("favitems", JSON.stringify(tags[0].favoriteitems));
+            localStorage.setItem("favstores", JSON.stringify(tags[0].favoritestores));
+
+            //localStorage.setItem("favsList", JSON.stringify(response));
         },
         error: function (xhr, status, error) {
-             console.log(error);
-             console.log(xhr);
+            //  console.log(error);
+            //  console.log(xhr);
         }
     });
 }
