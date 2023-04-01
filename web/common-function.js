@@ -5189,7 +5189,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + shopBannerTabContentDivs
         + "</div>";
 
-    let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+    let contentToAdd = "<div id= div-" + randomId + " data-itemid='"+ itemid +"' class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
         + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
         + hdMeDiv
         + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5206,14 +5206,46 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
     return contentToAdd;
 }
 
-function getItemForUpd(htmlPartOrig) {
-    // let htmlPartOrig = '<div class="shopItemCls1" >'
-    // + "\n" + itemImagesDiv
-    // + "\n" + '</div>';
+function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itemprice) {
+    let itemImagesDiv = '<div class="itemImageshow-container">'
+                    + itmimageshtml
+                    + '</div>';
+
+    let htmlPartOrig = '<div class="shopItemCls1" >'
+                    + "\n" + itemImagesDiv
+                    + "\n" + '</div>';
 
     let randomId = type + "-" + Math.floor(Math.random() * 1000000);
 
     htmlPart = escape(htmlPartOrig);
+
+    let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
+                    + addItmImagesDiv
+                    + nextShopTabBtnDiv
+                    + '</div>'
+
+                    + '<div id="itmNameDiv" class="shopTabcontent">'
+                    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + itemname + '</div>'
+                    + nextShopTabBtnDiv
+                    + '</div>'
+
+                    + '<div id="itmDescDiv" class="shopTabcontent">'
+                    + "<label class='informationBox'>Enter the details of the item/service</label>"
+                    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + itemdescription + '</div>'
+                    + nextShopTabBtnDiv
+                    + '</div>'
+
+                    + '<div id="itemPrice" class="shopTabcontent">'
+                    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + itemprice + '</div>'
+                    + nextShopTabBtnDiv
+                    + '</div>'
+
+                    + '<div id="CloseItemCust" class="shopTabcontent">'
+                    + '</div>'
+
+                    + '<div id="deleteItem" class="shopTabcontent">'
+                    + '</div>';
+
 
     let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
         + allowTogglePreview
@@ -5221,7 +5253,7 @@ function getItemForUpd(htmlPartOrig) {
         + shopItemTabContentDivs
         + "</div>";
 
-    let contentToAdd = "<div id= div-" + randomId + " class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
+    let contentToAdd = "<div id= div-" + randomId + " data-itemid= '" + itemid + "' class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
         + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
         + hdMeDiv
         + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
