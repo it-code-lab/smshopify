@@ -2297,7 +2297,7 @@ function checkURL() {
         if (localStorage.getItem("userLvl") == "9") {
             the.smusr = true;
         }
-        
+
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
@@ -2312,7 +2312,7 @@ function checkURL() {
                     }
                     document.getElementById("logoutLinkId").style.display = "none";
                     document.getElementById("profileLinkId").style.display = "none";
-                }else{
+                } else {
                     getFavoritesList();
                 }
             },
@@ -8951,7 +8951,7 @@ function markFavourite(elem) {
 }
 
 function openItemChat(elem) {
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the store owner "
+    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
         + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
         + "</div>";
 
@@ -8969,13 +8969,13 @@ function provideReview(elem) {
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
-    }else {
+    } else {
         let tempHTML = ratingStars
-        + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Select rating stars and enter review comments"></div>'
-        + '<button class="helper width_100px margintop_10px float_left" onclick="submitReview(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
+            + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Select rating stars and enter review comments"></div>'
+            + '<button class="helper width_100px margintop_10px float_left" onclick="submitReview(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
 
-        + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
-        + "</div>";
+            + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+            + "</div>";
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
@@ -8985,13 +8985,26 @@ function provideReview(elem) {
 }
 
 function reportItem(elem) {
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        + "</div>";
+    if (localStorage.getItem("userLoggedIn") == "n") {
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
+            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "</div>";
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+        document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtn(elem);
+    } else {
+        let tempHTML = '<div class="warningMsg width_250px">Please use this only to report inappropriate listing</div>'
+            + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of why this listing is inappropriate"></div>'
+            + '<button class="helper width_100px margintop_10px float_left" onclick="reportIssue(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
+
+            + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+            + "</div>";
+
+        document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        placePopupUnderClickedBtn(elem);        
+    }
 }
 
 
@@ -9148,13 +9161,13 @@ function submitReview(itemid) {
 
     let rating = "";
     let elem = document.querySelector('input[name="rate"]:checked');
-    if (elem == null){
+    if (elem == null) {
         let x = document.getElementById("toastsnackbar");
         x.innerHTML = "Please select rating stars";
         x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         return;
-    }else {
+    } else {
         rating = elem.value;
     }
     //let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
@@ -9176,8 +9189,43 @@ function submitReview(itemid) {
     });
 
     let tempHTML = "Thank you for submitting your review."
-    + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-    + "</div>";
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
+
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+    //placePopupUnderClickedBtn(elem);
+}
+
+function reportIssue(itemid) {
+
+    let comment = document.querySelector('.reviewCommentDivCls').innerHTML;
+
+    if (comment == "") {
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Please enter the details in the box";
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        return;
+    } 
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "reportissue",
+            itemid: itemid,
+            comment: comment
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+        },
+        error: function (xhr, status, error) {
+        }
+    });
+
+    let tempHTML = "Thank you for reporting the issue."
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
 
     document.getElementById("popupDivId").innerHTML = tempHTML;
     //placePopupUnderClickedBtn(elem);

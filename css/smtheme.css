@@ -83,6 +83,10 @@
     width: 200px !important;
 }
 
+.width_250px {
+    width: 250px !important;
+}
+
 .maxwidth_200px {
     max-width: 200px !important;
 }
@@ -168,6 +172,24 @@
     text-align: center;
 
 }
+
+.warningMsg1{
+    background-color: #f39c12;
+    color: #fff;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #666;
+}
+
+
+.warningMsg{
+    background-color: #E74C3C;
+    color: #fff;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #666;
+}
+
 
 .red_bg {
     background-color: #E74C3C !important;
