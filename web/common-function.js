@@ -5050,7 +5050,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
 }
 
-function myStore(){
+function myStore() {
     let tags = localStorage.getItem("mystoreitemsList")
 
     // if (tags != null) {
@@ -5078,20 +5078,20 @@ function myStore(){
     });
 }
 
-function populateMyStore(tags){
+function populateMyStore(tags) {
     let newHTML = "<div class='shopLyrics'>";
 
-    for( let i = 0; i < tags.length; i++){
-        if(i == 0){
+    for (let i = 0; i < tags.length; i++) {
+        if (i == 0) {
             newHTML = newHTML + getShopBannerForUpd(tags[i].itemid, tags[i].bannerhtml, tags[i].description, tags[i].uselocationfromaddress, tags[i].hourshtml, tags[i].reviewed)
-            localStorage.setItem("storename",tags[i].storename);
+            localStorage.setItem("storename", tags[i].storename);
         } else {
             newHTML = newHTML + getItemForUpd(tags[i].itemid, tags[i].itemimages, tags[i].title, tags[i].itemdescription, tags[i].itemprice, tags[i].reviewed)
-           
+
         }
     }
 
-    document.getElementById("itemDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addShopItem(); return false;">Add Item</button></div>';
+    document.getElementById("itemDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addNewShopItem(); return false;">Add Item</button></div>';
 }
 function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromaddress, hourshtml, itemreviewed) {
 
@@ -5114,8 +5114,16 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
-        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
-        + '</div>';
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>';
+
+    if (itemreviewed == "0") {
+        shopBannerTabOptions = shopBannerTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
+    }
+
+    shopBannerTabOptions = shopBannerTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>';
+
+
+    shopBannerTabOptions = shopBannerTabOptions + '</div>';
 
 
 
@@ -5149,9 +5157,9 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
 
     if ((uselocationfromaddress != undefined) && (uselocationfromaddress != "")) {
         let addrfields = uselocationfromaddress.split("~");
-        for (let i = 0; i < addrfields.length; i++ ){
+        for (let i = 0; i < addrfields.length; i++) {
             let pair = addrfields[i].split("^");
-            switch (i){
+            switch (i) {
                 case 0:
                     addr_line1 = pair[1];
                     break;
@@ -5163,12 +5171,12 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
                     break;
                 case 3:
                     addr_Cntry = pair[1];
-                    break;                
+                    break;
                 case 4:
                     addr_postalcode = pair[1];
                     break;
-                }
-        }        
+            }
+        }
     }
 
     let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide your location information so that the interested shoppers can contact you.</label>"
@@ -5223,8 +5231,10 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '</div>'
 
         + '<div id="Close" class="shopTabcontent">'
-        + '</div>';
+        + '</div>'
 
+        + '<div id="saveItemChanges" class="shopTabcontent">'
+        + '</div>';
 
     let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
         + allowTogglePreview
@@ -5232,7 +5242,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + shopBannerTabContentDivs
         + "</div>";
 
-    let contentToAdd = "<div id= div-" + randomId + " data-itemid='"+ itemid +"' class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+    let contentToAdd = "<div id= div-" + randomId + " data-itemid='" + itemid + "' class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
         + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
         + hdMeDiv
         + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
@@ -5249,45 +5259,136 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
     return contentToAdd;
 }
 
+function addNewShopItem() {
+    let htmlPartOrig = '<div class="shopItemCls1" >'
+        + "\n" + itemImagesDiv
+        + "\n" + '</div>';
+
+
+    htmlPart = escape(htmlPartOrig);
+
+    let shopItemTabOptions = '<div class="shopTab">'
+    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
+    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmNameDiv' + "'" + ')">Name</button>'
+    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
+    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
+    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
+ 
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
+    + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
+    + '</div>';
+
+
+    let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
+    + addItmImagesDiv
+    + nextShopTabBtnDiv
+    + '</div>'
+
+    + '<div id="itmNameDiv" class="shopTabcontent">'
+    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' +  '</div>'
+    + nextShopTabBtnDiv
+    + '</div>'
+
+    + '<div id="itmDescDiv" class="shopTabcontent">'
+    + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
+    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + '</div>'
+    + nextShopTabBtnDiv
+    + '</div>'
+
+    + '<div id="itemPrice" class="shopTabcontent">'
+    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' +  '</div>'
+    + nextShopTabBtnDiv
+    + '</div>'
+
+    + '<div id="CloseItemCust" class="shopTabcontent">'
+    + '</div>'
+
+    + '<div id="deleteItem" class="shopTabcontent">'
+    + '</div>'
+
+    + '<div id="saveItemChanges" class="shopTabcontent">'
+    + '</div>';
+
+    let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+        + allowTogglePreview
+        + shopItemTabOptions
+        + shopItemTabContentDivs
+        + "</div>";
+
+    let contentToAdd = "<div data-itemid='new' class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
+        + hdMeDiv
+        + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+
+    document.querySelector('.shopLyrics').innerHTML = document.querySelector('.shopLyrics').innerHTML + contentToAdd;
+
+
+    setTimeout(function () {
+        let allItems = document.querySelectorAll(".shopItemCls");
+        for (let i = 0; i < allItems.length; i++) {
+            allItems[i].classList.remove("scale-in-center");
+        }
+    }, 500);
+
+}
 function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itemprice, itemreviewed) {
     let itemImagesDiv = '<div class="itemImageshow-container">'
-                    + itmimageshtml
-                    + '</div>';
+        + itmimageshtml
+        + '</div>';
 
     let htmlPartOrig = '<div class="shopItemCls1" >'
-                    + "\n" + itemImagesDiv
-                    + "\n" + '</div>';
+        + "\n" + itemImagesDiv
+        + "\n" + '</div>';
 
     let randomId = "type" + "-" + Math.floor(Math.random() * 1000000);
 
     htmlPart = escape(htmlPartOrig);
 
+    let shopItemTabOptions = '<div class="shopTab">'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmNameDiv' + "'" + ')">Name</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
+
+    if (itemreviewed == "0") {
+        shopItemTabOptions = shopItemTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
+    }
+
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
+        + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
+        + '</div>';
+
     let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
-                    + addItmImagesDiv
-                    + nextShopTabBtnDiv
-                    + '</div>'
+        + addItmImagesDiv
+        + nextShopTabBtnDiv
+        + '</div>'
 
-                    + '<div id="itmNameDiv" class="shopTabcontent">'
-                    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + itemname + '</div>'
-                    + nextShopTabBtnDiv
-                    + '</div>'
+        + '<div id="itmNameDiv" class="shopTabcontent">'
+        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + itemname + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-                    + '<div id="itmDescDiv" class="shopTabcontent">'
-                    + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
-                    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + itemdescription + '</div>'
-                    + nextShopTabBtnDiv
-                    + '</div>'
+        + '<div id="itmDescDiv" class="shopTabcontent">'
+        + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
+        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + itemdescription + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-                    + '<div id="itemPrice" class="shopTabcontent">'
-                    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + itemprice + '</div>'
-                    + nextShopTabBtnDiv
-                    + '</div>'
+        + '<div id="itemPrice" class="shopTabcontent">'
+        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + itemprice + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-                    + '<div id="CloseItemCust" class="shopTabcontent">'
-                    + '</div>'
+        + '<div id="CloseItemCust" class="shopTabcontent">'
+        + '</div>'
 
-                    + '<div id="deleteItem" class="shopTabcontent">'
-                    + '</div>';
+        + '<div id="deleteItem" class="shopTabcontent">'
+        + '</div>'
+
+        + '<div id="saveItemChanges" class="shopTabcontent">'
+        + '</div>';
 
 
     let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"

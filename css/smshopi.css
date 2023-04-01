@@ -620,3 +620,7 @@ input.confirmBtn:hover {
     font-weight: 900;
     color: #333;
 }
+
+.pendingReviewCls{
+    color: chocolate;
+}
