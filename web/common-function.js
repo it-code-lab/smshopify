@@ -61,7 +61,7 @@ let showColorAndImageOptionsBtn = "<button onclick='showColorAndImage(this)'> Cu
 
 let shopOpeningHr = '<section class="storeOpeninghours"><div class="storeOpeninghourscontent section" contenteditable="true">   <div class="header">    <h2>Opening hours</h2>   </div>    <table class="opening-hours-table">  <tr id="MondayStoreHrId"> <td>Monday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="TuesdayStoreHrId"> <td>Tuesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="WednesdayStoreHrId"> <td>Wednesday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="ThursdayStoreHrId"> <td>Thursday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="FridayStoreHrId"> <td>Friday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SaturdayStoreHrId"> <td>Saturday</td><td>09:00 AM</td> <td>-</td><td>08:00 PM</td>   </tr>  <tr id="SundayStoreHrId"> <td>Sunday</td><td>10:00 AM</td> <td>-</td><td>05:00 PM</td>   </tr>   </table></div></section>';
 
-let shopOpeningHrCheckBox = "<label class='informationBox'>To display the store hours, select the options below. You can update the daily hours</label>"
+let shopOpeningHrCheckBox = "<label class='informationBox fontsize_14px'>To display the store hours, select the options below. You can update the daily hours</label>"
     + '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
     + 'Display Daily Hours'
@@ -80,7 +80,7 @@ let shopOpeningHrCheckBox = "<label class='informationBox'>To display the store 
     + '</div>'
     + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
 
-let shopLocationCheckBox = "<label class='informationBox'>Provide your location information so that the interested shoppers can contact you.</label>"
+let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide your location information so that the interested shoppers can contact you.</label>"
     + '<div class="checkbox-wrapper-21">'
     + '<label class="control control--checkbox">'
     + 'Display Location on Map'
@@ -153,7 +153,7 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
-    + "<label class='informationBox'>Enter the details of the item/service</label>"
+    + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
     + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here"></div>'
     + nextShopTabBtnDiv
     + '</div>'
@@ -185,14 +185,14 @@ function getItemButtons() {
 }
 
 function getSecColors() {
-    let retHTML = "<label class='informationBox'>If you want to change the color in the banner above, click on the color below</label> ";
+    let retHTML = "<label class='informationBox fontsize_14px'>If you want to change the color in the banner above, click on the color below</label> ";
     colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateParentBGColor(this)' ></div>");
     return retHTML;
 }
 let textDivColorCtl = getTextColors();
 
 function getTextColors() {
-    let retHTML = "<label class='informationBox'>If you want to change the color in the Banner above, click on the color below</label> ";
+    let retHTML = "<label class='informationBox fontsize_14px'>If you want to change the color in the Banner above, click on the color below</label> ";
     colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateTextDivColor(this)' ></div>");
     return retHTML;
 }
@@ -214,7 +214,7 @@ let secTranition = "<select class='transitionSelect' onchange='updateParentTrans
     + "<option value='none'>none</option>"
     + "</select>";
 
-let replaceBannerImg = "<label class='informationBox'>If you want to change the image in the banner above, use the button below to replace image</label>"
+let replaceBannerImg = "<label class='informationBox fontsize_14px'>If you want to change the image in the banner above, use the button below to replace image</label>"
     + "<input type='text'  style='display:none; width:95%; margin:auto;'  value=''>"
     + "<br><img id='replace-img-banner' src= '" + the.hosturl + "/img/" + "' style='width: 400px; height: 200px; background-color: white;' onerror='this.style.display= " + '"none"' + "' alt='select image'  />"
     + "<br><label class='button_type2 width_200px margintop_10px'><input type='file' class='image-replace-banner displayNone' data-itemid='banner' data-uploadimgbtnid='replaceBannerImg' data-imageelementid='replace-img-' accept='image/png,  image/jpeg' onchange='showImage(event)'><i class='fa fa-cloud-upload'></i>Upload Image</label>"
@@ -2009,7 +2009,7 @@ function Show(pageName) {
     x = document.getElementById("logoutLinkId");
     x.classList.remove("active");
 
-    x = document.getElementById("profileLinkId");
+    x = document.getElementById("mystoreLinkId");
     x.classList.remove("active");
 
     x = document.getElementById("contactusLinkId");
@@ -2286,7 +2286,7 @@ function checkURL() {
             document.getElementById("loginLinkId").style.display = "block";
         }
         document.getElementById("logoutLinkId").style.display = "none";
-        document.getElementById("profileLinkId").style.display = "none";
+        document.getElementById("mystoreLinkId").style.display = "none";
         document.getElementById("HelpTopicsLinkId").style.display = "none";
 
     } else {
@@ -2294,7 +2294,7 @@ function checkURL() {
         localStorage.setItem("userLoggedIn", "y");
         document.getElementById("loginLinkId").style.display = "none";
         document.getElementById("logoutLinkId").style.display = "block";
-        document.getElementById("profileLinkId").style.display = "block";
+        document.getElementById("mystoreLinkId").style.display = "block";
         if (localStorage.getItem("userLvl") == "9") {
             the.smusr = true;
         }
@@ -2312,7 +2312,7 @@ function checkURL() {
                         document.getElementById("loginLinkId").style.display = "block";
                     }
                     document.getElementById("logoutLinkId").style.display = "none";
-                    document.getElementById("profileLinkId").style.display = "none";
+                    document.getElementById("mystoreLinkId").style.display = "none";
                 } else {
                     getFavoritesList();
                 }
@@ -2648,7 +2648,7 @@ function getCreateStore(tags, itemstr) {
     let category = tags[0].category;
     let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
-    let subcategoryseq = tags[0].subcategoryseq;
+    let versionseq = tags[0].versionseq;
     let title = tags[0].title;
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
@@ -2701,7 +2701,7 @@ function getCreateStore(tags, itemstr) {
     if (tags[0].description != undefined) {
         if (tags[0].description != "") {
             newHTML = newHTML
-                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone angledEdge slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
+                + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone newTopTypeHdr slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + tags[0].description + '</div>';
         }
     }
 
@@ -2769,7 +2769,7 @@ function getOneItemOfShop(tags, itemstr) {
     let category = tags[0].category;
     let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
-    let subcategoryseq = tags[0].subcategoryseq;
+    let versionseq = tags[0].versionseq;
     let title = tags[0].title;
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
@@ -2893,7 +2893,7 @@ function getFullShopDetails(tags, itemstr) {
     let category = tags[0].category;
     let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
-    let subcategoryseq = tags[0].subcategoryseq;
+    let versionseq = tags[0].versionseq;
     let title = tags[0].title;
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
@@ -2946,7 +2946,7 @@ function getFullShopDetails(tags, itemstr) {
 
         sessionStorage.setItem("data-description", description);
 
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-subcategoryseq= "' + subcategoryseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
@@ -3229,7 +3229,7 @@ function editItem(btn) {
     let category = btn.dataset.category;
     let categoryseq = btn.dataset.categoryseq;
     let subcategory = btn.dataset.subcategory;
-    let subcategoryseq = btn.dataset.subcategoryseq;
+    let versionseq = btn.dataset.versionseq;
     let title = btn.dataset.title;
     let titleseq = btn.dataset.titleseq;
     let shortdescription = btn.dataset.shortdescription;
@@ -3282,7 +3282,7 @@ function editItem(btn) {
 
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Path Sort Sequence(not in use): </div><br>" +
-        "<input type='text' id='subcategoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategoryseq + "'>";
+        "<input type='text' id='versionseq-" + itemid + "' style='width:95%; margin:auto;' value='" + versionseq + "'>";
 
 
 
@@ -3528,7 +3528,7 @@ function editItem(btn) {
 
 function getShopTopBannersList(itemid) {
 
-    return "<label class='informationBox'>If you want to change the design of your store banner above, use the button below to change design</label>"
+    return "<label class='informationBox fontsize_14px'>If you want to change the design of your store banner above, use the button below to change design</label>"
         + "<div title='shopTopBanner1' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/smshopify/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
         + "<div title='shopTopBanner2' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/smshopify/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
         + "<div title='shopTopBanner3' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/smshopify/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
@@ -4374,7 +4374,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px;background-color: rgb(91, 94, 166); color: white;">'
-            + "\n" + '<div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div contenteditable="true" style="font-size:15px" data-text="Any tagline"></div>'
+            + "\n" + '<div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div>'
             + "\n" + '</div>';
 
 
@@ -4452,7 +4452,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner2") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-2175.png&quot;);">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -4527,7 +4527,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner3") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -4597,7 +4597,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner4") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/smshopify/img/loops-in-java-5570.png&quot;); ">'
-            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -5050,16 +5050,59 @@ function addComponent(itemid, type, elem = "dummy") {
 
 }
 
-function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromaddress, hourshtml) {
+function myStore(){
+    let tags = localStorage.getItem("mystoreitemsList")
 
-    let randomId = type + "-" + Math.floor(Math.random() * 1000000);
+    // if (tags != null) {
+    //     if ((tags != "") && (tags != "null")) {
+    //         populateMyStore(JSON.parse(tags));
+    //         return;
+    //     }
+    // }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "getmystorenitems"
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+            populateMyStore(JSON.parse(response));
+        },
+        error: function (xhr, status, error) {
+            // console.log(error);
+            // console.log(xhr);
+        }
+    });
+}
+
+function populateMyStore(tags){
+    let newHTML = "<div class='shopLyrics'>";
+
+    for( let i = 0; i < tags.length; i++){
+        if(i == 0){
+            newHTML = newHTML + getShopBannerForUpd(tags[i].itemid, tags[i].bannerhtml, tags[i].description, tags[i].uselocationfromaddress, tags[i].hourshtml, tags[i].reviewed)
+            localStorage.setItem("storename",tags[i].storename);
+        } else {
+            newHTML = newHTML + getItemForUpd(tags[i].itemid, tags[i].itemimages, tags[i].title, tags[i].itemdescription, tags[i].itemprice, tags[i].reviewed)
+           
+        }
+    }
+
+    document.getElementById("itemDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addShopItem(); return false;">Add Item</button></div>';
+}
+function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromaddress, hourshtml, itemreviewed) {
+
+    let randomId = "type" + "-" + Math.floor(Math.random() * 1000000);
 
     // setTimeout(function () {
     //     document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
     // }, 800);
 
     // let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
-    //     + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+    //     + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
     //     + "\n" + '</div>';
 
     let htmlPartOrig = bannerhtml;
@@ -5078,7 +5121,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
 
     let shopOpeningHr = hourshtml;
 
-    let shopOpeningHrCheckBox = "<label class='informationBox'>To display the store hours, select the options below. You can update the daily hours</label>"
+    let shopOpeningHrCheckBox = "<label class='informationBox fontsize_14px'>To display the store hours, select the options below. You can update the daily hours</label>"
         + '<div class="checkbox-wrapper-21">'
         + '<label class="control control--checkbox">'
         + 'Display Daily Hours'
@@ -5107,7 +5150,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
     if ((uselocationfromaddress != undefined) && (uselocationfromaddress != "")) {
         let addrfields = uselocationfromaddress.split("~");
         for (let i = 0; i < addrfields.length; i++ ){
-            let pair = addrfields[0].split("^");
+            let pair = addrfields[i].split("^");
             switch (i){
                 case 0:
                     addr_line1 = pair[1];
@@ -5128,7 +5171,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         }        
     }
 
-    let shopLocationCheckBox = "<label class='informationBox'>Provide your location information so that the interested shoppers can contact you.</label>"
+    let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide your location information so that the interested shoppers can contact you.</label>"
         + '<div class="checkbox-wrapper-21">'
         + '<label class="control control--checkbox">'
         + 'Display Location on Map'
@@ -5206,7 +5249,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
     return contentToAdd;
 }
 
-function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itemprice) {
+function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itemprice, itemreviewed) {
     let itemImagesDiv = '<div class="itemImageshow-container">'
                     + itmimageshtml
                     + '</div>';
@@ -5215,7 +5258,7 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
                     + "\n" + itemImagesDiv
                     + "\n" + '</div>';
 
-    let randomId = type + "-" + Math.floor(Math.random() * 1000000);
+    let randomId = "type" + "-" + Math.floor(Math.random() * 1000000);
 
     htmlPart = escape(htmlPartOrig);
 
@@ -5230,7 +5273,7 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
                     + '</div>'
 
                     + '<div id="itmDescDiv" class="shopTabcontent">'
-                    + "<label class='informationBox'>Enter the details of the item/service</label>"
+                    + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
                     + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + itemdescription + '</div>'
                     + nextShopTabBtnDiv
                     + '</div>'
@@ -5394,7 +5437,7 @@ function updateDescription(itemid, createNewItem) {
         category = document.getElementById("category-" + itemid).value;
         categoryseq = document.getElementById("categoryseq-" + itemid).value;
         subcategory = document.getElementById("subcategory-" + itemid).value;
-        subcategoryseq = document.getElementById("subcategoryseq-" + itemid).value;
+        versionseq = document.getElementById("versionseq-" + itemid).value;
         shortdescription = document.getElementById("shortdescription-" + itemid).value;
 
         writer = document.getElementById("writer-" + itemid).value;
@@ -5455,7 +5498,7 @@ function updateDescription(itemid, createNewItem) {
             category: category,
             categoryseq: categoryseq,
             subcategory: subcategory,
-            subcategoryseq: subcategoryseq,
+            versionseq: versionseq,
             shortdescription: shortdescription,
             description: description,
             writer: writer,
@@ -5563,7 +5606,7 @@ async function saveNewStore(itemid, createNewItem) {
     let title = storename;
     let titleseq = 1;
     let subcategory = "";
-    let subcategoryseq = "1";
+    let versionseq = "1";
     let shortdescription = "";
     let description = document.querySelector(".storeDescriptionCls").innerHTML;
     let writer = "";
@@ -5588,7 +5631,7 @@ async function saveNewStore(itemid, createNewItem) {
             category: category,
             categoryseq: categoryseq,
             subcategory: subcategory,
-            subcategoryseq: subcategoryseq,
+            versionseq: versionseq,
             shortdescription: shortdescription,
             description: description,
             writer: writer,
@@ -5652,7 +5695,7 @@ async function saveNewStore(itemid, createNewItem) {
                 category: category,
                 categoryseq: categoryseq,
                 subcategory: subcategory,
-                subcategoryseq: subcategoryseq,
+                versionseq: versionseq,
                 shortdescription: shortdescription,
                 description: "",
                 writer: writer,
@@ -7527,7 +7570,7 @@ function login() {
                 //let loggedIn = "Y";
                 document.getElementById("loginLinkId").style.display = "none";
                 document.getElementById("logoutLinkId").style.display = "block";
-                document.getElementById("profileLinkId").style.display = "block";
+                document.getElementById("mystoreLinkId").style.display = "block";
                 //Show("projectscanner");
 
                 localStorage.setItem("userLoggedIn", "y");
@@ -7617,7 +7660,7 @@ function loginWithoutRefresh() {
                 document.getElementById("loginLinkId").style.display = "none";
                 document.getElementById("SubloginDivId").style.display = "none";
                 document.getElementById("logoutLinkId").style.display = "block";
-                document.getElementById("profileLinkId").style.display = "block";
+                document.getElementById("mystoreLinkId").style.display = "block";
                 document.getElementById("helpAddUpdateMsg").innerHTML = "";
                 //Show("projectscanner");
 
@@ -7666,7 +7709,7 @@ function Logout() {
                     document.getElementById("loginLinkId").style.display = "block";
                 }
                 document.getElementById("logoutLinkId").style.display = "none";
-                document.getElementById("profileLinkId").style.display = "none";
+                document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
                 sessionStorage.setItem("SavedProjectsList", null);
                 //Show("projectscanner");
@@ -7946,7 +7989,7 @@ function categoryClicked(categoryNameOrig) {
 //             let category = tags[0].category;
 //             let categoryseq = tags[0].categoryseq;
 //             let subcategory = tags[0].subcategory;
-//             let subcategoryseq = tags[0].subcategoryseq;
+//             let versionseq = tags[0].versionseq;
 //             let title = tags[0].title;
 //             let titleseq = tags[0].titleseq;
 //             let shortdescription = tags[0].shortdescription;
@@ -7981,7 +8024,7 @@ function categoryClicked(categoryNameOrig) {
 //             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>category: </div><br>" + "<input type='text' id='category-" + itemid + "' style='display:none; width:95%; margin:auto;'  value='" + category + "'>";
 //             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>category Sort Sequence: </div><br>" + "<input type='text' id='categoryseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + categoryseq + "'>";
 //             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Path(not in use): </div><br>" + "<input type='text' id='subcategory-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + subcategory + "'>";
-//             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Path Sort Sequence(not in use): </div><br>" + "<input type='text' id='subcategoryseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + subcategoryseq + "'>";
+//             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Path Sort Sequence(not in use): </div><br>" + "<input type='text' id='versionseq-" + itemid + "' style='display:none; width:95%; margin:auto;' value='" + versionseq + "'>";
 //             newHTML = newHTML + "<div class = 'editFieldHead displayNone'>Short Description: </div><br>" + "<textarea id='shortdescription-" + itemid + "' style='display:none; width:95%; margin:auto;' >" + shortdescription + "</textarea>";
 
 //             toolbarHTML = "";
@@ -8820,7 +8863,7 @@ function openShopTab(evt, shopTabId) {
         let img_list = parentDiv.querySelectorAll('.myitemImages'); // returns NodeList
         let img_array = [...img_list]; // converts NodeList to Array
 
-        let newHTML = "<label class='informationBox'>Add/remove item images using the buttons below</label>";
+        let newHTML = "<label class='informationBox fontsize_14px'>Add/remove item images using the buttons below</label>";
         img_array.forEach(img => {
             newHTML = newHTML + '<div class="filteredItmImgContainerDiv"> <img class="filteredItmImgCls"  src="' + img.src + '">  <button class="deleteDiv" onclick="deleteCurrentComponent(this)"></button></div>';
 

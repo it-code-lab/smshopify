@@ -245,7 +245,7 @@
     position: relative;
     padding-left: 30px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .checkbox-wrapper-21 .control input {
@@ -608,4 +608,15 @@ input.confirmBtn:hover {
     background-color: #fff;
     border: 1px solid #777;
     padding: 5px;
+}
+
+.newTopTypeHdr{
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgb(247, 199, 122);
+    border-radius: 10px;
+    box-shadow: rgb(34 34 34) 1px 1px 3px;
+    text-align: center;
+    font-weight: 900;
+    color: #333;
 }
