@@ -51,6 +51,7 @@ const createConfirm = (message) => {
     });
 }
 
+let ratingStars = '<div class="rateStar"> <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="text">5 stars</label> <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="text">4 stars</label> <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="text">3 stars</label> <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="text">2 stars</label> <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="text">1 star</label> </div>';
 
 let nextShopTabBtnDiv = "<div class='nextShopTabBtnDiv'> <button class='button_type2 width_100px' onclick='gotoNextTab(this)'>Next</button></div>"
 let allowTogglePreview = "<button class='togglePreviewBtn' onclick='toggleSecPreview(this)'> Toggle Preview </button>";
@@ -8960,13 +8961,27 @@ function openItemChat(elem) {
 }
 
 function provideReview(elem) {
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+    if (localStorage.getItem("userLoggedIn") == "n") {
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
+            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "</div>";
+
+        document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        placePopupUnderClickedBtn(elem);
+    }else {
+        let tempHTML = ratingStars
+        + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Select rating stars and enter review comments"></div>'
+        + '<button class="helper width_100px margintop_10px float_left" onclick="submitReview(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
+
+        + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
         + "</div>";
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+        document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtn(elem);
+
+    }
 }
 
 function reportItem(elem) {
@@ -8980,17 +8995,7 @@ function reportItem(elem) {
 }
 
 
-// function popupLogin(){
-//     //let tempHTML = '';
-//     //document.getElementById("popupDivId").innerHTML = tempHTML;
-//     //document.getElementById("popupDivId").innerHTML = "<iframe src=\"../HtmlPage1.html\" height=\"300\" width=\"300\" ></iframe>";
 
-//     //$("#popupDivId").attr("src", "http://localhost/smshopify/?target=login");
-
-//     $('#popupDivId').html('<iframe id="iframe" src="http://localhost/smshopify/?target=login" width="300" height="300"></iframe>');
-
-//     //placePopupUnderClickedBtn(elem);
-// }
 function placePopupUnderClickedBtn(elem) {
     $("#popupDivId").css({
         'position': 'absolute',
@@ -9137,4 +9142,43 @@ function colorFavoriteItems() {
         }
     }
 
+}
+
+function submitReview(itemid) {
+
+    let rating = "";
+    let elem = document.querySelector('input[name="rate"]:checked');
+    if (elem == null){
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Please select rating stars";
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        return;
+    }else {
+        rating = elem.value;
+    }
+    //let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
+    let comment = document.querySelector('.reviewCommentDivCls').innerHTML;
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "updateitemreviews",
+            itemid: itemid,
+            stars: rating,
+            comment: comment
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+        },
+        error: function (xhr, status, error) {
+        }
+    });
+
+    let tempHTML = "Thank you for submitting your review."
+    + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+    + "</div>";
+
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+    //placePopupUnderClickedBtn(elem);
 }

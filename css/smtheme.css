@@ -235,7 +235,15 @@
 .cursor_pointer {
     cursor: pointer !important;
 }
+/**************FLOAT******************/
+/*********************************************/
+.float_left{
+    float: left;
+}
 
+.float_right{
+    float: right;
+}
 /**************TEXT ALIGNMENT******************/
 /*********************************************/
 
@@ -503,6 +511,53 @@
 .box_shadow5{
     box-shadow: 1px 1px 3px #222222;
 }
+
+/*****************TOAST***************************************/
+/**https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar***/
+/*************************************************************/
+#toastsnackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 500;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+  }
+  
+  #toastsnackbar.show {
+    visibility: visible;
+    -webkit-animation: toastfadein 0.5s, toastfadeout 0.5s 2.5s;
+    animation: toastfadein 0.5s, toastfadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes toastfadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes toastfadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes toastfadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes toastfadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+
+
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
 

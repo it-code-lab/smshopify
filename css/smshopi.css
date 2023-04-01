@@ -564,3 +564,47 @@ input.confirmBtn:hover {
     padding: 3px 3px;
     border-radius: 3px;
 }
+
+.rateStar {
+    /* float: left; */
+    height: 46px;
+    padding: 0 10px;
+}
+.rateStar:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    display: none;
+}
+.rateStar:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#b2adad;
+}
+.rateStar:not(:checked) > label:before {
+    content: '★ ';
+}
+.rateStar > input:checked ~ label {
+    color: #095484;    
+}
+.rateStar:not(:checked) > label:hover,
+.rateStar:not(:checked) > label:hover ~ label {
+    color: #095484;  
+}
+.rateStar > input:checked + label:hover,
+.rateStar > input:checked + label:hover ~ label,
+.rateStar > input:checked ~ label:hover,
+.rateStar > input:checked ~ label:hover ~ label,
+.rateStar > label:hover ~ input:checked ~ label {
+    color: #095484;
+}
+
+.reviewCommentDivCls{
+    width: 250px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid #777;
+}
