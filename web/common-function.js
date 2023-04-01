@@ -5051,14 +5051,38 @@ function addComponent(itemid, type, elem = "dummy") {
 }
 
 function myStore() {
+
+    document.getElementById("languageScanResultDivId").style.display = "none";
+    document.getElementById("languageOverride").style.display = "none";
+    document.getElementById("helpDetailsDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+    document.getElementById("howtoDivId").style.display = "none";
+    document.getElementById("homeDivId").style.display = "none";
+
+    document.getElementById("filescannerDivId").style.display = "none";
+    document.getElementById("projectscannerDivId").style.display = "none"
+
+    document.getElementById("HelpTopicsDivId").style.display = "none";
+    document.getElementById("helpDisplayDivId").style.display = "none";
+
+    document.getElementById("itemDivId").style.display = "block";
+
+
+
+    document.getElementById("mainContainer").style.width = "100%";
+
+    document.getElementById("itemListDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "none";
+
     let tags = localStorage.getItem("mystoreitemsList")
 
-    // if (tags != null) {
-    //     if ((tags != "") && (tags != "null")) {
-    //         populateMyStore(JSON.parse(tags));
-    //         return;
-    //     }
-    // }
+    if (tags != null) {
+        if ((tags != "") && (tags != "null")) {
+            populateMyStore(JSON.parse(tags));
+            return;
+        }
+    }
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -5069,6 +5093,7 @@ function myStore() {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
             //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+            localStorage.setItem("mystoreitemsList", response);
             populateMyStore(JSON.parse(response));
         },
         error: function (xhr, status, error) {
@@ -5120,7 +5145,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         shopBannerTabOptions = shopBannerTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
     }
 
-    shopBannerTabOptions = shopBannerTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>';
+    shopBannerTabOptions = shopBannerTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>';
 
 
     shopBannerTabOptions = shopBannerTabOptions + '</div>';
@@ -5198,11 +5223,11 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '</div>'
         + '<div id="storeAddrDivId" class="storeAddr displayNone">'
         + '<div class="addresscontainer" id="addresscontainerDiv"> <div class="addressform"> <label class="addressfield"> <span class="addressfield__label" for="shopaddressline1">Address</span>'
-        + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1"> ' + addr_line1 + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
-        + '<div contenteditable="true" class="addressfield__input"  id="shopcity"> ' + addr_city + ' </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
-        + '<div contenteditable="true" class="addressfield__input"  id="shopstate"> ' + addr_State + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
-        + '<div contenteditable="true" class="addressfield__input"  id="shopcountry">' + addr_Cntry + ' </div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
-        + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode"> ' + addr_postalcode + '</div> </label> </div>  </div>'
+        + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1">' + addr_line1 + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopcity">' + addr_city + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopstate">' + addr_State + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopcountry">' + addr_Cntry + '</div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
+        + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode">' + addr_postalcode + '</div> </label> </div>  </div>'
         + '</div>';
 
     let shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
@@ -5274,7 +5299,7 @@ function addNewShopItem() {
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>'
         + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
         + '</div>';
 
@@ -5356,7 +5381,7 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
         shopItemTabOptions = shopItemTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
     }
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>'
         + '<button class="shopTablinks red_font" style="float:right" onclick="discontinueItem(event)">Delete</button>'
         + '</div>';
 
@@ -5840,6 +5865,231 @@ async function saveNewStore(itemid, createNewItem) {
         });
     }
 
+
+}
+
+function saveItemChanges(evt) {
+
+    let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement.parentElement;
+    let storename = localStorage.getItem("storename");
+    let itemid = parentDiv.dataset.itemid;
+    let usremail = localStorage.getItem("userEmail");
+
+    let tags = JSON.parse(localStorage.getItem("mystoreitemsList"));
+    let category = tags[0].category;
+    let categoryseq = tags[0].categoryseq;
+    let subcategory = tags[0].subcategory;
+    let rows = "";
+    let itemType = "";
+    if (itemid == "new") {
+        itemType = "new";
+    } else {
+        rows = tags.filter(function (entry) {
+            return entry.itemid == itemid;
+        });
+
+        if (rows[0].title == rows[0].storename) {
+            itemType = "store";
+        } else {
+            itemType = "item";
+        }
+    }
+
+
+    let bannerhtml = "";
+    let displayhoursflag = "0";
+    let hourshtml = "";
+    let availabilityinfo = "";
+    let displaylocationflag = "0";
+    let description = "";
+    let uselocationfromaddress = "";
+
+    if (itemType == "store") {
+        bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
+        displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
+        hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
+        availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+        displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
+        description = document.querySelector(".storeDescriptionCls").innerHTML;
+
+        uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
+            "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
+            "shopstate^" + document.getElementById("shopstate").innerHTML + "~" +
+            "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
+            "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
+    }
+
+
+    let itemprice = "";
+    let itemimages = "";
+    let itemdescription = "";
+    let title = storename;
+
+    if ((itemType == "item") ||  (itemType == "new")) {
+        itemprice = parentDiv.querySelector('.itemPriceCls').innerHTML;
+        itemimages = parentDiv.querySelector('.itemImageshow-container').innerHTML;
+        itemdescription = parentDiv.querySelector('.itemDescriptionCls').innerHTML;
+        title = parentDiv.querySelector('.itemNameCls').innerHTML;
+    }
+
+    let createNewItem = "y";
+    let StrFunction = "SubmitForReview";
+
+    if (itemid == "new") {
+        if (title == "") {
+            parentDiv.parentNode.removeChild(parentDiv);
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Please provide name";
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            return;
+        }
+
+        
+        
+        itemid = "";
+
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            data: {
+                usremail: usremail,
+                itemid: itemid,
+                title: title,
+                titleseq: "99",
+                category: category,
+                categoryseq: categoryseq,
+                subcategory: subcategory,
+                versionseq: "1",
+                shortdescription: "",
+                description: "",
+                writer: "",
+                keywords: "",
+                discontinue: "0",
+                createNewItem: createNewItem,
+                itemprice: itemprice,
+                itemimages: itemimages,
+                itemdescription: itemdescription,
+                displaylocationflag: "0",
+                maplocationcoordinates: "",
+                address: "",
+                uselocationfromaddress: "",
+                coordinatesfromaddress: "",
+                displayhoursflag: "0",
+                hourshtml: "",
+                availabilityinfo: "",
+                storename: storename,
+                bannerhtml: "",
+                usrfunction: StrFunction
+
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (retstatus) {
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Item has been saved";
+                x.className = "show";
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    } else {
+
+        //Check item fields are changed 
+        if ((rows[0].bannerhtml == bannerhtml)
+            && (rows[0].description == description)
+            && (rows[0].uselocationfromaddress == uselocationfromaddress)
+            && (rows[0].hourshtml == hourshtml)
+            && (rows[0].availabilityinfo == availabilityinfo)
+            && (rows[0].displayhoursflag == displayhoursflag)
+            && (rows[0].displaylocationflag == displaylocationflag)
+
+            && (rows[0].itemprice == itemprice)
+            && (rows[0].itemimages == itemimages)
+            && (rows[0].itemdescription == itemdescription)
+            && (rows[0].title == title) ) {
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "No changes to save";
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            return;
+        } 
+
+        let versionseq = parseInt(rows[0].versionseq) + 1;
+
+        if (rows[0].reviewed == "0"){
+            createNewItem = "n";
+        }
+            $.ajax({
+                url: the.hosturl + '/php/process.php',
+                data: {
+                    usremail: usremail,
+                    itemid: itemid,
+                    title: title,
+                    titleseq: rows[0].titleseq,
+                    category: category,
+                    categoryseq: categoryseq,
+                    subcategory: subcategory,
+                    versionseq: versionseq,
+                    shortdescription: "",
+                    description: description,
+                    writer: "",
+                    keywords: "",
+                    discontinue: "0",
+                    createNewItem: createNewItem,
+                    itemprice: itemprice,
+                    itemimages: itemimages,
+                    itemdescription: itemdescription,
+                    displaylocationflag: displaylocationflag,
+                    maplocationcoordinates: "",
+                    address: "",
+                    uselocationfromaddress: uselocationfromaddress,
+                    coordinatesfromaddress: "",
+                    displayhoursflag: displayhoursflag,
+                    hourshtml: hourshtml,
+                    availabilityinfo: availabilityinfo,
+                    storename: storename,
+                    bannerhtml: bannerhtml,
+                    usrfunction: StrFunction
+    
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (retstatus) {
+                    let x = document.getElementById("toastsnackbar");
+                    x.innerHTML = "Changes have been saved";
+                    x.className = "show";
+                    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+                    $.ajax({
+                        url: the.hosturl + '/php/process.php',
+                        type: 'POST',
+                        data: jQuery.param({
+                            usrfunction: "getmystorenitems"
+                        }),
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        success: function (response) {
+                            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+                            localStorage.setItem("mystoreitemsList", response);
+                        },
+                        error: function (xhr, status, error) {
+                            // console.log(error);
+                            // console.log(xhr);
+                        }
+                    });
+
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });            
+        
+
+
+    }
 
 }
 
