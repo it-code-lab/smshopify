@@ -5268,46 +5268,46 @@ function addNewShopItem() {
     htmlPart = escape(htmlPartOrig);
 
     let shopItemTabOptions = '<div class="shopTab">'
-    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
-    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmNameDiv' + "'" + ')">Name</button>'
-    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
-    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
-    + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
- 
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'addImages' + "'" + ')">Add Images</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmNameDiv' + "'" + ')">Name</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itmDescDiv' + "'" + ')">Description</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
+
     shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
-    + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
-    + '</div>';
+        + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
+        + '</div>';
 
 
     let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
-    + addItmImagesDiv
-    + nextShopTabBtnDiv
-    + '</div>'
+        + addItmImagesDiv
+        + nextShopTabBtnDiv
+        + '</div>'
 
-    + '<div id="itmNameDiv" class="shopTabcontent">'
-    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' +  '</div>'
-    + nextShopTabBtnDiv
-    + '</div>'
+        + '<div id="itmNameDiv" class="shopTabcontent">'
+        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-    + '<div id="itmDescDiv" class="shopTabcontent">'
-    + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
-    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + '</div>'
-    + nextShopTabBtnDiv
-    + '</div>'
+        + '<div id="itmDescDiv" class="shopTabcontent">'
+        + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
+        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-    + '<div id="itemPrice" class="shopTabcontent">'
-    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' +  '</div>'
-    + nextShopTabBtnDiv
-    + '</div>'
+        + '<div id="itemPrice" class="shopTabcontent">'
+        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
 
-    + '<div id="CloseItemCust" class="shopTabcontent">'
-    + '</div>'
+        + '<div id="CloseItemCust" class="shopTabcontent">'
+        + '</div>'
 
-    + '<div id="deleteItem" class="shopTabcontent">'
-    + '</div>'
+        + '<div id="deleteItem" class="shopTabcontent">'
+        + '</div>'
 
-    + '<div id="saveItemChanges" class="shopTabcontent">'
-    + '</div>';
+        + '<div id="saveItemChanges" class="shopTabcontent">'
+        + '</div>';
 
     let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
         + allowTogglePreview
@@ -5357,7 +5357,7 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
     }
 
     shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="openShopTab(event, ' + "'" + 'saveItemChanges' + "'" + ')">Save</button>'
-        + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
+        + '<button class="shopTablinks red_font" style="float:right" onclick="discontinueItem(event)">Delete</button>'
         + '</div>';
 
     let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
@@ -9018,6 +9018,37 @@ async function deleteItem(elem) {
 
         //parentDiv.innHTML = "";
         //parentDiv.style.display = "none";
+    }
+
+}
+
+async function discontinueItem(evt) {
+
+    let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement.parentElement;
+    let itemid = parentDiv.dataset.itemid;
+
+    const confirm = await ui.userConfirmation('Are you sure you want delete the item?');
+
+    if (confirm) {
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            type: 'POST',
+            data: jQuery.param({
+                usrfunction: "discontinueitem",
+                itemid: itemid
+            }),
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (response) {
+                parentDiv.parentNode.removeChild(parentDiv);
+
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Item removed from your store";
+                x.className = "show";
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
     }
 
 }
