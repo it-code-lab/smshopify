@@ -5034,12 +5034,178 @@ function populateItemsList(rows = "") {
     }
 
 
-    if (the.smusr) {
-    } else {
-        rows = rows.filter(function (entry) {
-            return entry.discontinue == "0";
-        });
+
+    //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
+    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
+    let innerHTML = "";
+    let itemName = "";
+    let itemprice = "";
+    let lastupdated = "";
+    let itemimages = "";
+    let storename = "";
+    let itemlocationCity = "";
+
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+    let categorySqueezed = "";
+    let categoryOrig = "";
+    let categoryUrl = "";
+    
+
+    let storenameUrl = "";
+
+    let defaultDisplayCount = 100;
+    let categoryMaxCount = 0;
+    let currDisplayCount = 0;
+
+    for (let i = 0; i < rows.length; i++) {
+
+        itemName = rows[i].title;
+        itemName = itemName.replaceAll(" ", "-");
+
+        subcategory = rows[i].subcategory;
+        subcategory = subcategory.replaceAll(" ", "-");
+
+        categoryOrig = rows[i].category;
+        category = rows[i].category;
+        storename = rows[i].storename;
+
+        let storeNameSpaceReplaced = storename.replaceAll(" ", "-");
+        category = category.replaceAll(" ", "-");
+
+        //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
+
+        storenameUrl = myUrl + storename;
+
+        categorySqueezed = rows[i].category;
+        categorySqueezed = categorySqueezed.replaceAll(' ', '')
+
+        categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
+
+
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container cursor_pointer" > ';
+
+        //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
+        
+        innerHTML = innerHTML +  rows[i].itemimages ;
+
+        innerHTML = innerHTML + '<div class="itemListView-Header" >' ;
+
+            if (rows[i].title != undefined) {
+                if (rows[i].title != "") {
+                    innerHTML = innerHTML
+                        + '<div class="shopItemTitle ">' + rows[i].title + '</div>';
+                }
+            }
+    
+            if (rows[i].itemprice != undefined) {
+                if (rows[i].itemprice != "") {
+                    innerHTML = innerHTML
+                        + '<div class="shopItemPrice ">' + rows[i].itemprice + '</div>';
+                }
+            }
+       
+            if (rows[i].lastupdatedate != undefined) {
+                if (rows[i].lastupdatedate != "") {
+                    innerHTML = innerHTML
+                        + '<div class="shopItemLastupdatedate ">Updated: ' + (rows[i].lastupdatedate).substring(0, 10) + '</div>';
+                }
+            }
+
+            innerHTML = innerHTML + '</div> </div>';
+
+        // if (i == 0) {
+        //     innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="categoryHeader" >';
+
+        //     innerHTML = innerHTML + rows[i].storename +
+
+        //         '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
+
+        //         '</div>';
+        //     startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
+
+        // } else if (rows[i].storename != rows[i - 1].storename) {
+        //     if (sessionStorage.getItem("max-count-" + rows[i - 1].category) > defaultDisplayCount) {
+        //         sessionStorage.setItem("display-count-" + rows[i - 1].category, defaultDisplayCount);
+        //         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv categoryFooter ' + rows[i - 1].category + ' " >' +
+        //             '<button id="showmore-' + rows[i - 1].category + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].category + '") >Show More</button>' +
+        //             '</div>';
+        //     } else {
+        //         sessionStorage.setItem("display-count-" + rows[i - 1].category, currDisplayCount);
+        //     }
+        //     currDisplayCount = 0;
+
+        //     innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="categoryHeader">';
+
+        //     innerHTML = innerHTML + rows[i].storename +
+        //         '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
+        //         '</div>';
+        //     startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
+        // }
+
+        // currDisplayCount = currDisplayCount + 1;
+
+        // if (currDisplayCount >= defaultDisplayCount) {
+        //     continue;
+        // }
+
+        // let discontinuedFlgCls = "";
+
+
+        // innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
+        // innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+
+
+        // innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+        // innerHTML = innerHTML + '</div>';
+   
+
+
+        // if (i == rows.length - 1) {
+        //     innerHTML = innerHTML + '</div>';
+        // }
     }
+
+    if (sessionStorage.getItem("max-count-" + categorySqueezed) > defaultDisplayCount) {
+        sessionStorage.setItem("display-count-" + categorySqueezed, defaultDisplayCount);
+        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv categoryFooter ' + categorySqueezed + ' " >' +
+            '<button id="showmore-"' + rows[i - 1].category + ' type="button" class="showmore-btn" onclick=showMoreitems("' + categorySqueezed + '") >Show More</button>' +
+            '</div>';
+    } else {
+        sessionStorage.setItem("display-count-" + categorySqueezed, currDisplayCount);
+    }
+
+    //innerHTML = innerHTML + '</div>';
+    //document.getElementById("itemDivId").innerHTML = innerHTML;
+    
+    //document.getElementById("itemListDivId").style.display = "none";
+    //document.getElementById("itemEditDivId").style.display = "none";
+     
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    
+    setTimeout(() => {
+        populateItemDropDown();
+    }, 10);
+}
+
+
+
+function populateItemsList_OLD_DELETE(rows = "") {
+
+
+    //console.log(document.getElementById("cardsContainerDivId").innerHTML);
+
+    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
+
+    if (rows == "") {
+        rows = JSON.parse(tf);
+    }
+
 
 
     //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
@@ -5131,21 +5297,6 @@ function populateItemsList(rows = "") {
             continue;
         }
 
-
-        // if (i == 0) {
-        //     previousSubpath = "";
-        // } else {
-        //     previousSubpath = rows[i - 1].subcategory;
-        // }
-
-        // currentSubpath = rows[i].subcategory;
-
-        // if (i == rows.length - 1) {
-        //     nextSubPath = "";
-        // } else {
-        //     nextSubPath = rows[i + 1].subcategory;
-        // }
-
         let discontinuedFlgCls = "";
 
         if (rows[i].discontinue == "1") {
@@ -5186,8 +5337,6 @@ function populateItemsList(rows = "") {
     populateItemDropDown();
 
 }
-
-
 
 
 function populateStoreItemsList(rows = "") {
@@ -5336,7 +5485,8 @@ function populateStoreItemsList(rows = "") {
     //document.getElementById("itemDivId").innerHTML = innerHTML;
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-    populateItemDropDown();
+
+    
 
 }
 
