@@ -3037,71 +3037,152 @@ function getFullShopDetails(tags, itemstr) {
 
     //End: div class="slides"
 
-    //Start: Have Info- Desc/Hours/Location under one parent div
-    newHTML = newHTML + '<div class="flex_container_align_center">';
-    //Start: max_2box_responsive
-    newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
-
-    if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")) {
-        let addrfields = tags[0].uselocationfromaddress.split("~");
-        let shopAddr = "<div class='shpAddrClass'>";
-        for (let i = 0; i < addrfields.length; i++) {
-            let tempval = addrfields[i].split("^");
-            if (tempval[1].trim() != "") {
-                if (shopAddr != "<div class='shpAddrClass'>") {
-                    shopAddr = shopAddr + ", " + tempval[1];
-                } else {
-                    shopAddr = shopAddr + "Address: " + tempval[1];
-                }
-
-            }
-
-        }
-        newHTML = newHTML + shopAddr + '</div>';
-    }
-
-    if (tags[0].displaylocationflag != undefined) {
-        if (tags[0].displaylocationflag != "xyx") {
-            newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
-
-
-            setTimeout(function () {
-                let latitude = 28.2683684;
-                let longitude = 78.6824194000001;
-                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                L.marker([latitude, longitude]).addTo(map);
-            }, 10);
-
-        }
-    }
-
-
-
-
-    newHTML = newHTML + '</div></div>';
-    //End: max_2box_responsive
-
-    //Start: max_2box_responsive
-    newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
-
-    if (tags[0].displayhoursflag != undefined) {
-        if (tags[0].displayhoursflag != "xyz") {
-            newHTML = newHTML
-                + '<div class="font_size_12px">' + tags[0].hourshtml + '</div>';
-        }
-    }
-
-    newHTML = newHTML + '</div></div>';
-    //End: max_2box_responsive
-
-    newHTML = newHTML + '</div>';
-    //End: Have Info- Desc/Hours/Location under one parent div
-
+    newHTML = newHTML + getShopLocationAndHours(tags);
 
     //newHTML = newHTML + '<div class="fullwidthdummydiv bottom_shadow">&nbsp;</div>';
 
+    newHTML = newHTML + getItemsHTML(storeItems);
+
+ 
+
+
+
+    newHTML = newHTML + "</div></div></div></div></div>";
+    //End1: storeItemDivCls
+    //End2: shopLyrics
+    //End3: shopContainer
+
+
+
+    newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
+
+
+
+    document.getElementById("itemDivId").innerHTML = newHTML;
+    refreshCaptcha();
+
+    //START: Change the background color of the active item link 
+
+    // showcategory(category);
+    // let elemId = "itemDiv-" + itemid;
+    // document.getElementById(elemId).style.backgroundColor = "orange";
+
+    //END: Change the background color of the active item link
+
+    let metaDesc = shortdescription;
+
+    let metaKey = category + "," + subcategory + "," + title + "," + keywords;
+
+
+    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
+    document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+    //document.title = category + " " + subcategory + ". " + title ;
+    document.title = category + " - " + title;
+
+    sessionStorage.setItem("lastUrl", window.location.href);
+    // if (localStorage.getItem("cookieAccepted") == "y"){
+    //     document.getElementById("cookie-div-id").style.display = "none"
+    // }
+
+    const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "WebSite",
+        "name": title,
+        "url": "https://smshopify.com/" + itemstr,
+        "datePublished": "2022-07-10",
+        "description": metaDesc,
+        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+    };
+
+    let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+    jsonLdScript.innerHTML = JSON.stringify(structuredData);
+
+
+    $('html, body').animate({
+        scrollTop: $("#itemDivId").offset().top - 40
+    }, 100);
+
+    setTimeout(function () {
+        hideImageNavBtns();
+    }, 0);
+
+    setTimeout(function () {
+        colorFavoriteItems();
+    }, 10);
+}
+
+function getShopLocationAndHours(tags){
+        let newHTML = "";
+
+        //Start: Have Info- Desc/Hours/Location under one parent div
+        newHTML = newHTML + '<div class="flex_container_align_center">';
+        //Start: max_2box_responsive
+        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
+    
+        if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")) {
+            let addrfields = tags[0].uselocationfromaddress.split("~");
+            let shopAddr = "<div class='shpAddrClass'>";
+            for (let i = 0; i < addrfields.length; i++) {
+                let tempval = addrfields[i].split("^");
+                if (tempval[1].trim() != "") {
+                    if (shopAddr != "<div class='shpAddrClass'>") {
+                        shopAddr = shopAddr + ", " + tempval[1];
+                    } else {
+                        shopAddr = shopAddr + "Address: " + tempval[1];
+                    }
+    
+                }
+    
+            }
+            newHTML = newHTML + shopAddr + '</div>';
+        }
+    
+        if (tags[0].displaylocationflag != undefined) {
+            if (tags[0].displaylocationflag != "xyx") {
+                newHTML = newHTML
+                    + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+    
+    
+                setTimeout(function () {
+                    let latitude = 28.2683684;
+                    let longitude = 78.6824194000001;
+                    const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                    L.marker([latitude, longitude]).addTo(map);
+                }, 10);
+    
+            }
+        }
+    
+    
+    
+    
+        newHTML = newHTML + '</div></div>';
+        //End: max_2box_responsive
+    
+        //Start: max_2box_responsive
+        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
+    
+        if (tags[0].displayhoursflag != undefined) {
+            if (tags[0].displayhoursflag != "xyz") {
+                newHTML = newHTML
+                    + '<div class="font_size_12px">' + tags[0].hourshtml + '</div>';
+            }
+        }
+    
+        newHTML = newHTML + '</div></div>';
+        //End: max_2box_responsive
+    
+        newHTML = newHTML + '</div>';
+        //End: Have Info- Desc/Hours/Location under one parent div
+
+        return newHTML;
+    
+}
+
+function getItemsHTML(storeItems){
+    let newHTML = "";
+    
     for (let i = 0; i < storeItems.length; i++) {
 
         //Start: Have Item image, Details under one parent div
@@ -3160,80 +3241,7 @@ function getFullShopDetails(tags, itemstr) {
         //End: Have Item image, Details under one parent div
     }
 
-    //newHTML = newHTML + '<div class="fullwidthdummydiv height_300px"></div>';
-
-
-
-    newHTML = newHTML + "</div></div></div></div></div>";
-    //End1: storeItemDivCls
-    //End2: shopLyrics
-    //End3: shopContainer
-
-
-    // if (description == undefined) {
-    //     newHTML = "<div class = 'shopContainer' >Page not found</div>";
-    // }
-
-    // if (nextItemTitle != "") {
-    //     newHTML = newHTML + '<br><br><div class="bottomNavigationCls">' + 'Next: <a href ="' + nextItemTitleURL + '" class="itemTopLinkCls"  >' + nextItemTitle + "</a></div> <br> <br>";
-
-    // }
-
-    newHTML = newHTML + '<br><br><br><br><br><br><br><br><br><hr><b>Send a message</b>' + document.getElementById("sndmsgdivid").innerHTML;
-
-
-
-    document.getElementById("itemDivId").innerHTML = newHTML;
-    refreshCaptcha();
-
-    //START: Change the background color of the active item link 
-
-    // showcategory(category);
-    // let elemId = "itemDiv-" + itemid;
-    // document.getElementById(elemId).style.backgroundColor = "orange";
-
-    //END: Change the background color of the active item link
-
-    let metaDesc = shortdescription;
-
-    let metaKey = category + "," + subcategory + "," + title + "," + keywords;
-
-
-    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
-    document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
-    //document.title = category + " " + subcategory + ". " + title ;
-    document.title = category + " - " + title;
-
-    sessionStorage.setItem("lastUrl", window.location.href);
-    // if (localStorage.getItem("cookieAccepted") == "y"){
-    //     document.getElementById("cookie-div-id").style.display = "none"
-    // }
-
-    const structuredData = {
-        "@context": "https://schema.org/",
-        "@type": "WebSite",
-        "name": title,
-        "url": "https://smshopify.com/" + itemstr,
-        "datePublished": "2022-07-10",
-        "description": metaDesc,
-        "thumbnailUrl": "https://smshopify.com/images/banner.png"
-    };
-
-    let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
-    jsonLdScript.innerHTML = JSON.stringify(structuredData);
-
-
-    $('html, body').animate({
-        scrollTop: $("#itemDivId").offset().top - 40
-    }, 100);
-
-    setTimeout(function () {
-        hideImageNavBtns();
-    }, 0);
-
-    setTimeout(function () {
-        colorFavoriteItems();
-    }, 10);
+    return newHTML;
 }
 
 function hideImageNavBtns() {
