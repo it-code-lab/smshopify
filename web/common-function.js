@@ -2286,7 +2286,7 @@ function checkURL() {
             document.getElementById("loginLinkId").style.display = "block";
         }
         document.getElementById("logoutLinkId").style.display = "none";
-        document.getElementById("mystoreLinkId").style.display = "none";
+        //document.getElementById("mystoreLinkId").style.display = "none";
         document.getElementById("HelpTopicsLinkId").style.display = "none";
 
     } else {
@@ -2312,7 +2312,7 @@ function checkURL() {
                         document.getElementById("loginLinkId").style.display = "block";
                     }
                     document.getElementById("logoutLinkId").style.display = "none";
-                    document.getElementById("mystoreLinkId").style.display = "none";
+                    //document.getElementById("mystoreLinkId").style.display = "none";
                 } else {
                     getFavoritesList();
                 }
@@ -5051,6 +5051,19 @@ function addComponent(itemid, type, elem = "dummy") {
 }
 
 function myStore() {
+
+    if (localStorage.getItem("userLoggedIn") == "n") {
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store"
+            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "</div>";
+
+        document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        elem = document.getElementById("mystoreLinkId");
+
+        placePopupUnderClickedBtn(elem);
+        return;
+    } 
 
     document.getElementById("languageScanResultDivId").style.display = "none";
     document.getElementById("languageOverride").style.display = "none";
@@ -8060,7 +8073,7 @@ function Logout() {
                     document.getElementById("loginLinkId").style.display = "block";
                 }
                 document.getElementById("logoutLinkId").style.display = "none";
-                document.getElementById("mystoreLinkId").style.display = "none";
+                //document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
                 sessionStorage.setItem("SavedProjectsList", null);
                 //Show("projectscanner");
