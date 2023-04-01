@@ -1,5 +1,6 @@
 /*jshint strict:false, node:false */
 /*exported run_tests, read_settings_from_cookie, beautify, submitIssue, copyText, selectAll, clearAll, changeToFileContent*/
+
 /*
 https://javascript-minifier.com/ 
 */
@@ -2820,7 +2821,7 @@ function getOneItemOfShop(tags, itemstr) {
 
     newHTML = newHTML + getItemsHTML(tags);
     newHTML = newHTML + getShopLocationAndHours(storeRow);
- 
+
 
 
     newHTML = newHTML + "</div></div></div>";
@@ -2828,7 +2829,7 @@ function getOneItemOfShop(tags, itemstr) {
     //End2: shopLyrics
     //End3: shopContainer
 
- 
+
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
 
     document.getElementById("itemDivId").innerHTML = newHTML;
@@ -4575,12 +4576,6 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopBannerTabContentDivs
             + "</div>";
 
-        // document.getElementById(componentid).innerHTML = partOneHTML 
-        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-        //     + hdMeDiv 
-        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
-
         let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
             + hdMeDiv
@@ -5055,75 +5050,195 @@ function addComponent(itemid, type, elem = "dummy") {
 
 }
 
-// function submitQuiz() {
-//     let obj = JSON.parse(document.getElementById("hdmidivid").innerText);
-//     let keys = Object.keys(obj);
-//     let elems = document.getElementsByClassName("dynamicradio");
-//     let rtans = 0;
-//     let wans = 0;
-//     document.getElementById("qzerr").innerHTML = "";
+function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromaddress, hourshtml) {
 
-//     for (let i = 0; i < elems.length; i++) {
-//         if (elems[i].checked) {
-//             if (elems[i].value == obj[elems[i].name]) {
-//                 rtans = rtans + 1;
-//                 elems[i].parentElement.style.backgroundColor = "#C1F1E0";
-//             } else {
-//                 wans = wans + 1;
-//                 elems[i].parentElement.style.backgroundColor = "#FDCFC0";
-//             }
-//         } else if (elems[i].value == obj[elems[i].name]) {
-//             elems[i].parentElement.style.backgroundColor = "#C1F1E0";
-//         } else {
-//             elems[i].parentElement.style.backgroundColor = "white";
-//         }
-//     }
+    let randomId = type + "-" + Math.floor(Math.random() * 1000000);
 
-//     if (rtans + wans < keys.length) {
-//         for (let i = 0; i < elems.length; i++) {
-//             elems[i].parentElement.style.backgroundColor = "white";
-//         }
+    // setTimeout(function () {
+    //     document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
+    // }, 800);
 
-//         document.getElementById("qzerr").innerHTML = "Please provide a response to all the questions";
-//     } else {
-//         let percent = rtans * 100 / (rtans + wans);
-//         percent = percent.toFixed(2);
-//         if (localStorage.getItem("userLoggedIn") == "n") {
-//             document.getElementById("qzres").innerHTML = "You scored " + percent + "%. Click on the button below to retry.<br> Scores get saved for " + '<a href="' + the.hosturl + '/?target=login">logged in</a>' + " users.";
-//         } else {
-//             document.getElementById("qzres").innerHTML = "You scored " + percent + "%. Click on the button below to retry.<br> The score has been recorded on the profile.";
-//             let userdata = localStorage.getItem("userdata");
-//             let userObjs;
-//             let newscores = [];
-//             let date = new Date();
-//             let options = {
-//                 weekday: "long", year: "numeric", month: "short",
-//                 day: "numeric", hour: "2-digit", minute: "2-digit"
-//             };
+    // let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+    //     + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px">Serving since 1989</div></div>'
+    //     + "\n" + '</div>';
 
-//             let newscore = { "quiz": document.URL, "percent": percent, "time": date.toLocaleTimeString("en-us", options) };
+    let htmlPartOrig = bannerhtml;
+    htmlPart = escape(htmlPartOrig);
 
-//             if (userdata != "") {
-//                 userObjs = JSON.parse(userdata);
-//                 newscores = userObjs.scores;
-//                 newscores.push(newscore);
-//                 userObjs.scores = newscores;
-//             } else {
-//                 newscores.push(newscore);
-//                 userObjs = { scores: newscores };
-//             }
+    let shopBannerTabOptions = '<div class="shopTab">'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
 
 
-//             let newdata = JSON.stringify(userObjs);
 
-//             localStorage.setItem("userdata", newdata);
-//             updateInfo(newdata);
-//         }
-//         document.getElementById("sbmtqzdivid").style.display = "none";
-//         document.getElementById("retryqzdivid").style.display = "block";
+    let shopOpeningHr = hourshtml;
 
-//     }
-// }
+    let shopOpeningHrCheckBox = "<label class='informationBox'>To display the store hours, select the options below. You can update the daily hours</label>"
+        + '<div class="checkbox-wrapper-21">'
+        + '<label class="control control--checkbox">'
+        + 'Display Daily Hours'
+        + '<input class="showStoreHr" type="checkbox" onclick="showStoreHrsDiv(this);"/>'
+        + '<div class="control__indicator"></div>'
+        + '</label>'
+        + '</div>'
+        + '<div class="storeHrDivCls displayNone">' + shopOpeningHr + '</div>'
+
+        + '<div class="checkbox-wrapper-21">'
+        + '<label class="control control--checkbox">'
+        + 'Display Availability Information'
+        + '<input class="showStoreAvail" type="checkbox" onclick="showStoreAvailDiv(this);"/>'
+        + '<div class="control__indicator"></div>'
+        + '</label>'
+        + '</div>'
+        + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
+
+
+    let addr_line1 = "";
+    let addr_city = "";
+    let addr_State = "";
+    let addr_Cntry = "";
+    let addr_postalcode = "";
+
+    if ((uselocationfromaddress != undefined) && (uselocationfromaddress != "")) {
+        let addrfields = uselocationfromaddress.split("~");
+        for (let i = 0; i < addrfields.length; i++ ){
+            let pair = addrfields[0].split("^");
+            switch (i){
+                case 0:
+                    addr_line1 = pair[1];
+                    break;
+                case 1:
+                    addr_city = pair[1];
+                    break;
+                case 2:
+                    addr_State = pair[1];
+                    break;
+                case 3:
+                    addr_Cntry = pair[1];
+                    break;                
+                case 4:
+                    addr_postalcode = pair[1];
+                    break;
+                }
+        }        
+    }
+
+    let shopLocationCheckBox = "<label class='informationBox'>Provide your location information so that the interested shoppers can contact you.</label>"
+        + '<div class="checkbox-wrapper-21">'
+        + '<label class="control control--checkbox">'
+        + 'Display Location on Map'
+        + '<input class="showStoreLoc" type="checkbox" onclick="showStoreLocationDiv(this);"/>'
+        + '<div class="control__indicator"></div>'
+        + '</label>'
+        + '</div>'
+        + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
+
+        + '<div class="checkbox-wrapper-21">'
+        + '<label class="control control--checkbox">'
+        + 'Display Location From Address'
+        + '<input class="showStoreAddr" type="checkbox" onclick="showStoreAddrDiv(this);"/>'
+        + '<div class="control__indicator"></div>'
+        + '</label>'
+        + '</div>'
+        + '<div id="storeAddrDivId" class="storeAddr displayNone">'
+        + '<div class="addresscontainer" id="addresscontainerDiv"> <div class="addressform"> <label class="addressfield"> <span class="addressfield__label" for="shopaddressline1">Address</span>'
+        + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1"> ' + addr_line1 + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopcity"> ' + addr_city + ' </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopstate"> ' + addr_State + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
+        + '<div contenteditable="true" class="addressfield__input"  id="shopcountry">' + addr_Cntry + ' </div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
+        + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode"> ' + addr_postalcode + '</div> </label> </div>  </div>'
+        + '</div>';
+
+    let shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+
+        + '<div id="Customizations" class="shopTabcontent">'
+        + textDivColorCtl
+        + replaceBannerImg
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="AboutStoreDiv" class="shopTabcontent">'
+        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide">' + description + '</div>'
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="Close" class="shopTabcontent">'
+        + '</div>';
+
+
+    let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+        + allowTogglePreview
+        + shopBannerTabOptions
+        + shopBannerTabContentDivs
+        + "</div>";
+
+    let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
+        + hdMeDiv
+        + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+
+    //elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+    setTimeout(function () {
+        let allItems = document.querySelectorAll(".shopTopBnrCls");
+        for (let i = 0; i < allItems.length; i++) {
+            allItems[i].classList.remove("scale-in-center");
+        }
+    }, 500);
+
+    return contentToAdd;
+}
+
+function getItemForUpd(htmlPartOrig) {
+    // let htmlPartOrig = '<div class="shopItemCls1" >'
+    // + "\n" + itemImagesDiv
+    // + "\n" + '</div>';
+
+    let randomId = type + "-" + Math.floor(Math.random() * 1000000);
+
+    htmlPart = escape(htmlPartOrig);
+
+    let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+        + allowTogglePreview
+        + shopItemTabOptions
+        + shopItemTabContentDivs
+        + "</div>";
+
+    let contentToAdd = "<div id= div-" + randomId + " class='shopItemCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv storeItemDivCls' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
+        + hdMeDiv
+        + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+
+    //document.querySelector('.shopLyrics').innerHTML = document.querySelector('.shopLyrics').innerHTML + contentToAdd;
+
+
+    setTimeout(function () {
+        let allItems = document.querySelectorAll(".shopItemCls");
+        for (let i = 0; i < allItems.length; i++) {
+            allItems[i].classList.remove("scale-in-center");
+        }
+    }, 500);
+
+    return contentToAdd;
+}
 
 function showProfile() {
     let userdata = localStorage.getItem("userdata");
@@ -5360,34 +5475,6 @@ async function saveNewStore(itemid, createNewItem) {
     //document.getElementByClassName("shopSmErr").style.display = "none";
     let usremail = localStorage.getItem("userEmail");
 
-    //let title = "(New) Please Edit";
-
-    // if (usremail == null) {
-    //     error_message = "Not authorized";
-    //     document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-    //     return;
-    // } else if (usremail == "Guest") {
-    //     error_message = "Not authorized";
-    //     document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-    //     return;
-    // }
-
-
-    // if (itemid == "" && createNewItem == "y") {
-    //     if (localStorage.getItem("userLoggedIn") == "n") {
-
-    //         error_message = "Not authorized";
-    //         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-    //         return;
-
-    //     } else if (localStorage.getItem("userLvl") != "9") {
-    //         error_message = "Not authorized";
-    //         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-    //         return;
-    //     }
-
-
-    // } else {
 
     let errorInfo = "";
     let storename = localStorage.getItem("storename");
@@ -5429,8 +5516,7 @@ async function saveNewStore(itemid, createNewItem) {
         document.querySelector(".shopSmErr").style.display = "block";
         document.querySelector(".shopSmErr").innerHTML = errorInfo;
 
-        //document.getElementByClassName("shopSmErr").style.display = "block";
-        //document.getElementByClassName("shopSmErr").innerHTML = errorInfo;
+
         return;
     }
 
@@ -6551,7 +6637,7 @@ function refreshStoreName() {
         document.querySelector('.bannerStoreNameCls').innerHTML = localStorage.getItem("storename");
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1 width_150px" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
-            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button></div>";
+            "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=cancelStoreCreation() >Cancel</button></div>";
         // let allItems = document.querySelectorAll(".shopTopBannerBtn");
         // for (let i = 0; i < allItems.length; i++) {
         //     allItems[i].classList.add("max_4box_responsive");
@@ -6559,6 +6645,14 @@ function refreshStoreName() {
     }, 100);
 }
 
+async function cancelStoreCreation() {
+    const confirm = await ui.userConfirmation('Are you sure you want to cancel? Any updates you have made will be lost.');
+
+    if (!confirm) {
+        return;
+    }
+    refreshPage()
+}
 function addShopItem() {
     addComponent("shopTopBanner", "shopItem1", "addUndershopLyrics");
     let allItems = document.querySelectorAll(".secPreview");
@@ -7784,6 +7878,10 @@ function categoryClicked(categoryNameOrig) {
     document.querySelector("#storeSelectedDivId").innerHTML = categoryNameOrig;
     document.querySelector("#storeSelectedDivId").style.display = "block";
     document.querySelector("#selectStoreTypeDivId").style.display = "none";
+
+    $('html, body').animate({
+        scrollTop: $("#itemDivId").offset().top - 40
+    }, 100);
 
     setTimeout(function () {
         document.querySelector('#storeSelectedDivId').classList.remove("slide-in-left");
