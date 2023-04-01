@@ -2835,64 +2835,65 @@ function getOneItemOfShop(tags, itemstr) {
     }
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
+    newHTML = newHTML + getItemsHTML(tags);
+    newHTML = newHTML + getShopLocationAndHours(storeRow);
+    // //Start: div class="itemImageshow-container"
+    // if (tags[0].itemimages != undefined) {
+    //     if (tags[0].itemimages != "") {
+    //         newHTML = newHTML
+    //             + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
+    //     }
+    // }
+    // //End: div class="itemImageshow-container"
 
-    //Start: div class="itemImageshow-container"
-    if (tags[0].itemimages != undefined) {
-        if (tags[0].itemimages != "") {
-            newHTML = newHTML
-                + '<div class="itemImageshow-container"><div class="itmImgContainer">' + tags[0].itemimages + '</div></div>';
-        }
-    }
-    //End: div class="itemImageshow-container"
+    // //Start: max_2box_responsive
+    // newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px">';
 
-    //Start: max_2box_responsive
-    newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px">';
+    // if (tags[0].itemprice != undefined) {
+    //     if (tags[0].itemprice != "") {
+    //         newHTML = newHTML
+    //             + '<div class="itemPrice ">' + tags[0].itemprice + '</div>';
+    //     }
+    // }
 
-    if (tags[0].itemprice != undefined) {
-        if (tags[0].itemprice != "") {
-            newHTML = newHTML
-                + '<div class="itemPrice ">' + tags[0].itemprice + '</div>';
-        }
-    }
+    // if (tags[0].itemdescription != undefined) {
+    //     if (tags[0].itemdescription != "") {
+    //         newHTML = newHTML
+    //             + '<div class="itemDescription ">' + tags[0].itemdescription + '</div>';
+    //     }
+    // }
 
-    if (tags[0].itemdescription != undefined) {
-        if (tags[0].itemdescription != "") {
-            newHTML = newHTML
-                + '<div class="itemDescription ">' + tags[0].itemdescription + '</div>';
-        }
-    }
-
-    newHTML = newHTML + '</div></div>';
-    //End: max_2box_responsive
-
-
-    //Start: max_2box_responsive
-    newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
-
-    if (storeRow[0].displaylocationflag != undefined) {
-        if (storeRow[0].displaylocationflag != "xyx") {
-            newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px"> &nbsp;<br><br><br></div>';
+    // newHTML = newHTML + '</div></div>';
+    // //End: max_2box_responsive
 
 
-            setTimeout(function () {
-                let latitude = 28.2683684;
-                let longitude = 78.6824194000001;
-                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                L.marker([latitude, longitude]).addTo(map);
-            }, 10);
+    // //Start: max_2box_responsive
+    // newHTML = newHTML + '<div class="max_2box_responsive_withsidenav padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
 
-        }
-    }
-    if (storeRow[0].displayhoursflag != undefined) {
-        if (storeRow[0].displayhoursflag != "xyz") {
-            newHTML = newHTML
-                + '<div class="font_size_12px">' + storeRow[0].hourshtml + '</div>';
-        }
-    }
-    newHTML = newHTML + '</div></div>';
-    //End: max_2box_responsive
+    // if (storeRow[0].displaylocationflag != undefined) {
+    //     if (storeRow[0].displaylocationflag != "xyx") {
+    //         newHTML = newHTML
+    //             + '<div id="storeMapDivId" class="minheight_200px"> &nbsp;<br><br><br></div>';
+
+
+    //         setTimeout(function () {
+    //             let latitude = 28.2683684;
+    //             let longitude = 78.6824194000001;
+    //             const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+    //             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    //             L.marker([latitude, longitude]).addTo(map);
+    //         }, 10);
+
+    //     }
+    // }
+    // if (storeRow[0].displayhoursflag != undefined) {
+    //     if (storeRow[0].displayhoursflag != "xyz") {
+    //         newHTML = newHTML
+    //             + '<div class="font_size_12px">' + storeRow[0].hourshtml + '</div>';
+    //     }
+    // }
+    // newHTML = newHTML + '</div></div>';
+    // //End: max_2box_responsive
 
 
     newHTML = newHTML + "</div></div></div>";
@@ -2955,6 +2956,14 @@ function getOneItemOfShop(tags, itemstr) {
         scrollTop: $("#itemDivId").offset().top - 40
     }, 100);
 
+
+    setTimeout(function () {
+        hideImageNavBtns();
+    }, 0);
+
+    setTimeout(function () {
+        colorFavoriteItems();
+    }, 10);
 
 }
 
@@ -3043,7 +3052,7 @@ function getFullShopDetails(tags, itemstr) {
 
     newHTML = newHTML + getItemsHTML(storeItems);
 
- 
+
 
 
 
@@ -3111,79 +3120,89 @@ function getFullShopDetails(tags, itemstr) {
     }, 10);
 }
 
-function getShopLocationAndHours(tags){
-        let newHTML = "";
+function getShopLocationAndHours(tags) {
+    let newHTML = "";
 
-        //Start: Have Info- Desc/Hours/Location under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center">';
-        //Start: max_2box_responsive
-        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
-    
-        if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")) {
-            let addrfields = tags[0].uselocationfromaddress.split("~");
-            let shopAddr = "<div class='shpAddrClass'>";
-            for (let i = 0; i < addrfields.length; i++) {
-                let tempval = addrfields[i].split("^");
-                if (tempval[1].trim() != "") {
-                    if (shopAddr != "<div class='shpAddrClass'>") {
-                        shopAddr = shopAddr + ", " + tempval[1];
-                    } else {
-                        shopAddr = shopAddr + "Address: " + tempval[1];
-                    }
-    
+    //Start: Have Info- Desc/Hours/Location under one parent div
+    newHTML = newHTML + '<div class="flex_container_align_center">';
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px">';
+
+    if ((tags[0].uselocationfromaddress != undefined) && (tags[0].uselocationfromaddress != "")) {
+        let addrfields = tags[0].uselocationfromaddress.split("~");
+        let shopAddr = "<div class='shpAddrClass'>";
+        for (let i = 0; i < addrfields.length; i++) {
+            let tempval = addrfields[i].split("^");
+            if (tempval[1].trim() != "") {
+                if (shopAddr != "<div class='shpAddrClass'>") {
+                    shopAddr = shopAddr + ", " + tempval[1];
+                } else {
+                    shopAddr = shopAddr + "Address: " + tempval[1];
                 }
-    
-            }
-            newHTML = newHTML + shopAddr + '</div>';
-        }
-    
-        if (tags[0].displaylocationflag != undefined) {
-            if (tags[0].displaylocationflag != "xyx") {
-                newHTML = newHTML
-                    + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
-    
-    
-                setTimeout(function () {
-                    let latitude = 28.2683684;
-                    let longitude = 78.6824194000001;
-                    const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                    L.marker([latitude, longitude]).addTo(map);
-                }, 10);
-    
-            }
-        }
-    
-    
-    
-    
-        newHTML = newHTML + '</div></div>';
-        //End: max_2box_responsive
-    
-        //Start: max_2box_responsive
-        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
-    
-        if (tags[0].displayhoursflag != undefined) {
-            if (tags[0].displayhoursflag != "xyz") {
-                newHTML = newHTML
-                    + '<div class="font_size_12px">' + tags[0].hourshtml + '</div>';
-            }
-        }
-    
-        newHTML = newHTML + '</div></div>';
-        //End: max_2box_responsive
-    
-        newHTML = newHTML + '</div>';
-        //End: Have Info- Desc/Hours/Location under one parent div
 
-        return newHTML;
-    
+            }
+
+        }
+        newHTML = newHTML + shopAddr + '</div>';
+    }
+
+    if (tags[0].displaylocationflag != undefined) {
+        if (tags[0].displaylocationflag != "xyx") {
+            newHTML = newHTML
+                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+
+
+            setTimeout(function () {
+                let latitude = 28.2683684;
+                let longitude = 78.6824194000001;
+                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                L.marker([latitude, longitude]).addTo(map);
+            }, 10);
+
+        }
+    }
+
+
+
+
+    newHTML = newHTML + '</div></div>';
+    //End: max_2box_responsive
+
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
+
+    if (tags[0].displayhoursflag != undefined) {
+        if (tags[0].displayhoursflag != "xyz") {
+            newHTML = newHTML
+                + '<div class="font_size_12px">' + tags[0].hourshtml + '</div>';
+        }
+    }
+
+    newHTML = newHTML + '</div></div>';
+    //End: max_2box_responsive
+
+    newHTML = newHTML + '</div>';
+    //End: Have Info- Desc/Hours/Location under one parent div
+
+    return newHTML;
+
 }
 
-function getItemsHTML(storeItems){
+function getItemsHTML(storeItems) {
     let newHTML = "";
-    
+
     for (let i = 0; i < storeItems.length; i++) {
+
+        if (storeItems[i].title == undefined) {
+            continue;
+
+        } else {
+            if (storeItems[i].title == "") {
+                continue;
+            }
+
+        }
 
         //Start: Have Item image, Details under one parent div
         newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '">';
@@ -9011,7 +9030,7 @@ function reportItem(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);        
+        placePopupUnderClickedBtn(elem);
     }
 }
 
@@ -9214,7 +9233,7 @@ function reportIssue(itemid) {
         x.className = "show";
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         return;
-    } 
+    }
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
