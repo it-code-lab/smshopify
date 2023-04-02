@@ -524,14 +524,22 @@ input.confirmBtn:hover {
 
 .shopCityStateCntry{
     padding: 5px;
-    background-color: #979393;
+    background-color: #a7a5a5;
     color: #fff;
     width: 120px;
     text-align: center;
     margin: auto;
     font-weight: normal;
     border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
 }
+.shopCityStateCntry:hover{
+    background-color: #555353;
+    color: #fff;
+}
+
 .itemBtnsDiv{
     /* display: flex;
     flex-direction: row; */

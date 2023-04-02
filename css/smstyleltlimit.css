@@ -34,9 +34,9 @@
 		/* overflow: visible; */
 	}
 	
-	#helpDisplayDivId{
+	/* #helpDisplayDivId{
 	width: 100%;
-	}
+	} */
 	
 	#cardsContainerDivId{
 		margin: 20px;		
@@ -50,9 +50,9 @@
 
 
 
-	.splitter{
+	/* .splitter{
 		display: none;
-	}
+	} */
 	
 	.bannerLargeText{
 		font-size: 24px ;
