@@ -522,8 +522,11 @@ function populateitemsDropDownDisplay() {
     let innHTML = "";
 
     for (let i = 0; i < rows.length; i++) {
-        innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>" + rows[i].category + "</a>";
-      
+        if (i == 0) {
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+        }else if (rows[i].category != rows[i-1].category){
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+        } 
     }
     document.getElementById("dropDownTutListId").innerHTML = innHTML;
 
