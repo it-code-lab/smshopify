@@ -543,6 +543,41 @@
 }
 
 
+.anchor_tag_btn1{
+    padding: 5px;
+    background-color: #a7a5a5;
+    color: #fff;
+    text-align: center;
+    margin: auto;
+    font-weight: normal;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.anchor_tag_btn1:hover{
+    background-color: #555353;
+    color: #fff;
+}
+
+.anchor_tag_btn2{
+    padding: 5px;
+    background-color: #a7a5a5;
+    color: #fff;
+    width: 120px;
+    text-align: center;
+    margin: auto;
+    font-weight: normal;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+.anchor_tag_btn2:hover{
+    background-color: #555353;
+    color: #fff;
+}
+
 
 /***************SHADOWS*********************************/
 /*shadows, borders*/

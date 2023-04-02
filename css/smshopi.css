@@ -522,23 +522,7 @@ input.confirmBtn:hover {
     font-weight: bold;
 }
 
-.shopCityStateCntry{
-    padding: 5px;
-    background-color: #a7a5a5;
-    color: #fff;
-    width: 120px;
-    text-align: center;
-    margin: auto;
-    font-weight: normal;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-}
-.shopCityStateCntry:hover{
-    background-color: #555353;
-    color: #fff;
-}
+
 
 .itemBtnsDiv{
     /* display: flex;
@@ -629,7 +613,7 @@ input.confirmBtn:hover {
     padding: 5px;
 }
 
-.newTopTypeHdr{
+.newStoreTypeHdr{
     margin-bottom: 20px;
     padding: 15px;
     background-color: rgb(247, 199, 122);

@@ -1328,11 +1328,11 @@ function getCreateStore() {
 
     let title = "Create Store";
     let description = '<div id="div-shopName1-690541" contenteditable="true" data-bgcolor="#ccc" data-transition="zoom" data-autoanimate="" data-background="" data-backgroundiframe="" data-backgroundvideo="" class="secdiv" onmousedown="setLastFocusedDivId(this.id)"> <textarea class="secDivTextArea" onchange="updatePreviewDiv(this)">&lt;div class="storeNmChkDiv" contenteditable="false"&gt;&lt;input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name "&gt;'
-    + '&lt;button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;"&gt;Check Availability&lt;/button&gt;'
+    + '&lt;button  class="button_type1" onclick="searchStoreNameItem(); return false;"&gt;Check Availability&lt;/button&gt;'
     + '&lt;div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;&lt;/div&gt;'
     + '&lt;div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;Store name is available. &lt;button class="button_type1" onclick="showBanner()"&gt;Design Store banner&lt;/button&gt;&lt;/div&gt;'
     + '&lt;/div&gt;</textarea><div class="secPreview"><div contenteditable="true" class="revealDummy" style=" margin: 10px;"><div class="slides"><div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name ">'
-    + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+    + '<button  class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
     + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
     + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
     + '</div></div></div></div><div class="hdMeDivCls" contenteditable="false"><button class="togglePreviewBtn" onclick="toggleSecPreview(this)"> Toggle Preview </button></div><button class="deleteDivInnImg" onclick="deleteCurrentComponent(this)"></button>  </div>';
@@ -1369,7 +1369,7 @@ function getCreateStore() {
     //     if (tags[0].description != "") {
 
     newHTML = newHTML
-        + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone newTopTypeHdr slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + description + '</div>';
+        + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone newStoreTypeHdr slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + description + '</div>';
     
         //     }
     // }
@@ -1477,10 +1477,10 @@ function getOneItemOfShop(tags, itemstr) {
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
-        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
-        '<a href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " > " +
-        '<a href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+        '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
     //END - Navigation Links
 
     newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
@@ -1603,9 +1603,9 @@ function getFullShopDetails(tags, itemstr) {
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + tags[0].storename.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' >" +
-        '<a href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " > " +
-        '<a href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " > " +
-        '<a href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a>";
+        '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a>";
 
     //END - Navigation Links
 
@@ -2886,7 +2886,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopName1") {
 
         let htmlPartOrig = '<div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name ">'
-            + "\n" + '<button id="itemsearchBtnId" class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+            + "\n" + '<button  class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
             + "\n" + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
             + "\n" + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
             + "\n" + '</div>';
@@ -5119,7 +5119,7 @@ function populateItemsList(rows = "") {
             if (rows[i].city_state_country != undefined) {
                 if (rows[i].city_state_country != "") {
                     let arr = rows[i].city_state_country.split("~");
-                    innerHTML = innerHTML  + '<a class="shopCityStateCntry " href="' + itemTitleURL + '">' + arr[0] + '</a>';
+                    innerHTML = innerHTML  + '<a class="anchor_tag_btn2" href="' + itemTitleURL + '">' + arr[0] + '</a>';
                 }
             }
 
