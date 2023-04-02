@@ -288,8 +288,7 @@ button.helper:hover {
 /* SM: END: ***********Above styles are for showing the help details **************/
 
 /* SM: Start: ***********Below styles are for auto complete **************/
-.autocomplete-items {
-  position: absolute;
+.autocomplete-items {  
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
@@ -301,6 +300,17 @@ button.helper:hover {
 	*/
   margin: auto;
 
+}
+
+@media (min-width: 700px) {
+  .autocomplete-items {
+    position: absolute;
+  }
+}
+@media (max-width: 700px) {
+  .autocomplete-items {
+    position: relative;
+  }
 }
 
 .autocomplete-items div {
@@ -2646,16 +2656,23 @@ ul.unordered-list-arrow li:before {
   margin-right: 20px;
   text-align: end; */
 
-
+  float: left;
+  min-width: 200px;
+  max-width: 500px;
+  width: 90%;
   /* float: none;
   overflow: hidden; */
 }
 
+.searchWrapper{
+  float: none !important; 
+  overflow: hidden !important;
+}
 #item-search-box {
   /* width: calc(100% - 120px);
   max-width: 500px; */
   min-width: 200px;
-  max-width: 400px;
+  max-width: 500px;
   width: 90%;
   border-radius: 10px;
 }

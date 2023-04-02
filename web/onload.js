@@ -17,7 +17,15 @@ function updateStatus() {
 
   let currentDay = weekday[currentDate.getDay()];
   let currentDayID = "#" + currentDay + 'StoreHrId'; //gets todays weekday and turns it into id
-  $(currentDayID).toggleClass("today"); //this works at hightlighting today
+  $('#MondayStoreHrId').removeClass("today"); 
+  $('#TuesdayStoreHrId').removeClass("today"); 
+  $('#WednesdayStoreHrId').removeClass("today"); 
+  $('#ThursdayStoreHrId').removeClass("today"); 
+  $('#FridayStoreHrId').removeClass("today"); 
+  $('#SaturdayStoreHrId').removeClass("today"); 
+  $('#SundayStoreHrId').removeClass("today"); 
+
+  $(currentDayID).addClass("today"); //this works at hightlighting today
 
 }
 

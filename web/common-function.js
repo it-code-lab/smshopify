@@ -5240,7 +5240,7 @@ function populateItemsList(rows = "") {
     document.getElementById("contactusDivId").style.display = "none";
 
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
  
     document.getElementById("bgSVGId").style.display = "none";
     
