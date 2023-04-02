@@ -2645,12 +2645,18 @@ ul.unordered-list-arrow li:before {
   /* margin-top: 10px;
   margin-right: 20px;
   text-align: end; */
+
+
+  /* float: none;
+  overflow: hidden; */
 }
 
 #item-search-box {
   /* width: calc(100% - 120px);
   max-width: 500px; */
-  width: 200px;
+  min-width: 200px;
+  max-width: 400px;
+  width: 90%;
   border-radius: 10px;
 }
 

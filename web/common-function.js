@@ -447,6 +447,8 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
 
+    document.getElementById('item-search-box').dataset.dropdownset = "y";
+
     //console.log("Autocomplete End Time = " + new Date());
 }
 
@@ -457,7 +459,15 @@ function getItemsList() {
     let tags = sessionStorage.getItem("itemsList")
     if (tags != null) {
         if ((tags != "") && (tags != "null")) {
-            populateitemsDropDownDisplay();
+
+            setTimeout(() => {
+                populateItemDropDown();
+            }, 10);
+
+            setTimeout(() => {
+                populateitemsDropDownDisplay();
+           }, 10);
+            
             return;
         }
     }
@@ -478,7 +488,13 @@ function getItemsList() {
             //the.LanguageHelpCodeAndIds_LclJson = response;
 
             sessionStorage.setItem("itemsList", JSON.stringify(response));
-            populateitemsDropDownDisplay();
+            setTimeout(() => {
+                populateItemDropDown();
+            }, 10);
+
+            setTimeout(() => {
+                populateitemsDropDownDisplay();
+           }, 10);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -514,6 +530,10 @@ function getCategoryList() {
 }
 
 function populateitemsDropDownDisplay() {
+
+    if ((document.getElementById("dropDownItmCatgListId").innerHTML).trim() != ""){
+        return;
+    }
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     let rows = JSON.parse(tf);
     rows = rows.filter(function (entry) {
@@ -528,7 +548,7 @@ function populateitemsDropDownDisplay() {
             innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         } 
     }
-    document.getElementById("dropDownTutListId").innerHTML = innHTML;
+    document.getElementById("dropDownItmCatgListId").innerHTML = innHTML;
 
 }
 function getEnvironmentSetUpDetails() {
@@ -5003,7 +5023,9 @@ function addShopItem() {
 }
 function populateItemDropDown(fieldId = "item-search-box") {
 
-
+    if (document.getElementById('item-search-box').dataset.dropdownset == "y"){
+        return;
+    }
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     let items = JSON.parse(tf);
 
@@ -5076,6 +5098,15 @@ function populateItemsList(rows = "") {
         storename = rows[i].storename;
 
         if (rows[i].title == storename){
+            if (rows.length == 1){
+                document.getElementById("homeDivId").style.display = "none";
+                document.getElementById("loginDivId").style.display = "none";
+                document.getElementById("contactusDivId").style.display = "none";            
+                
+                getFullShopDetails(rows, storename);
+                document.getElementById("itemListDivId").style.display = "block";
+                return;
+            }
             continue;
         }
         let storeNameSpaceReplaced = storename.replaceAll(" ", "-");
@@ -5213,160 +5244,15 @@ function populateItemsList(rows = "") {
  
     document.getElementById("bgSVGId").style.display = "none";
     
-    setTimeout(() => {
-        populateItemDropDown();
-    }, 10);
+    // setTimeout(() => {
+    //     populateItemDropDown();
+    // }, 10);
 
     setTimeout(function () {
         colorFavoriteItems();
     }, 10);
 }
 
-
-
-function populateItemsList_OLD_DELETE(rows = "") {
-
-
-    //console.log(document.getElementById("cardsContainerDivId").innerHTML);
-
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
-
-
-    if (rows == "") {
-        rows = JSON.parse(tf);
-    }
-
-
-
-    //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
-    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
-    let innerHTML = "";
-    let itemName = "";
-    let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
-    let categorySqueezed = "";
-    let categoryOrig = "";
-    let categoryUrl = "";
-    let storename = "";
-
-    let storenameUrl = "";
-
-    let defaultDisplayCount = 1000;
-    let categoryMaxCount = 0;
-    let currDisplayCount = 0;
-
-    for (let i = 0; i < rows.length; i++) {
-
-        itemName = rows[i].title;
-        itemName = itemName.replaceAll(" ", "-");
-
-        subcategory = rows[i].subcategory;
-        subcategory = subcategory.replaceAll(" ", "-");
-
-        categoryOrig = rows[i].category;
-        category = rows[i].category;
-        storename = rows[i].storename;
-
-        let storeNameSpaceReplaced = storename.replaceAll(" ", "-");
-        category = category.replaceAll(" ", "-");
-
-        //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
-
-        storenameUrl = myUrl + storename;
-
-        categorySqueezed = rows[i].category;
-        categorySqueezed = categorySqueezed.replaceAll(' ', '')
-
-        categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
-
-        if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="categoryHeader" >';
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].categoryseq + '. ';
-            }
-            innerHTML = innerHTML + rows[i].storename +
-
-                //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-
-                '</div>';
-            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
-
-        } else if (rows[i].storename != rows[i - 1].storename) {
-
-
-            if (sessionStorage.getItem("max-count-" + rows[i - 1].category) > defaultDisplayCount) {
-                sessionStorage.setItem("display-count-" + rows[i - 1].category, defaultDisplayCount);
-                innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv categoryFooter ' + rows[i - 1].category + ' " >' +
-                    '<button id="showmore-' + rows[i - 1].category + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].category + '") >Show More</button>' +
-                    '</div>';
-            } else {
-                sessionStorage.setItem("display-count-" + rows[i - 1].category, currDisplayCount);
-            }
-
-            currDisplayCount = 0;
-
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="categoryHeader">';
-
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].categoryseq + '. ';
-            }
-
-            innerHTML = innerHTML + rows[i].storename +
-                //  '<label class="switch categoryToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].category + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-                '</div>';
-
-            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
-        }
-
-        currDisplayCount = currDisplayCount + 1;
-
-        if (currDisplayCount >= defaultDisplayCount) {
-            continue;
-        }
-
-        let discontinuedFlgCls = "";
-
-        if (rows[i].discontinue == "1") {
-            discontinuedFlgCls = " discontinued ";
-        }
-
-        //It is not a new child item 
-        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
-        innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
-
-        if (the.smusr) {
-            innerHTML = innerHTML + rows[i].titleseq + '. ';
-        }
-
-        innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-        innerHTML = innerHTML + '</div>';
-        // }
-
-
-        if (i == rows.length - 1) {
-            innerHTML = innerHTML + '</div>';
-        }
-    }
-
-    if (sessionStorage.getItem("max-count-" + categorySqueezed) > defaultDisplayCount) {
-        sessionStorage.setItem("display-count-" + categorySqueezed, defaultDisplayCount);
-        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv categoryFooter ' + categorySqueezed + ' " >' +
-            '<button id="showmore-"' + rows[i - 1].category + ' type="button" class="showmore-btn" onclick=showMoreitems("' + categorySqueezed + '") >Show More</button>' +
-            '</div>';
-    } else {
-        sessionStorage.setItem("display-count-" + categorySqueezed, currDisplayCount);
-    }
-
-    innerHTML = innerHTML + '</div>';
-    //document.getElementById("itemDivId").innerHTML = innerHTML;
-    document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-    populateItemDropDown();
-
-}
 
 
 function populateStoreItemsList(rows = "") {
