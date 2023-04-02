@@ -5099,7 +5099,7 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container" data-itemid="'+ rows[i].itemid +'" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-itemid="'+ rows[i].itemid +'" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
@@ -5218,6 +5218,10 @@ function populateItemsList(rows = "") {
     
     setTimeout(() => {
         populateItemDropDown();
+    }, 10);
+
+    setTimeout(function () {
+        colorFavoriteItems();
     }, 10);
 }
 
