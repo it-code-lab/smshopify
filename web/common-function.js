@@ -1327,7 +1327,7 @@ function getCreateStore(tags, itemstr) {
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let writer = tags[0].writer;
+    let city_state_country = tags[0].city_state_country;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
 
@@ -1448,7 +1448,7 @@ function getOneItemOfShop(tags, itemstr) {
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let writer = tags[0].writer;
+    let city_state_country = tags[0].city_state_country;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
 
@@ -1572,7 +1572,7 @@ function getFullShopDetails(tags, itemstr) {
     let titleseq = tags[0].titleseq;
     let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let writer = tags[0].writer;
+    let city_state_country = tags[0].city_state_country;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
 
@@ -1620,7 +1620,7 @@ function getFullShopDetails(tags, itemstr) {
 
         sessionStorage.setItem("data-description", description);
 
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
@@ -1908,7 +1908,7 @@ function editItem(btn) {
     let titleseq = btn.dataset.titleseq;
     let shortdescription = btn.dataset.shortdescription;
     let description = sessionStorage.getItem("data-description");
-    let writer = btn.dataset.writer;
+    let city_state_country = btn.dataset.city_state_country;
     let keywords = btn.dataset.keywords;
     let discontinue = btn.dataset.discontinue;
 
@@ -2149,8 +2149,8 @@ function editItem(btn) {
 
 
     newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Writer: </div><br>" +
-        "<input type='text' id='writer-" + itemid + "' style='width:95%; margin:auto;' value='" + writer + "'>";
+        "<br><br><div class = 'editFieldHead'>city_state_country: </div><br>" +
+        "<input type='text' id='city_state_country-" + itemid + "' style='width:95%; margin:auto;' value='" + city_state_country + "'>";
 
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
@@ -4113,7 +4113,7 @@ function updateDescription(itemid, createNewItem) {
         versionseq = document.getElementById("versionseq-" + itemid).value;
         shortdescription = document.getElementById("shortdescription-" + itemid).value;
 
-        writer = document.getElementById("writer-" + itemid).value;
+        city_state_country = document.getElementById("city_state_country-" + itemid).value;
         keywords = document.getElementById("keywords-" + itemid).value;
         discontinue = document.getElementById("discontinue-" + itemid).value;
 
@@ -4157,7 +4157,7 @@ function updateDescription(itemid, createNewItem) {
     //let regex = /\\/g;
     description = description.replace(/\\/g, "\\\\");
 
-    writer = writer.replaceAll("'", "''");
+    city_state_country = city_state_country.replaceAll("'", "''");
     keywords = keywords.replaceAll("'", "''");
 
 
@@ -4174,7 +4174,7 @@ function updateDescription(itemid, createNewItem) {
             versionseq: versionseq,
             shortdescription: shortdescription,
             description: description,
-            writer: writer,
+            city_state_country: city_state_country,
             keywords: keywords,
             discontinue: discontinue,
             createNewItem: createNewItem,
@@ -4246,6 +4246,8 @@ async function saveNewStore(itemid, createNewItem) {
         "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
         "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
 
+    let city_state_country = document.getElementById("shopcity").innerHTML + "~" + document.getElementById("shopstate").innerHTML + "~" + document.getElementById("shopcountry").innerHTML ;
+
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
             errorInfo = errorInfo + "Location address is checked but information is not provided." + "<br>";
@@ -4282,7 +4284,7 @@ async function saveNewStore(itemid, createNewItem) {
     let versionseq = "1";
     let shortdescription = "";
     let description = document.querySelector(".storeDescriptionCls").innerHTML;
-    let writer = "";
+
     let keywords = "";
     let discontinue = "0";
 
@@ -4307,7 +4309,7 @@ async function saveNewStore(itemid, createNewItem) {
             versionseq: versionseq,
             shortdescription: shortdescription,
             description: description,
-            writer: writer,
+            city_state_country: city_state_country,
             keywords: keywords,
             discontinue: discontinue,
             createNewItem: createNewItem,
@@ -4371,7 +4373,7 @@ async function saveNewStore(itemid, createNewItem) {
                 versionseq: versionseq,
                 shortdescription: shortdescription,
                 description: "",
-                writer: writer,
+                city_state_country: city_state_country,
                 keywords: keywords,
                 discontinue: discontinue,
                 createNewItem: createNewItem,
@@ -4451,6 +4453,8 @@ function saveItemChanges(evt) {
     let description = "";
     let uselocationfromaddress = "";
 
+    let city_state_country = document.getElementById("shopcity").innerHTML + "~" + document.getElementById("shopstate").innerHTML + "~" + document.getElementById("shopcountry").innerHTML ;
+
     if (itemType == "store") {
         bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
         displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
@@ -4510,7 +4514,7 @@ function saveItemChanges(evt) {
                 versionseq: "1",
                 shortdescription: "",
                 description: "",
-                writer: "",
+                city_state_country: city_state_country,
                 keywords: "",
                 discontinue: "0",
                 createNewItem: createNewItem,
@@ -4583,7 +4587,7 @@ function saveItemChanges(evt) {
                     versionseq: versionseq,
                     shortdescription: "",
                     description: description,
-                    writer: "",
+                    city_state_country: city_state_country,
                     keywords: "",
                     discontinue: "0",
                     createNewItem: createNewItem,
@@ -5070,6 +5074,9 @@ function populateItemsList(rows = "") {
         category = rows[i].category;
         storename = rows[i].storename;
 
+        if (rows[i].title == storename){
+            continue;
+        }
         let storeNameSpaceReplaced = storename.replaceAll(" ", "-");
         category = category.replaceAll(" ", "-");
 
@@ -5084,13 +5091,17 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container cursor_pointer" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
         innerHTML = innerHTML +  rows[i].itemimages ;
 
         innerHTML = innerHTML + '<div class="itemListView-Header" >' ;
+
+        innerHTML = innerHTML + "<div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div>"; //color_red_heart, color_light_pink
+
+        innerHTML = innerHTML + "<div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
 
             if (rows[i].title != undefined) {
                 if (rows[i].title != "") {
@@ -5105,7 +5116,14 @@ function populateItemsList(rows = "") {
                         + '<div class="shopItemPrice ">' + rows[i].itemprice + '</div>';
                 }
             }
-       
+
+            if (rows[i].city_state_country != undefined) {
+                if (rows[i].city_state_country != "") {
+                    let arr = rows[i].city_state_country.split("~");
+                    innerHTML = innerHTML  + '<div class="shopCityStateCntry ">' + arr[0] + '</div>';
+                }
+            }
+
             if (rows[i].lastupdatedate != undefined) {
                 if (rows[i].lastupdatedate != "") {
                     innerHTML = innerHTML
