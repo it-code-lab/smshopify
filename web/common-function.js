@@ -1448,7 +1448,8 @@ function getCreateStore() {
 
 
     $('html, body').animate({
-        scrollTop: $("#itemListDivId").offset().top - 40
+        //scrollTop: $("#itemListDivId").offset().top - 40
+        scrollTop: $("#itemListDivId").offset().top - 80
     }, 100);
 
 }
@@ -1567,7 +1568,8 @@ function getOneItemOfShop(tags, itemstr) {
 
 
     $('html, body').animate({
-        scrollTop: $("#itemListDivId").offset().top - 40
+        //scrollTop: $("#itemListDivId").offset().top - 40
+        scrollTop: $("#itemListDivId").offset().top - 80
     }, 100);
 
 
@@ -1727,7 +1729,8 @@ function getFullShopDetails(tags, itemstr) {
 
 
     $('html, body').animate({
-        scrollTop: $("#itemListDivId").offset().top - 40
+        //scrollTop: $("#itemListDivId").offset().top - 40
+        scrollTop: $("#itemListDivId").offset().top - 80
     }, 100);
 
     setTimeout(function () {
@@ -5907,7 +5910,8 @@ function categoryClicked(categoryNameOrig) {
     document.querySelector("#selectStoreTypeDivId").style.display = "none";
 
     $('html, body').animate({
-        scrollTop: $("#itemDivId").offset().top - 40
+        //scrollTop: $("#itemDivId").offset().top - 40
+        scrollTop: $("#itemDivId").offset().top - 80
     }, 100);
 
     setTimeout(function () {
