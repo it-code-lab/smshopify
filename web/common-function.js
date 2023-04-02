@@ -1533,8 +1533,8 @@ function getOneItemOfShop(tags, itemstr) {
     document.getElementById("itemEditDivId").style.display = "none";
 
     //START: Change the background color of the active item link 
-    let elemId = "itemDiv-" + itemid;
-    document.getElementById(elemId).style.backgroundColor = "orange";
+    //let elemId = "itemDiv-" + itemid;
+    //document.getElementById(elemId).style.backgroundColor = "orange";
     //END: Change the background color of the active item link
 
     let metaDesc = shortdescription;
@@ -3612,7 +3612,7 @@ function myStore() {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
-        let x = document.getElementById("toastsnackbar");
+        let x = document.getElementById("toastsnackbar_center");
         x.innerHTML = "Please login to create or access your store";
         x.className = "show";
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);

@@ -612,20 +612,80 @@
 /*****************TOAST***************************************/
 /**https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar***/
 /*************************************************************/
-#toastsnackbar {
+#toastsnackbar_center {
     visibility: hidden;
     min-width: 250px;
-    margin-left: -125px;
+    
     background-color: rgb(247, 199, 122);
     color: #000;
     text-align: center;
     border-radius: 2px;
     padding: 16px;
+    font-size: 17px;
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+
+    z-index: 500;
+    
+  }
+  
+  #toastsnackbar_center.show {
+    visibility: visible;
+    -webkit-animation: toastfadein_center 0.5s, toastfadeout_center 0.5s 2.5s;
+    animation: toastfadein_center 0.5s, toastfadeout_center 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes toastfadein_center {
+    from { opacity: 0;} 
+    to { opacity: 1;}
+  }
+  
+  @keyframes toastfadein_center {
+    from { opacity: 0;}
+    to { opacity: 1;}
+  }
+  
+  @-webkit-keyframes toastfadeout_center {
+    from { opacity: 1;} 
+    to { opacity: 0;}
+  }
+  
+  @keyframes toastfadeout_center {
+    from { opacity: 1;}
+    to { opacity: 0;}
+  }
+
+
+
+
+
+
+
+
+  #toastsnackbar {
+    visibility: hidden;
+    min-width: 250px;
+    
+    background-color: rgb(247, 199, 122);
+    color: #000;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    font-size: 17px;
+
+
+    
     position: fixed;
     z-index: 500;
     left: 50%;
     bottom: 30px;
-    font-size: 17px;
+    margin-left: -125px; 
+    
   }
   
   #toastsnackbar.show {
