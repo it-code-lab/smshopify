@@ -467,8 +467,24 @@
 
 }
 
+/***************POSITION**********************/
+/****************************************** */
+.position_relative{
+    position: relative;
+}
 
+.position_absolute{
+    position: absolute;
+}
 
+.position_absolute_center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 /***************FONT SIZE**********************/
 /****************************************** */
 .font_family_style1 {
@@ -514,6 +530,18 @@
 .button_type2:hover {
     background-color: #5a5c5b;
 }
+
+.button_type3 {
+    padding: 4px;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
 
 
 /***************SHADOWS*********************************/

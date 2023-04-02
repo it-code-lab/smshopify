@@ -3588,22 +3588,30 @@ function addComponent(itemid, type, elem = "dummy") {
 function myStore() {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store"
-            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-            + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
-
-        let elem = document.getElementById("mystoreLinkId");
-
-        $("#popupDivId").css({
-            'position': 'absolute',
-            'left': 50,
-            'top': 50,
-            'display': 'block'
-        })
-
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Please login to create or access your store";
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         return;
+
+
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store"
+        //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        //     + "</div>";
+
+        // document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        // let elem = document.getElementById("mystoreLinkId");
+
+        // $("#popupDivId").css({
+        //     'position': 'absolute',
+        //     'left': 50,
+        //     'top': 50,
+        //     'display': 'block'
+        // })
+
+        // return;
     } 
 
     document.getElementById("languageScanResultDivId").style.display = "none";
@@ -4488,7 +4496,7 @@ function saveItemChanges(evt) {
 
     if (itemid == "new") {
         if (title == "") {
-            parentDiv.parentNode.removeChild(parentDiv);
+            //parentDiv.parentNode.removeChild(parentDiv);
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Please provide name";
@@ -5091,15 +5099,18 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemListView-container" data-itemid="'+ rows[i].itemid +'" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
-        innerHTML = innerHTML +  rows[i].itemimages ;
+        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent">' + rows[i].itemimages ;
+
+        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
 
         innerHTML = innerHTML + '<div class="itemListView-Header" >' ;
 
-        innerHTML = innerHTML + "<div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div>"; //color_red_heart, color_light_pink
+
+        innerHTML = innerHTML + "<div><div><div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div></div></div>"; //color_red_heart, color_light_pink
 
         innerHTML = innerHTML + "<div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
 

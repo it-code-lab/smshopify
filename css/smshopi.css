@@ -100,11 +100,7 @@
     z-index: 500; */
 }
 
-.itemListView-container > * .myitemImages{
-    height: 200px;
-    width: 100%;
-    box-shadow:none
-}
+
 /* .myitemImages:hover{
     transform: scale(2);
 } */
@@ -658,6 +654,38 @@ input.confirmBtn:hover {
     height: 120px;
     font-size: 12px;
 }
+
+.hoverShowBtn {
+    display: block;
+    color: transparent;
+    background-color: transparent;
+    -webkit-transition: all 700ms linear;
+    transition: all 700ms linear;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.itemListView-container > * .myitemImages{
+    height: 200px;
+    width: 100%;
+    box-shadow:none
+}
+
 .itemListView-container > * a.navbtn , a.prevItmImg, a.nextItmImg{
     display: none !important;
+}
+
+
+.itemListView-container:hover > * .hoverShowBtn, .hoverShowBtn:hover {
+    display: block;
+    background-color: #AD310B;
+    color: #fff;
+
 }
