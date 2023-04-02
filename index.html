@@ -147,6 +147,15 @@
             <a id="loginLinkId" href="/smshopify/?target=login">LOG IN</a>
             <a id="logoutLinkId" style="display:none" href="javascript:Logout()">LOGOUT</a>
             <a id="mystoreLinkId" href="javascript:myStore()">CREATE MY STORE</a>
+
+
+
+            <a id="itemsearchDivId"><input id='item-search-box' type='text' name='item' autocomplete='off'
+               placeholder='search' />
+            <button id="itemsearchBtnId" class=''
+               onclick='searchItem(); return false;'><i class="fas fa-search"></i></button>
+            </a>
+
             <!-- <a id=" buymecoffee" href="https://www.buymeacoffee.com/smah" target="_blank">
                <i id="coffeeBtn" class="fas fa-coffee"
                   style=" font-size: 12px; border-radius: 5px; padding: 2px; ">&nbsp; <span
@@ -239,15 +248,11 @@
                <!--***********************START - items LIST DIV************--->
                <!--*************************************************************--->
 
-               <div class='showItemsListDiv'>Show List
-               </div>
+               <!-- <div class='showItemsListDiv'>Show List
+               </div> -->
 
                <div id="itemListDivId">
-                  <div id="itemsearchDivId"><input id='item-search-box' type='text' name='item' autocomplete='off'
-                        placeholder='search' />
-                     <button id="itemsearchBtnId" class='width_60px searchButtonCls'
-                        onclick='searchItem(); return false;'>Search</button>
-                  </div>
+
                   <div id="itemListInnerDivId" ></div>
 
                </div>
@@ -262,9 +267,9 @@
                <!--*************************************************************--->
 
 
-               <div id="profileDivId" class="profile">
-
-               </div>
+               <!-- <div id="profileDivId" class="profile"> -->
+               <!-- </div> -->
+               
                <!--*************************************************************--->
                <!--**START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
                <!--*************************************************************--->

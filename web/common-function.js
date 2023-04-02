@@ -840,9 +840,9 @@ function Show(pageName) {
 
 
         showHelpDivMessage("Login to add or make updates to the help scan codes");
-    } else if (pageName == "profile") {
-        document.getElementById("bgSVGId").style.display = "none";
-        showProfile();
+    // } else if (pageName == "profile") {
+    //     document.getElementById("bgSVGId").style.display = "none";
+    //     showProfile();
 
 
     } else if (pageName == "contactus") {
@@ -1176,9 +1176,9 @@ function checkURL() {
         document.getElementById("helpDisplayDivId").style.display = "none";
         //showHelpDivMessage("Contact us if you have any questions, feedback or are interested in purchasing the software. Some features have been disabled on the web version for security reasons. Full feature software can be used for software training/development, creating references and documentation for the software application. <br><br> If you found the site helpful, you can support our work by buying me a coffee by clicking on the coffee button at the top.");
 
-    } else if (pageName == "profile") {
-        document.getElementById("bgSVGId").style.display = "none";
-        showProfile();
+    // } else if (pageName == "profile") {
+    //     document.getElementById("bgSVGId").style.display = "none";
+    //     showProfile();
     } else if (pageName == "howto") {
         document.getElementById("bgSVGId").style.display = "none";
         //document.getElementById("filescannerDivId").style.display = "none";
@@ -1512,10 +1512,12 @@ function getOneItemOfShop(tags, itemstr) {
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
 
     document.getElementById("itemDivId").innerHTML = newHTML;
-    refreshCaptcha();
 
-    showcategory(category);
-    showAllShopItemsInLeftPane(storeRow[0].title);
+    //refreshCaptcha();
+
+    //showcategory(category);
+    //showAllShopItemsInLeftPane(storeRow[0].title);
+    document.getElementById("itemEditDivId").style.display = "none";
 
     //START: Change the background color of the active item link 
     let elemId = "itemDiv-" + itemid;
@@ -4001,53 +4003,53 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
     return contentToAdd;
 }
 
-function showProfile() {
-    let userdata = localStorage.getItem("userdata");
-    let userObjs;
-    let scoresList;
-    let newHTML = "";
-    if ((userdata != null) && (userdata != "")) {
-        userObjs = JSON.parse(userdata);
-        scoresList = userObjs.scores;
-        newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div>";
-        newHTML = newHTML + "<table class ='scorestablecls' ><tr><th>Quiz</th><th>Score</th><th>Datetime</th></tr>";
-        for (let key in scoresList) {
-            let obj = scoresList[key];
-            let qzURL = (obj.quiz).split("/items/");
-            let link = qzURL[1];
+// function showProfile() {
+//     let userdata = localStorage.getItem("userdata");
+//     let userObjs;
+//     let scoresList;
+//     let newHTML = "";
+//     if ((userdata != null) && (userdata != "")) {
+//         userObjs = JSON.parse(userdata);
+//         scoresList = userObjs.scores;
+//         newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div>";
+//         newHTML = newHTML + "<table class ='scorestablecls' ><tr><th>Quiz</th><th>Score</th><th>Datetime</th></tr>";
+//         for (let key in scoresList) {
+//             let obj = scoresList[key];
+//             let qzURL = (obj.quiz).split("/items/");
+//             let link = qzURL[1];
 
-            newHTML = newHTML + "<tr><td> <a class= 'itemLink' href='" + obj.quiz + "'> " + link + " </a></td><td>" + obj.percent + "% </td><td>" + obj.time + "</td></tr>"
+//             newHTML = newHTML + "<tr><td> <a class= 'itemLink' href='" + obj.quiz + "'> " + link + " </a></td><td>" + obj.percent + "% </td><td>" + obj.time + "</td></tr>"
 
-        }
-        newHTML = newHTML + "</table>";
-    } else {
-        newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div> No scores found";
-    }
+//         }
+//         newHTML = newHTML + "</table>";
+//     } else {
+//         newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div> No scores found";
+//     }
 
-    //document.getElementById("HelpTopicsDivId").style.display = "none";
-    document.getElementById("accActivatedDivId").style.display = "none";
-    document.getElementById("contactusDivId").style.display = "none";
-   // document.getElementById("filescannerDivId").style.display = "none";
-    document.getElementById("forgotPWDivId").style.display = "none";
-    document.getElementById("forgotPasswordSecDivId").style.display = "none";
-    //document.getElementById("helpDetailsDivId").style.display = "none";
-    document.getElementById("homeDivId").style.display = "none";
-    document.getElementById("howtoDivId").style.display = "none";
-    //document.getElementById("languageOverride").style.display = "none";
-    //document.getElementById("languageScanResultDivId").style.display = "none";
-    document.getElementById("loginDivId").style.display = "none";
-    document.getElementById("loginSecDivId").style.display = "none";
-    document.getElementById("projectscannerDivId").style.display = "none";
-    document.getElementById("registerSecDivId").style.display = "none";
-    document.getElementById("itemDivId").style.display = "none";
-    document.getElementById("itemEditDivId").style.display = "none";
-    document.getElementById("itemListDivId").style.display = "none";
-    document.getElementById("helpDisplayDivId").style.display = "none";
+//     //document.getElementById("HelpTopicsDivId").style.display = "none";
+//     document.getElementById("accActivatedDivId").style.display = "none";
+//     document.getElementById("contactusDivId").style.display = "none";
+//    // document.getElementById("filescannerDivId").style.display = "none";
+//     document.getElementById("forgotPWDivId").style.display = "none";
+//     document.getElementById("forgotPasswordSecDivId").style.display = "none";
+//     //document.getElementById("helpDetailsDivId").style.display = "none";
+//     document.getElementById("homeDivId").style.display = "none";
+//     document.getElementById("howtoDivId").style.display = "none";
+//     //document.getElementById("languageOverride").style.display = "none";
+//     //document.getElementById("languageScanResultDivId").style.display = "none";
+//     document.getElementById("loginDivId").style.display = "none";
+//     document.getElementById("loginSecDivId").style.display = "none";
+//     document.getElementById("projectscannerDivId").style.display = "none";
+//     document.getElementById("registerSecDivId").style.display = "none";
+//     document.getElementById("itemDivId").style.display = "none";
+//     document.getElementById("itemEditDivId").style.display = "none";
+//     document.getElementById("itemListDivId").style.display = "none";
+//     document.getElementById("helpDisplayDivId").style.display = "none";
 
 
-    document.getElementById("profileDivId").style.display = "block";
-    document.getElementById("profileDivId").innerHTML = newHTML;
-}
+//     document.getElementById("profileDivId").style.display = "block";
+//     document.getElementById("profileDivId").innerHTML = newHTML;
+// }
 
 function refreshPage() {
     let path = window.location.pathname;

@@ -833,14 +833,14 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 /*************************************************************/
 /*END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC********/
 /*************************************************************/
-#profileDivId {
+/* #profileDivId {
   display: none;
   width: 100%;
   min-height: 90vh;
   margin: auto;
   padding: 0px 0px 20px 0px;
   background-color: #fff;
-}
+} */
 
 .scorestablecls {
   font-family: Arial, Helvetica, sans-serif;
@@ -957,6 +957,9 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   color: black;
 }
 
+.topnav a:hover >*  {
+  color: black;
+}
 .topnav a.active {
   background-color: #04AA6D;
   color: white;
@@ -2633,28 +2636,33 @@ ul.unordered-list-arrow li:before {
   background-color: rgb(250, 250, 250);
 }
 
-.showItemsListDiv {
+/* .showItemsListDiv {
   display: none;
-}
+} */
 
 .discontinued {
   background-color: yellow;
 }
 
 #itemsearchDivId {
-  margin-top: 10px;
+  /* margin-top: 10px;
   margin-right: 20px;
-  text-align: end;
+  text-align: end; */
 }
 
 #item-search-box {
-  width: calc(100% - 120px);
-  max-width: 500px;
+  /* width: calc(100% - 120px);
+  max-width: 500px; */
+  width: 200px;
+  border-radius: 10px;
 }
 
-/* #itemsearchBtnId {
-  width: 60px;
-} */
+ #itemsearchBtnId {
+  /* width: 60px; */
+  background: transparent;
+  border: none;
+  color: #b39265;
+} 
 
 .searchButtonCls {
   border: none;
