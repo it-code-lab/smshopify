@@ -588,59 +588,59 @@ function hideDiv(divId) {
 
     document.getElementById(divId).style.display = "none";
     if (divId == "HelpTopicsDivId") {
-        document.getElementById("languageScanResultDivId").style.display = "none";
-        document.getElementById("languageOverride").style.display = "none";
-        document.getElementById("helpDetailsDivId").style.display = "none";
-        document.getElementById("helpDivMessage").style.display = "block";
+        //document.getElementById("languageScanResultDivId").style.display = "none";
+        //document.getElementById("languageOverride").style.display = "none";
+        //document.getElementById("helpDetailsDivId").style.display = "none";
+        //document.getElementById("helpDivMessage").style.display = "block";
 
-        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
+        //document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
         document.getElementById("helpDisplayDivId").style.width = "100%";
         //document.getElementById("helpDisplayDivId").style.overflow = "hidden";
     }
 
-    else if (divId == "projectscannerDivId") {
-        if (document.getElementById("filescannerDivId").style.display == "block") {
-            if (!onMobileBrowser()) {
-                document.getElementById("filescannerDivId").style.width = "70%";
-            }
+    // else if (divId == "projectscannerDivId") {
+    //     if (document.getElementById("filescannerDivId").style.display == "block") {
+    //         if (!onMobileBrowser()) {
+    //             document.getElementById("filescannerDivId").style.width = "70%";
+    //         }
 
-        } else {
-            document.getElementById("languageScanResultDivId").style.display = "none";
-            document.getElementById("languageOverride").style.display = "none";
-            document.getElementById("helpDetailsDivId").style.display = "none";
-            document.getElementById("helpDivMessage").style.display = "block";
-            document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
-            document.getElementById("helpDisplayDivId").style.width = "100%";
+    //     } else {
+    //         document.getElementById("languageScanResultDivId").style.display = "none";
+    //         document.getElementById("languageOverride").style.display = "none";
+    //         document.getElementById("helpDetailsDivId").style.display = "none";
+    //         document.getElementById("helpDivMessage").style.display = "block";
+    //         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
+    //         document.getElementById("helpDisplayDivId").style.width = "100%";
 
-        }
-    }
+    //     }
+    // }
 
-    else if (divId == "filescannerDivId") {
-        if (document.getElementById("projectscannerDivId").style.display == "block") {
-            if (!onMobileBrowser()) {
-                document.getElementById("projectscannerDivId").style.width = "100%";
-            }
+    // else if (divId == "filescannerDivId") {
+    //     if (document.getElementById("projectscannerDivId").style.display == "block") {
+    //         if (!onMobileBrowser()) {
+    //             document.getElementById("projectscannerDivId").style.width = "100%";
+    //         }
 
-        } else {
-            document.getElementById("languageScanResultDivId").style.display = "none";
-            document.getElementById("languageOverride").style.display = "none";
-            document.getElementById("helpDetailsDivId").style.display = "none";
-            document.getElementById("helpDivMessage").style.display = "block";
-            document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
-            document.getElementById("helpDisplayDivId").style.width = "100%";
-            //document.getElementById("helpDisplayDivId").style.overflow = "hidden";
-        }
-    } else if (divId == "helpDetailsDivId") {
-        document.getElementById("helpDivMessage").style.display = "block";
-        document.getElementById("languageOverride").style.display = "none";
+    //     } else {
+    //         document.getElementById("languageScanResultDivId").style.display = "none";
+    //         document.getElementById("languageOverride").style.display = "none";
+    //         document.getElementById("helpDetailsDivId").style.display = "none";
+    //         document.getElementById("helpDivMessage").style.display = "block";
+    //         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
+    //         document.getElementById("helpDisplayDivId").style.width = "100%";
+    //         //document.getElementById("helpDisplayDivId").style.overflow = "hidden";
+    //     }
+    // } else if (divId == "helpDetailsDivId") {
+    //     document.getElementById("helpDivMessage").style.display = "block";
+    //     document.getElementById("languageOverride").style.display = "none";
 
-    }
+    // }
 }
 
 function Show(pageName) {
     //console.log ("Show called for page " + pageName);
 
-    document.getElementById("filelvlhelpdivid").style.display = "none";
+    //document.getElementById("filelvlhelpdivid").style.display = "none";
 
     if (onMobileBrowser()) {
 
@@ -652,9 +652,9 @@ function Show(pageName) {
     document.getElementById("helpDisplayDivId").style.display = "block";
     //Update url
 
-    document.getElementById("languageScanResultDivId").style.display = "none";
-    document.getElementById("languageOverride").style.display = "none";
-    document.getElementById("helpDetailsDivId").style.display = "none";
+    //document.getElementById("languageScanResultDivId").style.display = "none";
+    //document.getElementById("languageOverride").style.display = "none";
+    //document.getElementById("helpDetailsDivId").style.display = "none";
     document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
@@ -680,14 +680,14 @@ function Show(pageName) {
     window.history.pushState(nextState, nextTitle, nextURL);
 
 
-    let x = document.getElementById("filescannerLinkId");
-    x.classList.remove("active");
+    //let x = document.getElementById("filescannerLinkId");
+    //x.classList.remove("active");
 
-    x = document.getElementById("projectscannerLinkId");
-    x.classList.remove("active");
+    //x = document.getElementById("projectscannerLinkId");
+    //x.classList.remove("active");
 
-    x = document.getElementById("HelpTopicsLinkId");
-    x.classList.remove("active");
+    //x = document.getElementById("HelpTopicsLinkId");
+    //x.classList.remove("active");
 
     x = document.getElementById("loginLinkId");
     x.classList.remove("active");
@@ -717,93 +717,95 @@ function Show(pageName) {
 
     //document.getElementById("mainContainer").style.width = "70%";
 
-    if (pageName == "filescanner") {
-        document.getElementById("bgSVGId").style.display = "none";
+    // if (pageName == "filescanner") {
+    //     document.getElementById("bgSVGId").style.display = "none";
 
-        document.getElementById("btnCloseFileScanner").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none"
+    //     document.getElementById("btnCloseFileScanner").style.display = "none";
+    //     document.getElementById("HelpTopicsDivId").style.display = "none";
+    //     document.getElementById("projectscannerDivId").style.display = "none"
 
-        document.getElementById("filescannerDivId").style.display = "block"
-        document.getElementById("filescannerDivId").style.width = "100%";
-
-
-
-
-        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Enter the code in the text area on the left or select a file using 'Open File' button. <br> Click on the scan button to view the help codes available."
-
-        /******************SM TODO********************/
-        let default_text =
-            "//Either paste the code here or select code file using 'Open File' button and click on Scan button.";
-        let textArea = $('#source')[0];
-        $('#source').val(default_text);
-
-        if (the.use_codemirror && typeof CodeMirror !== 'undefined') {
-
-            if (!the.editor) {
-                the.editor = CodeMirror.fromTextArea(textArea, {
-                    lineNumbers: true
-                });
-                set_editor_mode();
-                the.editor.focus();
-            }
-            $('.CodeMirror').click(function () {
-                //console.log("Area clicked 1");
-                if (the.editor.getValue() === default_text) {
-                    the.editor.setValue('');
-                }
-            });
-        } else {
-            $('#source').bind('click focus', function () {
-                if ($(this).val() === default_text) {
-                    $(this).val('');
-                }
-            }).bind('blur', function () {
-                if (!$(this).val()) {
-                    //console.log("bind blur 1");
-                    $(this).val(default_text);
-                }
-            });
-        }
+    //     document.getElementById("filescannerDivId").style.display = "block"
+    //     document.getElementById("filescannerDivId").style.width = "100%";
 
 
 
-    } else if (pageName == "projectscanner") {
-        document.getElementById("bgSVGId").style.display = "none";
-        if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
-            document.getElementById("addNewProjBtnId").style.display = "block";
-        } else {
-            document.getElementById("addNewProjBtnId").style.display = "none";
-        }
 
-        if (document.getElementById("projectscannerDivId").style.display == "none") {
-            document.getElementById("HelpTopicsDivId").style.display = "none";
-            document.getElementById("projectscannerDivId").style.display = "block"
+    //     document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Enter the code in the text area on the left or select a file using 'Open File' button. <br> Click on the scan button to view the help codes available."
+
+    //     /******************SM TODO********************/
+    //     let default_text =
+    //         "//Either paste the code here or select code file using 'Open File' button and click on Scan button.";
+    //     let textArea = $('#source')[0];
+    //     $('#source').val(default_text);
+
+    //     if (the.use_codemirror && typeof CodeMirror !== 'undefined') {
+
+    //         if (!the.editor) {
+    //             the.editor = CodeMirror.fromTextArea(textArea, {
+    //                 lineNumbers: true
+    //             });
+    //             set_editor_mode();
+    //             the.editor.focus();
+    //         }
+    //         $('.CodeMirror').click(function () {
+    //             //console.log("Area clicked 1");
+    //             if (the.editor.getValue() === default_text) {
+    //                 the.editor.setValue('');
+    //             }
+    //         });
+    //     } else {
+    //         $('#source').bind('click focus', function () {
+    //             if ($(this).val() === default_text) {
+    //                 $(this).val('');
+    //             }
+    //         }).bind('blur', function () {
+    //             if (!$(this).val()) {
+    //                 //console.log("bind blur 1");
+    //                 $(this).val(default_text);
+    //             }
+    //         });
+    //     }
 
 
-            document.getElementById("filescannerDivId").style.display = "none"
-            document.getElementById("projectscannerDivId").style.width = "100%";
 
-        }
-        populateStoredProjectList();
-        showHelpDivMessage("Upload project files and click on the file to scan the code");
+    // } else if (pageName == "projectscanner") {
+    //     document.getElementById("bgSVGId").style.display = "none";
+    //     if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
+    //         document.getElementById("addNewProjBtnId").style.display = "block";
+    //     } else {
+    //         document.getElementById("addNewProjBtnId").style.display = "none";
+    //     }
 
-    } else if (pageName == "HelpTopics") {
-        document.getElementById("bgSVGId").style.display = "none";
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none"
-
-        document.getElementById("HelpTopicsDivId").style.display = "block";
-        document.getElementById("HelpTopicsDivId").style.width = "100%";
+    //     if (document.getElementById("projectscannerDivId").style.display == "none") {
+    //         document.getElementById("HelpTopicsDivId").style.display = "none";
+    //         document.getElementById("projectscannerDivId").style.display = "block"
 
 
-        //document.getElementById("helpDivMessage").innerHTML = "Click on the help code to view the help details"
-        showHelpDivMessage("Select language to display the help content list available then click on the help code to view the help details");
-    } else if (pageName == "item") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none"
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("helpDisplayDivId").style.display = "none";
+    //         document.getElementById("filescannerDivId").style.display = "none"
+    //         document.getElementById("projectscannerDivId").style.width = "100%";
+
+    //     }
+    //     populateStoredProjectList();
+    //     showHelpDivMessage("Upload project files and click on the file to scan the code");
+
+    // } else if (pageName == "HelpTopics") {
+    //     document.getElementById("bgSVGId").style.display = "none";
+    //     document.getElementById("filescannerDivId").style.display = "none";
+    //     document.getElementById("projectscannerDivId").style.display = "none"
+
+    //     document.getElementById("HelpTopicsDivId").style.display = "block";
+    //     document.getElementById("HelpTopicsDivId").style.width = "100%";
+
+
+    //     //document.getElementById("helpDivMessage").innerHTML = "Click on the help code to view the help details"
+    //     showHelpDivMessage("Select language to display the help content list available then click on the help code to view the help details");
+    //} else 
+    
+    if (pageName == "item") {
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none"
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("itemDivId").style.display = "none";
         //document.getElementById("itemDivId").style.display = "block";
         //document.getElementById("itemDivId").style.width = "100%";
@@ -814,9 +816,9 @@ function Show(pageName) {
         $(".cardsContainerDivClassPadd").css("height", "200px");
 
     } else if (pageName == "login") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
 
         document.getElementById("loginDivId").style.display = "block";
 
@@ -841,9 +843,9 @@ function Show(pageName) {
 
 
     } else if (pageName == "contactus") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "block";
         //document.getElementById("contactusDivId").style.width = "70%";
 
@@ -859,10 +861,10 @@ function Show(pageName) {
 
     } else if (pageName == "howto") {
         document.getElementById("bgSVGId").style.display = "none";
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
-        document.getElementById("helpDisplayDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "block";
         document.getElementById("howtoDivId").style.width = "95%";
@@ -871,10 +873,10 @@ function Show(pageName) {
 
 
     } else if (pageName == "home") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
-        document.getElementById("helpDisplayDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "block";
@@ -973,7 +975,7 @@ function checkURL() {
         }
         document.getElementById("logoutLinkId").style.display = "none";
         //document.getElementById("mystoreLinkId").style.display = "none";
-        document.getElementById("HelpTopicsLinkId").style.display = "none";
+        //document.getElementById("HelpTopicsLinkId").style.display = "none";
 
     } else {
 
@@ -1024,19 +1026,19 @@ function checkURL() {
             return;
         }
 
-        document.getElementById("languageScanResultDivId").style.display = "none";
-        document.getElementById("languageOverride").style.display = "none";
-        document.getElementById("helpDetailsDivId").style.display = "none";
+        //document.getElementById("languageScanResultDivId").style.display = "none";
+        //document.getElementById("languageOverride").style.display = "none";
+        //document.getElementById("helpDetailsDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "none";
 
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none"
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none"
 
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("helpDisplayDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("helpDisplayDivId").style.display = "none";
 
         document.getElementById("itemDivId").style.display = "block";
 
@@ -1080,15 +1082,15 @@ function checkURL() {
         document.getElementById("helpDisplayDivId").style.display = "block";
         //Update url
 
-        document.getElementById("languageScanResultDivId").style.display = "none";
-        document.getElementById("languageOverride").style.display = "none";
-        document.getElementById("helpDetailsDivId").style.display = "none";
+        //document.getElementById("languageScanResultDivId").style.display = "none";
+        //document.getElementById("languageOverride").style.display = "none";
+        //document.getElementById("helpDetailsDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
 
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "block";
         //document.getElementById("loginDivId").style.width = "70%";
 
@@ -1112,10 +1114,10 @@ function checkURL() {
     }
 
 
-    document.getElementById("filescannerDivId").style.display = "none";
-    document.getElementById("HelpTopicsDivId").style.display = "none";
-    document.getElementById("projectscannerDivId").style.display = "none";
-    document.getElementById("loginDivId").style.display = "none";
+    //document.getElementById("filescannerDivId").style.display = "none";
+    //document.getElementById("HelpTopicsDivId").style.display = "none";
+    //document.getElementById("projectscannerDivId").style.display = "none";
+    //document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
@@ -1153,17 +1155,17 @@ function checkURL() {
         document.getElementById("projectscannerDivId").style.width = "100%";
         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "block";
         document.getElementById("helpDisplayDivId").style.display = "none";
 
         //showHelpDivMessage("Login to add or make updates to the help scan codes");
     } else if (pageName == "contactus") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "block";
 
 
@@ -1176,25 +1178,25 @@ function checkURL() {
         showProfile();
     } else if (pageName == "howto") {
         document.getElementById("bgSVGId").style.display = "none";
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "block";
         document.getElementById("howtoDivId").style.width = "95%";
         //document.getElementById("mainContainer").style.width = "100%";
         listVideos();
-    } else if (pageName == "filescanner") {
-        document.getElementById("bgSVGId").style.display = "none";
-        document.getElementById("btnCloseFileScanner").style.display = "none";
-        if (localStorage.getItem("newWindowFileName") != null) {
-            loadFile();
+    // } else if (pageName == "filescanner") {
+    //     document.getElementById("bgSVGId").style.display = "none";
+    //     document.getElementById("btnCloseFileScanner").style.display = "none";
+    //     if (localStorage.getItem("newWindowFileName") != null) {
+    //         loadFile();
 
-            localStorage.setItem("newWindowFileName", null);
-            localStorage.setItem("newWindowFileObj", null);
-        }
-        document.getElementById("filescannerDivId").style.width = "100%";
+    //         localStorage.setItem("newWindowFileName", null);
+    //         localStorage.setItem("newWindowFileObj", null);
+    //     }
+    //     document.getElementById("filescannerDivId").style.width = "100%";
     } else if (pageName == "item") {
 
         if (sessionStorage.getItem("itemsList") == null) {
@@ -1206,9 +1208,9 @@ function checkURL() {
             return;
         }
 
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
@@ -1232,9 +1234,9 @@ function checkURL() {
             return;
         }
 
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
@@ -1252,9 +1254,9 @@ function checkURL() {
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
     } else if (pageName == "home") {
-        document.getElementById("filescannerDivId").style.display = "none";
-        document.getElementById("HelpTopicsDivId").style.display = "none";
-        document.getElementById("projectscannerDivId").style.display = "none";
+        //document.getElementById("filescannerDivId").style.display = "none";
+        //document.getElementById("HelpTopicsDivId").style.display = "none";
+        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
@@ -3614,18 +3616,18 @@ function myStore() {
         // return;
     } 
 
-    document.getElementById("languageScanResultDivId").style.display = "none";
-    document.getElementById("languageOverride").style.display = "none";
-    document.getElementById("helpDetailsDivId").style.display = "none";
+    //document.getElementById("languageScanResultDivId").style.display = "none";
+    //document.getElementById("languageOverride").style.display = "none";
+    //document.getElementById("helpDetailsDivId").style.display = "none";
     document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
 
-    document.getElementById("filescannerDivId").style.display = "none";
-    document.getElementById("projectscannerDivId").style.display = "none"
+    //document.getElementById("filescannerDivId").style.display = "none";
+   // document.getElementById("projectscannerDivId").style.display = "none"
 
-    document.getElementById("HelpTopicsDivId").style.display = "none";
+    //document.getElementById("HelpTopicsDivId").style.display = "none";
     document.getElementById("helpDisplayDivId").style.display = "none";
 
     document.getElementById("itemDivId").style.display = "block";
@@ -4019,17 +4021,17 @@ function showProfile() {
         newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div> No scores found";
     }
 
-    document.getElementById("HelpTopicsDivId").style.display = "none";
+    //document.getElementById("HelpTopicsDivId").style.display = "none";
     document.getElementById("accActivatedDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
-    document.getElementById("filescannerDivId").style.display = "none";
+   // document.getElementById("filescannerDivId").style.display = "none";
     document.getElementById("forgotPWDivId").style.display = "none";
     document.getElementById("forgotPasswordSecDivId").style.display = "none";
-    document.getElementById("helpDetailsDivId").style.display = "none";
+    //document.getElementById("helpDetailsDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
-    document.getElementById("languageOverride").style.display = "none";
-    document.getElementById("languageScanResultDivId").style.display = "none";
+    //document.getElementById("languageOverride").style.display = "none";
+    //document.getElementById("languageScanResultDivId").style.display = "none";
     document.getElementById("loginDivId").style.display = "none";
     document.getElementById("loginSecDivId").style.display = "none";
     document.getElementById("projectscannerDivId").style.display = "none";
@@ -4702,15 +4704,15 @@ function activateAccount(pass) {
                 document.getElementById("helpDisplayDivId").style.display = "block";
                 //Update url
 
-                document.getElementById("languageScanResultDivId").style.display = "none";
-                document.getElementById("languageOverride").style.display = "none";
-                document.getElementById("helpDetailsDivId").style.display = "none";
+                //document.getElementById("languageScanResultDivId").style.display = "none";
+                //document.getElementById("languageOverride").style.display = "none";
+                //document.getElementById("helpDetailsDivId").style.display = "none";
                 document.getElementById("contactusDivId").style.display = "none";
                 document.getElementById("howtoDivId").style.display = "none";
 
-                document.getElementById("filescannerDivId").style.display = "none";
-                document.getElementById("HelpTopicsDivId").style.display = "none";
-                document.getElementById("projectscannerDivId").style.display = "none";
+                //document.getElementById("filescannerDivId").style.display = "none";
+                //document.getElementById("HelpTopicsDivId").style.display = "none";
+                //document.getElementById("projectscannerDivId").style.display = "none";
                 document.getElementById("loginDivId").style.display = "block";
                 //document.getElementById("loginDivId").style.width = "70%";
                 document.getElementById("loginerrormsg").innerHTML = "";
