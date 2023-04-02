@@ -1483,7 +1483,9 @@ function getOneItemOfShop(tags, itemstr) {
         '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
     //END - Navigation Links
 
-    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
+    //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
+    newHTML = newHTML + "<div classXX = 'shopContainerSub' >  <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
+ 
     //END - Item name Heading
 
 
@@ -1609,7 +1611,10 @@ function getFullShopDetails(tags, itemstr) {
 
     //END - Navigation Links
 
-    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
+    //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
+
+    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
+
     //END - Item name Heading
 
     if (localStorage.getItem("userLoggedIn") == "n") {

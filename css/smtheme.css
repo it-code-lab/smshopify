@@ -32,6 +32,10 @@
     margin-top: 10px;
 }
 
+.margintop_15px{
+    margin-top: 15px;
+}
+
 .font_size_12px {
     font-size: 12px !important;
 }
@@ -48,6 +52,9 @@
     padding: 50px !important;
 }
 
+.display_block{
+    display: block;
+}
 /***************Label**********************/
 /****************************************** */
 .form_header_label1{
