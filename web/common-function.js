@@ -4517,9 +4517,7 @@ function saveItemChanges(evt) {
             x.className = "show";
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             return;
-        }
-
-        
+        }       
         
         itemid = "";
 
@@ -4563,9 +4561,29 @@ function saveItemChanges(evt) {
                 x.innerHTML = "Item has been saved";
                 x.className = "show";
                 setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            
+                $.ajax({
+                    url: the.hosturl + '/php/process.php',
+                    type: 'POST',
+                    data: jQuery.param({
+                        usrfunction: "getmystorenitems"
+                    }),
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (response) {
+                        //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+                        localStorage.setItem("mystoreitemsList", response);
+                        populateMyStore(JSON.parse(response));
+                    },
+                    error: function (xhr, status, error) {
+                        // console.log(error);
+                        // console.log(xhr);
+                    }
+                });
+
 
             },
             error: function (xhr, status, error) {
+                console.log("failed");
             }
         });
     } else {
@@ -4656,7 +4674,7 @@ function saveItemChanges(evt) {
 
                 },
                 error: function (xhr, status, error) {
-
+                    console.log("failed");
                 }
             });            
         
