@@ -6769,13 +6769,17 @@ function markFavourite(elem) {
 }
 
 function openItemChat(elem) {
-    let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        + "</div>";
+        if (localStorage.getItem("userLoggedIn") == "n") {
+        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
+            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "</div>";
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+        document.getElementById("popupDivId").innerHTML = tempHTML;
 
-    placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtn(elem);
+    } else {
+        initChat(elem);
+    }
 }
 
 function provideReview(elem) {

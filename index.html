@@ -33,6 +33,7 @@
    <link href="/smshopify/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/smshopify/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/smshopify/css/smtheme.css" rel="stylesheet" />
+   <link href="/smshopify/css/chatstyle.css" rel="stylesheet" type="text/css">
    <!-- 
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
          
@@ -110,6 +111,7 @@
    <!---->
    <!-- <script src="/smshopify/web/common-editor-function.js"></script> -->
    <script src="/smshopify/web/common-function.js"></script>
+   <script src="/smshopify/web/chat-function.js"></script>
    <!-----
          <script src="/smshopify/web/common-function-mini.js"></script>
          -->
@@ -566,6 +568,28 @@
    <div id="popupDivId" class="popupDivCls shadow_1 scale-in-ver-top"></div>
    <div id="toastsnackbar_center" class="shadow_1"></div>
    <div id="toastsnackbar" class="shadow_1"></div>
+
+   <div class="chat-widget">
+      <div class="chat-widget-header">
+          <a href="javascript:goToPrev()" class="previous-chat-tab-btn">&lsaquo;</a>
+          <a href="#" class="close-chat-widget-btn">&times;</a>
+      </div>
+      <div class="chat-widget-content">
+          <div class="chat-widget-tabs">
+              <div class="chat-widget-tab chat-widget-login-tab">
+                  <form action="authenticate.php" method="post">
+                      <input type="text" name="name" placeholder="Your Name">
+                      <input type="email" name="email" placeholder="Your Email" required>
+                      <div class="msg"></div>
+                      <button type="submit">Submit</button>
+                  </form>
+              </div>
+              <div class="chat-widget-tab chat-widget-conversations-tab"></div>
+              <div class="chat-widget-tab chat-widget-conversation-tab"></div>
+          </div>
+      </div>
+  </div>
+
    <!-- Bootstrap core JS-->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Core theme JS-->
