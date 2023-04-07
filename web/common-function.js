@@ -5300,6 +5300,11 @@ function populateItemsList(rows = "") {
     setTimeout(function () {
         colorFavoriteItems();
     }, 10);
+
+    setTimeout(() => {
+        hideAllImageNavBtns();
+    }, 20);
+
 }
 
 
@@ -5455,6 +5460,16 @@ function populateStoreItemsList(rows = "") {
 
 }
 
+function hideAllImageNavBtns() {
+
+    let btns = document.querySelectorAll(".navbtn");
+
+    for (j = 0; j < btns.length; j++) {
+        btns[j].style.display = "none";
+    }
+
+
+}
 
 
 function handleShowToggle(checkbox) {

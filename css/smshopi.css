@@ -680,9 +680,9 @@ input.confirmBtn:hover {
     box-shadow:none
 }
 
-.itemListView-container > * a.navbtn , a.prevItmImg, a.nextItmImg{
+/* .itemListView-container > * a.navbtn , a.prevItmImg, a.nextItmImg{
     display: none !important;
-}
+} */
 
 
 .itemListView-container:hover > * .hoverShowBtn, .hoverShowBtn:hover {
