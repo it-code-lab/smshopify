@@ -4358,7 +4358,26 @@ async function saveNewStore(itemid, createNewItem) {
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
-        },
+
+            let StrFunction = "updstoreinfo";
+
+
+            $.ajax({
+                url: the.hosturl + '/php/process.php',
+                data: {
+                    storename: storename   ,
+                    city_state_country: city_state_country   
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (retstatus) {
+                },
+                error: function (xhr, status, error) {
+
+                }
+
+             });
+            },
         error: function (xhr, status, error) {
             if (!itemid == "") {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
@@ -7121,14 +7140,50 @@ function reportIssue(itemid) {
 }
 
 
-function makeElementDraggable(elmnt) {
+function makeElementDraggable(parentElmntId, headerElemId) {
+    let parentElmnt = document.getElementById(parentElmntId);
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(elmnt.id + "-header")) {
+    let isMouseDown;
+    let initX,initY,height = parentElmnt.offsetHeight,width = parentElmnt.offsetWidth;
+
+    if (document.getElementById(headerElemId)) {
       /* if present, the header is where you move the DIV from:*/
-      document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
-    } else {
-      /* otherwise, move the DIV from anywhere inside the DIV:*/
-      elmnt.onmousedown = dragMouseDown;
+      document.getElementById(headerElemId).onmousedown = dragMouseDownA;
+      document.getElementById(headerElemId).onmouseup = endMouseDragB;
+
+
+      document.addEventListener('mousemove', function(e) {
+        if (isMouseDown) {
+          var cx = e.clientX - initX,
+              cy = e.clientY - initY;
+          if (cx < 0) {
+            cx = 0;
+          }
+          if (cy < 0) {
+            cy = 0;
+          }
+          if (window.innerWidth - e.clientX + initX < width) {
+            cx = window.innerWidth - width;
+          }
+          if (e.clientY > window.innerHeight - height+ initY) {
+            cy = window.innerHeight - height;
+          }
+          parentElmnt.style.left = cx + 'px';
+          parentElmnt.style.top = cy + 'px';
+        }
+        })
+
+    } 
+    function dragMouseDownA(e){
+        isMouseDown = true;
+        document.body.classList.add('no-select');
+        initX = e.offsetX;
+        initY = e.offsetY;
+    }
+
+    function endMouseDragB(e){
+        isMouseDown = false;
+        document.body.classList.remove('no-select');
     }
 
     function dragMouseDown(e) {
@@ -7151,8 +7206,8 @@ function makeElementDraggable(elmnt) {
       pos3 = e.clientX;
       pos4 = e.clientY;
       // set the element's new position:
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      parentElmnt.style.top = (parentElmnt.offsetTop - pos2) + "px";
+      parentElmnt.style.left = (parentElmnt.offsetLeft - pos1) + "px";
     }
   
     function closeDragElement() {

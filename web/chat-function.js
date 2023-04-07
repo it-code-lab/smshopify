@@ -86,10 +86,17 @@ function initChat (elem){
 
     //**********SM-DONOTDELETE */
     //makeElementDraggable("chat-window");
+
+    makeElementDraggable("chat-window","chat-window-header");
 };
 
 function goToPrev(){
     selectChatTab(currentChatTab - 1);
+    //document.querySelector(".shop-user-city").innerHTML = "";
+    setTimeout(() => {
+        document.getElementById("headerDragger").innerHTML = "";
+    }, 100);
+    
 }
 
 
@@ -109,6 +116,11 @@ function selectChatTab(value) {
     if (value == 1) {
         document.cookie = 'chat_secret=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
+
+    setTimeout(() => {
+        document.querySelector(".shop-user-city").innerHTML = document.querySelector(".stickyhdr").innerHTML
+    }, 50);
+    
 };
 
 
@@ -176,6 +188,7 @@ function getConversation(id) {
         // Update the converstaion tab content
         document.querySelector('.chat-widget-conversation-tab').innerHTML = data;
         // Transition to the conversation tab (tab 3)
+        //selectChatTab(3);
         selectChatTab(2);
         // Retrieve the input message form element 
         let chatWidgetInputMsg = document.querySelector('.chat-widget-input-message');
@@ -235,7 +248,8 @@ function getConversation(id) {
 // Update the conversations and messages in real-time
 setInterval(() => {
     // If the current tab is 2
-    if (currentChatTab == 2) {
+    //if (currentChatTab == 2) {
+    if (currentChatTab == 1) {
         // Use AJAX to update the conversations list
         fetch('php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
             let doc = (new DOMParser()).parseFromString(html, 'text/html');
@@ -243,7 +257,8 @@ setInterval(() => {
             conversationHandler();
         });
         // If the current tab is 3 and the conversation ID variable is not NUll               
-    } else if (currentChatTab == 3 && conversationId != null) {
+    //} else if (currentChatTab == 3 && conversationId != null) {
+    } else if (currentChatTab == 2 && conversationId != null) {
         // Use AJAX to update the conversation
         fetch('php/chatconversation.php?id=' + conversationId, { cache: 'no-store' }).then(response => response.text()).then(html => {
             // The following variable will prevent the messages container from automatically scrolling to the bottom if the user previously scrolled up in the chat list
@@ -269,4 +284,4 @@ setInterval(() => {
             }
         });
     }
-}, 500000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.
+}, 5000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.
