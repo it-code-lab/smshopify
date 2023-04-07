@@ -83,6 +83,9 @@ function initChat (elem){
     //     // Transition to the respective page
     //     selectChatTab(currentChatTab - 1);
     // };
+
+    //**********SM-DONOTDELETE */
+    //makeElementDraggable("chat-window");
 };
 
 function goToPrev(){
@@ -173,7 +176,7 @@ function getConversation(id) {
         // Update the converstaion tab content
         document.querySelector('.chat-widget-conversation-tab').innerHTML = data;
         // Transition to the conversation tab (tab 3)
-        selectChatTab(3);
+        selectChatTab(2);
         // Retrieve the input message form element 
         let chatWidgetInputMsg = document.querySelector('.chat-widget-input-message');
         // If the element exists

@@ -1497,15 +1497,17 @@ function getOneItemOfShop(tags, itemstr) {
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' >" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
         '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a>";
+        '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
-    newHTML = newHTML + "<div classXX = 'shopContainerSub' >  <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
+    
+    //***SM-DONOTDELETE-Maybe used later */
+    //newHTML = newHTML + "<div classXX = 'shopContainerSub' >  <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
  
     //END - Item name Heading
 
@@ -1586,6 +1588,7 @@ function getOneItemOfShop(tags, itemstr) {
 function getFullShopDetails(tags, itemstr) {
 
     let itemid = tags[0].itemid;
+    let itemuid = tags[0].itemuid;
     let category = tags[0].category;
     let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
@@ -1626,16 +1629,17 @@ function getFullShopDetails(tags, itemstr) {
 
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + tags[0].storename.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' >" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
         '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a>";
+        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
 
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
 
-    newHTML = newHTML + "<div classXX = 'shopContainerSub' > <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
+    //***SM-DONOTDELETE-Maybe used later */
+    //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
 
     //END - Item name Heading
 
@@ -1645,7 +1649,7 @@ function getFullShopDetails(tags, itemstr) {
 
         sessionStorage.setItem("data-description", description);
 
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
@@ -1827,7 +1831,7 @@ function getItemsHTML(storeItems) {
         }
 
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -5144,7 +5148,7 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-itemid="'+ rows[i].itemid +'" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-itemid="'+ rows[i].itemid +'" data-itemuid="'+ rows[i].itemuid +'" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
@@ -5157,7 +5161,7 @@ function populateItemsList(rows = "") {
 
         innerHTML = innerHTML + "<div><div><div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div></div></div>"; //color_red_heart, color_light_pink
 
-        innerHTML = innerHTML + "<div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
+        innerHTML = innerHTML + "<div><div><div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div></div></div>";
 
             if (rows[i].title != undefined) {
                 if (rows[i].title != "") {
@@ -6778,7 +6782,28 @@ function openItemChat(elem) {
 
         placePopupUnderClickedBtn(elem);
     } else {
-        initChat(elem);
+
+        let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
+        let itemuid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemuid;
+
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            type: 'POST',
+            data: jQuery.param({ itemid: itemid, itemuid: itemuid, usrfunction: "getconversationid" 
+            }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (retstatus) {
+                initChat();
+                let obj = JSON.parse(retstatus);
+                getConversation(obj.id);
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr);
+                console.log("error");
+
+            }
+        });
+        
     }
 }
 
@@ -7093,4 +7118,46 @@ function reportIssue(itemid) {
 
     document.getElementById("popupDivId").innerHTML = tempHTML;
     //placePopupUnderClickedBtn(elem);
+}
+
+
+function makeElementDraggable(elmnt) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "-header")) {
+      /* if present, the header is where you move the DIV from:*/
+      document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
+    } else {
+      /* otherwise, move the DIV from anywhere inside the DIV:*/
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+  
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set the element's new position:
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+  
+    function closeDragElement() {
+      /* stop moving when mouse button is released:*/
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
 }
