@@ -121,9 +121,12 @@ let itemImagesDiv = '<div class="itemImageshow-container">'
 
     + '<div class="itmImgContainer">'
 
-    + '<img class="myitemImages" style="display:block" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
-    + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
-    + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
+    + '<img class="myitemImages" style="display:block" src="/smshopify/images/addImages.png" >'
+
+
+    // + '<img class="myitemImages" style="display:block" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
+    // + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
+    // + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
 
     + '</div>'
 
@@ -3890,7 +3893,7 @@ function addNewShopItem() {
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
         + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
         + '</div>';
 
@@ -3972,7 +3975,7 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
         shopItemTabOptions = shopItemTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
     }
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
         + '<button class="shopTablinks red_font" style="float:right" onclick="discontinueItem(event)">Delete</button>'
         + '</div>';
 
@@ -6540,9 +6543,58 @@ function gotoNextTab(elem) {
     let parent = elem.parentElement.parentElement.parentElement;
     let tablinks = parent.querySelectorAll('.shopTablinks');
     let tabcontent = parent.querySelectorAll('.shopTabcontent');
+    //let x = document.getElementById("toastsnackbar_center");
 
     for (let i = 0; i < tablinks.length; i++) {
         if (tablinks[i].classList.contains("active")) {
+
+            if ((tablinks[i].innerHTML == "Add Images") || (tablinks[i].innerHTML == "Save Item")) {
+                let imgContainer = tabcontent[i].parentElement.parentElement.querySelector(".itemImageshow-container");
+                let containerHTML = imgContainer.innerHTML;
+                let images = imgContainer.querySelectorAll(".myitemImages");
+                let tempHTML = "";
+                
+
+
+                if (containerHTML.includes("addImages.png")){                    
+                    tempHTML = "Please remove default image and add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    document.getElementById("popupDivId").innerHTML = tempHTML;
+                    placePopupAtPosFromBtn(elem, -50, -50);
+                    //x.innerHTML = tempHTML;
+                    //x.style.display = "block";
+                    return;                    
+                }else if (images.length < 1) {
+                    tempHTML = "Please add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    //x.innerHTML = tempHTML;
+                    //x.style.display = "block";
+                    document.getElementById("popupDivId").innerHTML = tempHTML;
+                    placePopupAtPosFromBtn(elem, -50, -50);
+                    return;    
+                }
+            }else if ((tablinks[i].innerHTML == "Name") || (tablinks[i].innerHTML == "Save Item")){
+                let enteredName = tabcontent[i].parentElement.parentElement.querySelector(".itemNameCls").innerHTML
+                if (enteredName == ""){
+                    tempHTML = "Please enter the name <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    //x.innerHTML = tempHTML;
+                    //x.style.display = "block";
+                    document.getElementById("popupDivId").innerHTML = tempHTML;
+                    placePopupAtPosFromBtn(elem, -50, -50);
+                    return;
+                }
+            }else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")){
+                let shopcity = document.getElementById("shopcity").innerHTML;
+                let shopstate  = document.getElementById("shopstate").innerHTML;
+                let shopcountry = document.getElementById("shopcountry").innerHTML;
+
+                if ((shopcity == "") ||(shopstate == "") || (shopcountry == "")){
+                    tempHTML = "City/Town/Village, State and Country information is required <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    //x.innerHTML = tempHTML;
+                    //x.style.display = "block";
+                    document.getElementById("popupDivId").innerHTML = tempHTML;
+                    placePopupAtPosFromBtn(elem, -50, -50);
+                    return;                   
+                }
+            }
 
             tablinks[i].classList.remove("active");
             tabcontent[i].style.display = "none";
@@ -6945,6 +6997,26 @@ function placePopupUnderClickedBtn(elem) {
         'display': 'block'
     })
     //}).show("slow").delay(3000).hide("slow");
+}
+
+function placePopupAtPosFromBtn(elem, xDir, yDir ) {
+
+    let div = elem;
+    let topOffset = 0;
+    let leftOffset = 0;
+    
+    while (div) {
+      topOffset += div.offsetTop;
+      leftOffset += div.offsetLeft;
+      div = div.offsetParent;
+    }
+
+    $("#popupDivId").css({
+        'position': 'absolute',
+        'left': leftOffset + xDir + "px",
+        'top': topOffset + yDir + "px",
+        'display': 'block'
+    })
 }
 
 function closePopup() {
