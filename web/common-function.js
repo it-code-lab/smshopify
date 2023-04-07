@@ -3620,9 +3620,14 @@ function myStore() {
     if (localStorage.getItem("userLoggedIn") == "n") {
 
         let x = document.getElementById("toastsnackbar_center");
-        x.innerHTML = "Please login to create or access your store";
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+        //x.classList.add("show");
+        x.style.display = "block";
+        //setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+        setTimeout(() => {
+            //x.classList.remove("show");
+            x.style.display = "none";
+        }, 5000);
         return;
 
     } 
@@ -5171,7 +5176,7 @@ function populateItemsList(rows = "") {
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
-        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent">' + rows[i].itemimages ;
+        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer" onclick="location.href=' + "'" + itemTitleURL + "'" + '">' + rows[i].itemimages ;
 
         innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
 
@@ -6752,13 +6757,24 @@ function logCommon(msg) {
 
 function markFavourite(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
+
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites"
+        //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        //     + "</div>";
+
         let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites"
-            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-            + "</div>";
+        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        + "</div>";
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
+        setTimeout(() => {
+            document.getElementById("popupDivId").style.display = "none";
+        }, 5000);
+
+
+
     } else {
 
         let innerIcon = elem.querySelector(".fa");
@@ -6768,8 +6784,8 @@ function markFavourite(elem) {
             innerIcon.classList.add('color_red_heart');
             addToFavorites(elem);
             let tempHTML = "Added to your favourites"
-                + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                + "</div>";
+            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+            + "</div>";
 
             document.getElementById("popupDivId").innerHTML = tempHTML;
             placePopupUnderClickedBtn(elem);
@@ -6780,8 +6796,8 @@ function markFavourite(elem) {
             innerIcon.classList.add('color_light_pink');
             removeFromFavorites(elem);
             let tempHTML = "Removed from your favourites"
-                + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-                + "</div>";
+            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+            + "</div>";
 
             document.getElementById("popupDivId").innerHTML = tempHTML;
             placePopupUnderClickedBtn(elem);
@@ -6793,13 +6809,20 @@ function markFavourite(elem) {
 
 function openItemChat(elem) {
         if (localStorage.getItem("userLoggedIn") == "n") {
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
+        //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        //     + "</div>";
+
         let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
-            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-            + "</div>";
+        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        + "</div>";
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
+        setTimeout(() => {
+            document.getElementById("popupDivId").style.display = "none";
+        }, 5000);        
     } else {
 
         let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
@@ -6829,12 +6852,17 @@ function openItemChat(elem) {
 function provideReview(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
         let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
-            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-            + "</div>";
+        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        + "</div>";
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
+
+        setTimeout(() => {
+            document.getElementById("popupDivId").style.display = "none";
+        }, 5000);
+
     } else {
         let tempHTML = ratingStars
             + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Select rating stars and enter review comments"></div>'
@@ -6853,12 +6881,17 @@ function provideReview(elem) {
 function reportItem(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
         let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
-            + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
             + "</div>";
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
         placePopupUnderClickedBtn(elem);
+
+        setTimeout(() => {
+            document.getElementById("popupDivId").style.display = "none";
+        }, 5000);
+
     } else {
         let tempHTML = '<div class="warningMsg width_250px">Please use this only to report inappropriate listing</div>'
             + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of why this listing is inappropriate"></div>'
@@ -7215,4 +7248,9 @@ function makeElementDraggable(parentElmntId, headerElemId) {
       document.onmouseup = null;
       document.onmousemove = null;
     }
+}
+
+function hideParentToastDiv(elem){
+    //elem.parentElement.classList.remove("show");
+    elem.parentElement.style.display = "none";
 }

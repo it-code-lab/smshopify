@@ -285,4 +285,4 @@ setInterval(() => {
             }
         });
     }
-}, 5000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.
+}, 5000000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.
