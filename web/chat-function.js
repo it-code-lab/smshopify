@@ -27,7 +27,7 @@ function initChat (elem){
  
     //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
 
-    fetch('php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
+    fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
         // Update the status
         //status = 'Idle';
         // Update the conversations tab content
@@ -119,7 +119,12 @@ function selectChatTab(value) {
     }
 
     setTimeout(() => {
-        document.querySelector(".shop-user-city").innerHTML = document.querySelector(".stickyhdr").innerHTML
+        try{
+            document.querySelector(".shop-user-city").innerHTML = document.querySelector(".stickyhdr").innerHTML
+        }catch(e){
+
+        }
+        
     }, 50);
     
 };
@@ -181,11 +186,11 @@ const conversationHandler = () => {
 // Get conversation function - execute an AJAX request that will retrieve the conversation based on the conversation ID column
 function getConversation(id) {
     // Execute GET AJAX request
-    fetch(`php/chatconversation.php?id=${id}`, { cache: 'no-store' }).then(response => response.text()).then(data => {
+    fetch(`/smshopify/php/chatconversation.php?id=${id}`, { cache: 'no-store' }).then(response => response.text()).then(data => {
         // Update conversation ID variable
         conversationId = id;
         // Update the status
-        status = 'Occupied';
+        //status = 'Occupied';
         // Update the converstaion tab content
         document.querySelector('.chat-widget-conversation-tab').innerHTML = data;
         // Transition to the conversation tab (tab 3)
@@ -252,7 +257,7 @@ setInterval(() => {
     //if (currentChatTab == 2) {
     if (currentChatTab == 1) {
         // Use AJAX to update the conversations list
-        fetch('php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
+        fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
             let doc = (new DOMParser()).parseFromString(html, 'text/html');
             document.querySelector('.chat-widget-conversations').innerHTML = doc.querySelector('.chat-widget-conversations').innerHTML;
             conversationHandler();
@@ -261,7 +266,7 @@ setInterval(() => {
     //} else if (currentChatTab == 3 && conversationId != null) {
     } else if (currentChatTab == 2 && conversationId != null) {
         // Use AJAX to update the conversation
-        fetch('php/chatconversation.php?id=' + conversationId, { cache: 'no-store' }).then(response => response.text()).then(html => {
+        fetch('/smshopify/php/chatconversation.php?id=' + conversationId, { cache: 'no-store' }).then(response => response.text()).then(html => {
             // The following variable will prevent the messages container from automatically scrolling to the bottom if the user previously scrolled up in the chat list
             let canScroll = true;
             if (document.querySelector('.chat-widget-messages').lastElementChild && document.querySelector('.chat-widget-messages').scrollHeight - document.querySelector('.chat-widget-messages').scrollTop != document.querySelector('.chat-widget-messages').clientHeight) {
@@ -278,7 +283,7 @@ setInterval(() => {
         // If the current tab is 3 and the status is Waiting           
     } else if (currentChatTab == 3 && status == 'Waiting') {
         // Attempt to find a new conversation between the user and operator (or vice-versa)
-        fetch('php/find_conversation.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
+        fetch('/smshopify/php/find_conversation.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
             if (data != 'error') {
                 // Success! Two users are now connected! Retrieve the new conversation
                 getConversation(data);
