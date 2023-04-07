@@ -993,9 +993,10 @@ function checkURL() {
 
     if (myCookie == null) {
         localStorage.setItem("userLoggedIn", "n");
-        if (!onMobileBrowser()) {
-            document.getElementById("loginLinkId").style.display = "block";
-        }
+        //if (!onMobileBrowser()) {
+        //    document.getElementById("loginLinkId").style.display = "block";
+       // }
+        document.getElementById("loginLinkId").style.display = "block";
         document.getElementById("logoutLinkId").style.display = "none";
         //document.getElementById("mystoreLinkId").style.display = "none";
         //document.getElementById("HelpTopicsLinkId").style.display = "none";
@@ -1019,9 +1020,10 @@ function checkURL() {
             success: function (retstatus) {
                 if (retstatus == "err") {
                     localStorage.setItem("userLoggedIn", "n");
-                    if (!onMobileBrowser()) {
-                        document.getElementById("loginLinkId").style.display = "block";
-                    }
+                    //if (!onMobileBrowser()) {
+                    //    document.getElementById("loginLinkId").style.display = "block";
+                    //}
+                    document.getElementById("loginLinkId").style.display = "block";
                     document.getElementById("logoutLinkId").style.display = "none";
                     //document.getElementById("mystoreLinkId").style.display = "none";
                 } else {
@@ -5755,9 +5757,10 @@ function Logout() {
 
             if (retstatus == "S") {
                 loggedIn = "N";
-                if (!onMobileBrowser()) {
-                    document.getElementById("loginLinkId").style.display = "block";
-                }
+                //if (!onMobileBrowser()) {
+                //    document.getElementById("loginLinkId").style.display = "block";
+                //}
+                document.getElementById("loginLinkId").style.display = "block";
                 document.getElementById("logoutLinkId").style.display = "none";
                 //document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
