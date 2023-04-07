@@ -1818,6 +1818,9 @@ function getShopLocationAndHours(tags) {
 function getItemsHTML(storeItems) {
     let newHTML = "";
 
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+
     for (let i = 0; i < storeItems.length; i++) {
 
         if (storeItems[i].title == undefined) {
@@ -1829,7 +1832,15 @@ function getItemsHTML(storeItems) {
             }
 
         }
+        let category = storeItems[i].category;
+        let categorySpaceReplaced = category.replaceAll(" ", "-");
+        let storeName = storeItems[i].storename;
+        let storeNameSpaceReplaced = storeName.replaceAll(" ", "-");
+        let itemName = storeItems[i].title;
+        let itemNameSpaceReplaced = itemName.replaceAll(" ", "-");
 
+
+        let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
         newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
 
@@ -1838,7 +1849,7 @@ function getItemsHTML(storeItems) {
 
         if (storeItems[i].itemimages != undefined) {
             if (storeItems[i].itemimages != "") {
-                newHTML = newHTML + '<div class="itemImageshow-container">' + storeItems[i].itemimages + '</div>';
+                newHTML = newHTML + '<div class="itemImageshow-container cursor_pointer"  onclick="location.href=' + "'" + itemTitleURL + "'" + '"> ' + storeItems[i].itemimages + '</div>';
             }
         }
         //End: div class="itemImageshow-container"
