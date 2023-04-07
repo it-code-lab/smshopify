@@ -257,7 +257,7 @@
 }
 
 .color_blue{
-    color: blue;
+    color: blue !important;
 }
 
 .color_green{

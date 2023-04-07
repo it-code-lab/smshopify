@@ -109,7 +109,8 @@ function selectChatTab(value) {
     // If the user is on the first tab, hide the prev tab button element
     document.querySelector('.previous-chat-tab-btn').style.display = value > 1 ? 'block' : 'none';
     // Update the conversation ID variable if the user is on the first or second tab
-    if (value == 1 || value == 2) {
+    //if (value == 1 || value == 2) {
+    if (value == 1 ) {
         conversationId = null;
     }
     // If the user is on the login form tab (tab 1), remove the secret code cookie (logout)
