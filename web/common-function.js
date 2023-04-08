@@ -350,7 +350,6 @@ function autocomplete(inp, arr) {
                             rows = rows.filter(function (entry) {
                                 return (entry.title.toUpperCase() === arr[i].toUpperCase() && entry.discontinue == "0") && (entry.title.toUpperCase().includes(searchText)
                                     || entry.category.toUpperCase().includes(searchText)
-                                    || entry.shortdescription.toUpperCase().includes(searchText)
                                     || entry.keywords.toUpperCase().includes(searchText));
                             });
 
@@ -1468,7 +1467,7 @@ function getOneItemOfShop(tags, itemstr) {
     let versionseq = tags[0].versionseq;
     let title = tags[0].title;
     let titleseq = tags[0].titleseq;
-    let shortdescription = tags[0].shortdescription;
+    //let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
     let city_state_country = tags[0].city_state_country;
     let keywords = tags[0].keywords;
@@ -1545,7 +1544,7 @@ function getOneItemOfShop(tags, itemstr) {
     //document.getElementById(elemId).style.backgroundColor = "orange";
     //END: Change the background color of the active item link
 
-    let metaDesc = shortdescription;
+    let metaDesc = title + ", " + tags[0].itemdescription ;
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
@@ -1708,7 +1707,7 @@ function getFullShopDetails(tags, itemstr) {
 
     //END: Change the background color of the active item link
 
-    let metaDesc = shortdescription;
+    let metaDesc = tags[0].storename + "," + description;
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
@@ -4632,6 +4631,7 @@ function saveItemChanges(evt) {
         });
     } else {
 
+        
         //Check item fields are changed 
         if ((rows[0].bannerhtml == bannerhtml)
             && (rows[0].description == description)
@@ -4652,6 +4652,41 @@ function saveItemChanges(evt) {
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             return;
         } 
+        let changesDone = "";
+        if (rows[0].bannerhtml != bannerhtml){
+            changesDone = changesDone + "Banner HTML, ";
+        }
+        if (rows[0].description != description){
+            changesDone = changesDone + "Shop Description, ";
+        }
+        if (rows[0].uselocationfromaddress != uselocationfromaddress){
+            changesDone = changesDone + "Shop Address, ";
+        }
+        if (rows[0].hourshtml != hourshtml){
+            changesDone = changesDone + "Hours HTML, ";
+        }
+        if (rows[0].availabilityinfo != availabilityinfo){
+            changesDone = changesDone + "Availability Info, ";
+        }
+        if (rows[0].displayhoursflag != displayhoursflag){
+            changesDone = changesDone + "displayhoursflag, ";
+        }
+        if (rows[0].displaylocationflag != displaylocationflag){
+            changesDone = changesDone + "displaylocationflag, ";
+        }
+        if (rows[0].itemprice != itemprice){
+            changesDone = changesDone + "itemprice, ";
+        }
+        if (rows[0].itemimages != itemimages){
+            changesDone = changesDone + "itemimages, ";
+        }
+        if (rows[0].itemdescription != itemdescription){
+            changesDone = changesDone + "itemdescription, ";
+        }
+        if (rows[0].title != title){
+            changesDone = changesDone + "title, ";
+        }
+
 
         let versionseq = parseInt(rows[0].versionseq) + 1;
 
@@ -4669,7 +4704,7 @@ function saveItemChanges(evt) {
                     categoryseq: categoryseq,
                     subcategory: subcategory,
                     versionseq: versionseq,
-                    shortdescription: "",
+                    shortdescription: changesDone,
                     description: description,
                     city_state_country: city_state_country,
                     keywords: "",
@@ -4990,7 +5025,7 @@ function searchItem() {
     if (searchText != "") {
         searchText = searchText.toUpperCase();
         rows = rows.filter(function (entry) {
-            return entry.title.toUpperCase().includes(searchText) || entry.category.toUpperCase().includes(searchText) || entry.shortdescription.toUpperCase().includes(searchText) || entry.keywords.toUpperCase().includes(searchText);
+            return entry.title.toUpperCase().includes(searchText) || entry.category.toUpperCase().includes(searchText) || entry.keywords.toUpperCase().includes(searchText);
         });
     }
 
@@ -5641,7 +5676,7 @@ function login() {
 
                 let lastUrl = sessionStorage.getItem("lastUrl");
 
-                if (lastUrl == null) {
+                if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
                     lastUrl = myUrl + "?target=" + "home"
                 }
 
@@ -7354,4 +7389,29 @@ function makeElementDraggable(parentElmntId, headerElemId) {
 function hideParentToastDiv(elem){
     //elem.parentElement.classList.remove("show");
     elem.parentElement.style.display = "none";
+}
+
+function showPolicy(){
+    sessionStorage.setItem("lastUrl", window.location.href);
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+    document.getElementById("howtoDivId").style.display = "none";
+    document.getElementById("homeDivId").style.display = "none";
+
+    let tempHTML = '<div class="header_1"><label class="bannerLargeText">Usage Policy</label><br><hr></div>';
+    tempHTML = tempHTML + "<p>The following Fair Usage Policy is designed to ensure that all users of our website can benefit from a fair and equal experience. By using our website, you agree to abide by this policy.</p> <ol>    <li>Prohibited Activities: You are not allowed to engage in any activities that could harm the website or its users, including, but not limited to:</li> </ol><p>a) Posting or uploading any inappropriate, offensive, or illegal content. b) Attempting to gain unauthorized access to other users&apos; accounts or personal information. c) Engaging in any fraudulent or deceptive practices. d) Harassing, threatening, or intimidating other users. e) Violating any applicable laws or regulations.</p> <ol start='2'>    <li>         <p>Limitations on Usage: We reserve the right to limit or restrict your usage of the website if we suspect that you are engaging in any activities that are not in compliance with this policy or our terms and conditions.</p>    </li>     <li>        <p>Account Suspension or Termination: We reserve the right to suspend or terminate your account if we determine that you have violated this policy or our terms and conditions. We may also suspend or terminate your account if we receive complaints from other users about your behavior on the website.</p>     </li>    <li>         <p>Monitoring: We may monitor your usage of the website to ensure compliance with this policy and our terms and conditions. This may include reviewing your account activity, messages, and posts.</p>    </li>     <li>        <p>Changes to Policy: We may change this Fair Usage Policy at any time without prior notice. Your continued use of the website after any changes to this policy will constitute your acceptance of the revised policy.</p>     </li></ol> <p>By using our website, you acknowledge that you have read, understood, and agree to abide by this Fair Usage Policy.</p>";
+    tempHTML = tempHTML + '<br> <br> <button class="button_type1 btnCenterAlign width_200px" onclick="goToPrevURL()">Close</button><br><br><br>';
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = tempHTML;
+    $('html, body').animate({
+        scrollTop: $("#itemListDivId").offset().top - 80
+    }, 100);
+}
+
+function goToPrevURL(){
+    let lastUrl = sessionStorage.getItem("lastUrl");
+    if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
+        lastUrl = myUrl + "?target=" + "home"
+    }
+    window.open(lastUrl, "_self");
 }
