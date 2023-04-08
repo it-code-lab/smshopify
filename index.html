@@ -147,7 +147,13 @@
             <a id="logoutLinkId" style="display:none" href="javascript:Logout()">LOGOUT</a>
             <a id="mystoreLinkId" href="/smshopify/?target=mystore">CREATE MY STORE</a>
             <a id="myfavoritesLinkId" class="displayNone" href="javascript:myfavorites()">FAVORITES</a>
-            <a id="mychatLinkId" class="displayNone" href="javascript:mychat()"><i class="fa fa-wechat font_size_24px" aria-hidden="true"></i></a>
+            <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
+               <i class="fa fa-wechat font_size_24px" aria-hidden="true"></i>
+               <span class="chatBadge displayNone">0</span>
+               <audio id="audioPreview" controls="controls" class="displayNone">  
+                  <source id="audioSourceIdWAV" src="/smanimaker/sounds/low-bell-ding.wav" type="audio/wav">
+               </audio>
+            </a>
 
 
 
@@ -579,14 +585,6 @@
       </div>
       <div class="chat-widget-content">
           <div class="chat-widget-tabs">
-              <!-- <div class="chat-widget-tab chat-widget-login-tab">
-                  <form action="authenticate.php" method="post">
-                      <input type="text" name="name" placeholder="Your Name">
-                      <input type="email" name="email" placeholder="Your Email" required>
-                      <div class="msg"></div>
-                      <button type="submit">Submit</button>
-                  </form>
-              </div> -->
               <div class="chat-widget-tab chat-widget-conversations-tab"></div>
               <div class="chat-widget-tab chat-widget-conversation-tab"></div>
           </div>

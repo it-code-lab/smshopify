@@ -322,3 +322,16 @@
 .no-select {
   user-select: none;
 }
+
+#mychatLinkId{
+  position: relative;
+}
+.chatBadge {
+  position: absolute;
+  top: 4px;
+  right: -6px;
+  padding: 1px 8px;
+  border-radius: 50%;
+  background-color: #ff9100;
+  color: white;
+}

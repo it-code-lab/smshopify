@@ -1951,8 +1951,18 @@ function getItemsHTML(storeItems) {
 
         if (storeItems[i].lastupdatedate != undefined) {
             if (storeItems[i].lastupdatedate != "") {
-                newHTML = newHTML
-                    + '<div class="shopItemLastupdatedate ">Updated: ' + (storeItems[i].lastupdatedate).substring(0, 10) + '</div>';
+
+                let dateStr = (storeItems[i].lastupdatedate).substring(0, 10); // yyyy-mm-dd format
+                let date = new Date(dateStr); // convert string to Date object
+
+                let month = date.toLocaleString('default', { month: 'short' }); // get short month name
+                let day = date.getDate(); // get day of the month
+
+                let formattedDate = `${month}-${day}`; // create formatted date string
+
+                newHTML = newHTML + '<div class="shopItemLastupdatedate ">Updated: ' + formattedDate + '</div>';
+
+                //newHTML = newHTML + '<div class="shopItemLastupdatedate ">Updated: ' + (storeItems[i].lastupdatedate).substring(0, 10) + '</div>';
             }
         }
 
@@ -5345,8 +5355,15 @@ function populateItemsList(rows = "") {
 
             if (rows[i].lastupdatedate != undefined) {
                 if (rows[i].lastupdatedate != "") {
-                    innerHTML = innerHTML
-                        + '<div class="shopItemLastupdatedate ">Updated: ' + (rows[i].lastupdatedate).substring(0, 10) + '</div>';
+
+                    let dateStr = (rows[i].lastupdatedate).substring(0, 10); // yyyy-mm-dd format
+                    let date = new Date(dateStr); // convert string to Date object    
+                    let month = date.toLocaleString('default', { month: 'short' }); // get short month name
+                    let day = date.getDate(); // get day of the month    
+                    let formattedDate = `${month}-${day}`; // create formatted date string    
+                    innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + formattedDate + '</div>';   
+
+                    //innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + (rows[i].lastupdatedate).substring(0, 10) + '</div>';
                 }
             }
 
@@ -7585,11 +7602,19 @@ function mychat(){
         // Transition to the conversations tab
         selectChatTab(1);
 
-        try{
-            document.querySelector(".shop-user-city").innerHTML = "";
-        }catch(e){
+        setTimeout(() => {
+            try{
+                let elems = document.querySelectorAll(".shop-user-city") ;
+                for (let i = 0; i < elems.length; i++) {
+                    elems[i].innerHTML = "";
+                    //console.log("done2");
+                    //document.getElementById("headerDragger").innerHTML = "";
+                }
+            }catch(e){
+    
+            }            
+        }, 50);
 
-        }
     });
 
     makeElementDraggable("chat-window","chat-window-header");

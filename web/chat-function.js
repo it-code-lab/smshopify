@@ -1,6 +1,6 @@
 // Place the JS code here
 // Variables we will use in our app
-let currentChatTab = 1;
+let currentChatTab = 0;
 let conversationId = null;
 let status = 'Idle';
 
@@ -253,18 +253,42 @@ function getConversation(id) {
 
 // Update the conversations and messages in real-time
 setInterval(() => {
-    // If the current tab is 2
-    //if (currentChatTab == 2) {
-    if (currentChatTab == 1) {
+    //Irrespective of chatwindow is not open update the new message count on the menubar
+    fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
+        let newConvCnt = html.split("msg color_blue").length - 1;
+        let oldCount = document.querySelector(".chatBadge").innerHTML;
+        if (newConvCnt > 0){
+            document.querySelector(".chatBadge").style.display = "block";
+            document.querySelector(".chatBadge").innerHTML = newConvCnt;
+            if (newConvCnt > oldCount){
+                var audio = document.getElementById('audioPreview');         
+                audio.play();
+                // const audio = new Audio('/smshopify/sounds/low-bell-ding.wav');
+                // audio.play();
+            }            
+        }else {
+            document.querySelector(".chatBadge").style.display = "none";
+        }
+        //When converstations list is open
         // Use AJAX to update the conversations list
-        fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
+        if (currentChatTab == 1) {
             let doc = (new DOMParser()).parseFromString(html, 'text/html');
             document.querySelector('.chat-widget-conversations').innerHTML = doc.querySelector('.chat-widget-conversations').innerHTML;
             conversationHandler();
-        });
-        // If the current tab is 3 and the conversation ID variable is not NUll               
-    //} else if (currentChatTab == 3 && conversationId != null) {
-    } else if (currentChatTab == 2 && conversationId != null) {
+        }
+    });
+
+    // if (currentChatTab == 1) {
+    //     fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
+    //         let doc = (new DOMParser()).parseFromString(html, 'text/html');
+    //         document.querySelector('.chat-widget-conversations').innerHTML = doc.querySelector('.chat-widget-conversations').innerHTML;
+    //         conversationHandler();
+    //     });
+    // } else 
+    
+    if (currentChatTab == 2 && conversationId != null) {
+        // If the current tab is 3 and the conversation ID variable is not NUll 
+        // When individual converation is open
         // Use AJAX to update the conversation
         fetch('/smshopify/php/chatconversation.php?id=' + conversationId, { cache: 'no-store' }).then(response => response.text()).then(html => {
             // The following variable will prevent the messages container from automatically scrolling to the bottom if the user previously scrolled up in the chat list
@@ -290,4 +314,4 @@ setInterval(() => {
             }
         });
     }
-}, 5000000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.
+}, 5000); // 5 seconds (5000ms) - the lower the number, the more demanding it is on your server.

@@ -695,3 +695,10 @@ input.confirmBtn:hover {
 #popupDivId, #toastsnackbar_center, #toastsnackbar{
     max-width: 300px;
 }
+
+.newChatMsg{
+    color: #F7C77A;
+}
+.newChatMsg::after{
+    
+}
