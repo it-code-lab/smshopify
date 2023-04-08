@@ -691,3 +691,7 @@ input.confirmBtn:hover {
     color: #fff;
 
 }
+
+#popupDivId, #toastsnackbar_center, #toastsnackbar{
+    max-width: 300px;
+}

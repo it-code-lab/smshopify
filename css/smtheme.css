@@ -571,7 +571,8 @@
 
 .anchor_tag_btn1{
     padding: 5px;
-    background-color: #a7a5a5;
+    /* background-color: #a7a5a5; */
+    background-color: rgb(117, 89, 218);;
     color: #fff;
     text-align: center;
     margin: auto;

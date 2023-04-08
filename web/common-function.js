@@ -1180,18 +1180,25 @@ function checkURL() {
             //let x = document.getElementById("toastsnackbar_center");
             // x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
             // x.style.display = "block";
-            
+
             sessionStorage.setItem("lastUrl", window.location.href);
             document.getElementById("loginDivId").style.display = "block";
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Login to create or access your store";
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            //x.className = "show";
+            x.classList.add("show");
+            setTimeout(function () { 
+                //x.className = x.className.replace("show", ""); 
+                x.classList.remove("show");
+            }, 3000);
 
             return;
         } 
         myStore();
+        return;
+    }else if (pageName == "policy") {
+        showPolicy();
         return;
     }else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
@@ -4578,8 +4585,12 @@ function saveItemChanges(evt) {
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Please provide name";
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            //x.className = "show";
+            x.classList.add("show");
+            setTimeout(function () { 
+                //x.className = x.className.replace("show", ""); 
+                x.classList.remove("show");
+            }, 3000);
             return;
         }       
         
@@ -4623,8 +4634,12 @@ function saveItemChanges(evt) {
             success: function (retstatus) {
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Item has been saved";
-                x.className = "show";
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                //x.className = "show";
+                x.classList.add("show");
+                setTimeout(function () { 
+                    //x.className = x.className.replace("show", ""); 
+                    x.classList.remove("show");
+                }, 3000);
             
                 $.ajax({
                     url: the.hosturl + '/php/process.php',
@@ -4669,8 +4684,12 @@ function saveItemChanges(evt) {
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "No changes to save";
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            //x.className = "show";
+            x.classList.add("show");
+            setTimeout(function () { 
+                //x.className = x.className.replace("show", ""); 
+                x.classList.remove("show");
+            }, 3000);
             return;
         } 
         let changesDone = "";
@@ -4755,8 +4774,12 @@ function saveItemChanges(evt) {
                 success: function (retstatus) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "Changes have been saved";
-                    x.className = "show";
-                    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                    //x.className = "show";
+                    x.classList.add("show");
+                    setTimeout(function () { 
+                        //x.className = x.className.replace("show", ""); 
+                        x.classList.remove("show");
+                    }, 3000);
 
                     $.ajax({
                         url: the.hosturl + '/php/process.php',
@@ -6619,7 +6642,7 @@ function gotoNextTab(elem) {
                 if (containerHTML.includes("addImages.png")){                    
                     tempHTML = "Please remove default image and add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
                     document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -50, -50);
+                    placePopupAtPosFromBtn(elem, -100, -200);
                     //x.innerHTML = tempHTML;
                     //x.style.display = "block";
                     return;                    
@@ -6628,7 +6651,7 @@ function gotoNextTab(elem) {
                     //x.innerHTML = tempHTML;
                     //x.style.display = "block";
                     document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -50, -50);
+                    placePopupAtPosFromBtn(elem, -100, -200);
                     return;    
                 }
             }else if ((tablinks[i].innerHTML == "Name") || (tablinks[i].innerHTML == "Save Item")){
@@ -6638,7 +6661,7 @@ function gotoNextTab(elem) {
                     //x.innerHTML = tempHTML;
                     //x.style.display = "block";
                     document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -50, -50);
+                    placePopupAtPosFromBtn(elem, -100, -100);
                     return;
                 }
             }else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")){
@@ -6651,7 +6674,7 @@ function gotoNextTab(elem) {
                     //x.innerHTML = tempHTML;
                     //x.style.display = "block";
                     document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -50, -50);
+                    placePopupAtPosFromBtn(elem, -100, -200);
                     return;                   
                 }
             }
@@ -6777,8 +6800,12 @@ async function discontinueItem(evt) {
 
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Item removed from your store";
-                x.className = "show";
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                //x.className = "show";
+                x.classList.add("show");
+                setTimeout(function () { 
+                    //x.className = x.className.replace("show", ""); 
+                    x.classList.remove("show");
+                }, 3000);
             },
             error: function (xhr, status, error) {
             }
@@ -7063,11 +7090,11 @@ function placePopupAtPosFromBtn(elem, xDir, yDir ) {
 
     let div = elem;
     let topOffset = 0;
-    let leftOffset = 0;
+    let leftOffset = div.offsetLeft;
     
     while (div) {
       topOffset += div.offsetTop;
-      leftOffset += div.offsetLeft;
+    //   leftOffset += div.offsetLeft;
       div = div.offsetParent;
     }
 
@@ -7266,8 +7293,12 @@ function submitReview(itemid) {
     if (elem == null) {
         let x = document.getElementById("toastsnackbar");
         x.innerHTML = "Please select rating stars";
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        //x.className = "show";
+        x.classList.add("show");
+        setTimeout(function () { 
+            //x.className = x.className.replace("show", ""); 
+            x.classList.remove("show");
+        }, 3000);
         return;
     } else {
         rating = elem.value;
@@ -7305,8 +7336,12 @@ function reportIssue(itemid) {
     if (comment == "") {
         let x = document.getElementById("toastsnackbar");
         x.innerHTML = "Please enter the details in the box";
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        //x.className = "show";
+        x.classList.add("show");
+        setTimeout(function () { 
+            //x.className = x.className.replace("show", ""); 
+            x.classList.remove("show");
+        }, 3000);
         return;
     }
 
@@ -7417,7 +7452,8 @@ function hideParentToastDiv(elem){
 }
 
 function showPolicy(){
-    sessionStorage.setItem("lastUrl", window.location.href);
+    //sessionStorage.setItem("lastUrl", window.location.href);
+
     document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
@@ -7434,8 +7470,11 @@ function showPolicy(){
 }
 
 function goToPrevURL(){
+    let myUrl = window.location.protocol + "//" + window.location.host +
+    window.location.pathname;
+
     let lastUrl = sessionStorage.getItem("lastUrl");
-    if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
+    if ((lastUrl == null) || (lastUrl.includes("?target=login")) || (lastUrl.includes("?target=policy"))) {
         lastUrl = myUrl + "?target=" + "home"
     }
     window.open(lastUrl, "_self");
