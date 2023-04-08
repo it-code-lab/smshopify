@@ -90,14 +90,14 @@ let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide 
     + '</div>'
     + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
 
-    + '<div class="checkbox-wrapper-21">'
-    + '<label class="control control--checkbox">'
+    + '<div class="checkbox-wrapper-21 displayNone">'
+    + '<label class="control control--checkbox ">'
     + 'Display Location From Address'
     + '<input class="showStoreAddr" type="checkbox" onclick="showStoreAddrDiv(this);"/>'
     + '<div class="control__indicator"></div>'
     + '</label>'
     + '</div>'
-    + '<div id="storeAddrDivId" class="storeAddr displayNone">'
+    + '<div id="storeAddrDivId" class="storeAddr">'
     + '<div class="addresscontainer" id="addresscontainerDiv"> <div class="addressform"> <label class="addressfield"> <span class="addressfield__label" for="shopaddressline1">Address</span>'
     + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
     + '<div contenteditable="true" class="addressfield__input"  id="shopcity"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
@@ -3807,14 +3807,14 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '</div>'
         + '<div id="storeMapDivId" class="storeOnMap displayNone"></div>'
 
-        + '<div class="checkbox-wrapper-21">'
+        + '<div class="checkbox-wrapper-21 displayNone">'
         + '<label class="control control--checkbox">'
         + 'Display Location From Address'
         + '<input class="showStoreAddr" type="checkbox" onclick="showStoreAddrDiv(this);"/>'
         + '<div class="control__indicator"></div>'
         + '</label>'
         + '</div>'
-        + '<div id="storeAddrDivId" class="storeAddr displayNone">'
+        + '<div id="storeAddrDivId" class="storeAddr">'
         + '<div class="addresscontainer" id="addresscontainerDiv"> <div class="addressform"> <label class="addressfield"> <span class="addressfield__label" for="shopaddressline1">Address</span>'
         + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1">' + addr_line1 + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
         + '<div contenteditable="true" class="addressfield__input"  id="shopcity">' + addr_city + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
@@ -4331,7 +4331,6 @@ async function saveNewStore(itemid, createNewItem) {
     let shortdescription = "";
     let description = document.querySelector(".storeDescriptionCls").innerHTML;
 
-    let keywords = "";
     let discontinue = "0";
 
     let itemprice = "";
@@ -4340,6 +4339,7 @@ async function saveNewStore(itemid, createNewItem) {
 
 
     let StrFunction = "SubmitForReview";
+    let keywords = storename + "," + description + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
 
     $.ajax({
@@ -4424,6 +4424,7 @@ async function saveNewStore(itemid, createNewItem) {
         maplocationcoordinates = "";
         uselocationfromaddress = "";
         bannerhtml = "";
+        keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
@@ -4550,6 +4551,7 @@ function saveItemChanges(evt) {
 
     let createNewItem = "y";
     let StrFunction = "SubmitForReview";
+    let keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
     if (itemid == "new") {
         if (title == "") {
@@ -4578,7 +4580,7 @@ function saveItemChanges(evt) {
                 shortdescription: "",
                 description: "",
                 city_state_country: city_state_country,
-                keywords: "",
+                keywords: keywords,
                 discontinue: "0",
                 createNewItem: createNewItem,
                 itemprice: itemprice,
@@ -4690,6 +4692,9 @@ function saveItemChanges(evt) {
 
         let versionseq = parseInt(rows[0].versionseq) + 1;
 
+        keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+
+
         if (rows[0].reviewed == "0"){
             createNewItem = "n";
         }
@@ -4707,7 +4712,7 @@ function saveItemChanges(evt) {
                     shortdescription: changesDone,
                     description: description,
                     city_state_country: city_state_country,
-                    keywords: "",
+                    keywords: keywords,
                     discontinue: "0",
                     createNewItem: createNewItem,
                     itemprice: itemprice,
