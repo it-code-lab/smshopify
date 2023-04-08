@@ -1174,7 +1174,26 @@ function checkURL() {
         populateHelpTopics();
         document.getElementById("HelpTopicsDivId").style.width = "100%";
 
-    } else if (pageName == "projectscanner") {
+    } else if (pageName == "mystore") {
+
+        if (localStorage.getItem("userLoggedIn") == "n") {
+            //let x = document.getElementById("toastsnackbar_center");
+            // x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+            // x.style.display = "block";
+            
+            sessionStorage.setItem("lastUrl", window.location.href);
+            document.getElementById("loginDivId").style.display = "block";
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Login to create or access your store";
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            return;
+        } 
+        myStore();
+        return;
+    }else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
         populateStoredProjectList();
         if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
@@ -3636,13 +3655,13 @@ function myStore() {
 
         let x = document.getElementById("toastsnackbar_center");
         x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-        //x.classList.add("show");
         x.style.display = "block";
-        //setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
-        setTimeout(() => {
-            //x.classList.remove("show");
-            x.style.display = "none";
-        }, 5000);
+
+        //DONOTDELETE
+        // setTimeout(() => {
+        //     x.style.display = "none";
+        // }, 5000);
+
         return;
 
     } 
@@ -4749,6 +4768,7 @@ function saveItemChanges(evt) {
                         success: function (response) {
                             //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
                             localStorage.setItem("mystoreitemsList", response);
+                            populateMyStore(JSON.parse(response));
                         },
                         error: function (xhr, status, error) {
                             // console.log(error);
