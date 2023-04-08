@@ -662,6 +662,44 @@ function hideDiv(divId) {
     // }
 }
 
+function removeActiveClassFromNavLinks(){
+    let x = document.getElementById("loginLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("logoutLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("mystoreLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("myfavoritesLinkId");
+    x.classList.remove("active");
+
+
+    x = document.getElementById("contactusLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("howtoLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("homeLinkId");
+    x.classList.remove("active");
+
+    x = document.getElementById("itemLinkId");
+    x.classList.remove("active");
+}
+
+function updateCommonDivsToDisplayNone(){
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+    document.getElementById("howtoDivId").style.display = "none";
+    document.getElementById("homeDivId").style.display = "none";
+
+    document.getElementById("itemDivId").style.display = "none";
+    document.getElementById("itemListDivId").style.display = "none";
+    document.getElementById("itemEditDivId").style.display = "none";
+}
+
 function Show(pageName) {
     //console.log ("Show called for page " + pageName);
 
@@ -680,14 +718,8 @@ function Show(pageName) {
     //document.getElementById("languageScanResultDivId").style.display = "none";
     //document.getElementById("languageOverride").style.display = "none";
     //document.getElementById("helpDetailsDivId").style.display = "none";
-    document.getElementById("loginDivId").style.display = "none";
-    document.getElementById("contactusDivId").style.display = "none";
-    document.getElementById("howtoDivId").style.display = "none";
-    document.getElementById("homeDivId").style.display = "none";
 
-    document.getElementById("itemDivId").style.display = "none";
-    document.getElementById("itemListDivId").style.display = "none";
-    document.getElementById("itemEditDivId").style.display = "none";
+    updateCommonDivsToDisplayNone();
 
     let myUrl = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?target=" + pageName;
@@ -714,26 +746,7 @@ function Show(pageName) {
     //x = document.getElementById("HelpTopicsLinkId");
     //x.classList.remove("active");
 
-    x = document.getElementById("loginLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("logoutLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("mystoreLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("contactusLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("howtoLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("homeLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("itemLinkId");
-    x.classList.remove("active");
+    removeActiveClassFromNavLinks();
 
     //populateLanguages("helpTopics-lang-box");
 
@@ -964,6 +977,17 @@ function listVideos() {
 
 }
 
+function showAdditionalMenuItemsForLoggedIn(){
+    document.getElementById("logoutLinkId").style.display = "block";
+    document.getElementById("myfavoritesLinkId").style.display = "block";
+    document.getElementById("mychatLinkId").style.display = "block";
+}
+
+function hideMenuItemsForLoggedOut(){
+    document.getElementById("logoutLinkId").style.display = "none";
+    document.getElementById("myfavoritesLinkId").style.display = "none";
+    document.getElementById("mychatLinkId").style.display = "none";
+}
 
 function checkURL() {
     //console.log("inside checkURL");
@@ -999,7 +1023,11 @@ function checkURL() {
         //    document.getElementById("loginLinkId").style.display = "block";
        // }
         document.getElementById("loginLinkId").style.display = "block";
-        document.getElementById("logoutLinkId").style.display = "none";
+
+        hideMenuItemsForLoggedOut();
+        //document.getElementById("logoutLinkId").style.display = "none";
+        //document.getElementById("myfavoritesLinkId").style.display = "none";
+
         //document.getElementById("mystoreLinkId").style.display = "none";
         //document.getElementById("HelpTopicsLinkId").style.display = "none";
 
@@ -1007,8 +1035,12 @@ function checkURL() {
 
         localStorage.setItem("userLoggedIn", "y");
         document.getElementById("loginLinkId").style.display = "none";
-        document.getElementById("logoutLinkId").style.display = "block";
-        document.getElementById("mystoreLinkId").style.display = "block";
+
+        showAdditionalMenuItemsForLoggedIn();
+        // document.getElementById("logoutLinkId").style.display = "block";
+        // document.getElementById("myfavoritesLinkId").style.display = "block";
+
+        //document.getElementById("mystoreLinkId").style.display = "block";
         if (localStorage.getItem("userLvl") == "9") {
             the.smusr = true;
         }
@@ -1026,7 +1058,11 @@ function checkURL() {
                     //    document.getElementById("loginLinkId").style.display = "block";
                     //}
                     document.getElementById("loginLinkId").style.display = "block";
-                    document.getElementById("logoutLinkId").style.display = "none";
+
+                    hideMenuItemsForLoggedOut();
+                    //document.getElementById("logoutLinkId").style.display = "none";
+                    //document.getElementById("myfavoritesLinkId").style.display = "none";
+
                     //document.getElementById("mystoreLinkId").style.display = "none";
                 } else {
                     getFavoritesList();
@@ -5709,9 +5745,10 @@ function login() {
 
                 //let loggedIn = "Y";
                 document.getElementById("loginLinkId").style.display = "none";
-                document.getElementById("logoutLinkId").style.display = "block";
-                document.getElementById("mystoreLinkId").style.display = "block";
-                //Show("projectscanner");
+
+                showAdditionalMenuItemsForLoggedIn();
+                // document.getElementById("logoutLinkId").style.display = "block";
+                // document.getElementById("myfavoritesLinkId").style.display = "block";
 
                 localStorage.setItem("userLoggedIn", "y");
                 localStorage.setItem("userLvl", retstatus.substring(2, 3));
@@ -5797,8 +5834,11 @@ function loginWithoutRefresh() {
                 loggedIn = "Y";
                 document.getElementById("loginLinkId").style.display = "none";
                 document.getElementById("SubloginDivId").style.display = "none";
-                document.getElementById("logoutLinkId").style.display = "block";
-                document.getElementById("mystoreLinkId").style.display = "block";
+
+                showAdditionalMenuItemsForLoggedIn();
+                // document.getElementById("logoutLinkId").style.display = "block";
+                // document.getElementById("myfavoritesLinkId").style.display = "block";
+
                 document.getElementById("helpAddUpdateMsg").innerHTML = "";
                 //Show("projectscanner");
 
@@ -5847,7 +5887,11 @@ function Logout() {
                 //    document.getElementById("loginLinkId").style.display = "block";
                 //}
                 document.getElementById("loginLinkId").style.display = "block";
-                document.getElementById("logoutLinkId").style.display = "none";
+
+                hideMenuItemsForLoggedOut();
+                //document.getElementById("logoutLinkId").style.display = "none";
+                //document.getElementById("myfavoritesLinkId").style.display = "none";
+                
                 //document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
                 sessionStorage.setItem("SavedProjectsList", null);
@@ -7478,4 +7522,75 @@ function goToPrevURL(){
         lastUrl = myUrl + "?target=" + "home"
     }
     window.open(lastUrl, "_self");
+}
+
+function myfavorites(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("myfavoritesLinkId");
+    x.classList.add("active");
+
+
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+    document.getElementById("howtoDivId").style.display = "none";
+    document.getElementById("homeDivId").style.display = "none";
+
+
+    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    let rows = JSON.parse(tf);
+    
+    let tags = localStorage.getItem("favitems");
+    let favitemsArr = [];
+
+    if (tags != null) {
+        if ((tags != "") && (tags != undefined) && (tags != [])) {
+            favitemsArr = JSON.parse(tags);
+        } 
+    } 
+
+    if (favitemsArr.length == 0){
+        document.getElementById("itemListDivId").style.display = "block";
+        document.getElementById("itemListDivId").innerHTML = "You have not marked any item as favorite yet <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        return;
+    }else {
+        rows = rows.filter(function (entry) {
+            return favitemsArr.includes(entry.itemid) ;
+        });
+        populateItemsList(rows);
+    }
+
+}
+
+function mychat(){
+    document.querySelector('.chat-widget').style.display = 'flex';
+    // Animate the chat widget
+    document.querySelector('.chat-widget').getBoundingClientRect();
+    document.querySelector('.chat-widget').classList.add('chatopen');
+    // Close button OnClick event handler
+    document.querySelector('.close-chat-widget-btn').onclick = event => {
+        event.preventDefault();
+        // Close the chat
+        document.querySelector('.chat-widget').classList.remove('chatopen');
+    };
+ 
+    //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
+
+    fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
+        // Update the status
+        //status = 'Idle';
+        // Update the conversations tab content
+        document.querySelector('.chat-widget-conversations-tab').innerHTML = data;
+        // Execute the conversation handler function
+        conversationHandler();
+        // Transition to the conversations tab
+        selectChatTab(1);
+
+        try{
+            document.querySelector(".shop-user-city").innerHTML = "";
+        }catch(e){
+
+        }
+    });
+
+    makeElementDraggable("chat-window","chat-window-header");
 }
