@@ -172,7 +172,7 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
-let colorList = ["#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
+let colorList = ["#000000", "#ffffff","#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
 
 let revealSecColor = getSecColors();
 
@@ -197,6 +197,7 @@ let textDivColorCtl = getTextColors();
 function getTextColors() {
     let retHTML = "<label class='informationBox fontsize_14px'>If you want to change the color in the Banner above, click on the color below</label> ";
     colorList.forEach((colorStr) => retHTML = retHTML + "<div class='colorPickerDiv hover_shadow2' data-clr='" + colorStr + "' style='background-color:" + colorStr + "' onclick='updateTextDivColor(this)' ></div>");
+    retHTML = retHTML + "<div class='width_100pc clear_both margintop_15px'>Transparency:</div>" + '<input type="range" min="0" max="100" value="100" oninput="changeTransparency()" onchange="changeTransparency()" class="transparencySliderCls" id="transparencySlider">'
     return retHTML;
 }
 
@@ -2311,10 +2312,18 @@ function editItem(btn) {
 function getShopTopBannersList(itemid) {
 
     return "<label class='informationBox fontsize_14px'>If you want to change the design of your store banner above, use the button below to change design</label>"
-        + "<div title='shopTopBanner1' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/smshopify/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
-        + "<div title='shopTopBanner2' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/smshopify/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
-        + "<div title='shopTopBanner3' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/smshopify/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
-        + "<div title='shopTopBanner4' type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/smshopify/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>";
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/smshopify/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/smshopify/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/smshopify/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/smshopify/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-A',this) ><img src='/smshopify/secimages/shopTopBanner3-A.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-B',this) ><img src='/smshopify/secimages/shopTopBanner3-B.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-C',this) ><img src='/smshopify/secimages/shopTopBanner3-C.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-D',this) ><img src='/smshopify/secimages/shopTopBanner3-D.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-E',this) ><img src='/smshopify/secimages/shopTopBanner3-E.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-F',this) ><img src='/smshopify/secimages/shopTopBanner3-F.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-G',this) ><img src='/smshopify/secimages/shopTopBanner3-G.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-H',this) ><img src='/smshopify/secimages/shopTopBanner3-H.png' alt='items' class='storeBannerImg'></div>"
 
 }
 
@@ -3190,73 +3199,75 @@ function addComponent(itemid, type, elem = "dummy") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';
+            + "\n" + '</div>';       
 
-        htmlPart = escape(htmlPartOrig);
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
 
-        let shopBannerTabOptions = '<div class="shopTab">'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
-            + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
-            + '</div>';
+    } else if (type == "shopTopBanner3-A") {
 
-        let shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
-            + getShopTopBannersList("shopTopBanner")
-            + '</div>'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
 
-            + '<div id="Customizations" class="shopTabcontent">'
-            + textDivColorCtl
-            + replaceBannerImg
-            + nextShopTabBtnDiv
-            + '</div>'
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
 
-            + '<div id="HoursDiv" class="shopTabcontent">'
-            + shopOpeningHrCheckBox
-            + nextShopTabBtnDiv
-            + '</div>'
+    }else if (type == "shopTopBanner3-B") {
 
-            + '<div id="LocationDiv" class="shopTabcontent">'
-            + shopLocationCheckBox
-            + nextShopTabBtnDiv
-            + '</div>'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
 
-            + '<div id="AboutStoreDiv" class="shopTabcontent">'
-            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
-            + nextShopTabBtnDiv
-            + '</div>'
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
 
-            + '<div id="Close" class="shopTabcontent">'
-            + '</div>';
+    }else if (type == "shopTopBanner3-C") {
 
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
 
-        let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
-            + allowTogglePreview
-            + shopBannerTabOptions
-            + shopBannerTabContentDivs
-            + "</div>";
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
 
-        let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-            + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
-            + hdMeDiv
-            + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+    }else if (type == "shopTopBanner3-D") {
 
-        if (componentid == "description-shopTopBanner") {
-            //document.querySelector('.secdiv').innerHTML = contentToAdd;
-            elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
-            setTimeout(function () {
-                let allItems = document.querySelectorAll(".shopTopBnrCls");
-                for (let i = 0; i < allItems.length; i++) {
-                    allItems[i].classList.remove("scale-in-center");
-                }
-            }, 500);
-        } else {
-            document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
-        }
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
 
-    } else if (type == "shopTopBanner4") {
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+
+    }else if (type == "shopTopBanner3-E") {
+
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
+
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+
+    }else if (type == "shopTopBanner3-F") {
+
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
+
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+
+    }else if (type == "shopTopBanner3-G") {
+
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
+
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+
+    }else if (type == "shopTopBanner3-H") {
+
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '</div>';       
+
+        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+
+    }else if (type == "shopTopBanner4") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/smshopify/img/loops-in-java-5570.png&quot;); ">'
             + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
@@ -3305,12 +3316,6 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopBannerTabOptions
             + shopBannerTabContentDivs
             + "</div>";
-
-        // document.getElementById(componentid).innerHTML = partOneHTML 
-        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-        //     + hdMeDiv 
-        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
@@ -3712,6 +3717,72 @@ function addComponent(itemid, type, elem = "dummy") {
 
 }
 
+function shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem){
+    
+    htmlPart = escape(htmlPartOrig);
+
+    let shopBannerTabOptions = '<div class="shopTab">'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'DesignOptions' + "'" + ')">Design Options</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Customizations' + "'" + ')">Customizations</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'HoursDiv' + "'" + ')">Hours</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'LocationDiv' + "'" + ')">Location</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'AboutStoreDiv' + "'" + ')">About</button>'
+        + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'Close' + "'" + ')">Close</button>'
+        + '</div>';
+
+    let shopBannerTabContentDivs = '<div id="DesignOptions" class="shopTabcontent">'
+        + getShopTopBannersList("shopTopBanner")
+        + '</div>'
+
+        + '<div id="Customizations" class="shopTabcontent">'
+        + textDivColorCtl
+        + replaceBannerImg
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="HoursDiv" class="shopTabcontent">'
+        + shopOpeningHrCheckBox
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="LocationDiv" class="shopTabcontent">'
+        + shopLocationCheckBox
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="AboutStoreDiv" class="shopTabcontent">'
+        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+        + nextShopTabBtnDiv
+        + '</div>'
+
+        + '<div id="Close" class="shopTabcontent">'
+        + '</div>';
+
+
+    let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
+        + allowTogglePreview
+        + shopBannerTabOptions
+        + shopBannerTabContentDivs
+        + "</div>";
+
+    let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+        + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
+        + hdMeDiv
+        + "</div><button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>";
+
+    if (componentid == "description-shopTopBanner") {
+        //document.querySelector('.secdiv').innerHTML = contentToAdd;
+        elem.parentElement.parentElement.parentElement.innerHTML = contentToAdd;
+        setTimeout(function () {
+            let allItems = document.querySelectorAll(".shopTopBnrCls");
+            for (let i = 0; i < allItems.length; i++) {
+                allItems[i].classList.remove("scale-in-center");
+            }
+        }, 500);
+    } else {
+        document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
+    }
+}
 function myStore() {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
@@ -6479,6 +6550,11 @@ function updateTextDivColor(element) {
 
     let textColour = getFontColorForRGBbackGroundColor(rgbColor);
     document.getElementById("textDivId").style.color = textColour;
+    document.getElementById("textDivId").style.opacity = document.getElementById("transparencySlider").value / 100;
+}
+
+function changeTransparency(){
+    document.getElementById("textDivId").style.opacity = document.getElementById("transparencySlider").value / 100;
 }
 
 function updateParentBGColor(element) {
@@ -6506,8 +6582,10 @@ function updateParentBGColor(element) {
         let bannerDiv = previewDiv.querySelector('.shopTopBanner');
         bannerDiv.style.backgroundColor = element.style.backgroundColor;;
         bannerDiv.style.color = textColour;
+        
     }
 }
+
 
 function getFontColorForRGBbackGroundColor(rgbColor) {
     let brightness = Math.round(((parseInt(rgbColor.r) * 299) +

@@ -7,6 +7,9 @@
 /**************Common Basic Styles******************/
 /*margin, padding, font size, alignment */
 /****************************************************/
+.clear_both{
+    clear: both;
+}
 
 .text_align_center {
     text-align: center !important;
@@ -99,6 +102,10 @@
 
 .width_100px {
     width: 100px !important;
+}
+
+.width_100pc {
+    width: 100%;
 }
 
 .width_150px {
@@ -763,7 +770,7 @@
 
 /*****************CLIP PATh GENERATOR*********************************/
 /**********https://bennettfeely.com/clippy/ ****************/
-
+/* https://unused-css.com/tools/clip-path-generator */
 
 /*****************BORDER RADIUS GENERATOR*********************************/
 /**https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Border-radius_generator***
