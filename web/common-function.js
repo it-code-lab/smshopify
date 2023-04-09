@@ -2382,7 +2382,7 @@ function addImageToItemList(event) {
     let imageelementid = elem.dataset.imageelementid;
     let fileelementid = elem.dataset.fileelementid;
 
-    let saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
     saveasname = saveasname.replaceAll("#", "");
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
@@ -2466,12 +2466,15 @@ function uploadFile(event) {
 
     //let saveasname = document.getElementById(saveasnameelementid + itemid).value;
 
-    let saveasname = '';
-    try {
-        saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    } catch {
-        saveasname = the.newImageName;
-    }
+    // let saveasname = '';
+    // try {
+    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    // } catch {
+    //     saveasname = the.newImageName;
+    // }
+
+    let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
+
 
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
@@ -2615,12 +2618,15 @@ function uploadAndInsertFile(event) {
     let itemid = elem.dataset.itemid;
 
     //let saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    let saveasname = '';
-    try {
-        saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    } catch {
-        saveasname = the.newImageName;
-    }
+    // let saveasname = '';
+    // try {
+    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    // } catch {
+    //     saveasname = the.newImageName;
+    // }
+
+    let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
+
 
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
@@ -2753,12 +2759,15 @@ function UploadAndReplaceBannerImg(event) {
     let itemid = elem.dataset.itemid;
     popolatenewImageName(itemid);
 
-    let saveasname = '';
-    try {
-        saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    } catch {
-        saveasname = the.newImageName;
-    }
+    // let saveasname = '';
+    // try {
+    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    // } catch {
+    //     saveasname = the.newImageName;
+    // }
+
+    let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
+
 
     saveasname = saveasname.trim();
     saveasname = saveasname.toLowerCase();
@@ -6997,7 +7006,7 @@ function markFavourite(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
         setTimeout(() => {
             document.getElementById("popupDivId").style.display = "none";
         }, 5000);
@@ -7017,7 +7026,7 @@ function markFavourite(elem) {
             + "</div>";
 
             document.getElementById("popupDivId").innerHTML = tempHTML;
-            placePopupUnderClickedBtn(elem);
+            placePopupUnderClickedBtnParent(elem);
         } else {
 
 
@@ -7029,7 +7038,7 @@ function markFavourite(elem) {
             + "</div>";
 
             document.getElementById("popupDivId").innerHTML = tempHTML;
-            placePopupUnderClickedBtn(elem);
+            placePopupUnderClickedBtnParent(elem);
         }
 
 
@@ -7048,7 +7057,7 @@ function openItemChat(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
         setTimeout(() => {
             document.getElementById("popupDivId").style.display = "none";
         }, 5000);        
@@ -7086,7 +7095,7 @@ function provideReview(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
 
         setTimeout(() => {
             document.getElementById("popupDivId").style.display = "none";
@@ -7102,7 +7111,7 @@ function provideReview(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
 
     }
 }
@@ -7115,7 +7124,7 @@ function reportItem(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
 
         setTimeout(() => {
             document.getElementById("popupDivId").style.display = "none";
@@ -7131,16 +7140,26 @@ function reportItem(elem) {
 
         document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtn(elem);
+        placePopupUnderClickedBtnParent(elem);
     }
 }
 
 
 
-function placePopupUnderClickedBtn(elem) {
+function placePopupUnderClickedBtnParent(elem) {
     $("#popupDivId").css({
         'position': 'absolute',
         'left': elem.parentElement.offsetLeft,
+        'top': elem.offsetTop + elem.clientHeight + 50,
+        'display': 'block'
+    })
+    //}).show("slow").delay(3000).hide("slow");
+}
+
+function placePopupUnderClickedBtn(elem) {
+    $("#popupDivId").css({
+        'position': 'absolute',
+        'left': elem.offsetLeft,
         'top': elem.offsetTop + elem.clientHeight + 50,
         'display': 'block'
     })
@@ -7156,6 +7175,25 @@ function placePopupAtPosFromBtn(elem, xDir, yDir ) {
     while (div) {
       topOffset += div.offsetTop;
     //   leftOffset += div.offsetLeft;
+      div = div.offsetParent;
+    }
+
+    $("#popupDivId").css({
+        'position': 'absolute',
+        'left': leftOffset + xDir + "px",
+        'top': topOffset + yDir + "px",
+        'display': 'block'
+    })
+}
+function placePopupAtPosFromBtnXOffset(elem, xDir, yDir ) {
+
+    let div = elem;
+    let topOffset = 0;
+    let leftOffset = div.offsetLeft;
+    
+    while (div) {
+      topOffset += div.offsetTop;
+      leftOffset += div.offsetLeft;
       div = div.offsetParent;
     }
 
@@ -7387,7 +7425,7 @@ function submitReview(itemid) {
         + "</div>";
 
     document.getElementById("popupDivId").innerHTML = tempHTML;
-    //placePopupUnderClickedBtn(elem);
+    //placePopupUnderClickedBtnParent(elem);
 }
 
 function reportIssue(itemid) {
@@ -7426,9 +7464,46 @@ function reportIssue(itemid) {
         + "</div>";
 
     document.getElementById("popupDivId").innerHTML = tempHTML;
-    //placePopupUnderClickedBtn(elem);
+    //placePopupUnderClickedBtnParent(elem);
 }
 
+function reportChatIssue(convid){
+    let comment = document.querySelector('.reviewCommentDivCls').innerHTML;
+
+    if (comment == "") {
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Please enter the details in the box";
+        //x.className = "show";
+        x.classList.add("show");
+        setTimeout(function () { 
+            //x.className = x.className.replace("show", ""); 
+            x.classList.remove("show");
+        }, 3000);
+        return;
+    }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "reportissue",
+            itemid: convid,
+            comment: "Chat reported - " + comment
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+        },
+        error: function (xhr, status, error) {
+        }
+    });
+
+    let tempHTML = "Thank you for reporting the issue."
+        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+        + "</div>";
+
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+    //placePopupUnderClickedBtnParent(elem);
+}
 
 function makeElementDraggable(parentElmntId, headerElemId) {
     let parentElmnt = document.getElementById(parentElmntId);
@@ -7610,6 +7685,7 @@ function mychat(){
                     //console.log("done2");
                     //document.getElementById("headerDragger").innerHTML = "";
                 }
+                document.getElementById("reportChatUserDivId").style.display = "none";                
             }catch(e){
     
             }            
@@ -7618,4 +7694,22 @@ function mychat(){
     });
 
     makeElementDraggable("chat-window","chat-window-header");
+}
+
+function reportChatUser(elem){
+    let convid = document.getElementById("convid").value;
+
+    let tempHTML = '<div class="warningMsg width_250px">Please use this only to report inappropriate messages</div>'
+    + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of what was inappropriate in the message"></div>'
+    + '<button class="helper width_100px margintop_10px float_left" onclick="reportChatIssue(' + "'" + convid + "'" + ');">Submit</button>'
+
+    + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+    + "</div>";
+
+    document.getElementById("popupDivId").innerHTML = tempHTML;
+
+    //placePopupUnderClickedBtn(elem);
+    //placePopupUnderClickedBtnParent(elem);
+    placePopupAtPosFromBtn(elem, -300, -10);
+    //placePopupAtPosFromBtnXOffset(elem, -300, -10);
 }

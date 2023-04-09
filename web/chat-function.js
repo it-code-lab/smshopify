@@ -121,6 +121,7 @@ function selectChatTab(value) {
     setTimeout(() => {
         try{
             document.querySelector(".shop-user-city").innerHTML = document.querySelector(".stickyhdr").innerHTML
+            document.getElementById("reportChatUserDivId").style.display = "block";
         }catch(e){
 
         }
@@ -253,6 +254,9 @@ function getConversation(id) {
 
 // Update the conversations and messages in real-time
 setInterval(() => {
+    if (localStorage.getItem("userLoggedIn") != "y") {
+        return;
+    }
     //Irrespective of chatwindow is not open update the new message count on the menubar
     fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
         let newConvCnt = html.split("msg color_blue").length - 1;
