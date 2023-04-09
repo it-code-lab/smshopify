@@ -2300,7 +2300,8 @@ function editItem(btn) {
     document.getElementById("itemEditDivId").style.display = "block";
 
     document.getElementById("itemDivId").style.width = "100%";
-
+    document.getElementById("itemDivId").style.display = "block";
+    
     document.getElementById("mainContainer").style.width = "100%";
     document.getElementById("itemEditDivId").style.width = "700px";
     document.getElementById("itemListDivId").style.display = "none";
