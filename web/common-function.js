@@ -4505,7 +4505,7 @@ async function saveNewStore(itemid, createNewItem) {
             errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
             break;
         }
-        if (itemdescription.length > 500){
+        if (itemDescription.length > 500){
             errorInfo = errorInfo + "Please limit the shop description to 500 characters" + "<br>";
             break;
         }  
@@ -4608,8 +4608,9 @@ async function saveNewStore(itemid, createNewItem) {
         }
     });
 
+    //SM-TODO-Uncomment below line
     if (allItems.length == 0) {
-        document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+        //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
         return;
     }
 
