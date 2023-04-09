@@ -78,7 +78,7 @@ let shopOpeningHrCheckBox = "<label class='informationBox fontsize_14px'>To disp
     + '<div class="control__indicator"></div>'
     + '</label>'
     + '</div>'
-    + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
+    + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here. (Max 200 characters)" class="storeAvail displayNone"></div>';
 
 let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide your location information so that the interested shoppers can contact you.</label>"
     + '<div class="checkbox-wrapper-21">'
@@ -151,18 +151,18 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '</div>'
 
     + '<div id="itmNameDiv" class="shopTabcontent">'
-    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here"></div>'
+    + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here. (Max 200 characters)"></div>'
     + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="itmDescDiv" class="shopTabcontent">'
     + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
-    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here"></div>'
+    + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here. (Max 500 characters)"></div>'
     + nextShopTabBtnDiv
     + '</div>'
 
     + '<div id="itemPrice" class="shopTabcontent">'
-    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price"></div>'
+    + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price. (Max 45 characters)"></div>'
     + nextShopTabBtnDiv
     + '</div>'
 
@@ -1414,10 +1414,12 @@ function getStoreURLMsg(){
     //let path = window.location.pathname;
     //let loc = window.location;
     //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
-
+    let storename = localStorage.getItem("storename");
+    storename = storename.toLocaleLowerCase();
+    storename = storename.replaceAll(" ", "-");
     let tempHTML = 'Store name is available. Your store site is going to be: <br><br>';
     tempHTML = tempHTML + window.location.protocol + "//" + window.location.host +
-    window.location.pathname + localStorage.getItem("storename")
+    window.location.pathname + storename ;
     tempHTML = tempHTML + '<br><br> If this looks good click on the button below create store banner. <br> <br>';
     tempHTML = tempHTML + '<button class="button_type1" onclick="showBanner()">Design Store banner</button>';
     
@@ -3094,7 +3096,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
-            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide. (Max 1000 characters)"></div>'
             + nextShopTabBtnDiv
             + '</div>'
 
@@ -3172,7 +3174,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
-            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide. (Max 1000 characters)"></div>'
             + nextShopTabBtnDiv
             + '</div>'
 
@@ -3318,7 +3320,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + '</div>'
 
             + '<div id="AboutStoreDiv" class="shopTabcontent">'
-            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+            + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide. (Max 1000 characters)"></div>'
             + nextShopTabBtnDiv
             + '</div>'
 
@@ -3765,7 +3767,7 @@ function shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,part
         + '</div>'
 
         + '<div id="AboutStoreDiv" class="shopTabcontent">'
-        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide"></div>'
+        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide. (Max 1000 characters)"></div>'
         + nextShopTabBtnDiv
         + '</div>'
 
@@ -3931,7 +3933,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '<div class="control__indicator"></div>'
         + '</label>'
         + '</div>'
-        + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here" class="storeAvail displayNone"></div>';
+        + '<div id="availabilityDivId" contenteditable="true" data-text="Enter Availability Details Here. (Max 200 characters)" class="storeAvail displayNone"></div>';
 
 
     let addr_line1 = "";
@@ -4011,7 +4013,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '</div>'
 
         + '<div id="AboutStoreDiv" class="shopTabcontent">'
-        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide">' + description + '</div>'
+        + '<div class="storeDescriptionCls" contenteditable="true" data-text="Write what is special about your store or the items/services you provide. (Max 1000 characters)">' + description + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
@@ -4070,18 +4072,18 @@ function addNewShopItem() {
         + '</div>'
 
         + '<div id="itmNameDiv" class="shopTabcontent">'
-        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + '</div>'
+        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here. (Max 200 characters)">' + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
         + '<div id="itmDescDiv" class="shopTabcontent">'
         + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
-        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + '</div>'
+        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here. (Max 500 characters)">' + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
         + '<div id="itemPrice" class="shopTabcontent">'
-        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + '</div>'
+        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price. (Max 45 characters)">' + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
@@ -4151,18 +4153,18 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
         + '</div>'
 
         + '<div id="itmNameDiv" class="shopTabcontent">'
-        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here">' + itemname + '</div>'
+        + '<div class="itemNameCls" contenteditable="true" data-text="Enter Item Name Here. (Max 200 characters)">' + itemname + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
         + '<div id="itmDescDiv" class="shopTabcontent">'
         + "<label class='informationBox fontsize_14px'>Enter the details of the item/service</label>"
-        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here">' + itemdescription + '</div>'
+        + '<div class="itemDescriptionCls" contenteditable="true" data-text="Enter Item Description Here. (Max 500 characters)">' + itemdescription + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
         + '<div id="itemPrice" class="shopTabcontent">'
-        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price">' + itemprice + '</div>'
+        + '<div class="itemPriceCls" contenteditable="true" data-text="Enter Item Price. (Max 45 characters)">' + itemprice + '</div>'
         + nextShopTabBtnDiv
         + '</div>'
 
@@ -4450,6 +4452,14 @@ async function saveNewStore(itemid, createNewItem) {
         }
     }
 
+    if (availabilityinfo.length > 200){
+        errorInfo = errorInfo + "Please limit availability information to 200 characters." + "<br>";
+    }
+
+    if (storename.length > 200){
+        errorInfo = errorInfo + "Please limit the store name to 200 characters." + "<br>";
+    }
+
     let displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     let maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
     //let uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
@@ -4467,19 +4477,44 @@ async function saveNewStore(itemid, createNewItem) {
         }
     }
 
+    if (uselocationfromaddress.length > 500){
+        errorInfo = errorInfo + "Address is too long. Please limit to 500 characters." + "<br>";
+    }
+
     let allItems = document.querySelectorAll(".shopItemCls");
     for (let i = 0; i < allItems.length; i++) {
-        if (allItems[i].querySelector('.itemNameCls').innerHTML == "") {
+        let itemName = allItems[i].querySelector('.itemNameCls').innerHTML;
+        let itemDescription = allItems[i].querySelector('.itemDescriptionCls').innerHTML;
+        let itemprice = allItems[i].querySelector('.itemPriceCls').innerHTML;
+        let itemimages = allItems[i].querySelector('.itemImageshow-container').innerHTML;
+
+        if ( itemName == "") {
             errorInfo = errorInfo + "Name has not been provided for one or more items added." + "<br>";
             break;
         }
+        if (itemName.length > 200){
+            errorInfo = errorInfo + "Please limit the item name to 200 characters." + "<br>";
+            break;
+        }
+        if (itemprice.length > 40){
+            errorInfo = errorInfo + "Please limit the price information to 40 characters." + "<br>";
+            break;
+        }
+
+        if (itemimages.length > 5000){
+            errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
+            break;
+        }
+        if (itemdescription.length > 500){
+            errorInfo = errorInfo + "Please limit the shop description to 500 characters" + "<br>";
+            break;
+        }  
+
     }
 
     if (errorInfo != "") {
         document.querySelector(".shopSmErr").style.display = "block";
         document.querySelector(".shopSmErr").innerHTML = errorInfo;
-
-
         return;
     }
 
@@ -4506,7 +4541,7 @@ async function saveNewStore(itemid, createNewItem) {
 
 
     let StrFunction = "SubmitForReview";
-    let keywords = storename + "," + description + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+    let keywords = storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
 
     $.ajax({
@@ -4558,6 +4593,7 @@ async function saveNewStore(itemid, createNewItem) {
                 type: 'POST',
                 dataType: 'json',
                 success: function (retstatus) {
+                    getstoreinfo();
                 },
                 error: function (xhr, status, error) {
 
@@ -4591,7 +4627,7 @@ async function saveNewStore(itemid, createNewItem) {
         maplocationcoordinates = "";
         uselocationfromaddress = "";
         bannerhtml = "";
-        keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+        keywords = title + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
@@ -4630,19 +4666,19 @@ async function saveNewStore(itemid, createNewItem) {
             dataType: 'json',
             success: function (retstatus) {
                 if (i == allItems.length - 1) {
-                    document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
 
-                    //     sessionStorage.setItem("itemsList", null);
-                    //     getItemsList();
+                    //SM-TODO-Uncomment below line
+                    //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+
+
                 }
             },
             error: function (xhr, status, error) {
-                //if (!itemid == "") {
-                //document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
 
-                document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+                //SM-TODO-Uncomment below line
+                //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
                 return;
-                //}
+
             }
         });
     }
@@ -4661,6 +4697,7 @@ function saveItemChanges(evt) {
     let category = tags[0].category;
     let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
+    let errorInfo = "";
     let rows = "";
     let itemType = "";
     if (itemid == "new") {
@@ -4703,6 +4740,11 @@ function saveItemChanges(evt) {
             "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
     }
 
+    if (availabilityinfo.length > 200){
+        errorInfo = errorInfo + "Please limit availability information to 200 characters." + "<br>";
+    }
+
+
 
     let itemprice = "";
     let itemimages = "";
@@ -4716,25 +4758,40 @@ function saveItemChanges(evt) {
         title = parentDiv.querySelector('.itemNameCls').innerHTML;
     }
 
+    if (title.length > 200){
+        errorInfo = errorInfo + "Please limit the item name to 200 characters." + "<br>";
+    }
+
+    if (itemprice.length > 40){
+        errorInfo = errorInfo + "Please limit the price information to 40 characters." + "<br>";
+    }
+
+    if (itemimages.length > 5000){
+        errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
+    }
+    if (itemdescription.length > 500){
+        errorInfo = errorInfo + "Please limit the shop description to 500 characters" + "<br>";
+    }     
+
     let createNewItem = "y";
     let StrFunction = "SubmitForReview";
-    let keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+    let keywords = title + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
     if (itemid == "new") {
         if (title == "") {
-            //parentDiv.parentNode.removeChild(parentDiv);
+            errorInfo = errorInfo + "Please provide item name";
+        }       
 
+        if (errorInfo != ""){
             let x = document.getElementById("toastsnackbar");
-            x.innerHTML = "Please provide name";
-            //x.className = "show";
+            x.innerHTML = errorInfo;
             x.classList.add("show");
             setTimeout(function () { 
-                //x.className = x.className.replace("show", ""); 
                 x.classList.remove("show");
             }, 3000);
             return;
-        }       
-        
+        }
+
         itemid = "";
 
         $.ajax({
@@ -4775,10 +4832,8 @@ function saveItemChanges(evt) {
             success: function (retstatus) {
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Item has been saved";
-                //x.className = "show";
                 x.classList.add("show");
                 setTimeout(function () { 
-                    //x.className = x.className.replace("show", ""); 
                     x.classList.remove("show");
                 }, 3000);
             
@@ -4790,25 +4845,21 @@ function saveItemChanges(evt) {
                     }),
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     success: function (response) {
-                        //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
                         localStorage.setItem("mystoreitemsList", response);
-                        populateMyStore(JSON.parse(response));
+                        //TODO*****Temporarily Commented out******
+                        //populateMyStore(JSON.parse(response));
                     },
                     error: function (xhr, status, error) {
                         // console.log(error);
                         // console.log(xhr);
                     }
                 });
-
-
             },
             error: function (xhr, status, error) {
                 console.log("failed");
             }
         });
-    } else {
-
-        
+    } else {        
         //Check item fields are changed 
         if ((rows[0].bannerhtml == bannerhtml)
             && (rows[0].description == description)
@@ -4825,10 +4876,8 @@ function saveItemChanges(evt) {
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "No changes to save";
-            //x.className = "show";
             x.classList.add("show");
             setTimeout(function () { 
-                //x.className = x.className.replace("show", ""); 
                 x.classList.remove("show");
             }, 3000);
             return;
@@ -4869,9 +4918,24 @@ function saveItemChanges(evt) {
         }
 
 
+        if (description.length > 1000){
+            errorInfo = errorInfo + "Please limit the shop description to 1000 characters." + "<br>";
+        }
+
+        
+        if (errorInfo != ""){
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = errorInfo;
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+            return;
+        }
+        
         let versionseq = parseInt(rows[0].versionseq) + 1;
 
-        keywords = title + "," + itemdescription + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+        keywords = title + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
 
         if (rows[0].reviewed == "0"){
@@ -4915,10 +4979,8 @@ function saveItemChanges(evt) {
                 success: function (retstatus) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "Changes have been saved";
-                    //x.className = "show";
                     x.classList.add("show");
                     setTimeout(function () { 
-                        //x.className = x.className.replace("show", ""); 
                         x.classList.remove("show");
                     }, 3000);
 
@@ -4930,9 +4992,9 @@ function saveItemChanges(evt) {
                         }),
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (response) {
-                            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
                             localStorage.setItem("mystoreitemsList", response);
-                            populateMyStore(JSON.parse(response));
+                            //TODO - Temporarily commented out*********
+                            //populateMyStore(JSON.parse(response));
                         },
                         error: function (xhr, status, error) {
                             // console.log(error);
@@ -4944,10 +5006,7 @@ function saveItemChanges(evt) {
                 error: function (xhr, status, error) {
                     console.log("failed");
                 }
-            });            
-        
-
-
+            }); 
     }
 
 }

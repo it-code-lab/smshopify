@@ -427,17 +427,20 @@ input.confirmBtn:hover {
 .storeDescriptionCls {
     height: 150px;
     background-color: #fff;
+    overflow: auto;
 }
 
 .itemNameCls,
 .itemPriceCls {
     height: 100px;
     background-color: #fff;
+    overflow: auto;
 }
 
 .storeAvail {
     height: 150px;
     background-color: #fff;
+    overflow: auto;
 }
 
 .shopCategoryHeader {
