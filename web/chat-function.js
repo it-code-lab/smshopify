@@ -95,6 +95,7 @@ function goToPrev(){
     //document.querySelector(".shop-user-city").innerHTML = "";
     setTimeout(() => {
         document.getElementById("headerDragger").innerHTML = "";
+        document.getElementById("reportChatUserDivId").style.display = "none"; 
     }, 100);
     
 }

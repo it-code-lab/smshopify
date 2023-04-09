@@ -180,7 +180,7 @@ function getItemButtons() {
     let tempHTML = "";
     tempHTML = tempHTML + "<div class='itemBtnsDiv'>";
     tempHTML = tempHTML + "<div class='itmbtn'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div>"; //color_red_heart, color_light_pink
-    tempHTML = tempHTML + "<div class='itmbtn'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div>";
+    tempHTML = tempHTML + "<div class='itmbtn'  onclick='openItemChat(this)'><i class='fa fa-commenting font_size_24px'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='provideReview(this)'><i class='fa fa-star color_yellow_star'></i></div>";
     tempHTML = tempHTML + "<div class='itmbtn' onclick='reportItem(this)'><i class='fa fa-warning color_brown'></i></div>";
     tempHTML = tempHTML + "</div>";
@@ -1408,6 +1408,20 @@ function getItem(itemstr) {
             //console.log(xhr);
         }
     });
+}
+
+function getStoreURLMsg(){
+    //let path = window.location.pathname;
+    //let loc = window.location;
+    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+
+    let tempHTML = 'Store name is available. Your store site is going to be: <br><br>';
+    tempHTML = tempHTML + window.location.protocol + "//" + window.location.host +
+    window.location.pathname + localStorage.getItem("storename")
+    tempHTML = tempHTML + '<br><br> If this looks good click on the button below create store banner. <br> <br>';
+    tempHTML = tempHTML + '<button class="button_type1" onclick="showBanner()">Design Store banner</button>';
+    
+    return tempHTML;
 }
 
 function getCreateStore() {
@@ -5246,6 +5260,7 @@ function searchStoreNameItem() {
     } else {
         document.querySelector('.storeNameNotAvailable').style.display = "none";
         document.querySelector('.storeNameAvailable').style.display = "block";
+        document.querySelector('.storeNameAvailable').innerHTML = getStoreURLMsg();
         localStorage.setItem("storename", origSearchText);
     }
 
@@ -5411,7 +5426,7 @@ function populateItemsList(rows = "") {
 
         innerHTML = innerHTML + "<div><div><div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div></div></div>"; //color_red_heart, color_light_pink
 
-        innerHTML = innerHTML + "<div><div><div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-wechat'></i></div></div></div>";
+        innerHTML = innerHTML + "<div><div><div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-commenting font_size_24px'></i></div></div></div>";
 
             if (rows[i].title != undefined) {
                 if (rows[i].title != "") {
@@ -5967,7 +5982,14 @@ function SubshowLogin() {
     document.getElementById("SubloginSecDivId").style.display = "block"
 }
 
-function Logout() {
+async function Logout() {
+
+    const confirm = await ui.userConfirmation('Are you sure you want logout?');
+
+    if (!confirm) {
+        return;
+    }
+
     let StrFunction = "logout";
     error_message = "";
 
@@ -5992,7 +6014,7 @@ function Logout() {
                 
                 //document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
-                sessionStorage.setItem("SavedProjectsList", null);
+                localStorage.setItem("favitems", "");
                 //Show("projectscanner");
 
                 //let myUrl = window.location.protocol + "//" + window.location.host +	window.location.pathname ;
@@ -7759,12 +7781,15 @@ function mychat(){
         setTimeout(() => {
             try{
                 let elems = document.querySelectorAll(".shop-user-city") ;
+                let elemsB = document.querySelectorAll("#reportChatUserDivId");
+
                 for (let i = 0; i < elems.length; i++) {
                     elems[i].innerHTML = "";
+                    elemsB[i].style.display = "none";  
                     //console.log("done2");
                     //document.getElementById("headerDragger").innerHTML = "";
                 }
-                document.getElementById("reportChatUserDivId").style.display = "none";                
+                //document.getElementById("reportChatUserDivId").style.display = "none";                
             }catch(e){
     
             }            
