@@ -771,7 +771,7 @@ function Show(pageName) {
 
     //     document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Enter the code in the text area on the left or select a file using 'Open File' button. <br> Click on the scan button to view the help codes available."
 
-    //     /******************SM TODO********************/
+    //     /**************************************/
     //     let default_text =
     //         "//Either paste the code here or select code file using 'Open File' button and click on Scan button.";
     //     let textArea = $('#source')[0];
@@ -4608,9 +4608,9 @@ async function saveNewStore(itemid, createNewItem) {
         }
     });
 
-    //SM-TODO-Uncomment below line
+    //SM-TODO-Done-Uncomment below line
     if (allItems.length == 0) {
-        //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+        document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
         return;
     }
 
@@ -4668,16 +4668,16 @@ async function saveNewStore(itemid, createNewItem) {
             success: function (retstatus) {
                 if (i == allItems.length - 1) {
 
-                    //SM-TODO-Uncomment below line
-                    //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+                    //SM-TODO-Done-Uncomment below line
+                    document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
 
 
                 }
             },
             error: function (xhr, status, error) {
 
-                //SM-TODO-Uncomment below line
-                //document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
+                //SM-TODO-Done-Uncomment below line
+                document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
                 return;
 
             }
@@ -4847,8 +4847,8 @@ function saveItemChanges(evt) {
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     success: function (response) {
                         localStorage.setItem("mystoreitemsList", response);
-                        //TODO*****Temporarily Commented out******
-                        //populateMyStore(JSON.parse(response));
+                        //SM-TODO-Done*****Uncomment Below Line******
+                        populateMyStore(JSON.parse(response));
                     },
                     error: function (xhr, status, error) {
                         // console.log(error);
@@ -4994,8 +4994,8 @@ function saveItemChanges(evt) {
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (response) {
                             localStorage.setItem("mystoreitemsList", response);
-                            //TODO - Temporarily commented out*********
-                            //populateMyStore(JSON.parse(response));
+                            //SM-TODO-Done -Uncomment below line*********
+                            populateMyStore(JSON.parse(response));
                         },
                         error: function (xhr, status, error) {
                             // console.log(error);
