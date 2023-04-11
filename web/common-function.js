@@ -4444,7 +4444,8 @@ async function saveNewStore(itemid, createNewItem) {
     let bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
     let displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
     let hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
-    let availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+    //let availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+    let availabilityinfo = document.getElementById("availabilityDivId").textContent;
 
     if (document.querySelector(".showStoreAvail").checked) {
         if (availabilityinfo == "") {
@@ -4483,9 +4484,11 @@ async function saveNewStore(itemid, createNewItem) {
 
     let allItems = document.querySelectorAll(".shopItemCls");
     for (let i = 0; i < allItems.length; i++) {
-        let itemName = allItems[i].querySelector('.itemNameCls').innerHTML;
+        //let itemName = allItems[i].querySelector('.itemNameCls').innerHTML;
+        let itemName = allItems[i].querySelector('.itemNameCls').textContent;
         let itemDescription = allItems[i].querySelector('.itemDescriptionCls').innerHTML;
-        let itemprice = allItems[i].querySelector('.itemPriceCls').innerHTML;
+        //let itemprice = allItems[i].querySelector('.itemPriceCls').innerHTML;
+        let itemprice = allItems[i].querySelector('.itemPriceCls').textContent;
         let itemimages = allItems[i].querySelector('.itemImageshow-container').innerHTML;
 
         if ( itemName == "") {
@@ -4506,10 +4509,15 @@ async function saveNewStore(itemid, createNewItem) {
             break;
         }
         if (itemDescription.length > 500){
-            errorInfo = errorInfo + "Please limit the shop description to 500 characters" + "<br>";
+            errorInfo = errorInfo + "Please limit the item description to 500 characters" + "<br>";
             break;
         }  
 
+    }
+    let description = document.querySelector(".storeDescriptionCls").innerHTML;
+
+    if (description.length > 3000){
+        errorInfo = errorInfo + "Please limit the shop description to 3000 characters." + "<br>";
     }
 
     if (errorInfo != "") {
@@ -4531,7 +4539,7 @@ async function saveNewStore(itemid, createNewItem) {
     let subcategory = "";
     let versionseq = "1";
     let shortdescription = "";
-    let description = document.querySelector(".storeDescriptionCls").innerHTML;
+
 
     let discontinue = "0";
 
@@ -4542,6 +4550,7 @@ async function saveNewStore(itemid, createNewItem) {
 
     let StrFunction = "SubmitForReview";
     let keywords = storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
+
 
 
     $.ajax({
@@ -4609,6 +4618,7 @@ async function saveNewStore(itemid, createNewItem) {
     });
 
     //SM-TODO-Done-Uncomment below line
+
     if (allItems.length == 0) {
         document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
         return;
@@ -4730,7 +4740,8 @@ function saveItemChanges(evt) {
         bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
         displayhoursflag = document.querySelector(".showStoreHr").checked ? '1' : '0';
         hourshtml = document.querySelector(".storeHrDivCls").innerHTML;
-        availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+        //availabilityinfo = document.getElementById("availabilityDivId").innerHTML;
+        availabilityinfo = document.getElementById("availabilityDivId").textContent;
         displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
         description = document.querySelector(".storeDescriptionCls").innerHTML;
 
@@ -4753,10 +4764,12 @@ function saveItemChanges(evt) {
     let title = storename;
 
     if ((itemType == "item") ||  (itemType == "new")) {
-        itemprice = parentDiv.querySelector('.itemPriceCls').innerHTML;
+        //itemprice = parentDiv.querySelector('.itemPriceCls').innerHTML;
+        itemprice = parentDiv.querySelector('.itemPriceCls').textContent;
         itemimages = parentDiv.querySelector('.itemImageshow-container').innerHTML;
         itemdescription = parentDiv.querySelector('.itemDescriptionCls').innerHTML;
-        title = parentDiv.querySelector('.itemNameCls').innerHTML;
+        //title = parentDiv.querySelector('.itemNameCls').innerHTML;
+        title = parentDiv.querySelector('.itemNameCls').textContent;
     }
 
     if (title.length > 200){
@@ -4771,7 +4784,7 @@ function saveItemChanges(evt) {
         errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
     }
     if (itemdescription.length > 500){
-        errorInfo = errorInfo + "Please limit the shop description to 500 characters" + "<br>";
+        errorInfo = errorInfo + "Please limit the item description to 500 characters" + "<br>";
     }     
 
     let createNewItem = "y";
@@ -4919,8 +4932,8 @@ function saveItemChanges(evt) {
         }
 
 
-        if (description.length > 1000){
-            errorInfo = errorInfo + "Please limit the shop description to 1000 characters." + "<br>";
+        if (description.length > 3000){
+            errorInfo = errorInfo + "Please limit the shop description to 3000 characters." + "<br>";
         }
 
         
@@ -5318,10 +5331,11 @@ function searchStoreNameItem() {
         document.querySelector('.storeNameAvailable').style.display = "none";
         return;
     } else {
+        localStorage.setItem("storename", origSearchText);
         document.querySelector('.storeNameNotAvailable').style.display = "none";
         document.querySelector('.storeNameAvailable').style.display = "block";
         document.querySelector('.storeNameAvailable').innerHTML = getStoreURLMsg();
-        localStorage.setItem("storename", origSearchText);
+
     }
 
 }
@@ -6227,8 +6241,8 @@ function getStoreTypeList() {
 
     for (let i = 0; i < rows.length; i++) {
 
-        subcategory = rows[i].subcategory;
-        subcategory = subcategory.replaceAll(" ", "-");
+        //subcategory = rows[i].subcategory;
+        //subcategory = subcategory.replaceAll(" ", "-");
 
         categoryOrig = rows[i].category;
         category = rows[i].category;
