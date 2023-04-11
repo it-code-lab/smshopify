@@ -5509,9 +5509,17 @@ function populateItemsList(rows = "") {
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
-        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer" onclick="location.href=' + "'" + itemTitleURL + "'" + '">' + rows[i].itemimages ;
+        //SM-DONOTDELETE
+        //innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer" onclick="location.href=' + "'" + itemTitleURL + "'" + '">' + rows[i].itemimages ;
+        //innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
 
-        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
+        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
+        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></a></div>';
+
+
+        //innerHTML = innerHTML + '<a class="wg-box-content"><a class="wg-box-content-image" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
+        //innerHTML = innerHTML + '<div class="wg-box-content-overlay"></div><div class="wg-box-content-details wg-box-fadeIn-bottom"><h3 class="wg-box-content-title">This is a title</h3></div></a></a>';
+
 
         innerHTML = innerHTML + '<div class="itemListView-Header" >' ;
 
