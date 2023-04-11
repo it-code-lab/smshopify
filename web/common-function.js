@@ -3814,61 +3814,79 @@ function myStore() {
 
         return;
 
-    } 
-
-
-    document.getElementById("loginDivId").style.display = "none";
-    document.getElementById("contactusDivId").style.display = "none";
-    document.getElementById("howtoDivId").style.display = "none";
-    document.getElementById("homeDivId").style.display = "none";
-
-
-    //document.getElementById("helpDisplayDivId").style.display = "none";
-
-    
-    document.getElementById("mainContainer").style.width = "100%";
-
-    document.getElementById("itemDivId").style.display = "none";
-    document.getElementById("itemListDivId").style.display = "none";
-    document.getElementById("itemEditDivId").style.display = "none";
-
-    let tags = localStorage.getItem("storeinfo")
-    if ((tags != null) && (tags != undefined)) {
-        if ((tags != "") && (tags != "null")) {
-            if (tags == "n"){
-                getCreateStore();
-                return;
+    } else {
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            data: { usrfunction: "checklogin" },
+            type: 'POST',
+            dataType: 'json',
+            success: function (retstatus) {
+                if (retstatus == "err") {
+                    //alert("Please relogin");
+                    goToLogin();
+                }else{
+                    document.getElementById("loginDivId").style.display = "none";
+                    document.getElementById("contactusDivId").style.display = "none";
+                    document.getElementById("howtoDivId").style.display = "none";
+                    document.getElementById("homeDivId").style.display = "none";
+                
+                
+                    //document.getElementById("helpDisplayDivId").style.display = "none";
+                
+                    
+                    document.getElementById("mainContainer").style.width = "100%";
+                
+                    document.getElementById("itemDivId").style.display = "none";
+                    document.getElementById("itemListDivId").style.display = "none";
+                    document.getElementById("itemEditDivId").style.display = "none";
+                
+                    let tags = localStorage.getItem("storeinfo")
+                    if ((tags != null) && (tags != undefined)) {
+                        if ((tags != "") && (tags != "null")) {
+                            if (tags == "n"){
+                                getCreateStore();
+                                return;
+                            }
+                        }
+                    }
+                
+                
+                    tags = localStorage.getItem("mystoreitemsList")
+                
+                    if (tags != null) {
+                        if ((tags != "") && (tags != "null")) {
+                            populateMyStore(JSON.parse(tags));
+                            return;
+                        }
+                    }
+                
+                    $.ajax({
+                        url: the.hosturl + '/php/process.php',
+                        type: 'POST',
+                        data: jQuery.param({
+                            usrfunction: "getmystorenitems"
+                        }),
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        success: function (response) {
+                            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+                            localStorage.setItem("mystoreitemsList", response);
+                            populateMyStore(JSON.parse(response));
+                        },
+                        error: function (xhr, status, error) {
+                            // console.log(error);
+                            // console.log(xhr);
+                        }
+                    });
+                
+                }
+            },
+            error: function (xhr, status, error) {
+                //console.log("")
             }
-        }
+        });        
     }
 
 
-    tags = localStorage.getItem("mystoreitemsList")
-
-    if (tags != null) {
-        if ((tags != "") && (tags != "null")) {
-            populateMyStore(JSON.parse(tags));
-            return;
-        }
-    }
-
-    $.ajax({
-        url: the.hosturl + '/php/process.php',
-        type: 'POST',
-        data: jQuery.param({
-            usrfunction: "getmystorenitems"
-        }),
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        success: function (response) {
-            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
-            localStorage.setItem("mystoreitemsList", response);
-            populateMyStore(JSON.parse(response));
-        },
-        error: function (xhr, status, error) {
-            // console.log(error);
-            // console.log(xhr);
-        }
-    });
 }
 
 function populateMyStore(tags) {
@@ -4617,7 +4635,7 @@ async function saveNewStore(itemid, createNewItem) {
         }
     });
 
-    //SM-TODO-Done-Uncomment below line
+    //SM-Done-Uncomment below line
 
     if (allItems.length == 0) {
         document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
@@ -4678,7 +4696,7 @@ async function saveNewStore(itemid, createNewItem) {
             success: function (retstatus) {
                 if (i == allItems.length - 1) {
 
-                    //SM-TODO-Done-Uncomment below line
+                    //SM-Done-Uncomment below line
                     document.querySelector(".bottomNavigationCls").innerHTML = '<div class="greenMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Thank you for your submission. We will review and notify you after completion. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
 
 
@@ -4686,7 +4704,7 @@ async function saveNewStore(itemid, createNewItem) {
             },
             error: function (xhr, status, error) {
 
-                //SM-TODO-Done-Uncomment below line
+                //SM-Done-Uncomment below line
                 document.querySelector(".bottomNavigationCls").innerHTML = '<div class="redMsg scale-up-ver-top text_align_center" style="animation-duration: 0.1">Submission failed. Please try again after sometime. <br> <br> <button class="button_type1" onclick="goToHome()">Go To Home</button></div>'
                 return;
 
@@ -5007,7 +5025,7 @@ function saveItemChanges(evt) {
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (response) {
                             localStorage.setItem("mystoreitemsList", response);
-                            //SM-TODO-Done -Uncomment below line*********
+                            //SM-Done -Uncomment below line*********
                             populateMyStore(JSON.parse(response));
                         },
                         error: function (xhr, status, error) {
