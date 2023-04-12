@@ -4443,7 +4443,10 @@ async function saveNewStore(itemid, createNewItem) {
     }
 
     let displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
-    let maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    let maplocationcoordinates = "";
+    if (localStorage.getItem("latitude") != null){
+        maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    }
     //let uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
     let uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
         "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
@@ -4854,6 +4857,11 @@ function saveItemChanges(evt) {
         });
     } else {        
         //Check item fields are changed 
+        let maplocationcoordinates = "";
+
+        if (localStorage.getItem("latitude") != null){
+            maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+        }
         if ((rows[0].bannerhtml == bannerhtml)
             && (rows[0].description == description)
             && (rows[0].uselocationfromaddress == uselocationfromaddress)
@@ -4861,7 +4869,7 @@ function saveItemChanges(evt) {
             && (rows[0].availabilityinfo == availabilityinfo)
             && (rows[0].displayhoursflag == displayhoursflag)
             && (rows[0].displaylocationflag == displaylocationflag)
-
+            && (rows[0].maplocationcoordinates == maplocationcoordinates)
             && (rows[0].itemprice == itemprice)
             && (rows[0].itemimages == itemimages)
             && (rows[0].itemdescription == itemdescription)
@@ -4885,6 +4893,15 @@ function saveItemChanges(evt) {
         if (rows[0].uselocationfromaddress != uselocationfromaddress){
             changesDone = changesDone + "Shop Address, ";
         }
+
+        if (rows[0].maplocationcoordinates != maplocationcoordinates){
+            if (maplocationcoordinates !=""){
+                changesDone = changesDone + "Map Location Coordinates, ";
+            }else {
+                maplocationcoordinates = rows[0].maplocationcoordinates;
+            }            
+        }
+
         if (rows[0].hourshtml != hourshtml){
             changesDone = changesDone + "Hours HTML, ";
         }
@@ -4937,7 +4954,6 @@ function saveItemChanges(evt) {
             $.ajax({
                 url: the.hosturl + '/php/process.php',
                 data: {
-                    usremail: usremail,
                     itemid: itemid,
                     title: title,
                     titleseq: rows[0].titleseq,

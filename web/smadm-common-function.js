@@ -1609,8 +1609,8 @@ function getOneItemOfShop(tags, itemstr) {
 
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
-    newHTML = newHTML + getItemsHTML(tags);
-    newHTML = newHTML + getShopLocationAndHours(storeRow);
+    newHTML = newHTML + adm_getItemsHTML(tags);
+    newHTML = newHTML + adm_getShopLocationAndHours(storeRow[0]);
 
 
 
@@ -1683,18 +1683,20 @@ function getOneItemOfShop(tags, itemstr) {
 function getFullShopDetails(tags, itemstr) {
 
     let itemid = tags[0].itemid;
-    let itemuid = tags[0].itemuid;
     let category = tags[0].category;
-    let categoryseq = tags[0].categoryseq;
     let subcategory = tags[0].subcategory;
-    let versionseq = tags[0].versionseq;
     let title = tags[0].title;
-    let titleseq = tags[0].titleseq;
-    let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let city_state_country = tags[0].city_state_country;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
+
+    //let itemuid = tags[0].itemuid;
+    //let categoryseq = tags[0].categoryseq;    
+    //let versionseq = tags[0].versionseq;    
+    //let titleseq = tags[0].titleseq;
+    //let shortdescription = tags[0].shortdescription;    
+    //let city_state_country = tags[0].city_state_country;
+
 
 
     let path = window.location.pathname;
@@ -1702,21 +1704,21 @@ function getFullShopDetails(tags, itemstr) {
 
     //START: Find the next item to be put at the bottom of the page
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    //let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    //let allRows = JSON.parse(tf);
 
-    let nextItemTitle = "";
-    let nextItemTitleURL = "";
-    let allRows = JSON.parse(tf);
+    let allRows = tags;
 
-    let rows = allRows.filter(function (entry) {
-        return entry.discontinue == "0" && entry.category == category;
-    });
-
+    // let rows = allRows.filter(function (entry) {
+    //     return entry.discontinue == "0" && entry.category == category;
+    // });
     //let path = window.location.pathname;
 
     let storeItems = allRows.filter(function (entry) {
-        return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title != tags[0].storename;
+        return  entry.storename == tags[0].storename && entry.title != tags[0].storename;
     });
+
+
 
 
     let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/?target=item";
@@ -1738,39 +1740,50 @@ function getFullShopDetails(tags, itemstr) {
 
     //END - Item name Heading
 
-    if (localStorage.getItem("userLoggedIn") == "n") {
+    //SM-DONOTDELETE
+    // if (localStorage.getItem("userLoggedIn") == "n") {
+    // } else if (localStorage.getItem("userLvl") == "9") {
+    //     sessionStorage.setItem("data-description", description);
+    //     newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+    // }
 
-    } else if (localStorage.getItem("userLvl") == "9") {
+    let storeHeads = allRows.filter(function (entry) {
+        return  entry.storename == tags[0].storename && entry.title == tags[0].storename;
+    });
 
-        sessionStorage.setItem("data-description", description);
+    for (let storehead of storeHeads){
+        let itemid = storehead.itemid;
+        let category = storehead.category;
+        let subcategory = storehead.subcategory;
+        let title = storehead.title;
+        let description = storehead.description;
+        let keywords = storehead.keywords;
+        let discontinue = storehead.discontinue;
 
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+        newHTML = newHTML + "<div class = 'shopLyrics' data-itemid= '" + itemid + "'  >" + "<div class = 'storeItemDivCls' >";
 
-    }
-    newHTML = newHTML + "<div class = 'shopLyrics' data-itemid= '" + itemid + "'  >" + "<div class = 'storeItemDivCls' >";
-
-    //Start: div class="slides"
-    if (tags[0].bannerhtml != undefined) {
-        if (tags[0].bannerhtml != "") {
-            newHTML = newHTML
-                + '<div class="slides">' + tags[0].bannerhtml + '</div>';
+        //Start: div class="slides"
+        if (storehead.bannerhtml != undefined) {
+            if (storehead.bannerhtml != "") {
+                newHTML = newHTML
+                    + '<div class="slides">' + storehead.bannerhtml + '</div>';
+            }
         }
-    }
 
-    if (tags[0].description != undefined) {
-        if (tags[0].description != "") {
-            newHTML = newHTML
-                + '<div contenteditable="true" class="shopDescriptionCls bgcolor_2 padding_50px color_white margin_10px">' + tags[0].description + '</div>';
+        if (storehead.description != undefined) {
+            if (storehead.description != "") {
+                newHTML = newHTML
+                    + '<div contenteditable="true" class="shopDescriptionCls bgcolor_2 padding_50px color_white margin_10px">' + storehead.description + '</div>';
+            }
         }
+
+
+
+        newHTML = newHTML + adm_getShopLocationAndHours(storehead);
+
     }
 
-    //End: div class="slides"
-
-    newHTML = newHTML + getShopLocationAndHours(tags);
-
-    //newHTML = newHTML + '<div class="fullwidthdummydiv bottom_shadow">&nbsp;</div>';
-
-    newHTML = newHTML + getItemsHTML(storeItems);
+    newHTML = newHTML + adm_getItemsHTML(storeItems);
 
 
 
@@ -1845,7 +1858,7 @@ function getFullShopDetails(tags, itemstr) {
     // }, 20);
 }
 
-function getShopLocationAndHours(tags) {
+function adm_getShopLocationAndHours(storehead) {
     let newHTML = "";
 
     //Start: Have Info- Desc/Hours/Location under one parent div
@@ -1853,12 +1866,30 @@ function getShopLocationAndHours(tags) {
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px">';
 
-    newHTML = newHTML + '<div title="Shop Address" class="title-tip" contenteditable="true" class="shopaddress margin_auto maxwidth_300px">' + tags[0].uselocationfromaddress + '</div>';
-    newHTML = newHTML + '<div title="Long Lat from Address" class="title-tip warningMsg1" contenteditable="true" class="shopaddresscoord margin_auto maxwidth_300px">' + tags[0].coordinatesfromaddress + '</div>';
+    newHTML = newHTML + '<div title="Shop Address" contenteditable="true" class="title-tip shopaddress margin_auto maxwidth_300px">' + storehead.uselocationfromaddress + '</div>';
+    newHTML = newHTML + '<div title="Lat,Long from Address" contenteditable="true" class="title-tip warningMsg1 shopaddresscoord margin_auto maxwidth_300px">' + storehead.coordinatesfromaddress + '</div>';
 
-    if ((tags[0].maplocationcoordinates != undefined) && (tags[0].maplocationcoordinates != null) && (tags[0].maplocationcoordinates != "")) {
+    if ((storehead.coordinatesfromaddress != undefined) && (storehead.coordinatesfromaddress != null) && (storehead.coordinatesfromaddress != "") && (storehead.coordinatesfromaddress != "null,null")) {
 
-            let crd = tags[0].maplocationcoordinates.split(",");
+        let crd = storehead.coordinatesfromaddress.split(",");
+        
+        newHTML = newHTML
+            + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+
+
+        setTimeout(function () {
+            //let latitude = 28.2683684;
+            //let longitude = 78.6824194000001;
+            let latitude = crd[0];
+            let longitude = crd[1];
+            const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+            L.marker([latitude, longitude]).addTo(map);
+        }, 10);
+
+    }   else if ((storehead.maplocationcoordinates != undefined) && (storehead.maplocationcoordinates != null) && (storehead.maplocationcoordinates != "") && (storehead.maplocationcoordinates != "null,null")) {
+
+            let crd = storehead.maplocationcoordinates.split(",");
             
             newHTML = newHTML
                 + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
@@ -1875,7 +1906,7 @@ function getShopLocationAndHours(tags) {
             }, 10);
 
     }
-    newHTML = newHTML + '<div title="Long Lat from Browser" class="title-tip" contenteditable="true" class="brwsrmapcoord margin_auto maxwidth_300px">' + tags[0].maplocationcoordinates + '</div>';
+    newHTML = newHTML + '<div title="Lat,Long from Browser"  contenteditable="true" class="title-tip brwsrmapcoord margin_auto maxwidth_300px">' + storehead.maplocationcoordinates + '</div>';
 
 
 
@@ -1886,32 +1917,32 @@ function getShopLocationAndHours(tags) {
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
 
-    if (tags[0].hourshtml != undefined) {
-        if (tags[0].hourshtml != null) {
+    if (storehead.hourshtml != undefined) {
+        if (storehead.hourshtml != null) {
             newHTML = newHTML
-                + '<div title="Shop Hours" class="title-tip" contenteditable="true" class="shophrscls font_size_12px">' + tags[0].hourshtml + '</div>';
+                + '<div title="Shop Hours" contenteditable="true" class="title-tip shophrscls font_size_12px">' + storehead.hourshtml + '</div>';
         }
     }
 
-    newHTML = newHTML + '<div title="Shop Availability Info" class="title-tip" contenteditable="true" class="shopavailinfocls font_size_12px">' + tags[0].availabilityinfo + '</div>';
+    newHTML = newHTML + '<div title="Shop Availability Info" contenteditable="true" class="title-tip shopavailinfocls font_size_12px">' + storehead.availabilityinfo + '</div>';
     newHTML = newHTML + '</div></div>';
     //End: max_2box_responsive
 
     newHTML = newHTML + '</div>';
     //End: Have Info- Desc/Hours/Location under one parent div
 
-    if (tags[0].discontinue == "1"){
-        newHTML = newHTML + '<div title="Discontinued" contenteditable="true" class="shopdiscontinuecls title-tip bgcolor_1 font_size_12px">' + tags[0].discontinue + '</div>';
+    if (storehead.discontinue == "1"){
+        newHTML = newHTML + '<div title="Discontinued" contenteditable="true" class="shopdiscontinuecls title-tip warningMsg font_size_12px">' + storehead.discontinue + '</div>';
 
     }else {
-        newHTML = newHTML + '<div title="Discontinued"  contenteditable="true" class="title-tip shopdiscontinuecls font_size_12px">' + tags[0].discontinue + '</div>';
+        newHTML = newHTML + '<div title="Discontinued"  contenteditable="true" class="title-tip shopdiscontinuecls font_size_12px">' + storehead.discontinue + '</div>';
 
     }
-    if (tags[0].reviewed == "0"){
-        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip warningMsg1 shopreviewedcls font_size_12px">' + tags[0].reviewed + '</div>';
+    if (storehead.reviewed == "0"){
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip warningMsg1 shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
        
     }else {
-        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + tags[0].reviewed + '</div>';
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
 
     }
 
@@ -1921,20 +1952,57 @@ function getShopLocationAndHours(tags) {
 }
 
 function saveShopItemReview(evt){
-    let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement.parentElement;
+    let parentDiv = evt.currentTarget.parentElement.parentElement;
     let itemid = parentDiv.dataset.itemid;
 
-    let description = document.querySelector(".shopDescriptionCls").innerHTML;
-    let hourshtml = document.querySelector(".shophrscls").innerHTML;
-    let uselocationfromaddress = document.querySelector(".shopaddress").textContent;
-    let coordinatesfromaddress = document.querySelector(".shopaddresscoord").textContent;
-    let maplocationcoordinates = document.querySelector(".brwsrmapcoord").textContent;
-    let availabilityinfo = document.getElementById("shopavailinfocls").textContent;
-    let discontinue = document.getElementById("shopdiscontinuecls").textContent;
-    let reviewed = document.getElementById("shopreviewedcls").textContent;
+    let description = parentDiv.querySelector(".shopDescriptionCls").innerHTML;
+    let hourshtml = parentDiv.querySelector(".shophrscls").innerHTML;
+    let uselocationfromaddress = parentDiv.querySelector(".shopaddress").textContent;
+    let coordinatesfromaddress = parentDiv.querySelector(".shopaddresscoord").textContent;
+    let maplocationcoordinates = parentDiv.querySelector(".brwsrmapcoord").textContent;
+    let availabilityinfo = parentDiv.querySelector(".shopavailinfocls").textContent;
+    let discontinue = parentDiv.querySelector(".shopdiscontinuecls").textContent;
+    let reviewed = parentDiv.querySelector(".shopreviewedcls").textContent;
     
 
-    
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { itemid: itemid,
+                description:description,
+                hourshtml: hourshtml,
+                uselocationfromaddress:uselocationfromaddress,
+                coordinatesfromaddress:coordinatesfromaddress,
+                maplocationcoordinates: maplocationcoordinates,
+                availabilityinfo: availabilityinfo,
+                discontinue: discontinue,
+                reviewed: reviewed,
+                usrfunction: "saveshopitemreview" 
+            },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            let x = document.getElementById("toastsnackbar");
+            if (retstatus) {                
+                x.innerHTML = "Updates saved";
+            }else {
+                x.innerHTML = "Updates failed";
+            }
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            //console.log("")
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Updates failed";
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        }
+    });
 
 
 
@@ -1947,11 +2015,47 @@ function saveItemReview(evt){
     let title = parentDiv.querySelector('.shopItemTitle').textContent;    
     let itemprice = parentDiv.querySelector('.shopItemPrice').textContent;
     let itemdescription = parentDiv.querySelector('.shopItemDescription').innerHTML;
-    let discontinue = parentDiv.getElementById("itemdiscontinuecls").textContent;
-    let reviewed = parentDiv.getElementById("itemreviewedcls").textContent;   
+    let discontinue = parentDiv.querySelector(".itemdiscontinuecls").textContent;
+    let reviewed = parentDiv.querySelector(".itemreviewedcls").textContent;   
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { itemid: itemid,
+                title:title,
+                itemprice: itemprice,
+                itemdescription:itemdescription,
+                discontinue: discontinue,
+                reviewed: reviewed,
+                usrfunction: "saveitemreview" 
+            },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            let x = document.getElementById("toastsnackbar");
+            if (retstatus) {                
+                x.innerHTML = "Updates saved";
+            }else {
+                x.innerHTML = "Updates failed";
+            }
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            //console.log("")
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Updates failed";
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        }
+    });
 }
 
-function getItemsHTML(storeItems) {
+function adm_getItemsHTML(storeItems) {
     let newHTML = "";
 
     let path = window.location.pathname;
@@ -1998,26 +2102,20 @@ function getItemsHTML(storeItems) {
 
         newHTML = newHTML + getItemButtons();
 
-        if (storeItems[i].title != undefined) {
-            if (storeItems[i].title != "") {
+
                 newHTML = newHTML
                     + '<div data-title="Item Name" contenteditable="true" class="shopItemTitle ">' + storeItems[i].title + '</div>';
-            }
-        }
 
-        if (storeItems[i].itemprice != undefined) {
-            if (storeItems[i].itemprice != "") {
+
+
                 newHTML = newHTML
                     + '<div data-title="Item Price" contenteditable="true" class="shopItemPrice ">' + storeItems[i].itemprice + '</div>';
-            }
-        }
 
-        if (storeItems[i].itemdescription != undefined) {
-            if (storeItems[i].itemdescription != "") {
+
+
                 newHTML = newHTML
                     + '<div data-title="Item Description" contenteditable="true" class="shopItemDescription padding_20px">' + storeItems[i].itemdescription + '</div>';
-            }
-        }
+
 
         if (storeItems[i].lastupdatedate != undefined) {
             if (storeItems[i].lastupdatedate != "") {
@@ -2037,7 +2135,7 @@ function getItemsHTML(storeItems) {
         }
 
         if(storeItems[i].discontinue == "1"){
-            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls warningMsg1 font_size_12px">' + storeItems[i].discontinue + '</div>';
+            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls warningMsg font_size_12px">' + storeItems[i].discontinue + '</div>';
         }else {
             newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls font_size_12px">' + storeItems[i].discontinue + '</div>';
         }
@@ -4477,7 +4575,11 @@ async function saveNewStore(itemid, createNewItem) {
     }
 
     let displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
-    let maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    let maplocationcoordinates = ""
+
+    if (localStorage.getItem("latitude") != null){
+        maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    }
     //let uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
     let uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
         "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
@@ -4886,6 +4988,13 @@ function saveItemChanges(evt) {
         });
     } else {        
         //Check item fields are changed 
+
+        let maplocationcoordinates = "";
+
+        if (localStorage.getItem("latitude") != null){
+            maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+        }
+
         if ((rows[0].bannerhtml == bannerhtml)
             && (rows[0].description == description)
             && (rows[0].uselocationfromaddress == uselocationfromaddress)
@@ -4893,7 +5002,6 @@ function saveItemChanges(evt) {
             && (rows[0].availabilityinfo == availabilityinfo)
             && (rows[0].displayhoursflag == displayhoursflag)
             && (rows[0].displaylocationflag == displaylocationflag)
-
             && (rows[0].itemprice == itemprice)
             && (rows[0].itemimages == itemimages)
             && (rows[0].itemdescription == itemdescription)
@@ -4917,6 +5025,15 @@ function saveItemChanges(evt) {
         if (rows[0].uselocationfromaddress != uselocationfromaddress){
             changesDone = changesDone + "Shop Address, ";
         }
+
+        if (rows[0].maplocationcoordinates != maplocationcoordinates){
+            if (maplocationcoordinates !=""){
+                changesDone = changesDone + "Map Location Coordinates, ";
+            }else {
+                maplocationcoordinates = rows[0].maplocationcoordinates;
+            }            
+        }
+
         if (rows[0].hourshtml != hourshtml){
             changesDone = changesDone + "Hours HTML, ";
         }
@@ -4969,7 +5086,6 @@ function saveItemChanges(evt) {
             $.ajax({
                 url: the.hosturl + '/php/process.php',
                 data: {
-                    usremail: usremail,
                     itemid: itemid,
                     title: title,
                     titleseq: rows[0].titleseq,
@@ -4987,7 +5103,7 @@ function saveItemChanges(evt) {
                     itemimages: itemimages,
                     itemdescription: itemdescription,
                     displaylocationflag: displaylocationflag,
-                    maplocationcoordinates: "",
+                    maplocationcoordinates: maplocationcoordinates,
                     address: "",
                     uselocationfromaddress: uselocationfromaddress,
                     coordinatesfromaddress: "",
@@ -8026,4 +8142,192 @@ function reportChatUser(elem){
     //placePopupUnderClickedBtnParent(elem);
     placePopupAtPosFromBtn(elem, -300, -10);
     //placePopupAtPosFromBtnXOffset(elem, -300, -10);
+}
+
+//******************************************************************** */
+// Below are the functions that are updated for adm functions
+//******************************************************************** */
+function getShopLocationAndHours(storehead) {
+    let newHTML = "";
+
+    //Start: Have Info- Desc/Hours/Location under one parent div
+    newHTML = newHTML + '<div class="flex_container_align_center">';
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive padding_10px">';
+
+    newHTML = newHTML + '<div title="Shop Address" contenteditable="true" class="title-tip shopaddress margin_auto maxwidth_300px">' + storehead.uselocationfromaddress + '</div>';
+    newHTML = newHTML + '<div title="Lat,Long from Address" contenteditable="true" class="title-tip warningMsg1 shopaddresscoord margin_auto maxwidth_300px">' + storehead.coordinatesfromaddress + '</div>';
+
+    if ((storehead.maplocationcoordinates != undefined) && (storehead.maplocationcoordinates != null) && (storehead.maplocationcoordinates != "") && (storehead.maplocationcoordinates != "null,null")) {
+
+            let crd = storehead.maplocationcoordinates.split(",");
+            
+            newHTML = newHTML
+                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+
+
+            setTimeout(function () {
+                //let latitude = 28.2683684;
+                //let longitude = 78.6824194000001;
+                let latitude = crd[0];
+                let longitude = crd[1];
+                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                L.marker([latitude, longitude]).addTo(map);
+            }, 10);
+
+    }
+    newHTML = newHTML + '<div title="Lat,Long from Browser" contenteditable="true" class="title-tip brwsrmapcoord margin_auto maxwidth_300px">' + storehead.maplocationcoordinates + '</div>';
+
+
+
+
+    newHTML = newHTML + '</div>';
+    //End: max_2box_responsive
+
+    //Start: max_2box_responsive
+    newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto maxwidth_300px text_align_center">';
+
+    if (storehead.hourshtml != undefined) {
+        if (storehead.hourshtml != null) {
+            newHTML = newHTML
+                + '<div title="Shop Hours"  contenteditable="true" class="title-tip shophrscls font_size_12px">' + storehead.hourshtml + '</div>';
+        }
+    }
+
+    newHTML = newHTML + '<div title="Shop Availability Info" contenteditable="true" class="title-tip shopavailinfocls font_size_12px">' + storehead.availabilityinfo + '</div>';
+    newHTML = newHTML + '</div></div>';
+    //End: max_2box_responsive
+
+    newHTML = newHTML + '</div>';
+    //End: Have Info- Desc/Hours/Location under one parent div
+
+    if (storehead.discontinue == "1"){
+        newHTML = newHTML + '<div title="Discontinued" contenteditable="true" class="shopdiscontinuecls warningMsg title-tip font_size_12px">' + storehead.discontinue + '</div>';
+
+    }else {
+        newHTML = newHTML + '<div title="Discontinued"  contenteditable="true" class="title-tip shopdiscontinuecls font_size_12px">' + storehead.discontinue + '</div>';
+
+    }
+    if (storehead.reviewed == "0"){
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip warningMsg1 shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
+       
+    }else {
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
+
+    }
+
+    newHTML = newHTML + '<button class="" style="" onclick="saveShopItemReview(event)">Save</button>';
+    return newHTML;
+
+}
+
+function getItemsHTML(storeItems) {
+    let newHTML = "";
+
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+
+    for (let i = 0; i < storeItems.length; i++) {
+
+        if (storeItems[i].title == undefined) {
+            continue;
+
+        } else {
+            if (storeItems[i].title == "") {
+                continue;
+            }
+
+        }
+        let category = storeItems[i].category;
+        let categorySpaceReplaced = category.replaceAll(" ", "-");
+        let storeName = storeItems[i].storename;
+        let storeNameSpaceReplaced = storeName.replaceAll(" ", "-");
+        let itemName = storeItems[i].title;
+        let itemNameSpaceReplaced = itemName.replaceAll(" ", "-");
+
+
+        let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
+        //Start: Have Item image, Details under one parent div
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+
+        //Start: max_2box_responsive
+        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
+
+        if (storeItems[i].itemimages != undefined) {
+            if (storeItems[i].itemimages != "") {
+                newHTML = newHTML + '<div class="itemImageshow-container cursor_pointer"  onclick="location.href=' + "'" + itemTitleURL + "'" + '"> ' + storeItems[i].itemimages + '</div>';
+            }
+        }
+        //End: div class="itemImageshow-container"
+
+        newHTML = newHTML + '</div></div>';
+        //End: max_2box_responsive
+
+        //Start: max_2box_responsive
+        newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
+
+        newHTML = newHTML + getItemButtons();
+
+        if (storeItems[i].title != undefined) {
+            if (storeItems[i].title != "") {
+                newHTML = newHTML
+                    + '<div data-title="Item Name" contenteditable="true" class="shopItemTitle ">' + storeItems[i].title + '</div>';
+            }
+        }
+
+        if (storeItems[i].itemprice != undefined) {
+            if (storeItems[i].itemprice != "") {
+                newHTML = newHTML
+                    + '<div data-title="Item Price" contenteditable="true" class="shopItemPrice ">' + storeItems[i].itemprice + '</div>';
+            }
+        }
+
+        if (storeItems[i].itemdescription != undefined) {
+            if (storeItems[i].itemdescription != "") {
+                newHTML = newHTML
+                    + '<div data-title="Item Description" contenteditable="true" class="shopItemDescription padding_20px">' + storeItems[i].itemdescription + '</div>';
+            }
+        }
+
+        if (storeItems[i].lastupdatedate != undefined) {
+            if (storeItems[i].lastupdatedate != "") {
+
+                let dateStr = (storeItems[i].lastupdatedate).substring(0, 10); // yyyy-mm-dd format
+                let date = new Date(dateStr); // convert string to Date object
+
+                let month = date.toLocaleString('default', { month: 'short' }); // get short month name
+                let day = date.getDate(); // get day of the month
+
+                let formattedDate = `${month}-${day}`; // create formatted date string
+
+                newHTML = newHTML + '<div class="shopItemLastupdatedate ">Updated: ' + formattedDate + '</div>';
+
+                //newHTML = newHTML + '<div class="shopItemLastupdatedate ">Updated: ' + (storeItems[i].lastupdatedate).substring(0, 10) + '</div>';
+            }
+        }
+
+        if(storeItems[i].discontinue == "1"){
+            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls warningMsg font_size_12px">' + storeItems[i].discontinue + '</div>';
+        }else {
+            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls font_size_12px">' + storeItems[i].discontinue + '</div>';
+        }
+
+        if(storeItems[i].reviewed != "1"){
+            newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls warningMsg1 font_size_12px">' + storeItems[i].reviewed + '</div>';
+        }else {
+            newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
+        }
+    
+        newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="saveItemReview(event)">Save</button>';
+
+        
+        newHTML = newHTML + '</div></div>';
+        //End: max_2box_responsive
+
+        newHTML = newHTML + '</div>';
+        //End: Have Item image, Details under one parent div
+    }
+
+    return newHTML;
 }
