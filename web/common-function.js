@@ -1858,22 +1858,60 @@ function getShopLocationAndHours(tags) {
         newHTML = newHTML + shopAddr + '</div>';
     }
 
-    if (tags[0].displaylocationflag != undefined) {
-        if (tags[0].displaylocationflag != "xyx") {
+    if ((tags[0].coordinatesfromaddress != undefined) && (tags[0].coordinatesfromaddress != null) && (tags[0].coordinatesfromaddress != "") && (tags[0].coordinatesfromaddress != "null,null")) {
+
+        let crd = tags[0].coordinatesfromaddress.split(",");
+        
+        newHTML = newHTML
+            + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+
+
+        setTimeout(function () {
+            //let latitude = 28.2683684;
+            //let longitude = 78.6824194000001;
+            let latitude = crd[0];
+            let longitude = crd[1];
+            const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+            L.marker([latitude, longitude]).addTo(map);
+        }, 10);
+
+    }   else if ((tags[0].maplocationcoordinates != undefined) && (tags[0].maplocationcoordinates != null) && (tags[0].maplocationcoordinates != "") && (tags[0].maplocationcoordinates != "null,null")) {
+
+            let crd = tags[0].maplocationcoordinates.split(",");
+            
             newHTML = newHTML
                 + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
 
             setTimeout(function () {
-                let latitude = 28.2683684;
-                let longitude = 78.6824194000001;
+                //let latitude = 28.2683684;
+                //let longitude = 78.6824194000001;
+                let latitude = crd[0];
+                let longitude = crd[1];
                 const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
             }, 10);
-
-        }
     }
+
+
+    // if (tags[0].displaylocationflag != undefined) {
+    //     if (tags[0].displaylocationflag != "xyx") {
+    //         newHTML = newHTML
+    //             + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+
+
+    //         setTimeout(function () {
+    //             let latitude = 28.2683684;
+    //             let longitude = 78.6824194000001;
+    //             const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+    //             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    //             L.marker([latitude, longitude]).addTo(map);
+    //         }, 10);
+
+    //     }
+    // }
 
 
 
