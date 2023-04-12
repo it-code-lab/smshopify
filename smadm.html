@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMD8K2RLDE"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-JMD8K2RLDE');
+   </script>
+
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   <meta name="keywords" content="Software, IT, items, Code Samples" />
+   <meta name="description"
+      content="Easy to understand items with lots of sample codes in programming languages Java, Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing feature to scan and help understand the programming code." />
+   <meta name="author" content="Numerouno" />
+   <title>IT items and Code Scanner</title>
+   <!-- Favicon-->
+   <link rel="icon" type="image/x-icon" href="/smshopify/assets/favicon.ico" />
+   <!-- Core theme CSS (includes Bootstrap)-->
+   <link href="/smshopify/css/styles.css" rel="stylesheet" />
+   <link href="/smshopify/css/codemirror.css" rel="stylesheet" />
+   <!--  
+         <link href="/smshopify/css/bootstrap.min.css" rel="stylesheet" />
+         -->
+   <link href="/smshopify/css/codescriber.css" rel="stylesheet" />
+   <link href="/smshopify/css/slidestyles.css" rel="stylesheet" />
+   <link href="/smshopify/css/smshopi.css" rel="stylesheet" />
+   <link href="/smshopify/css/smstylegtlimit.css" rel="stylesheet" />
+   <link href="/smshopify/css/smstyleltlimit.css" rel="stylesheet" />
+   <link href="/smshopify/css/smtheme.css" rel="stylesheet" />
+   <link href="/smshopify/css/chatstyle.css" rel="stylesheet" type="text/css">
+   <!-- 
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+         
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+         -->
+   <script src="https://kit.fontawesome.com/2e937192fc.js" crossorigin="anonymous"></script>
+   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+   <link rel="stylesheet" href="/smshopify/web/common-style.css">
+   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&flags=gated"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.js"
+      integrity="sha256-dPTL2a+npIonoK5i0Tyes0txCMUWZBf8cfKRfACRotc=" crossorigin="anonymous"></script>
+   <!-- Codemirror Modes -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"
+      integrity="sha256-cphnEddX56MtGJsi1PoCPLds+dlnDj1QQkAlCWeJYDo=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"
+      integrity="sha256-7AjEsHnW7cpq2raC/uxnGCP2G4zIKmCdz7OAv6LN00o=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"
+      integrity="sha256-mjhvNBMExwa2AtP0mBlK9NkzJ7sgRSyZdgw9sPhhtb0=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"
+      integrity="sha256-qfS6ZUe6JhPU75/Sc1ftiWzC2N9IxGEjlRwpKB78Ico=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/search/search.js"
+      integrity="sha256-iUnNlgkrU5Jj8oKl2zBBCTmESI2xpXwZrTX+arxSEKc=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/search/searchcursor.min.js"
+      integrity="sha256-y7nxCQ9bT6p4fEq9ylGxWfMQBpL6ingXkav6Nr1AcZ8=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.min.js"
+      integrity="sha256-G+QhvxjUNi5P5cyQqjROwriSUy2lZtCFUQh+8W1o6I0=" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.css"
+      integrity="sha256-XfaQ13HxIRg0hWLdKpAGBDOuLt7M0JCKvKpEgLHj5Gg=" crossorigin="anonymous" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   <script src="/smshopify/js/jquery-resizable-delit.js"></script>
+   <!--REF: https://medium.com/@petehouston/remove-tinymce-warning-notification-on-cloud-api-key-70a4a352b8b0 -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script>
+
+   <!--REF: https://highlightjs.org/usage/ -->
+   <link rel="stylesheet" href="/smshopify/css/default.min.css">
+   <!-- <script src="/smshopify/js/highlight.min.js"></script> -->
+
+   <!-- For Location Display on Map -->
+   <!-- <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
+
+   <!-- For Location Display on Map -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+
+   <!-- <script>
+      tinymce.init({
+         selector: '.tiny',
+         menubar: false,
+         plugins: "textcolor, lists, autoresize",
+         toolbar: 'undo redo | styleselect | forecolor backcolor | numlist bullist '
+
+      });
+   </script> -->
+   <!--
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+         -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+      integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
+   <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>  -->
+   <!--
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg=" crossorigin="anonymous"></script>
+         -->
+   <script src="/smshopify/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
+   <script src="/smshopify/js/lib/unpackers/urlencode_unpacker.js"></script>
+   <script src="/smshopify/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
+   <script src="/smshopify/js/lib/unpackers/myobfuscate_unpacker.js"></script>
+   <!---->
+   <!-- <script src="/smshopify/web/common-editor-function.js"></script> -->
+   <script src="/smshopify/web/smadm-common-function.js"></script>
+   <script src="/smshopify/web/chat-function.js"></script>
+   <!-----
+         <script src="/smshopify/web/common-function-mini.js"></script>
+         -->
+
+   <script type="application/ld+json">{
+			"@context": "https://schema.org/",
+			"@type":"WebSite","url":"https://smshopify.com/",
+			"name": "IT Code Scanner - items and Code Samples",
+			"datePublished": "2022-07-10",
+			"description": "IT Code Scanner - items and Code Samples.",
+			"thumbnailUrl": "https://smshopify.com/images/banner.png"         
+		 }
+		 </script>
+
+</head>
+
+<body>
+   <div class="d-flex" id="wrapper">
+      <!-- Page content wrapper-->
+      <div id="page-content-wrapper">
+         <!-- Top navigation-->
+         <div class="topnav" id="myTopnav">
+            <a id="homeLinkId" class="navLink" href="/smshopify/kisna/?target=home">HOME</a>
+
+            <!-- SM-TODO - Remove some of these links -->
+            <a id="itemLinkId" class="navLink" href="/smshopify/kisna/?target=item">LISTINGS <i class="fa fa-caret-down"></i></a>
+            <div id="dropDownItmCatgListId" class="dropdown-content">
+            </div>
+
+
+            <a id="howtoLinkId" class="navLink" href="/smshopify/kisna/?target=howto">HOW TO VIDEOS</a>
+            <a id="contactusLinkId" class="navLink" href="/smshopify/kisna/?target=contactus">CONTACT US</a>
+            <a id="loginLinkId" class="navLink" href="/smshopify/kisna/?target=login">LOG IN</a>
+            <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
+            <a id="mystoreLinkId" class="navLink" href="/smshopify/kisna/?target=mystore">CREATE MY STORE</a>
+            <a id="myfavoritesLinkId" class="navLink displayNone" href="javascript:myfavorites()">FAVORITES</a>
+            <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
+               <i class="fa fa-commenting font_size_24px" aria-hidden="true"></i>
+               <span class="chatBadge displayNone">0</span>
+               <audio id="audioPreview" controls="controls" class="displayNone">  
+                  <source id="audioSourceIdWAV" src="/smanimaker/sounds/low-bell-ding.wav" type="audio/wav">
+               </audio>
+            </a>
+            <a id="itemsPendingReviewLinkId" class="navLink displayNone" href="javascript:getItmPendingReview()">LISTINGS MGMT</a>
+            <a id="reportsPendingReviewLinkId" class="navLink displayNone" href="javascript:getreportsPendingReview()">REPORTS MGMT</a>
+            <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:getaccMgMt()">ACCOUNTS MGMT</a>
+            <a id="messageLinkId" class="navLink displayNone" href="javascript:getMessages()">CHAT MGMT</a>
+            <a id="reviewsLinkId" class="navLink displayNone" href="javascript:getReviews()">REVIEWS MGMT</a>
+
+
+            <a class="searchWrapper"><span id="itemsearchDivId" ><input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
+               placeholder='search' />
+            <button id="itemsearchBtnId" class=''
+               onclick='searchItem(); return false;'><i class="fas fa-search"></i></button>
+            </span></a>
+
+            <!-- <a id=" buymecoffee" href="https://www.buymeacoffee.com/smah" target="_blank">
+               <i id="coffeeBtn" class="fas fa-coffee"
+                  style=" font-size: 12px; border-radius: 5px; padding: 2px; ">&nbsp; <span
+                     style="font-family: var(--bs-font-sans-serif); font-size: 14px; font-weight: 300;">Buy me a coffee
+                     <span></i>
+            </a> -->
+            <a href="javascript:void(0);" class="icon" style="margin-right: 20px" onclick="myTopNavFunction()">
+               <i class="fa fa-bars"></i>
+            </a>
+         </div>
+
+         <!-- End of Top navigation-->
+         <!-- Page content-->
+         <div id="loaderDivId">
+            <!-- <img src='/smshopify/images/codescan.png' alt='Loading..' style="margin:auto"> -->
+            <div class="loader">
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+            </div>
+         </div>
+
+         <!-- REF: https://getwaves.io/ -->
+         <div id="containerNHelpDivId">
+            <svg id="bgSVGId" class="bgSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+               <path fill="#7559DA" fill-opacity="1"
+                  d="M0,224L30,197.3C60,171,120,117,180,117.3C240,117,300,171,360,197.3C420,224,480,224,540,208C600,192,660,160,720,165.3C780,171,840,213,900,245.3C960,277,1020,299,1080,272C1140,245,1200,171,1260,165.3C1320,160,1380,224,1410,256L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z">
+               </path>
+            </svg>
+
+            <div id="mainContainer" class="panel-container panel-left">
+
+               <!--*************************************************************--->
+               <!--***********************START - HOME DIV**********************--->
+               <!--*************************************************************--->
+               <div id="homeDivId">
+                  <div class="bannerParent">
+                     <div class="bannerContainer">
+                        <div class="bannerContent">
+                           <!-- <div class="bannerinner">
+                              <i class='fas fa-desktop desktop-icon'></i> <i class="divider"></i> IT CODE SCANNER
+                           </div> -->
+                           <label class="bannerLargeText">IT Code Scanner</label>
+                           <br>
+                           <hr>
+                           <label class="bannerSmallText">Spend
+                              less time in learning the code</label>
+                        </div>
+                     </div>
+                     <div id="homeCardsContainerDivId" >
+                        <div class="menucard" onclick="Show('item')">
+                           <img src=" /smshopify/images/items.png" alt="items" class="homeCardImg">
+                           <div class="homeCardText">items</div>
+                           <hr>
+                           <div class="cardMsg">items and sample programs.</div>
+                           <!-- <p><button onclick="Show('item')">Go</button></p> -->
+                        </div>
+
+                        <div class="menucard" onclick="Show('contactus')">
+                           <img src="/smshopify/images/howto.png" alt="File Scan" class="homeCardImg">
+                           <div class="homeCardText">Question or Comments</div>
+                           <hr>
+                           <div class="cardMsg">Contact Us</div>
+                           <!-- <p><button onclick="Show('howto')">Go</button></p> -->
+                        </div>
+
+                     </div>
+                     <div class="displayNone"
+                        style="background-color: rgba(9, 84, 132); width: 100%; margin: 0px; padding: 20px; ">
+                        <label style="color: white"> Lots of programming languages supported. Some of them are listed
+                           below. </label>
+                        <hr style="color: #ccc">
+                        <div style="display: flex; flex-direction: row; width: 100%; margin: auto; overflow: auto">
+                           <img src="/smshopify/images/java.png" alt="Java" class="languageicon">
+                           <img src="/smshopify/images/python.png" alt="python" class="languageicon">
+                           <img src="/smshopify/images/javascript.png" alt="JavaScript" class="languageicon">
+                           <img src="/smshopify/images/php.png" alt="php" class="languageicon">
+                           <img src="/smshopify/images/html.png" alt="html" class="languageicon">
+                           <img src="/smshopify/images/csharp.png" alt="c#" class="languageicon">
+                           <img src="/smshopify/images/cobol.png" alt="cobol" class="languageicon">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!--*************************************************************--->
+               <!--***********************END - HOME DIV**********************--->
+               <!--*************************************************************--->
+
+               <!--*************************************************************--->
+               <!--***********************START - items LIST DIV************--->
+               <!--*************************************************************--->
+
+               <!-- <div class='showItemsListDiv'>Show List
+               </div> -->
+
+               <div id="itemListDivId">
+
+                  <div id="itemListInnerDivId" ></div>
+
+               </div>
+               <div id="itemDivId">
+               </div>
+
+               <div id="itemEditDivId">
+               </div>
+
+               <!--*************************************************************--->
+               <!--***********************END - items LIST DIV**************--->
+               <!--*************************************************************--->
+
+
+               <!-- <div id="profileDivId" class="profile"> -->
+               <!-- </div> -->
+
+               <!--*************************************************************--->
+               <!--**START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
+               <!--*************************************************************--->
+
+               <div id="loginDivId" class="login">
+                  <div id="loginSecDivId" style="margin-top: 20px;">
+                     <label class="form_header_label1 scale-up-ver-top"> LOGIN </label>
+                     <hr>
+                     <input class="un " id='emailid' type="text" align="center" placeholder="Login Email Id">
+                     <input class="pass" id='password' type="password" align="center" placeholder="Password">
+                     <br>
+                     <label id="loginerrormsg" style="color: #cc0000; font-size: 14px;"></label>
+                     <br>
+                     <br>
+                     <button class="helper btnCenterAlign width_200px" onclick="login();">Log in</button>
+                     <br>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="showCreateAccount();">Not registered? Create
+                        account</a>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="showForgotPassword();">Forgot Password? Reset</a>
+                  </div>
+                  <div id="registerSecDivId" class="displayNone" style="margin-top: 20px;">
+                     <label class="form_header_label1 scale-up-ver-top"> REGISTER </label>
+                     <hr>
+                     <input class="un" id='registerusname' type="text" placeholder="Your full name">
+                     <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
+                     <input class="pass" id='registerpassword' type="password" align="center"
+                        placeholder="Set Password">
+                     <input class="pass" id='registerpasswordre' type="password" align="center"
+                        placeholder="Re-enter Password">
+                     <br>
+
+
+                     <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
+                     <br>
+                     <br>
+                     <button id="registerBtnId" class="helper btnCenterAlign width_200px" 
+                        onclick="register();">Register</button>
+                     <!---->
+                     <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
+                        onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button>
+                     <br>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
+                     <br>
+                     <!-- <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="tempShowRegistered();">Temp-ShowRegistered</a> -->
+                  </div>
+
+
+                  <div id="providerSecDivId" class="providerSec displayNone">
+                     <!-- <div style="display:flex; flex-direction: columns; margin-left: 20px;">
+                        <input class="checkOutRadioBtn" type="radio" id="shipToMe" name="pickup" value="pick up"
+                           onclick="providerSelected()" checked=""> I want to set up my account to list goods/services
+                     </div> -->
+                     <label style="font-size: 14px; font-weight: 900; color: #333 "> ADDRESS </label>
+                     <hr>
+
+                     <div class="addresscontainer" id="addresscontainerDiv">
+                        <div class="addressform">
+                           <label class="addressfield">
+                              <span class="addressfield__label" for="shipaddress">Address</span>
+                              <input class="addressfield__input" type="text" id="shipaddress">
+                           </label>
+
+                           <label class="addressfield">
+                              <span class="addressfield__label" for="shipcity">City/Town/Village</span>
+                              <input class="addressfield__input" type="text" id="shipcity">
+                           </label>
+                           <label class="addressfield">
+                              <span class="addressfield__label" for="shipstate">State</span>
+                              <input class="addressfield__input" type="text" id="shipstate">
+                           </label>
+                           <label class="addressfield">
+                              <span class="addressfield__label" for="shipcountry">Country</span>
+                              <input class="addressfield__input" type="text" id="shipcountry">
+                           </label>
+
+                           <label class="addressfield">
+                              <span class="addressfield__label" for="postalcode">Postal code</span>
+                              <input class="addressfield__input" type="text" id="postalcode">
+                           </label>                           
+                        </div>
+                     </div>
+
+                     <label id="providerAddrErrorMsg" style="color: #cc0000; font-size: 14px"></label>
+                     <br>
+                     <br>
+                     <button class="helper btnCenterAlign" style="width: 300px" onclick="setProvAddr();">Select Store
+                        Type &nbsp ❯</button>
+                     <!---->
+                     <br>
+                     <br>
+                     <br>
+
+                  </div>
+
+                  <!-- <div id="selectStoreTypeDivId" class="storeSec displayNone"> -->
+
+                  <!-- </div> -->
+                  <div id="forgotPasswordSecDivId" class="displayNone" style="margin-top: 20px; ">
+                     <label class="form_header_label1 scale-up-ver-top"> FORGOT PASSWORD </label>
+                     <hr>
+                     <label>Enter your email address and we will email you instructions on password reset</label>
+                     <br>
+                     <br>
+                     <input class="un " id='forgotpwemailid' type="text" align="center" placeholder="Login Email Id">
+                     <br>
+                     <label id="forgotpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
+                     <br>
+                     <br>
+                     <button class="helper btnCenterAlign width_200px"  align="center"
+                        onclick="forgotpw();">Send</button>
+                     <!---->
+                     <br>
+                     <br>
+                     <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
+                  </div>
+                  <div id="accActivatedDivId" class="displayNone" style=" margin-top: 20px;">
+                     <label style="font-size: 14px; font-weight: 900; color: #333 "> ACCOUNT ACTIVATED </label>
+                     <hr>
+                     <label>Your account has been activated successfully. You can proceed to login</label>
+                     <!---->
+                     <br>
+                     <br>
+                     <a href="#!" style="color: #888;" onMouseOver="this.style.color='#000'"
+                        onMouseOut="this.style.color='#888'" onclick="showLogin();">Login</a>
+                  </div>
+                  <div id="forgotPWDivId" class="displayNone" style="margin-top: 20px; ">
+                     <label style="font-size: 14px; font-weight: 900; color: #333 "> SET PASSWORD </label>
+                     <hr>
+                     <!---->
+                     <br>
+                     <input class="pass" id='newpassword' type="password" align="center" placeholder="Set New Password">
+                     <br>
+                     <input class="pass" id='newpasswordRe' type="password" align="center"
+                        placeholder="Re-enter New Password">
+                     <br>
+                     <label id="newpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
+                     <br>
+                     <div id="setPwDivId">
+                        <button class="helper btnCenterAlign width_200px"  align="center"
+                           onclick="setPassword();">Set
+                           Password</button>
+                     </div>
+                     <div id="setPwSuccessDivId" style="display: none">
+                        <label style="color: orange">Your account password has been set successfully. You can proceed to
+                           login</label>
+                        <!---->
+                        <br>
+                        <br>
+                        <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
+                           onMouseOut="this.style.color='#888'" onclick="showLogin();">Login</a>
+                     </div>
+                  </div>
+               </div>
+               <!--*************************************************************--->
+               <!--****END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
+               <!--*************************************************************--->
+
+               <div id="contactusDivId">
+                  <div id="contactusSecDivId" style="margin: 0 auto;   padding: 20px; ">
+                     <label class="form_header_label1 scale-up-ver-top"> CONTACT US </label>
+
+                     <div id="sndmsgdivid">
+                        <hr>
+                        <input class="un formInputText contactusnameCls" style='width: calc(100% - 8px);'  type="text"
+                           placeholder="Your full name">
+                        <input class="un formInputText contactusemailidCls " style='width: calc(100% - 8px);' 
+                           type="text" placeholder="Email Id">
+                        <textarea id="contactus_msg" class="fullWidth" style="border: 1px solid rgba(0, 0, 0, 0.3);"
+                           placeholder="Your message" rows="3"></textarea>
+                        <br>
+                        <div style=" width: 220px; background-color: #C8C8C8; border-radius: 5px; ">
+                           <ul class="captchaList" style="padding: 5px;">
+                              <li style="margin: 5px;">
+                                 <div class="captchaBackground" style="position: relative; ">
+                                    <canvas id="captcha">captcha text</canvas>
+                                    <i class="fa fa-refresh cursor_pointer" id="refreshButton"
+                                       style="float: right;  position: absolute; top:1px; right: 1px; color:#c7168a; cursor: pointer"
+                                       onclick="refreshCaptcha();"></i>
+                                 </div>
+                              </li>
+                              <li style="margin: 5px;">
+                                 <div><input class="enteredCaptchaTextCls" style="width: 188px; height:30px"
+                                       placeholder="Enter displayed code" type="text" autocomplete="off" name="text">
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                        <label id="contactuserrormsg" style="color: #cc0000; font-size: 14px"></label>
+                        <br> <br>
+                        <button class="helper btnCenterAlign width_200px" align="center" onclick="contactus();">Submit</button>
+                     </div>
+                  </div>
+               </div>
+               <div id="onMobileMsgDivId" class="displayNone" style="margin:10px; padding:10px; text-align: justify">
+                  Because the code upload and scanning limitations, the site has restricted functionality on mobile
+                  device.
+               </div>
+               <div id="howtoDivId" class="displayNone" style="margin:auto;">
+                  Coming soon
+               </div>
+            </div>
+            <!-- *****END OF MAIN CONTAINER DIV -->
+            <!-- <div class="splitter">
+            </div> -->
+            <!-- <div class="border-end bg-white panel-right" id="helpDisplayDivId"
+               style="resize: horizontal; max-height: 90vh; overflow: hidden; padding: 0px; ">
+             </div> -->
+         </div>
+         <!-- Right Sidebar
+               <div class="splitter"  ></div>
+                           -->
+         <!--**************START: HELP DISPLAY DIV**************-->
+      </div>
+   </div>
+   <div class="footerDiv">
+      <footer>
+         <div class="footer-main">
+            <div class="footer-col1">
+               <ul>
+                  <li>
+                     <img src="/smshopify/assets/favicon-1.png" alt="IT Code Scanner" class="languageicon">
+                  </li>
+
+               </ul>
+            </div>
+
+            <div class="footer-col2">
+               <h3 class="footer-heading">
+                  KEY LINKS
+               </h3>
+               <div class="footer-languages">
+                  <a href="/smshopify/kisna/?target=home">Home</a>
+                  <a href="/smshopify/kisna/?target=item">Listings</a>
+                  <!-- <a href="/smshopify/?target=projectscanner">Project Scanner</a>
+            <a href="/smshopify/?target=filescanner">File Scanner</a> -->
+                  <a href="/smshopify/kisna/?target=contactus">Contact Us</a>
+                  <a href="/smshopify/kisna/?target=policy">Usage Policy</a>
+
+               </div>
+            </div>
+
+            <div class="footer-col3">
+               <h3 class="footer-heading">
+                  FOLLOW US
+               </h3>
+               <div class="footer-social">
+                  <a href="https://www.facebook.com/profile.php?id=100077594436233">
+                     <i class="fa fa-facebook-square" style="font-size:48px;color:white"></i>
+                  </a>
+
+               </div>
+            </div>
+         </div>
+
+         <p class="footer-terms">
+            <a href="#">© 2022 IT Code Scanner. All rights reserved</a>
+
+         </p>
+      </footer>
+   </div>
+
+   <div id="cookie-div-id" class="cookie-consent-banner">
+      <div class="cookie-consent-banner__inner">
+         <div class="cookie-consent-banner__copy">
+            <div class="cookie-consent-banner__header">We USE COOKIES</div>
+            <div class="cookie-consent-banner__description">We use cookies and other tracking technologies to improve
+               your browsing experience on our website, to show you personalized content and targeted ads, to analyze
+               our website traffic, and to understand where our visitors are coming from. You consent to our cookies if
+               you continue to use our website.</div>
+         </div>
+         <div class="cookie-consent-banner__actions">
+            <a href="#" onclick="cookieAccepted()" class="cookie-consent-banner__cta">
+               Understood
+            </a>
+         </div>
+      </div>
+   </div>
+
+   <div class="confirmBG">
+      <div class="confirmBox">
+        <div id="confirmMessage">Confirm text</div>
+        <div class="confirmBoxBtns">
+          <input id="confirmYes" class="confirmBtn" type="button" value="Yes" />
+          <input id="confirmNo" class="confirmBtn" type="button" value="No" />
+        </div>
+      </div>
+   </div>
+
+   <div id="popupDivId" class="popupDivCls shadow_1 scale-in-ver-top"></div>
+   <div id="toastsnackbar_center" class="shadow_3"></div>
+   <div id="toastsnackbar" class="shadow_1"></div>
+
+   <div id="chat-window" class="chat-widget" >
+      <div id="chat-window-header" class="chat-widget-header">
+          <a href="javascript:goToPrev()" class="previous-chat-tab-btn">&lsaquo;</a>
+          <div id="headerDragger" class="shop-user-city"></div>
+          <div id="reportChatUserDivId" class="cursor_pointer float_right" onclick="reportChatUser(this)"><i class="fa fa-warning color_yellow_star" aria-hidden="true"></i></div>
+          <a href="#" class="close-chat-widget-btn">&times;</a>
+      </div>
+      <div class="chat-widget-content">
+          <div class="chat-widget-tabs">
+              <div class="chat-widget-tab chat-widget-conversations-tab"></div>
+              <div class="chat-widget-tab chat-widget-conversation-tab"></div>
+          </div>
+      </div>
+  </div>
+
+   <!-- Bootstrap core JS-->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Core theme JS-->
+   <script src="/smshopify/js/scripts.js"></script>
+   <!--
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+         
+         
+         -->
+   <script>
+      $(".panel-left").resizable({
+         handleSelector: ".splitter",
+         resizeHeight: false
+      });
+
+
+
+   </script>
+   <script>
+      //getHowToVideos();
+      setTimeout(() => {
+         getItemsList();
+      }, 0);
+
+      setTimeout(() => {
+         getCategoryList();
+      }, 0);
+
+      
+      checkURL();
+   </script>
+   <script src="/smshopify/web/onload.js"></script>
+   <!-- Go to www.addthis.com/dashboard to customize your tools -->
+   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-63324d242f787b67"></script>
+
+
+</body>
+
+</html>
