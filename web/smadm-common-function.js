@@ -546,9 +546,9 @@ function populateitemsDropDownDisplay() {
 
     for (let i = 0; i < rows.length; i++) {
         if (i == 0) {
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/kisna/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         }else if (rows[i].category != rows[i-1].category){
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/kisna/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         } 
     }
     document.getElementById("dropDownItmCatgListId").innerHTML = innHTML;
@@ -5550,12 +5550,12 @@ function getItmPendingReview(){
         type: 'POST',
         dataType: 'json',
         success: function (response) {
-            sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
-            setTimeout(() => {
-                populateItemDropDown();
-            }, 10);
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
 
-            populateItemsStoresListForReview();
+            populateItemsStoresListForReview(response);
         },
         error: function (xhr, status, error) {
             //alert(xhr);
@@ -5576,7 +5576,6 @@ function populateItemsStoresListForReview(rows = "") {
 
     if (rows == "") {
         rows = JSON.parse(tf);
-        //rows = tf;
     }
 
     let innerHTML = "";
@@ -5787,7 +5786,7 @@ function populateItemsList(rows = "") {
         category = category.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
+        itemTitleURL = myUrl + "kisna/items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
 
         storenameUrl = myUrl + storename;
 
