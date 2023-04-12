@@ -862,7 +862,7 @@
     outline: rgb(179, 177, 177) dotted 1px; /*optional styling*/
    
     position: relative;
-    cursor: help;
+    /* cursor: help; */
   }
   
   [data-title]:hover::before {

@@ -1747,7 +1747,7 @@ function getFullShopDetails(tags, itemstr) {
         newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
 
     }
-    newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
+    newHTML = newHTML + "<div class = 'shopLyrics' data-itemid= '" + itemid + "'  >" + "<div class = 'storeItemDivCls' >";
 
     //Start: div class="slides"
     if (tags[0].bannerhtml != undefined) {
@@ -1854,10 +1854,9 @@ function getShopLocationAndHours(tags) {
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px">';
 
     newHTML = newHTML + '<div title="Shop Address" class="title-tip" contenteditable="true" class="shopaddress margin_auto maxwidth_300px">' + tags[0].uselocationfromaddress + '</div>';
-    newHTML = newHTML + '<div title="Long Lat from Address" class="title-tip" contenteditable="true" class="shopaddresscoord margin_auto maxwidth_300px">' + tags[0].coordinatesfromaddress + '</div>';
+    newHTML = newHTML + '<div title="Long Lat from Address" class="title-tip warningMsg1" contenteditable="true" class="shopaddresscoord margin_auto maxwidth_300px">' + tags[0].coordinatesfromaddress + '</div>';
 
-    if (tags[0].maplocationcoordinates != undefined) {
-        if (tags[0].maplocationcoordinates != null) {
+    if ((tags[0].maplocationcoordinates != undefined) && (tags[0].maplocationcoordinates != null) && (tags[0].maplocationcoordinates != "")) {
 
             let crd = tags[0].maplocationcoordinates.split(",");
             
@@ -1875,7 +1874,6 @@ function getShopLocationAndHours(tags) {
                 L.marker([latitude, longitude]).addTo(map);
             }, 10);
 
-        }
     }
     newHTML = newHTML + '<div title="Long Lat from Browser" class="title-tip" contenteditable="true" class="brwsrmapcoord margin_auto maxwidth_300px">' + tags[0].maplocationcoordinates + '</div>';
 
@@ -1902,12 +1900,55 @@ function getShopLocationAndHours(tags) {
     newHTML = newHTML + '</div>';
     //End: Have Info- Desc/Hours/Location under one parent div
 
-    newHTML = newHTML + '<div title="Discontinued" class="title-tip" contenteditable="true" class="shopdiscontinuecls font_size_12px">' + tags[0].discontinue + '</div>';
-    newHTML = newHTML + '<div title="Reviewed" class="title-tip" contenteditable="true" class="shopreviewedcls font_size_12px">' + tags[0].reviewed + '</div>';
+    if (tags[0].discontinue == "1"){
+        newHTML = newHTML + '<div title="Discontinued" contenteditable="true" class="shopdiscontinuecls title-tip bgcolor_1 font_size_12px">' + tags[0].discontinue + '</div>';
+
+    }else {
+        newHTML = newHTML + '<div title="Discontinued"  contenteditable="true" class="title-tip shopdiscontinuecls font_size_12px">' + tags[0].discontinue + '</div>';
+
+    }
+    if (tags[0].reviewed == "0"){
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip warningMsg1 shopreviewedcls font_size_12px">' + tags[0].reviewed + '</div>';
+       
+    }else {
+        newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + tags[0].reviewed + '</div>';
+
+    }
 
     newHTML = newHTML + '<button class="" style="" onclick="saveShopItemReview(event)">Save</button>';
     return newHTML;
 
+}
+
+function saveShopItemReview(evt){
+    let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement.parentElement;
+    let itemid = parentDiv.dataset.itemid;
+
+    let description = document.querySelector(".shopDescriptionCls").innerHTML;
+    let hourshtml = document.querySelector(".shophrscls").innerHTML;
+    let uselocationfromaddress = document.querySelector(".shopaddress").textContent;
+    let coordinatesfromaddress = document.querySelector(".shopaddresscoord").textContent;
+    let maplocationcoordinates = document.querySelector(".brwsrmapcoord").textContent;
+    let availabilityinfo = document.getElementById("shopavailinfocls").textContent;
+    let discontinue = document.getElementById("shopdiscontinuecls").textContent;
+    let reviewed = document.getElementById("shopreviewedcls").textContent;
+    
+
+    
+
+
+
+}
+
+function saveItemReview(evt){
+    let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
+    let itemid = parentDiv.dataset.itemid;
+
+    let title = parentDiv.querySelector('.shopItemTitle').textContent;    
+    let itemprice = parentDiv.querySelector('.shopItemPrice').textContent;
+    let itemdescription = parentDiv.querySelector('.shopItemDescription').innerHTML;
+    let discontinue = parentDiv.getElementById("itemdiscontinuecls").textContent;
+    let reviewed = parentDiv.getElementById("itemreviewedcls").textContent;   
 }
 
 function getItemsHTML(storeItems) {
@@ -1995,8 +2036,17 @@ function getItemsHTML(storeItems) {
             }
         }
 
-        newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls font_size_12px">' + storeItems[i].discontinue + '</div>';
-        newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
+        if(storeItems[i].discontinue == "1"){
+            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls warningMsg1 font_size_12px">' + storeItems[i].discontinue + '</div>';
+        }else {
+            newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls font_size_12px">' + storeItems[i].discontinue + '</div>';
+        }
+
+        if(storeItems[i].reviewed != "1"){
+            newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls warningMsg1 font_size_12px">' + storeItems[i].reviewed + '</div>';
+        }else {
+            newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
+        }
     
         newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="saveItemReview(event)">Save</button>';
 
