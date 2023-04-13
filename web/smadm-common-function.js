@@ -1945,6 +1945,8 @@ function adm_getShopLocationAndHours(storehead) {
         newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
 
     }
+    newHTML = newHTML + '<span title="itemid" class="title-tip">' + storehead.itemid + '</span>';
+    newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storehead.versionseq + '</span>';
 
     newHTML = newHTML + '<button class="" style="" onclick="saveShopItemReview(event)">Save</button>';
     return newHTML;
@@ -2145,7 +2147,9 @@ function adm_getItemsHTML(storeItems) {
         }else {
             newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
         }
-    
+     newHTML = newHTML + '<span title="itemid" class="title-tip">' + storeItems[i].itemid + '</span>';
+    newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storeItems[i].versionseq + '</span>';
+   
         newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="saveItemReview(event)">Save</button>';
 
         
@@ -5571,10 +5575,11 @@ function populateItemsStoresListForReview(rows = "") {
 
     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    
 
 
     if (rows == "") {
+        let tf = JSON.parse(sessionStorage.getItem("itemsList"));
         rows = JSON.parse(tf);
     }
 
@@ -5883,7 +5888,507 @@ function populateItemsList(rows = "") {
 
 }
 
+function getreportsPendingReview(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("reportsPendingReviewLinkId");
+    x.classList.add("active");
 
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "getreportspendingreview" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            listReports(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+
+}
+
+function listReports(rows = []){
+
+    let innerHTML = "";
+    let path = window.location.pathname;
+
+    for (let record of rows) {
+        let datetime = record.lastupdatedate;
+        let itemid = record.itemid;
+        let usrn = record.userfullname;
+        let issue = record.item_issue_reported;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        let reviewed = record.smreviewed;
+        let itemstr = record.itemstr;
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+
+
+        innerHTML = innerHTML + '<div data-title="user" >' + usrn + '</div>';
+        innerHTML = innerHTML + '<div data-title="issue" >' + issue + '</div>';
+        
+        if ((!issue.includes("^Chat reported^")) && (itemstr != null)){
+            innerHTML = innerHTML + '<a class="" href ="' + itemurl + '" class="itemTopLinkCls"  >Item</a>';
+        }else{
+            innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="getChat(' + itemid +')" >' + itemid + '</div>';
+        }
+
+        innerHTML = innerHTML + '<div data-title="datetime" >' + datetime + '</div>';
+
+        if (reviewed != "1") {
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="reviewed" class="bgcolor_4 reportreviewedcls" >' + reviewed + '</div>';
+        }else {
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="reviewed" class="reportreviewedcls">' + reviewed + '</div>';
+        }
+
+        innerHTML = innerHTML + '<button class="shopTablinks" style="float:right" onclick="saveReportUpdates(event)">Save</button>';
+        innerHTML = innerHTML + '</div>';
+    }
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+
+}
+
+
+function getReviews(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("reviewsLinkId");
+    x.classList.add("active");
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "getreviews" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            listReviews(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+
+}
+
+function listReviews(rows = []){
+
+    let innerHTML = "";
+    let path = window.location.pathname;
+
+    for (let record of rows) {
+        let customerid = record.customerid;
+        let itemid = record.itemid;
+        let userfullname = record.userfullname;
+        let stars = record.stars;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        let smreviewed = record.smreviewed;
+        let lastupdatedate = record.lastupdatedate;
+        let comment = record.comment;
+        let itemstr = record.itemstr;
+
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-itemid="'+ itemid +'" data-customerid="'+ customerid +'" > ';
+
+
+        innerHTML = innerHTML + '<div data-title="userfullname" >' + userfullname + '</div>';
+        innerHTML = innerHTML + '<div data-title="customerid" >' + customerid + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="stars" class="starcls" >' + stars + '</div>';
+
+        innerHTML = innerHTML + '<div contenteditable="true" data-title="comment" class="commentcls" >' + comment + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="item" ><a  href ="' + itemurl + '"   >Item</a></div>';
+
+        innerHTML = innerHTML + '<div data-title="lastupdatedate" >' + lastupdatedate + '</div>';
+
+        if (smreviewed != "1") {
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="smreviewed" class="bgcolor_4 reportreviewedcls" >' + smreviewed + '</div>';
+        }else {
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="smreviewed" class="reportreviewedcls">' + smreviewed + '</div>';
+        }
+
+        innerHTML = innerHTML + '<button class="shopTablinks" style="float:right" onclick="saveReviewUpdates(event)">Save</button>';
+        innerHTML = innerHTML + '</div>';
+    }
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+
+}
+
+function getaccMgMt(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("accMgmtLinkId");
+    x.classList.add("active");
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "getaccforreview" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
+
+            listAccs(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+}
+
+function listAccs(rows = []){
+
+    let innerHTML = "";
+    //let path = window.location.pathname;
+
+    for (let record of rows) {
+        let customerid = record.customerid;
+        let userfullname = record.userfullname;
+        let userstatus = record.userstatus;
+        let userlevel = record.userlevel;
+        let timestamp = record.timestamp;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        let storename = record.storename;
+        let additionalinfo = record.additionalinfo;
+
+        let store_city_state_country = record.store_city_state_country;
+
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+
+
+        innerHTML = innerHTML + '<div data-title="userfullname" >' + userfullname + '</div>';
+        innerHTML = innerHTML + '<div data-title="customerid" class="customeridcls" >' + customerid + '</div>';
+
+        if (userstatus == "I"){
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="userstatus" class="bgcolor_4 userstatuscls" >' + userstatus + '</div>';
+        }else{
+            innerHTML = innerHTML + '<div contenteditable="true" data-title="userstatus"  class="userstatuscls" >' + userstatus + '</div>';
+        }
+        
+        if (userlevel == "9"){
+            innerHTML = innerHTML + '<div data-title="userlevel" class="red_bg" >' + userlevel + '</div>';
+        }else{
+            innerHTML = innerHTML + '<div data-title="userlevel"  >' + userlevel + '</div>';
+        }
+        
+        
+        innerHTML = innerHTML + '<div data-title="storename" >' + storename + '</div>';
+        innerHTML = innerHTML + '<div data-title="store_city_state_country" >' + store_city_state_country + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="timestamp" >' + timestamp + '</div>';
+
+        innerHTML = innerHTML + '<div  contenteditable="true" data-title="additionalinfo"  class="additionalinfocls" >' + additionalinfo + '</div>';
+
+        innerHTML = innerHTML + '<button class="shopTablinks" style="float:right" onclick="saveUsrUpdates(event)">Save</button>';
+        innerHTML = innerHTML + '</div>';
+    }
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+
+}
+
+function getChatMgt(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("messageLinkId");
+    x.classList.add("active");
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "getchatmgmt" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
+
+            listChats(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            //console.log(error);
+            //console.log(xhr);
+        }
+    });
+}
+
+function listChats(rows){
+    let innerHTML = "";
+    //let path = window.location.pathname;
+
+    for (let record of rows) {
+        if (record.id == undefined){
+            continue;
+        }
+        let id = record.id;
+        let user1_customerid = record.user1_customerid;
+        let user2_customerid = record.user2_customerid;
+        let submit_date = record.submit_date;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        let user1_name = record.user1_name;
+        let user2_name = record.user2_name;
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+
+
+        innerHTML = innerHTML + '<div data-title="user1_name" >' + user1_name + '</div>';
+        innerHTML = innerHTML + '<div data-title="user1_customerid" >' + user1_customerid + '</div>';
+        
+
+        innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="getChat(' + id +')" >' + id + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="user2_name" >' + user2_name + '</div>';
+        innerHTML = innerHTML + '<div data-title="user2_customerid" >' + user2_customerid + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="submit_date" >' + submit_date + '</div>';
+
+        innerHTML = innerHTML + '</div>';
+    }
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+
+}
+function saveUsrUpdates(evt){
+    let parentDiv = evt.currentTarget.parentElement;
+
+    let userstatus = parentDiv.querySelector(".userstatuscls").textContent;
+    let additionalinfo = parentDiv.querySelector(".additionalinfocls").innerHTML;
+    let customerid  = parentDiv.querySelector(".customeridcls").textContent;
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { customerid: customerid,
+                userstatus: userstatus,
+                additionalinfo: additionalinfo,
+                usrfunction: "saveusrupdates" 
+            },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            let x = document.getElementById("toastsnackbar");
+            if (retstatus) {                
+                x.innerHTML = "Updates saved";
+            }else {
+                x.innerHTML = "Updates failed";
+            }
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            //console.log("")
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Updates failed";
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        }
+    });
+}
+
+function getChat(chatid){
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { chatid:chatid, usrfunction: "getchat" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
+
+            listchat(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+}
+
+function listchat(rows){
+    let innerHTML = "";
+    //let path = window.location.pathname;
+    let flagx = true;
+
+    innerHTML = innerHTML + '<div class="padding_20px shadow_3"   > ';
+
+    for (let record of rows) {
+
+        let user1_customerid = record.user1_customerid;
+
+        if (user1_customerid == undefined){
+            continue;
+        }
+        let user2_customerid = record.user2_customerid;
+        let user1_name = record.user1_name;
+        let user2_name = record.user2_name;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        let message = record.msg;
+        let submit_date = record.submit_date;
+        let seen_date = record.seen_date;
+        let sender_name = record.sender_name;
+        let sender_customerid = record.sender_customerid;        
+
+        if (flagx){
+            innerHTML = innerHTML + '<div data-title="user1" class="bgcolor_1">' + user1_customerid +"-" + user1_name + '</div>';
+            innerHTML = innerHTML + '<div data-title="user2" class = "bgcolor_1">' + user2_customerid +"-" + user2_name + '</div>';
+            
+            innerHTML = innerHTML + "<table class='table1' >" + "<tr><td>" + "sender_customerid" + "</td><td>" + "sender_name" + "</td><td>" + "message" + "</td><td>" + "submit_date" + "</td><td>" + "seen_date" + "</td></tr>";
+            flagx = false;
+        }
+        innerHTML = innerHTML + "<tr><td>" + sender_customerid + "</td><td>" + sender_name + "</td><td>" + message + "</td><td>" + submit_date + "</td><td>" + seen_date + "</td></tr>";
+        
+    }
+    innerHTML = innerHTML + '</table></div>';
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+}
+
+function saveReportUpdates(evt){
+    let parentDiv = evt.currentTarget.parentElement;
+    let reviewed = parentDiv.querySelector(".reportreviewedcls").textContent;
+    let seqid = parentDiv.dataset.seqid;
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { seqid: seqid,
+                reviewed: reviewed,
+                usrfunction: "savereportupdates" 
+            },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            let x = document.getElementById("toastsnackbar");
+            if (retstatus) {                
+                x.innerHTML = "Updates saved";
+            }else {
+                x.innerHTML = "Updates failed";
+            }
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            //console.log("")
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Updates failed";
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        }
+    });
+}
+
+function saveReviewUpdates(evt){
+    let parentDiv = evt.currentTarget.parentElement;
+    let itemid = parentDiv.dataset.itemid;
+    let customerid = parentDiv.dataset.customerid;
+
+    let smreviewed = parentDiv.querySelector(".reportreviewedcls").textContent;
+    let comment = parentDiv.querySelector(".commentcls").textContent;
+    let stars = parentDiv.querySelector(".starcls").textContent;
+
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { itemid: itemid,
+                customerid: customerid,
+                smreviewed: smreviewed,
+                comment: comment,
+                stars: stars,
+                usrfunction: "savereviewupdates" 
+            },
+        type: 'POST',
+        dataType: 'json',
+        success: function (retstatus) {
+            let x = document.getElementById("toastsnackbar");
+            if (retstatus) {                
+                x.innerHTML = "Updates saved";
+            }else {
+                x.innerHTML = "Updates failed";
+            }
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            //console.log("")
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Updates failed";
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 3000);
+        }
+    });
+}
 
 function populateStoreItemsList(rows = "") {
 
@@ -7914,7 +8419,7 @@ function reportChatIssue(convid){
         data: jQuery.param({
             usrfunction: "reportissue",
             itemid: convid,
-            comment: "Chat reported - " + comment
+            comment: "^Chat reported^ - " + comment
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
@@ -8216,6 +8721,9 @@ function getShopLocationAndHours(storehead) {
 
     }
 
+    newHTML = newHTML + '<span title="itemid" class="title-tip">' + storehead.itemid + '</span>';
+    newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storehead.versionseq + '</span>';
+
     newHTML = newHTML + '<button class="" style="" onclick="saveShopItemReview(event)">Save</button>';
     return newHTML;
 
@@ -8317,7 +8825,10 @@ function getItemsHTML(storeItems) {
         }else {
             newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
         }
-    
+
+        newHTML = newHTML + '<span title="itemid" class="title-tip">' + storeItems[i].itemid + '</span>';
+        newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storeItems[i].versionseq + '</span>';
+
         newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="saveItemReview(event)">Save</button>';
 
         

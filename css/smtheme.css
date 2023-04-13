@@ -253,6 +253,9 @@
     background-color: rgb(34, 148, 112) !important;
 }
 
+.bgcolor_4{
+    background-color: #debf63;
+}
 .white_bg {
     background-color: #fff !important;
 }
@@ -889,6 +892,23 @@
     border: 8px solid transparent;	
     border-bottom: 8px solid #000;
   }
+
+/* ******TABLE STYLES*********************************/
+/* https://www.w3schools.com/css/tryit.asp?filename=trycss_table_striped */
+/* ***************************************************/
+
+  table.table1 {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table.table1 >* th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  table.table1 >* tr:nth-child(even) {background-color: #f2f2f2;}
+
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
 

@@ -7702,7 +7702,7 @@ function reportChatIssue(convid){
         data: jQuery.param({
             usrfunction: "reportissue",
             itemid: convid,
-            comment: "Chat reported - " + comment
+            comment: "^Chat reported^ - " + comment
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
