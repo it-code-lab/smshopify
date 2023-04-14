@@ -137,7 +137,7 @@
             <a id="homeLinkId" class="navLink" href="/smshopify/kisna/?target=home">HOME</a>
 
             <!-- SM-TODO - Remove some of these links -->
-            <a id="itemLinkId" class="navLink" href="/smshopify/kisna/?target=item">LISTINGS <i class="fa fa-caret-down"></i></a>
+            <a id="itemLinkId" class="navLink dropDownNav" href="/smshopify/kisna/?target=item">LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
@@ -155,12 +155,14 @@
                   <source id="audioSourceIdWAV" src="/smanimaker/sounds/low-bell-ding.wav" type="audio/wav">
                </audio>
             </a>
-            <a id="itemsPendingReviewLinkId" class="navLink displayNone" href="javascript:getItmPendingReview()">LISTINGS MGMT</a>
-            <a id="reportsPendingReviewLinkId" class="navLink displayNone" href="javascript:getreportsPendingReview()">REPORTS MGMT</a>
-            <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:getaccMgMt()">ACCOUNTS MGMT</a>
-            <a id="messageLinkId" class="navLink displayNone" href="javascript:getChatMgt()">CHAT MGMT</a>
-            <a id="reviewsLinkId" class="navLink displayNone" href="javascript:getReviews()">REVIEWS MGMT</a>
-
+            <a id="admLinkId" class="navLink dropDownNav displayNone" href="">MANAGE <i class="fa fa-caret-down"></i></a>
+            <div class="dropdown-content">
+            <a id="itemsPendingReviewLinkId" class="navLink displayNone" href="javascript:getItmPendingReview()">Check and approve Created Stores and Items Pending Review</a>
+            <a id="reportsPendingReviewLinkId" class="navLink displayNone" href="javascript:getreportsPendingReview()">Check the Issues Reported with Items and Chats</a>
+            <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:getaccMgMt()">Review and Manage User Accounts</a>
+            <a id="messageLinkId" class="navLink displayNone" href="javascript:getChatMgt()">Review Chats</a>
+            <a id="reviewsLinkId" class="navLink displayNone" href="javascript:getReviews()">Check and approve the review submitted for items</a>
+            </div>
 
             <a class="searchWrapper"><span id="itemsearchDivId" ><input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
                placeholder='search' />

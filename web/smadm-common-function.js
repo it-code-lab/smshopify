@@ -989,7 +989,8 @@ function showAdditionalMenuItemsForLoggedIn(){
     document.getElementById("logoutLinkId").style.display = "block";
     document.getElementById("myfavoritesLinkId").style.display = "block";
     document.getElementById("mychatLinkId").style.display = "block";
-
+    document.getElementById("admLinkId").style.display = "block";
+    
     document.getElementById("itemsPendingReviewLinkId").style.display = "block";
     document.getElementById("reportsPendingReviewLinkId").style.display = "block";
     document.getElementById("accMgmtLinkId").style.display = "block";
@@ -1004,6 +1005,7 @@ function hideMenuItemsForLoggedOut(){
     document.getElementById("mychatLinkId").style.display = "none";
 
     document.getElementById("itemsPendingReviewLinkId").style.display = "none";
+    document.getElementById("admLinkId").style.display = "none";
     document.getElementById("reportsPendingReviewLinkId").style.display = "none";
     document.getElementById("accMgmtLinkId").style.display = "none";
     document.getElementById("messageLinkId").style.display = "none";
@@ -5545,8 +5547,8 @@ function populateItemDropDown(fieldId = "item-search-box") {
 
 function getItmPendingReview(){
     removeActiveClassFromNavLinks();
-    let x = document.getElementById("itemsPendingReviewLinkId");
-    x.classList.add("active");
+    // let x = document.getElementById("itemsPendingReviewLinkId");
+    // x.classList.add("active");
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -6006,9 +6008,9 @@ function listReviews(rows = []){
 
 
         innerHTML = innerHTML + '<div data-title="userfullname" >' + userfullname + '</div>';
-        innerHTML = innerHTML + '<div data-title="customerid" >' + customerid + '</div>';
+        //innerHTML = innerHTML + '<div data-title="customerid" >' + customerid + '</div>';
 
-        innerHTML = innerHTML + '<div data-title="stars" class="starcls" >' + stars + '</div>';
+        innerHTML = innerHTML + '<div contenteditable="true" data-title="stars" class="starcls" >' + stars + '</div>';
 
         innerHTML = innerHTML + '<div contenteditable="true" data-title="comment" class="commentcls" >' + comment + '</div>';
 

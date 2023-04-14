@@ -57,7 +57,7 @@
 
 	}
 
-	#itemLinkId:hover+.dropdown-content {
+	.dropDownNav:hover + .dropdown-content {
 		display: block;
 	}
 }
