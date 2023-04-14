@@ -5572,7 +5572,91 @@ function getItmPendingReview(){
 
 }
 
+function checkStores(){
+    removeActiveClassFromNavLinks();
+    // let x = document.getElementById("itemsPendingReviewLinkId");
+    // x.classList.add("active");
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "checkstores" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
+
+            populateItemsStoresListForReview(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+
+}
+
 function populateItemsStoresListForReview(rows = "") {
+
+    let innerHTML = "";
+    let path = window.location.pathname;
+
+    for (let record of rows) {
+
+
+        let category = record.category;
+        let title = record.title;
+        let city_state_country = record.city_state_country;
+        let lastupdatedate = record.lastupdatedate;
+        let itemstr = record.itemstr;
+        let discontinue = record.discontinue;
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        
+        //let lastupdatedate = record.lastupdatedate;
+        //let comment = record.comment;
+        
+
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3"  > ';
+
+
+        innerHTML = innerHTML + '<div data-title="category" >' + category + '</div>';
+        //innerHTML = innerHTML + '<div data-title="customerid" >' + customerid + '</div>';
+
+        innerHTML = innerHTML + '<div  data-title="title"  >' + title + '</div>';
+
+        innerHTML = innerHTML + '<div  data-title="city_state_country"  >' + city_state_country + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="Store" ><a  href ="' + itemurl + '"   >Store</a></div>';
+
+        
+
+        if (discontinue == "1") {
+            innerHTML = innerHTML + '<div  data-title="discontinue" class="bgcolor_4 " >' + discontinue + '</div>';
+        }else {
+            innerHTML = innerHTML + '<div  data-title="discontinue" class="">' + discontinue + '</div>';
+        }
+        innerHTML = innerHTML + '<div data-title="lastupdatedate" >' + lastupdatedate + '</div>';
+        innerHTML = innerHTML + '</div>';
+    }
+
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+}
+
+//SM-DELETE AFTER NEW VERSION IS TESTED
+function populateItemsStoresListForReview_OLD(rows = "") {
 
 
     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
