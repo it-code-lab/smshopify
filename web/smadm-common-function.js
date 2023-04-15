@@ -927,7 +927,7 @@ function admproceedWithRequest(){
 
         document.getElementById("loginerrormsg").innerHTML = "";
 
-        showHelpDivMessage("Login to add or make updates to the help scan codes");
+        //showHelpDivMessage("Login to add or make updates to the help scan codes");
 
         document.getElementById("loginSecDivId").style.display = "none";
         document.getElementById("forgotPWDivId").style.display = "block";

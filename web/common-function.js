@@ -541,14 +541,34 @@ function populateitemsDropDownDisplay() {
 
     for (let i = 0; i < rows.length; i++) {
         if (i == 0) {
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         }else if (rows[i].category != rows[i-1].category){
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
+            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
         } 
     }
     document.getElementById("dropDownItmCatgListId").innerHTML = innHTML;
-
 }
+
+function showcategoryAfterURLHistUpd(category){
+
+    //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
+
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
+
+
+    const nextURL = myUrl;
+    const nextTitle = 'Code Helper';
+    const nextState = {
+        additionalInformation: 'Updated the URL with JS'
+    };
+
+    // This will create a new entry in the browser's history, without reloading
+    window.history.pushState(nextState, nextTitle, nextURL);
+
+    showcategory(category);
+}
+
 function getEnvironmentSetUpDetails() {
 
     let tags = JSON.parse(sessionStorage.getItem("EnvironmentSetUpDetails"));
@@ -638,8 +658,10 @@ function Show(pageName) {
 
     updateCommonDivsToDisplayNone();
 
-    let myUrl = window.location.protocol + "//" + window.location.host +
-        window.location.pathname + "?target=" + pageName;
+    //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?target=" + pageName;
+
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=" + pageName;
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
@@ -678,7 +700,7 @@ function Show(pageName) {
 
         document.getElementById("loginerrormsg").innerHTML = "";
 
-        showHelpDivMessage("Login to add or make updates to the help scan codes");
+        //showHelpDivMessage("Login to add or make updates to the help scan codes");
 
     } else if (pageName == "contactus") {
         document.getElementById("contactusDivId").style.display = "block";
@@ -701,6 +723,8 @@ function Show(pageName) {
         document.getElementById("homeDivId").style.display = "block";
         document.getElementById("homeDivId").style.width = "100%";
         //document.getElementById("mainContainer").style.width = "100%";
+    } else if (pageName == "mystore") {
+        myStore();
     }
 
     //Scroll to top
@@ -901,7 +925,7 @@ function checkURL() {
 
         document.getElementById("loginerrormsg").innerHTML = "";
 
-        showHelpDivMessage("Login to add or make updates to the help scan codes");
+        //showHelpDivMessage("Login to add or make updates to the help scan codes");
 
         document.getElementById("loginSecDivId").style.display = "none";
         document.getElementById("forgotPWDivId").style.display = "block";
@@ -1090,7 +1114,7 @@ function fnGetItem(itemstr) {
             }
         },
         error: function (xhr, status, error) {
-            //console.log(error);
+            console.log("error");
             //console.log(xhr);
         }
     });
@@ -4499,7 +4523,7 @@ function activateAccount(pass) {
                 //document.getElementById("loginDivId").style.width = "70%";
                 document.getElementById("loginerrormsg").innerHTML = "";
 
-                showHelpDivMessage("Login to add or make updates to the help scan codes");
+                //showHelpDivMessage("Login to add or make updates to the help scan codes");
 
                 document.getElementById("loginSecDivId").style.display = "none";
                 document.getElementById("accActivatedDivId").style.display = "block";
@@ -4884,7 +4908,10 @@ function populateItemsList(rows = "") {
         category = category.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
+        
+        let itemStr = category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
+
+        itemTitleURL = myUrl + "items/" + itemStr;
 
         storenameUrl = myUrl + storename;
 
@@ -4902,8 +4929,8 @@ function populateItemsList(rows = "") {
         //innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer" onclick="location.href=' + "'" + itemTitleURL + "'" + '">' + rows[i].itemimages ;
         //innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
 
-        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
-        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></a></div>';
+        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a  onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
+        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">Show More</a></a></div>';
 
 
         //innerHTML = innerHTML + '<a class="wg-box-content"><a class="wg-box-content-image" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
@@ -4934,7 +4961,7 @@ function populateItemsList(rows = "") {
             if (rows[i].city_state_country != undefined) {
                 if (rows[i].city_state_country != "") {
                     let arr = rows[i].city_state_country.split("~");
-                    innerHTML = innerHTML  + '<a class="anchor_tag_btn2" href="' + itemTitleURL + '">' + arr[0] + '</a>';
+                    innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';
                 }
             }
 
@@ -4984,6 +5011,22 @@ function populateItemsList(rows = "") {
     }, 20);
 }
 
+function getItemAfterURLHistUpd(itemStr){
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + itemStr;
+
+
+    const nextURL = myUrl;
+    const nextTitle = 'Code Helper';
+    const nextState = {
+        additionalInformation: 'Updated the URL with JS'
+    };
+
+    // This will create a new entry in the browser's history, without reloading
+    window.history.pushState(nextState, nextTitle, nextURL);
+
+    fnGetItem(itemStr);
+}
 
 
 // function populateStoreItemsList(rows = "") {
@@ -5436,7 +5479,10 @@ async function Logout() {
                 //let myUrl = window.location.protocol + "//" + window.location.host +	window.location.pathname ;
                 //window.open(myUrl + "?target=" + "projectscanner", "_self");	
 
-                window.open(window.location.href, "_self");
+                let path = window.location.pathname;
+                let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=home";
+
+                window.open(myUrl, "_self");
             }
 
             else {
