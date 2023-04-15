@@ -1252,15 +1252,18 @@ function getOneItemOfShop(tags, itemstr) {
         return entry.discontinue == "0" && entry.title == tags[0].storename;
     });
 
+    let itemStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
+    let storeStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].storename.replaceAll(" ", "-");
+
     let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
-        '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
+        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
@@ -1391,10 +1394,13 @@ function getFullShopDetails(tags, itemstr) {
 
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + tags[0].storename.replaceAll(" ", "-");
 
+    //let itemStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + title.replaceAll(" ", "-");
+    let storeStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-");
+
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
-        '<a class="anchor_tag_btn1" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
+        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
 
     //END - Navigation Links
 
@@ -3467,7 +3473,7 @@ function myStore() {
         let x = document.getElementById("toastsnackbar_center");
         x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
         x.style.display = "block";
-
+        Show('login');
         //DONOTDELETE
         // setTimeout(() => {
         //     x.style.display = "none";
