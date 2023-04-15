@@ -123,11 +123,6 @@ let itemImagesDiv = '<div class="itemImageshow-container">'
 
     + '<img class="myitemImages" style="display:block" src="/smshopify/images/addImages.png" >'
 
-
-    // + '<img class="myitemImages" style="display:block" src="https://www.w3schools.com/howto/img_nature_wide.jpg" >'
-    // + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_snow_wide.jpg" >'
-    // + '<img class="myitemImages" style="display:none" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" >'
-
     + '</div>'
 
     + '<a class="prevItmImg navbtn" onclick="plusitemImages(-1, this)">❮</a>'
@@ -611,83 +606,15 @@ function getHowToVideos() {
 }
 
 function hideDiv(divId) {
-
     document.getElementById(divId).style.display = "none";
-    if (divId == "HelpTopicsDivId") {
-        //document.getElementById("languageScanResultDivId").style.display = "none";
-        //document.getElementById("languageOverride").style.display = "none";
-        //document.getElementById("helpDetailsDivId").style.display = "none";
-        //document.getElementById("helpDivMessage").style.display = "block";
-
-        //document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
-        //document.getElementById("helpDisplayDivId").style.width = "100%";
-        //document.getElementById("helpDisplayDivId").style.overflow = "hidden";
-    }
-
-    // else if (divId == "projectscannerDivId") {
-    //     if (document.getElementById("filescannerDivId").style.display == "block") {
-    //         if (!onMobileBrowser()) {
-    //             document.getElementById("filescannerDivId").style.width = "70%";
-    //         }
-
-    //     } else {
-    //         document.getElementById("languageScanResultDivId").style.display = "none";
-    //         document.getElementById("languageOverride").style.display = "none";
-    //         document.getElementById("helpDetailsDivId").style.display = "none";
-    //         document.getElementById("helpDivMessage").style.display = "block";
-    //         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
-    //         document.getElementById("helpDisplayDivId").style.width = "100%";
-
-    //     }
-    // }
-
-    // else if (divId == "filescannerDivId") {
-    //     if (document.getElementById("projectscannerDivId").style.display == "block") {
-    //         if (!onMobileBrowser()) {
-    //             document.getElementById("projectscannerDivId").style.width = "100%";
-    //         }
-
-    //     } else {
-    //         document.getElementById("languageScanResultDivId").style.display = "none";
-    //         document.getElementById("languageOverride").style.display = "none";
-    //         document.getElementById("helpDetailsDivId").style.display = "none";
-    //         document.getElementById("helpDivMessage").style.display = "block";
-    //         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Please click on one of the option from top menu to proceed";
-    //         document.getElementById("helpDisplayDivId").style.width = "100%";
-    //         //document.getElementById("helpDisplayDivId").style.overflow = "hidden";
-    //     }
-    // } else if (divId == "helpDetailsDivId") {
-    //     document.getElementById("helpDivMessage").style.display = "block";
-    //     document.getElementById("languageOverride").style.display = "none";
-
-    // }
 }
 
 function removeActiveClassFromNavLinks(){
-    let x = document.getElementById("loginLinkId");
-    x.classList.remove("active");
+    let navlinks = document.querySelectorAll(".navLink");
 
-    x = document.getElementById("logoutLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("mystoreLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("myfavoritesLinkId");
-    x.classList.remove("active");
-
-
-    x = document.getElementById("contactusLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("howtoLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("homeLinkId");
-    x.classList.remove("active");
-
-    x = document.getElementById("itemLinkId");
-    x.classList.remove("active");
+    for (let i = 0; i < navlinks.length; i++) {
+        navlinks[i].classList.remove("active");
+    }
 }
 
 function updateCommonDivsToDisplayNone(){
@@ -702,31 +629,17 @@ function updateCommonDivsToDisplayNone(){
 }
 
 function Show(pageName) {
-    //console.log ("Show called for page " + pageName);
-
-    //document.getElementById("filelvlhelpdivid").style.display = "none";
 
     if (onMobileBrowser()) {
-
         let x = document.getElementById("myTopnav");
         x.className = "topnav";
 
     }
 
-    //document.getElementById("helpDisplayDivId").style.display = "block";
-    //Update url
-
-    //document.getElementById("languageScanResultDivId").style.display = "none";
-    //document.getElementById("languageOverride").style.display = "none";
-    //document.getElementById("helpDetailsDivId").style.display = "none";
-
     updateCommonDivsToDisplayNone();
 
     let myUrl = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?target=" + pageName;
-
-    //window.open(myUrl + "?target=" + pageName, "_self");
-
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
@@ -738,116 +651,15 @@ function Show(pageName) {
     window.history.pushState(nextState, nextTitle, nextURL);
 
 
-    //let x = document.getElementById("filescannerLinkId");
-    //x.classList.remove("active");
-
-    //x = document.getElementById("projectscannerLinkId");
-    //x.classList.remove("active");
-
-    //x = document.getElementById("HelpTopicsLinkId");
-    //x.classList.remove("active");
-
     removeActiveClassFromNavLinks();
 
     //populateLanguages("helpTopics-lang-box");
 
     x = document.getElementById(pageName + "LinkId");
     x.className += " active";
-
-    //document.getElementById("mainContainer").style.width = "70%";
-
-    // if (pageName == "filescanner") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-
-    //     document.getElementById("btnCloseFileScanner").style.display = "none";
-    //     document.getElementById("HelpTopicsDivId").style.display = "none";
-    //     document.getElementById("projectscannerDivId").style.display = "none"
-
-    //     document.getElementById("filescannerDivId").style.display = "block"
-    //     document.getElementById("filescannerDivId").style.width = "100%";
-
-
-
-
-    //     document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Enter the code in the text area on the left or select a file using 'Open File' button. <br> Click on the scan button to view the help codes available."
-
-    //     /**************************************/
-    //     let default_text =
-    //         "//Either paste the code here or select code file using 'Open File' button and click on Scan button.";
-    //     let textArea = $('#source')[0];
-    //     $('#source').val(default_text);
-
-    //     if (the.use_codemirror && typeof CodeMirror !== 'undefined') {
-
-    //         if (!the.editor) {
-    //             the.editor = CodeMirror.fromTextArea(textArea, {
-    //                 lineNumbers: true
-    //             });
-    //             set_editor_mode();
-    //             the.editor.focus();
-    //         }
-    //         $('.CodeMirror').click(function () {
-    //             //console.log("Area clicked 1");
-    //             if (the.editor.getValue() === default_text) {
-    //                 the.editor.setValue('');
-    //             }
-    //         });
-    //     } else {
-    //         $('#source').bind('click focus', function () {
-    //             if ($(this).val() === default_text) {
-    //                 $(this).val('');
-    //             }
-    //         }).bind('blur', function () {
-    //             if (!$(this).val()) {
-    //                 //console.log("bind blur 1");
-    //                 $(this).val(default_text);
-    //             }
-    //         });
-    //     }
-
-
-
-    // } else if (pageName == "projectscanner") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-    //     if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
-    //         document.getElementById("addNewProjBtnId").style.display = "block";
-    //     } else {
-    //         document.getElementById("addNewProjBtnId").style.display = "none";
-    //     }
-
-    //     if (document.getElementById("projectscannerDivId").style.display == "none") {
-    //         document.getElementById("HelpTopicsDivId").style.display = "none";
-    //         document.getElementById("projectscannerDivId").style.display = "block"
-
-
-    //         document.getElementById("filescannerDivId").style.display = "none"
-    //         document.getElementById("projectscannerDivId").style.width = "100%";
-
-    //     }
-    //     populateStoredProjectList();
-    //     showHelpDivMessage("Upload project files and click on the file to scan the code");
-
-    // } else if (pageName == "HelpTopics") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-    //     document.getElementById("filescannerDivId").style.display = "none";
-    //     document.getElementById("projectscannerDivId").style.display = "none"
-
-    //     document.getElementById("HelpTopicsDivId").style.display = "block";
-    //     document.getElementById("HelpTopicsDivId").style.width = "100%";
-
-
-    //     //document.getElementById("helpDivMessage").innerHTML = "Click on the help code to view the help details"
-    //     showHelpDivMessage("Select language to display the help content list available then click on the help code to view the help details");
-    //} else 
-    
+   
     if (pageName == "item") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none"
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("itemDivId").style.display = "none";
-        //document.getElementById("itemDivId").style.display = "block";
-        //document.getElementById("itemDivId").style.width = "100%";
 
         document.getElementById("itemListDivId").style.display = "block";
         document.getElementById("itemListDivId").style.width = "100%";
@@ -855,9 +667,6 @@ function Show(pageName) {
         $(".cardsContainerDivClassPadd").css("height", "200px");
 
     } else if (pageName == "login") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
 
         document.getElementById("loginDivId").style.display = "block";
 
@@ -867,55 +676,26 @@ function Show(pageName) {
         document.getElementById("accActivatedDivId").style.display = "none";
         document.getElementById("forgotPWDivId").style.display = "none";
 
-        //document.getElementById("loginDivId").style.width = "70%";
-
-
         document.getElementById("loginerrormsg").innerHTML = "";
 
-        //document.getElementById("helpDisplayDivId").style.width = "30%";
-
-
         showHelpDivMessage("Login to add or make updates to the help scan codes");
-    // } else if (pageName == "profile") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-    //     showProfile();
-
 
     } else if (pageName == "contactus") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "block";
-        //document.getElementById("contactusDivId").style.width = "70%";
-
-
         document.getElementById("contactuserrormsg").innerHTML = "";
 
 
         refreshCaptcha();
 
-        //document.getElementById("helpDisplayDivId").style.width = "30%";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
-        //showHelpDivMessage("Contact us if you have any questions, feedback or are interested in purchasing the software. Some features have been disabled on the web version for security reasons. Full feature software can be used for software training/development, creating references, documentation for the software application and adding own customizations. <br><br> If you found the site helpful, you can support our work by buying me a coffee using the coffee button at the top.");
-
     } else if (pageName == "howto") {
         document.getElementById("bgSVGId").style.display = "none";
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "block";
         document.getElementById("howtoDivId").style.width = "95%";
-        //document.getElementById("mainContainer").style.width = "100%";
         listVideos();
 
 
     } else if (pageName == "home") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "block";
@@ -991,13 +771,6 @@ function hideMenuItemsForLoggedOut(){
 }
 
 function checkURL() {
-    //console.log("inside checkURL");
-
-
-
-    //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-
-
     let LocationSearchStr = location.search;
     let find = '%20';
     let re = new RegExp(find, 'g');
@@ -1020,17 +793,11 @@ function checkURL() {
 
     if (myCookie == null) {
         localStorage.setItem("userLoggedIn", "n");
-        //if (!onMobileBrowser()) {
-        //    document.getElementById("loginLinkId").style.display = "block";
-       // }
+
+        
         document.getElementById("loginLinkId").style.display = "block";
 
         hideMenuItemsForLoggedOut();
-        //document.getElementById("logoutLinkId").style.display = "none";
-        //document.getElementById("myfavoritesLinkId").style.display = "none";
-
-        //document.getElementById("mystoreLinkId").style.display = "none";
-        //document.getElementById("HelpTopicsLinkId").style.display = "none";
 
     } else {
 
@@ -1038,10 +805,7 @@ function checkURL() {
         document.getElementById("loginLinkId").style.display = "none";
 
         showAdditionalMenuItemsForLoggedIn();
-        // document.getElementById("logoutLinkId").style.display = "block";
-        // document.getElementById("myfavoritesLinkId").style.display = "block";
 
-        //document.getElementById("mystoreLinkId").style.display = "block";
         if (localStorage.getItem("userLvl") == "9") {
             the.smusr = true;
         }
@@ -1055,16 +819,11 @@ function checkURL() {
             success: function (retstatus) {
                 if (retstatus == "err") {
                     localStorage.setItem("userLoggedIn", "n");
-                    //if (!onMobileBrowser()) {
-                    //    document.getElementById("loginLinkId").style.display = "block";
-                    //}
+
                     document.getElementById("loginLinkId").style.display = "block";
 
                     hideMenuItemsForLoggedOut();
-                    //document.getElementById("logoutLinkId").style.display = "none";
-                    //document.getElementById("myfavoritesLinkId").style.display = "none";
 
-                    //document.getElementById("mystoreLinkId").style.display = "none";
                 } else {
                     getFavoritesList();
                     getstoreinfo();
@@ -1091,19 +850,10 @@ function checkURL() {
             return;
         }
 
-        //document.getElementById("languageScanResultDivId").style.display = "none";
-        //document.getElementById("languageOverride").style.display = "none";
-        //document.getElementById("helpDetailsDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "none";
-
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none"
-
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
 
         document.getElementById("itemDivId").style.display = "block";
 
@@ -1123,7 +873,7 @@ function checkURL() {
             document.getElementById("mainContainer").style.width = "100%";
             document.getElementById("itemEditDivId").style.width = "20%";
             document.getElementById("itemEditDivId").innerHTML = "";
-            getItem(itemstr);
+            fnGetItem(itemstr);
         } else {
             itemstr = decodeURI(itemstr);
             document.getElementById("itemDivId").style.display = "none";
@@ -1144,27 +894,12 @@ function checkURL() {
         //resetPassword(passwordresetkey);
         sessionStorage.setItem("passwordresetkey", passwordresetkey);
 
-        //document.getElementById("helpDisplayDivId").style.display = "block";
-        //Update url
-
-        //document.getElementById("languageScanResultDivId").style.display = "none";
-        //document.getElementById("languageOverride").style.display = "none";
-        //document.getElementById("helpDetailsDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
 
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "block";
-        //document.getElementById("loginDivId").style.width = "70%";
-
-
 
         document.getElementById("loginerrormsg").innerHTML = "";
-
-        //document.getElementById("helpDisplayDivId").style.width = "30%";
-
 
         showHelpDivMessage("Login to add or make updates to the help scan codes");
 
@@ -1178,11 +913,6 @@ function checkURL() {
         pageName = ar[1];
     }
 
-
-    //document.getElementById("filescannerDivId").style.display = "none";
-    //document.getElementById("HelpTopicsDivId").style.display = "none";
-    //document.getElementById("projectscannerDivId").style.display = "none";
-    //document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
@@ -1190,9 +920,6 @@ function checkURL() {
     document.getElementById("itemListDivId").style.display = "none";
     document.getElementById("itemEditDivId").style.display = "none";
 
-
-
-    //populateLanguages("helpTopics-lang-box");
     try {
         let x = document.getElementById(pageName + "LinkId");
         x.className += " active";
@@ -1214,9 +941,6 @@ function checkURL() {
     } else if (pageName == "mystore") {
 
         if (localStorage.getItem("userLoggedIn") == "n") {
-            //let x = document.getElementById("toastsnackbar_center");
-            // x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-            // x.style.display = "block";
 
             sessionStorage.setItem("lastUrl", window.location.href);
             document.getElementById("loginDivId").style.display = "block";
@@ -1246,48 +970,22 @@ function checkURL() {
         document.getElementById("projectscannerDivId").style.width = "100%";
         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "block";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
 
-        //showHelpDivMessage("Login to add or make updates to the help scan codes");
     } else if (pageName == "contactus") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
+
         document.getElementById("contactusDivId").style.display = "block";
 
 
         refreshCaptcha();
-        //document.getElementById("helpDisplayDivId").style.display = "none";
-        //showHelpDivMessage("Contact us if you have any questions, feedback or are interested in purchasing the software. Some features have been disabled on the web version for security reasons. Full feature software can be used for software training/development, creating references and documentation for the software application. <br><br> If you found the site helpful, you can support our work by buying me a coffee by clicking on the coffee button at the top.");
 
-    // } else if (pageName == "profile") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-    //     showProfile();
     } else if (pageName == "howto") {
         document.getElementById("bgSVGId").style.display = "none";
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
+
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "block";
         document.getElementById("howtoDivId").style.width = "95%";
-        //document.getElementById("mainContainer").style.width = "100%";
         listVideos();
-    // } else if (pageName == "filescanner") {
-    //     document.getElementById("bgSVGId").style.display = "none";
-    //     document.getElementById("btnCloseFileScanner").style.display = "none";
-    //     if (localStorage.getItem("newWindowFileName") != null) {
-    //         loadFile();
-
-    //         localStorage.setItem("newWindowFileName", null);
-    //         localStorage.setItem("newWindowFileObj", null);
-    //     }
-    //     document.getElementById("filescannerDivId").style.width = "100%";
     } else if (pageName == "item") {
 
         if (sessionStorage.getItem("itemsList") == null) {
@@ -1299,20 +997,16 @@ function checkURL() {
             return;
         }
 
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
-        //document.getElementById("itemDivId").style.width = "100%";
+
         document.getElementById("itemDivId").style.display = "none";
         document.getElementById("itemEditDivId").style.display = "none";
 
         document.getElementById("itemListDivId").style.width = "100%";
 
         populateItemsList();
-        //document.getElementById("mainContainer").style.width = "100%";
+
         $(".cardsContainerDivClassPadd").css("height", "200px");
     } else if (pageName == "") {
 
@@ -1325,10 +1019,6 @@ function checkURL() {
             return;
         }
 
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         //document.getElementById("itemDivId").style.width = "100%";
@@ -1345,10 +1035,6 @@ function checkURL() {
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
     } else if (pageName == "home") {
-        //document.getElementById("filescannerDivId").style.display = "none";
-        //document.getElementById("HelpTopicsDivId").style.display = "none";
-        //document.getElementById("projectscannerDivId").style.display = "none";
-        //document.getElementById("helpDisplayDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.width = "100%";
@@ -1369,14 +1055,14 @@ function displayStore(storename) {
 
     if (storeRow.length > 0) {
         document.getElementById("itemDivId").style.display = "block";
-        getItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
+        fnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
     } else {
         document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
         document.getElementById("itemDivId").style.display = "block";
     }
 }
 
-function getItem(itemstr) {
+function fnGetItem(itemstr) {
     $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
@@ -1411,9 +1097,7 @@ function getItem(itemstr) {
 }
 
 function getStoreURLMsg(){
-    //let path = window.location.pathname;
-    //let loc = window.location;
-    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+
     let storename = localStorage.getItem("storename");
     storename = storename.toLocaleLowerCase();
     storename = storename.replaceAll(" ", "-");
@@ -1441,17 +1125,6 @@ function getCreateStore() {
     + '</div></div></div></div><div class="hdMeDivCls" contenteditable="false"><button class="togglePreviewBtn" onclick="toggleSecPreview(this)"> Toggle Preview </button></div><button class="deleteDivInnImg" onclick="deleteCurrentComponent(this)"></button>  </div>';
 
 
-    //START: Find the next item to be put at the bottom of the page
-
-    //let nextItemTitle = "";
-    //let nextItemTitleURL = "";
-
-
-
-
-    //let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=item";
-    //let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "items/" + category;
-
     let newHTML = "";
 
     newHTML = newHTML + "<div classXX = 'shopContainer' >";
@@ -1466,17 +1139,8 @@ function getCreateStore() {
     newHTML = newHTML + '<div classXX="shopDeltsNImg">';
     newHTML = newHTML + '<div classXX="shopDelts">' + "<div class = 'shopLyrics' >";
 
-
-
-    // if (tags[0].description != undefined) {
-    //     if (tags[0].description != "") {
-
     newHTML = newHTML
         + '<div id="selectStoreTypeDivId"></div> <span id="storeSelectedDivId" class="displayNone newStoreTypeHdr slide-in-left fontsize_18px" style="animation-duration: 0.2">xyz</span> <div class="itemDescription displayNone">' + description + '</div>';
-    
-        //     }
-    // }
-
 
     newHTML = newHTML + "</div>" + "</div>";
 
@@ -1486,15 +1150,6 @@ function getCreateStore() {
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = newHTML;
-
-    //refreshCaptcha();
-    //showcategory(category);
-    //START: Change the background color of the active item link 
-
-
-    //let elemId = "itemDiv-" + itemid;
-    //document.getElementById(elemId).style.backgroundColor = "orange";
-    //END: Change the background color of the active item link
 
     let metaDesc = "Create your store and listings";
 
@@ -1507,9 +1162,6 @@ function getCreateStore() {
     document.title = "Create your store";
 
     sessionStorage.setItem("lastUrl", window.location.href);
-    // if (localStorage.getItem("cookieAccepted") == "y"){
-    //     document.getElementById("cookie-div-id").style.display = "none"
-    // }
 
     const structuredData = {
         "@context": "https://schema.org/",
@@ -1729,15 +1381,6 @@ function getFullShopDetails(tags, itemstr) {
 
     //END - Item name Heading
 
-    if (localStorage.getItem("userLoggedIn") == "n") {
-
-    } else if (localStorage.getItem("userLvl") == "9") {
-
-        sessionStorage.setItem("data-description", description);
-
-        newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
-
-    }
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
     //Start: div class="slides"
@@ -1763,20 +1406,12 @@ function getFullShopDetails(tags, itemstr) {
 
     newHTML = newHTML + getItemsHTML(storeItems);
 
-
-
-
-
     newHTML = newHTML + "</div></div></div></div></div>";
     //End1: storeItemDivCls
     //End2: shopLyrics
     //End3: shopContainer
 
-
-
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
-
-
 
     document.getElementById("itemListDivId").innerHTML = newHTML;
     refreshCaptcha();
@@ -1867,8 +1502,6 @@ function getShopLocationAndHours(tags) {
 
 
         setTimeout(function () {
-            //let latitude = 28.2683684;
-            //let longitude = 78.6824194000001;
             let latitude = crd[0];
             let longitude = crd[1];
             const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
@@ -1885,8 +1518,6 @@ function getShopLocationAndHours(tags) {
 
 
             setTimeout(function () {
-                //let latitude = 28.2683684;
-                //let longitude = 78.6824194000001;
                 let latitude = crd[0];
                 let longitude = crd[1];
                 const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
@@ -1894,25 +1525,6 @@ function getShopLocationAndHours(tags) {
                 L.marker([latitude, longitude]).addTo(map);
             }, 10);
     }
-
-
-    // if (tags[0].displaylocationflag != undefined) {
-    //     if (tags[0].displaylocationflag != "xyx") {
-    //         newHTML = newHTML
-    //             + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
-
-
-    //         setTimeout(function () {
-    //             let latitude = 28.2683684;
-    //             let longitude = 78.6824194000001;
-    //             const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-    //             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-    //             L.marker([latitude, longitude]).addTo(map);
-    //         }, 10);
-
-    //     }
-    // }
-
 
 
 
@@ -2079,298 +1691,298 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-function editItem(btn) {
-    let itemid = btn.dataset.itemid;
-    let category = btn.dataset.category;
-    let categoryseq = btn.dataset.categoryseq;
-    let subcategory = btn.dataset.subcategory;
-    let versionseq = btn.dataset.versionseq;
-    let title = btn.dataset.title;
-    let titleseq = btn.dataset.titleseq;
-    let shortdescription = btn.dataset.shortdescription;
-    let description = sessionStorage.getItem("data-description");
-    let city_state_country = btn.dataset.city_state_country;
-    let keywords = btn.dataset.keywords;
-    let discontinue = btn.dataset.discontinue;
+// function editItem(btn) {
+//     let itemid = btn.dataset.itemid;
+//     let category = btn.dataset.category;
+//     let categoryseq = btn.dataset.categoryseq;
+//     let subcategory = btn.dataset.subcategory;
+//     let versionseq = btn.dataset.versionseq;
+//     let title = btn.dataset.title;
+//     let titleseq = btn.dataset.titleseq;
+//     let shortdescription = btn.dataset.shortdescription;
+//     let description = sessionStorage.getItem("data-description");
+//     let city_state_country = btn.dataset.city_state_country;
+//     let keywords = btn.dataset.keywords;
+//     let discontinue = btn.dataset.discontinue;
 
-    $.ajax({
-        url: the.hosturl + '/php/process.php',
-        data: { usrfunction: "checksession" },
-        type: 'POST',
-        dataType: 'json',
-        success: function (retstatus) {
-            if (retstatus == "err") {
-                //alert("Please relogin");
-                goToLogin();
-            }
-        },
-        error: function (xhr, status, error) {
-            //console.log("")
-        }
-    });
+//     $.ajax({
+//         url: the.hosturl + '/php/process.php',
+//         data: { usrfunction: "checksession" },
+//         type: 'POST',
+//         dataType: 'json',
+//         success: function (retstatus) {
+//             if (retstatus == "err") {
+//                 //alert("Please relogin");
+//                 goToLogin();
+//             }
+//         },
+//         error: function (xhr, status, error) {
+//             //console.log("")
+//         }
+//     });
 
-    let newHTML = "<div class = 'shopContainer' >";
-    newHTML = newHTML + " ";
-
-
-
-    newHTML = newHTML +
-        "<div class = 'editFieldHead'>Title: </div><br>"
-        +
-        "<input type='text'  id='title-" + itemid + "' style='width:95%; margin:auto;' value='" + title + "'>"
-        + "";
-
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Title Sort Sequence: </div><br>" +
-        "<input type='text' id='titleseq-" + itemid + "' style='width:95%; margin:auto;' value='" + titleseq + "'>";
-
-    newHTML = newHTML + "<br><br><div class = 'editFieldHead'>category: </div><br>" +
-        "<input type='text' id='category-" + itemid + "' style='width:95%; margin:auto;'  value='" + category + "'>";
-
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>category Sort Sequence: </div><br>" +
-        "<input type='text' id='categoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + categoryseq + "'>";
-
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Path(not in use): </div><br>" +
-        "<input type='text' id='subcategory-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategory + "'>";
-
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Path Sort Sequence(not in use): </div><br>" +
-        "<input type='text' id='versionseq-" + itemid + "' style='width:95%; margin:auto;' value='" + versionseq + "'>";
+//     let newHTML = "<div class = 'shopContainer' >";
+//     newHTML = newHTML + " ";
 
 
 
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Short Description: </div><br>" +
-        "<textarea id='shortdescription-" + itemid + "' style='width:95%; margin:auto;' >" + shortdescription + "</textarea>";
+//     newHTML = newHTML +
+//         "<div class = 'editFieldHead'>Title: </div><br>"
+//         +
+//         "<input type='text'  id='title-" + itemid + "' style='width:95%; margin:auto;' value='" + title + "'>"
+//         + "";
 
-    let toolbarHTML = "";
-    //toolbarHTML =  "<button  type='button' class='itmToggledBtn btn btn-primary' onclick=toggleDescView('" + itemid + "') >Toggle View</button>" + "<br>" ;
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Title Sort Sequence: </div><br>" +
+//         "<input type='text' id='titleseq-" + itemid + "' style='width:95%; margin:auto;' value='" + titleseq + "'>";
 
-    toolbarHTML = toolbarHTML + "<div id='toolBarId' class = 'toolBar'><div>" +
-        "<button  title='toggle desc view' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleDescView('" + itemid + "') >TglDesc</button>" +
-        "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>";
+//     newHTML = newHTML + "<br><br><div class = 'editFieldHead'>category: </div><br>" +
+//         "<input type='text' id='category-" + itemid + "' style='width:95%; margin:auto;'  value='" + category + "'>";
 
-    //Shop - Topbanner*********************
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>category Sort Sequence: </div><br>" +
+//         "<input type='text' id='categoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + categoryseq + "'>";
 
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopTopBanner</label>"
-        + getShopTopBannersList(itemid);
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Path(not in use): </div><br>" +
+//         "<input type='text' id='subcategory-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategory + "'>";
 
-    //Shop - Items*********************
-
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>"
-        + "<button title='shopItem1' type='button' style='background: url(/smshopify/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
-
-    //Shop - Items*********************
-
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>"
-        + "<button title='shopName1' type='button' style='background: url(/smshopify/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
-
-    //Reveal Js Slide - Section - Divs*********************
-
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>"
-        + "<button title='secTitlePlane1' type='button' style='background: url(/smshopify/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
-
-        + "<button title='secTitleWithBG' type='button' style='background: url(/smshopify/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
-
-        + "<button title='SemiTransBG' type='button' style='background: url(/smshopify/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
-
-        + "<button title='SemiTransBG2' type='button' style='background: url(/smshopify/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
-
-        + "<label class='toolBarlabel'>Div - Sections - Lists</label>"
-
-        + "<button title='secWithList1' type='button' style='background: url(/smshopify/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
-
-        + "<button title='titleWithItems1' type='button' style='background: url(/smshopify/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
-
-        + "<button title='titleWithItems2' type='button' style='background: url(/smshopify/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
-
-        + "<button title='titleWithItems3' type='button' style='background: url(/smshopify/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
-
-        + "<label class='toolBarlabel'>Div - Code Explaination</label>"
-        + "<button title='titleTextCode1' type='button' style='background: url(/smshopify/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
-        + "<button title='titleTextCode2' type='button' style='background: url(/smshopify/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
-
-        + "<label class='toolBarlabel'>Div - Quiz MCQ</label>"
-        + "<button title='quizMCQFullScreen' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
-        + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
-
-        + "<label class='toolBarlabel'>Images</label>"
-        + "<button title='zoomingImage1' type='button' style='background: url(/smshopify/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
-        + "<hr>"
-        + "<label for='insertInner'>Insert component before active Div:</label>"
-        + "<input type='checkbox' id='insertInner' >";
-    //*************ANIMATION CLASSES************* */
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>"
-        + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"
-        + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
-        + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
-        + "<br><br>Ex. " + escape("<div class='fragment fr-rotate-in-center' style='margin:auto; padding-top: 100px;  animation-duration: 4s; animation-delay: 0s; animation-iteration-count: 1'>text</div>")
-        + "<br><br><b>ImageZooming:-</b> kenburns-top;  kenburns-left; kenburns-right; zoomingImg;"
-        + "<br><br><b>Entrances(Reveal):-</b> scale-in-ver-top; scale-in-hor-center; scale-in-hor-right; scale-up-ver-top; slide-left; slide-right"
-        + "<br><br><b>Entrances(Rotate):-</b> rotate-in-center; rotate-in-right; "
-        + "<br><br><b>Entrances(Bounce):-</b> bounce-in-top; bounce-in-right; bounce-in-bottom; bounce-in-left; bounce-in-fwd; "
-        + "<br><br><b>Entrances(Roll):-</b> roll-in-left; roll-in-top; roll-in-right; roll-in-bottom;  "
-        + "<br><br><b>Entrances(Tilt):-</b> tilt-in-top-1; tilt-in-top-2; tilt-in-fwd-tr  "
-        + "<br><br><b>Entrances(Swing):-</b> swing-in-top-fwd; swing-in-left-bck  "
-        + "<br><br><b>Entrances(Text-Expand/Contract):-</b> tracking-in-expand;tracking-in-expand-fwd;tracking-in-contract-bck;tracking-in-contract;text-pop-up-top  "
-        + "<br><br><b>Attention:-</b> shake-vertical; jello-diagonal-1; jello-horizontal;wobble-hor-bottom; wobble-hor-top; bounce-top; bounce-bottom; bounce-left; bounce-right  "
-        + "<br><br><b>Others:-</b> slidingUp10px; slidingUp600px; slidingDown10px; slidingDown600px; slidingleft10px; slidingleft600px; slidingright10px; slidingright600px;"
-        + "<br><br>slideFragmentUp10px;slideFragmentUp600px;slideFragmentDown10px;slideFragmentDown600px;slideFragmentLeft10px;slideFragmentLeft600px;slideFragmentRight10px; slideFragmentRight600px;"
-        + "<br><br> </div>";
-
-    //*************SOUNDS************* */
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Sounds (Click to insert at Carot) </label>"
-
-        + "<button title='air-in-a-hit' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','air-in-a-hit') >air-in-a-hit</button>"
-        + "<button title='arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','arrow-whoosh') >arrow-whoosh</button>"
-        + "<button title='bell-ding-586' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','bell-ding-586') >bell-ding-586</button>"
-        + "<button title='fast-blow' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-blow') >fast-blow</button>"
-        + "<button title='fast-sweep' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-sweep') >fast-sweep</button>"
-        + "<button title='keyboard-key-presses' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','keyboard-key-presses') >keyboard-key-presses</button>"
-        + "<button title='page-flip-01a' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','page-flip-01a') >page-flip-01a</button>"
-        + "<button title='paper-slide' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','paper-slide') >paper-slide</button>"
-        + "<button title='pop' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','pop') >pop</button>"
-        + "<button title='sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','sand-swish') >sand-swish</button>"
-        + "<button title='ui-zoom-in' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','ui-zoom-in') >ui-zoom-in</button>"
-        + "<button title='low-arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-arrow-whoosh') >low-arrow-whoosh</button>"
-        + "<button title='low-sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-sand-swish') >low-sand-swish</button>"
-        + "<button title='low-bell-ding' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-bell-ding') >low-bell-ding</button>";
-
-    //*************BACKGROUND SOUNDS************* */
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Background Sounds (Click to insert at Carot) </label>"
-
-        + "<button title='background1' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background1') >background1</button>"
-        + "<button title='background2' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background2') >background2</button>"
-        + "<button title='background3' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background3') >background3</button>"
-        + "<button title='background4' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background4') >background4</button>"
-        + "<button title='background5' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background5') >background5</button>"
-        + "<button title='background6' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background6') >background6</button>"
-
-        + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>";
-
-    //****************IMAGES****************/
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
-        + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>"
-
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Upload Image</label>"
-        + "Upload Image:(e.g. myimage.png)" +
-        "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
-        +
-        "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/" + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
-
-        +
-        "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
-
-        +
-        "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-        +
-        "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
-        +
-        "<input class='itmUpdBtnSmall' type='button' value='Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='insertImageAtCarot(event);'  >"
-        +
-        "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
-        + "<label class='toolBarlabel'>Search Images (Click to Save)</label>"
-        + "<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
-        + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
-        + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
-        + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
-        + "<div class='srchimages'></div>";
-
-    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Paragraphs</label>" +
-        "<button title='paragraph1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph1') >P1</button>" +
-        "<button title='paragraph2 white BG' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph2') >P2</button>" +
-        "<label class='toolBarlabel'>Ordered Lists</label>" +
-        "<button title='ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','orderedlist') >OL1</button>" +
-        "<button title='sub-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','suborderedlist') >OL2</button>" +
-        "<label class='toolBarlabel'>Unordered Lists</label>" +
-        "<button title='un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','unorderedlist') >UL1</button>" +
-        "<button title='sub-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','subunorderedlist') >UL2</button>" +
-        "<button title='sub2-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sub2unorderedlist') >UL3</button>" +
-        "<label class='toolBarlabel'>Code Snippets</label>" +
-        "<button title='Code-Dark Intellij' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript1') >Dark</button>" +
-        "<button title='Code-Light-VSCode' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript2') >Light</button>" +
-        "<button title='Code-CommandLine'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript3') >Cmd</button>" +
-        "<label class='toolBarlabel'>Headers</label>" +
-        "<button title='header1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header1') >H1</button>" +
-        "<button title='header2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header2') >H2</button>" +
-        "<button title='header3-padding' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header3') >H3</button>" +
-        "<button title='header3' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header4') >H4</button>" +
-        "<label class='toolBarlabel'>Images</label>" +
-        "<button title='Image-Full-width' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image1') >I1</button>" +
-        "<button title='Image-Smaller' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image2') >I2</button>" +
-        "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image3') >I3</button>" +
-        "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image4') >I@Car</button>" +
-        "<label class='toolBarlabel'>Messages</label>" +
-        "<button title='Warning'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','warning') >Warn</button>" +
-        "<button title='Error' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','error') >Err</button>" +
-        "<button title='Green-Success' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','greenmsg') >Succ</button>" +
-
-        "<label class='toolBarlabel'>Quiz</label>" +
-        "<button title='Quiz1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz1') >Q1</button>" +
-        "<button title='Quiz2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz2') >Q2</button>" +
-        "<button title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
-        "</div>";
-
-    //*************END OF TOOLBAR DIV */
-    toolbarHTML = toolbarHTML + "</div><br><br><br>";
-    //*************END OF TOOLBAR DIV */
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Path Sort Sequence(not in use): </div><br>" +
+//         "<input type='text' id='versionseq-" + itemid + "' style='width:95%; margin:auto;' value='" + versionseq + "'>";
 
 
 
-    newHTML = newHTML + "<br><br>" +
-        "<textarea id='descriptionTextId' class = ''   ></textarea>"
-        +
-        "<div class='editDescriptionDiv' contenteditable='true'  class='span2 fullWidth lyricsDiv' id='description-" + itemid + "'  >" + description + "</div>";
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Short Description: </div><br>" +
+//         "<textarea id='shortdescription-" + itemid + "' style='width:95%; margin:auto;' >" + shortdescription + "</textarea>";
+
+//     let toolbarHTML = "";
+//     //toolbarHTML =  "<button  type='button' class='itmToggledBtn btn btn-primary' onclick=toggleDescView('" + itemid + "') >Toggle View</button>" + "<br>" ;
+
+//     toolbarHTML = toolbarHTML + "<div id='toolBarId' class = 'toolBar'><div>" +
+//         "<button  title='toggle desc view' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleDescView('" + itemid + "') >TglDesc</button>" +
+//         "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>";
+
+//     //Shop - Topbanner*********************
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopTopBanner</label>"
+//         + getShopTopBannersList(itemid);
+
+//     //Shop - Items*********************
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>"
+//         + "<button title='shopItem1' type='button' style='background: url(/smshopify/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
+
+//     //Shop - Items*********************
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>"
+//         + "<button title='shopName1' type='button' style='background: url(/smshopify/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
+
+//     //Reveal Js Slide - Section - Divs*********************
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>"
+//         + "<button title='secTitlePlane1' type='button' style='background: url(/smshopify/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
+
+//         + "<button title='secTitleWithBG' type='button' style='background: url(/smshopify/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
+
+//         + "<button title='SemiTransBG' type='button' style='background: url(/smshopify/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
+
+//         + "<button title='SemiTransBG2' type='button' style='background: url(/smshopify/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
+
+//         + "<label class='toolBarlabel'>Div - Sections - Lists</label>"
+
+//         + "<button title='secWithList1' type='button' style='background: url(/smshopify/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
+
+//         + "<button title='titleWithItems1' type='button' style='background: url(/smshopify/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
+
+//         + "<button title='titleWithItems2' type='button' style='background: url(/smshopify/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
+
+//         + "<button title='titleWithItems3' type='button' style='background: url(/smshopify/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
+
+//         + "<label class='toolBarlabel'>Div - Code Explaination</label>"
+//         + "<button title='titleTextCode1' type='button' style='background: url(/smshopify/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
+//         + "<button title='titleTextCode2' type='button' style='background: url(/smshopify/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
+
+//         + "<label class='toolBarlabel'>Div - Quiz MCQ</label>"
+//         + "<button title='quizMCQFullScreen' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
+//         + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
+
+//         + "<label class='toolBarlabel'>Images</label>"
+//         + "<button title='zoomingImage1' type='button' style='background: url(/smshopify/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
+//         + "<hr>"
+//         + "<label for='insertInner'>Insert component before active Div:</label>"
+//         + "<input type='checkbox' id='insertInner' >";
+//     //*************ANIMATION CLASSES************* */
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>"
+//         + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"
+//         + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
+//         + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
+//         + "<br><br>Ex. " + escape("<div class='fragment fr-rotate-in-center' style='margin:auto; padding-top: 100px;  animation-duration: 4s; animation-delay: 0s; animation-iteration-count: 1'>text</div>")
+//         + "<br><br><b>ImageZooming:-</b> kenburns-top;  kenburns-left; kenburns-right; zoomingImg;"
+//         + "<br><br><b>Entrances(Reveal):-</b> scale-in-ver-top; scale-in-hor-center; scale-in-hor-right; scale-up-ver-top; slide-left; slide-right"
+//         + "<br><br><b>Entrances(Rotate):-</b> rotate-in-center; rotate-in-right; "
+//         + "<br><br><b>Entrances(Bounce):-</b> bounce-in-top; bounce-in-right; bounce-in-bottom; bounce-in-left; bounce-in-fwd; "
+//         + "<br><br><b>Entrances(Roll):-</b> roll-in-left; roll-in-top; roll-in-right; roll-in-bottom;  "
+//         + "<br><br><b>Entrances(Tilt):-</b> tilt-in-top-1; tilt-in-top-2; tilt-in-fwd-tr  "
+//         + "<br><br><b>Entrances(Swing):-</b> swing-in-top-fwd; swing-in-left-bck  "
+//         + "<br><br><b>Entrances(Text-Expand/Contract):-</b> tracking-in-expand;tracking-in-expand-fwd;tracking-in-contract-bck;tracking-in-contract;text-pop-up-top  "
+//         + "<br><br><b>Attention:-</b> shake-vertical; jello-diagonal-1; jello-horizontal;wobble-hor-bottom; wobble-hor-top; bounce-top; bounce-bottom; bounce-left; bounce-right  "
+//         + "<br><br><b>Others:-</b> slidingUp10px; slidingUp600px; slidingDown10px; slidingDown600px; slidingleft10px; slidingleft600px; slidingright10px; slidingright600px;"
+//         + "<br><br>slideFragmentUp10px;slideFragmentUp600px;slideFragmentDown10px;slideFragmentDown600px;slideFragmentLeft10px;slideFragmentLeft600px;slideFragmentRight10px; slideFragmentRight600px;"
+//         + "<br><br> </div>";
+
+//     //*************SOUNDS************* */
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Sounds (Click to insert at Carot) </label>"
+
+//         + "<button title='air-in-a-hit' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','air-in-a-hit') >air-in-a-hit</button>"
+//         + "<button title='arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','arrow-whoosh') >arrow-whoosh</button>"
+//         + "<button title='bell-ding-586' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','bell-ding-586') >bell-ding-586</button>"
+//         + "<button title='fast-blow' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-blow') >fast-blow</button>"
+//         + "<button title='fast-sweep' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-sweep') >fast-sweep</button>"
+//         + "<button title='keyboard-key-presses' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','keyboard-key-presses') >keyboard-key-presses</button>"
+//         + "<button title='page-flip-01a' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','page-flip-01a') >page-flip-01a</button>"
+//         + "<button title='paper-slide' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','paper-slide') >paper-slide</button>"
+//         + "<button title='pop' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','pop') >pop</button>"
+//         + "<button title='sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','sand-swish') >sand-swish</button>"
+//         + "<button title='ui-zoom-in' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','ui-zoom-in') >ui-zoom-in</button>"
+//         + "<button title='low-arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-arrow-whoosh') >low-arrow-whoosh</button>"
+//         + "<button title='low-sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-sand-swish') >low-sand-swish</button>"
+//         + "<button title='low-bell-ding' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-bell-ding') >low-bell-ding</button>";
+
+//     //*************BACKGROUND SOUNDS************* */
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Background Sounds (Click to insert at Carot) </label>"
+
+//         + "<button title='background1' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background1') >background1</button>"
+//         + "<button title='background2' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background2') >background2</button>"
+//         + "<button title='background3' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background3') >background3</button>"
+//         + "<button title='background4' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background4') >background4</button>"
+//         + "<button title='background5' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background5') >background5</button>"
+//         + "<button title='background6' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background6') >background6</button>"
+
+//         + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>";
+
+//     //****************IMAGES****************/
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
+//         + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>"
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Upload Image</label>"
+//         + "Upload Image:(e.g. myimage.png)" +
+//         "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
+//         +
+//         "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/" + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
+
+//         +
+//         "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
+
+//         +
+//         "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
+//         +
+//         "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
+//         +
+//         "<input class='itmUpdBtnSmall' type='button' value='Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='insertImageAtCarot(event);'  >"
+//         +
+//         "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
+//         + "<label class='toolBarlabel'>Search Images (Click to Save)</label>"
+//         + "<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
+//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
+//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
+//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
+//         + "<div class='srchimages'></div>";
+
+//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Paragraphs</label>" +
+//         "<button title='paragraph1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph1') >P1</button>" +
+//         "<button title='paragraph2 white BG' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph2') >P2</button>" +
+//         "<label class='toolBarlabel'>Ordered Lists</label>" +
+//         "<button title='ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','orderedlist') >OL1</button>" +
+//         "<button title='sub-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','suborderedlist') >OL2</button>" +
+//         "<label class='toolBarlabel'>Unordered Lists</label>" +
+//         "<button title='un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','unorderedlist') >UL1</button>" +
+//         "<button title='sub-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','subunorderedlist') >UL2</button>" +
+//         "<button title='sub2-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sub2unorderedlist') >UL3</button>" +
+//         "<label class='toolBarlabel'>Code Snippets</label>" +
+//         "<button title='Code-Dark Intellij' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript1') >Dark</button>" +
+//         "<button title='Code-Light-VSCode' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript2') >Light</button>" +
+//         "<button title='Code-CommandLine'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript3') >Cmd</button>" +
+//         "<label class='toolBarlabel'>Headers</label>" +
+//         "<button title='header1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header1') >H1</button>" +
+//         "<button title='header2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header2') >H2</button>" +
+//         "<button title='header3-padding' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header3') >H3</button>" +
+//         "<button title='header3' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header4') >H4</button>" +
+//         "<label class='toolBarlabel'>Images</label>" +
+//         "<button title='Image-Full-width' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image1') >I1</button>" +
+//         "<button title='Image-Smaller' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image2') >I2</button>" +
+//         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image3') >I3</button>" +
+//         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image4') >I@Car</button>" +
+//         "<label class='toolBarlabel'>Messages</label>" +
+//         "<button title='Warning'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','warning') >Warn</button>" +
+//         "<button title='Error' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','error') >Err</button>" +
+//         "<button title='Green-Success' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','greenmsg') >Succ</button>" +
+
+//         "<label class='toolBarlabel'>Quiz</label>" +
+//         "<button title='Quiz1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz1') >Q1</button>" +
+//         "<button title='Quiz2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz2') >Q2</button>" +
+//         "<button title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
+//         "</div>";
+
+//     //*************END OF TOOLBAR DIV */
+//     toolbarHTML = toolbarHTML + "</div><br><br><br>";
+//     //*************END OF TOOLBAR DIV */
 
 
-    //newHTML = newHTML + "<br><br>" +
-    //"<textarea id='description-" + itemid + " class = 'fullWidth tiny ' rows='5'>" + description + "</textarea>";
+
+//     newHTML = newHTML + "<br><br>" +
+//         "<textarea id='descriptionTextId' class = ''   ></textarea>"
+//         +
+//         "<div class='editDescriptionDiv' contenteditable='true'  class='span2 fullWidth lyricsDiv' id='description-" + itemid + "'  >" + description + "</div>";
 
 
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>city_state_country: </div><br>" +
-        "<input type='text' id='city_state_country-" + itemid + "' style='width:95%; margin:auto;' value='" + city_state_country + "'>";
-
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
-        "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
+//     //newHTML = newHTML + "<br><br>" +
+//     //"<textarea id='description-" + itemid + " class = 'fullWidth tiny ' rows='5'>" + description + "</textarea>";
 
 
-    newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +
-        "<input type='text' id='discontinue-" + itemid + "' style='width:95%; margin:auto;' value='" + discontinue + "'>"
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>city_state_country: </div><br>" +
+//         "<input type='text' id='city_state_country-" + itemid + "' style='width:95%; margin:auto;' value='" + city_state_country + "'>";
 
-        +
-        "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
-
-    newHTML = newHTML +
-        "<div class = 'saveChangesDivCls'>" +
-        "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','y') >Save As New Item</button><br>" +
-        "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
-        "</div>" +
-        "<br><br><br><br><br><br><br><br><br></div></div>";
-
-    newHTML = newHTML + "</div>";
-    newHTML = newHTML + "</div>";
-    newHTML = newHTML + "</div>";
-
-    document.getElementById("itemDivId").innerHTML = newHTML;
-    document.getElementById("itemEditDivId").innerHTML = toolbarHTML;
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
+//         "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
 
 
-    document.getElementById("itemEditDivId").style.display = "block";
+//     newHTML = newHTML +
+//         "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +
+//         "<input type='text' id='discontinue-" + itemid + "' style='width:95%; margin:auto;' value='" + discontinue + "'>"
 
-    document.getElementById("itemDivId").style.width = "100%";
-    document.getElementById("itemDivId").style.display = "block";
+//         +
+//         "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
+
+//     newHTML = newHTML +
+//         "<div class = 'saveChangesDivCls'>" +
+//         "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
+//         "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','y') >Save As New Item</button><br>" +
+//         "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
+//         "</div>" +
+//         "<br><br><br><br><br><br><br><br><br></div></div>";
+
+//     newHTML = newHTML + "</div>";
+//     newHTML = newHTML + "</div>";
+//     newHTML = newHTML + "</div>";
+
+//     document.getElementById("itemDivId").innerHTML = newHTML;
+//     document.getElementById("itemEditDivId").innerHTML = toolbarHTML;
+
+
+//     document.getElementById("itemEditDivId").style.display = "block";
+
+//     document.getElementById("itemDivId").style.width = "100%";
+//     document.getElementById("itemDivId").style.display = "block";
     
-    document.getElementById("mainContainer").style.width = "100%";
-    document.getElementById("itemEditDivId").style.width = "700px";
-    document.getElementById("itemListDivId").style.display = "none";
+//     document.getElementById("mainContainer").style.width = "100%";
+//     document.getElementById("itemEditDivId").style.width = "700px";
+//     document.getElementById("itemListDivId").style.display = "none";
 
-}
+// }
 
 function getShopTopBannersList(itemid) {
 
@@ -2390,43 +2002,41 @@ function getShopTopBannersList(itemid) {
 
 }
 
-function toggleToolBarView() {
-    //console.log(document.getElementById("toolBarId").clientHeight);
+// function toggleToolBarView() {
 
-    if (document.getElementById("toolBarId").clientHeight > 50) {
-        document.getElementById("toolBarId").style.height = "50px";
-    } else {
-        //document.getElementById("toolBarId").style.height = "100%";
-        document.getElementById("toolBarId").style.height = "600px";
-    }
-}
+//     if (document.getElementById("toolBarId").clientHeight > 50) {
+//         document.getElementById("toolBarId").style.height = "50px";
+//     } else {
+//         document.getElementById("toolBarId").style.height = "600px";
+//     }
+// }
 
-function popolatenewImageName(itemid) {
-    let name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
-    name = name.replaceAll("#", "");
-    the.newImageName = name;
-    try {
-        document.getElementById("image-" + itemid).value = name;
-    } catch {
+// function popolatenewImageName(itemid) {
+//     let name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+//     name = name.replaceAll("#", "");
+//     the.newImageName = name;
+//     try {
+//         document.getElementById("image-" + itemid).value = name;
+//     } catch {
 
-    }
+//     }
 
-}
+// }
 
 
-function deleteCurrentComponent(btn) {
+// function deleteCurrentComponent(btn) {
 
-    btn.parentElement.remove();
-    //btn.parentElement.innerHTML = "";
-}
+//     btn.parentElement.remove();
+//     //btn.parentElement.innerHTML = "";
+// }
 
-function copyCurrentComponent(btn) {
-    let text = btn.parentElement.textContent;
-    text = text.substring(1, text.lastIndexOf('Copy'));
+// function copyCurrentComponent(btn) {
+//     let text = btn.parentElement.textContent;
+//     text = text.substring(1, text.lastIndexOf('Copy'));
 
-    navigator.clipboard.writeText(text);
-    console.log(text);
-}
+//     navigator.clipboard.writeText(text);
+//     console.log(text);
+// }
 
 function showImage(event) {
     let elem = event.target;
@@ -2437,7 +2047,7 @@ function showImage(event) {
         document.getElementById(elem.dataset.uploadimgbtnid).style.display = "block";
     }
 
-    popolatenewImageName(itemid);
+    //popolatenewImageName(itemid);
 
     let output = document.getElementById(imageelementid + itemid);
     output.style.display = "block";
@@ -2675,154 +2285,143 @@ function resizeImage(settings) {
     });
 }
 
-function uploadAndInsertFile(event) {
-    if (localStorage.getItem("userLoggedIn") == "n") {
+// function uploadAndInsertFile(event) {
+//     if (localStorage.getItem("userLoggedIn") == "n") {
 
-        error_message = "Not authorized";
-        return;
+//         error_message = "Not authorized";
+//         return;
 
-    } else if (localStorage.getItem("userLvl") != "9") {
-        error_message = "Not authorized";
-        return;
-    }
-    let elem = event.target;
-    let fileelementid = elem.dataset.fileelementid;
-    let saveasnameelementid = elem.dataset.saveasnameelementid;
-    let itemid = elem.dataset.itemid;
+//     } else if (localStorage.getItem("userLvl") != "9") {
+//         error_message = "Not authorized";
+//         return;
+//     }
+//     let elem = event.target;
+//     let fileelementid = elem.dataset.fileelementid;
+//     let saveasnameelementid = elem.dataset.saveasnameelementid;
+//     let itemid = elem.dataset.itemid;
 
-    //let saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    // let saveasname = '';
-    // try {
-    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    // } catch {
-    //     saveasname = the.newImageName;
-    // }
+//     let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
 
-    let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
+//     saveasname = saveasname.trim();
+//     saveasname = saveasname.toLowerCase();
 
+//     let errormsgelementid = elem.dataset.errormsgelementid;
 
-    saveasname = saveasname.trim();
-    saveasname = saveasname.toLowerCase();
+//     if (!saveasname.includes(".png")) {
+//         saveasname = saveasname + ".png";
+//     }
 
-    let errormsgelementid = elem.dataset.errormsgelementid;
+//     //let files = document.getElementById(fileelementid + itemid).files;
 
-    if (!saveasname.includes(".png")) {
-        saveasname = saveasname + ".png";
-    }
+//     let elemClassname = fileelementid + itemid;
 
-    //let files = document.getElementById(fileelementid + itemid).files;
+//     let files = elem.parentElement.querySelector("." + elemClassname).files;
 
-    let elemClassname = fileelementid + itemid;
-
-    let files = elem.parentElement.querySelector("." + elemClassname).files;
-
-    if (files.length > 0) {
+//     if (files.length > 0) {
 
 
 
-        resizeImage({
-            file: files[0],
-            maxSize: 500
-        }).then(function (resizedImage) {
-            let formData = new FormData();
-            formData.append("file", resizedImage);
-            formData.append("saveasname", saveasname);
-            formData.append("dir", "img");
+//         resizeImage({
+//             file: files[0],
+//             maxSize: 500
+//         }).then(function (resizedImage) {
+//             let formData = new FormData();
+//             formData.append("file", resizedImage);
+//             formData.append("saveasname", saveasname);
+//             formData.append("dir", "img");
 
-            let xhttp = new XMLHttpRequest();
+//             let xhttp = new XMLHttpRequest();
 
-            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+//             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
 
-            // call on request changes state
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+//             // call on request changes state
+//             xhttp.onreadystatechange = function () {
+//                 if (this.readyState == 4 && this.status == 200) {
 
-                    let response = this.responseText;
-                    //console.log(response);
+//                     let response = this.responseText;
+//                     //console.log(response);
 
-                    document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-                    let imagename = document.getElementById("image-" + itemid).value;
-                    let randomId = "div-" + Math.floor(Math.random() * 1000000);
-                    let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
-                    insertImageAtCaret(Str);
-                }
-            };
+//                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
+//                     let imagename = document.getElementById("image-" + itemid).value;
+//                     let randomId = "div-" + Math.floor(Math.random() * 1000000);
+//                     let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+//                     insertImageAtCaret(Str);
+//                 }
+//             };
 
-            xhttp.send(formData);
+//             xhttp.send(formData);
 
-        }).catch(function (err) {
-            console.error(err);
-        });
+//         }).catch(function (err) {
+//             console.error(err);
+//         });
 
+//     } else {
+//         alert("Please select a file");
+//     }
 
+// }
 
-    } else {
-        alert("Please select a file");
-    }
+// function SaveImageAndInsertAtCarot(event) {
+//     if (localStorage.getItem("userLoggedIn") == "n") {
 
-}
+//         error_message = "Not authorized";
+//         return;
 
-function SaveImageAndInsertAtCarot(event) {
-    if (localStorage.getItem("userLoggedIn") == "n") {
+//     } else if (localStorage.getItem("userLvl") != "9") {
+//         error_message = "Not authorized";
+//         return;
+//     }
+//     let elem = event.target;
+//     let fileelementid = elem.dataset.fileelementid;
+//     let saveasnameelementid = elem.dataset.saveasnameelementid;
+//     let itemid = elem.dataset.itemid;
+//     //popolatenewImageName(itemid);
 
-        error_message = "Not authorized";
-        return;
+//     let saveasname = document.getElementById(saveasnameelementid + itemid).value;
+//     saveasname = saveasname.trim();
+//     saveasname = saveasname.toLowerCase();
 
-    } else if (localStorage.getItem("userLvl") != "9") {
-        error_message = "Not authorized";
-        return;
-    }
-    let elem = event.target;
-    let fileelementid = elem.dataset.fileelementid;
-    let saveasnameelementid = elem.dataset.saveasnameelementid;
-    let itemid = elem.dataset.itemid;
-    popolatenewImageName(itemid);
+//     let errormsgelementid = elem.dataset.errormsgelementid;
 
-    let saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    saveasname = saveasname.trim();
-    saveasname = saveasname.toLowerCase();
+//     if (!saveasname.includes(".png")) {
+//         saveasname = saveasname + ".png";
+//     }
 
-    let errormsgelementid = elem.dataset.errormsgelementid;
+//     const url = elem.dataset.imageurl;
+//     const fileName = 'tempName.png';
 
-    if (!saveasname.includes(".png")) {
-        saveasname = saveasname + ".png";
-    }
+//     fetch(url)
+//         .then(async response => {
+//             const contentType = response.headers.get('content-type')
+//             const blob = await response.blob()
+//             const filefromUrl = new File([blob], fileName, { contentType })
+//             let formData = new FormData();
+//             formData.append("file", filefromUrl);
+//             formData.append("saveasname", saveasname);
+//             formData.append("dir", "img");
 
-    const url = elem.dataset.imageurl;
-    const fileName = 'tempName.png';
+//             let xhttp = new XMLHttpRequest();
 
-    fetch(url)
-        .then(async response => {
-            const contentType = response.headers.get('content-type')
-            const blob = await response.blob()
-            const filefromUrl = new File([blob], fileName, { contentType })
-            let formData = new FormData();
-            formData.append("file", filefromUrl);
-            formData.append("saveasname", saveasname);
-            formData.append("dir", "img");
+//             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
 
-            let xhttp = new XMLHttpRequest();
+//             // call on request changes state
+//             xhttp.onreadystatechange = function () {
+//                 if (this.readyState == 4 && this.status == 200) {
 
-            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+//                     let response = this.responseText;
+//                     //console.log(response);
 
-            // call on request changes state
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+//                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
+//                     let imagename = document.getElementById("image-" + itemid).value;
+//                     let randomId = "div-" + Math.floor(Math.random() * 1000000);
+//                     let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+//                     insertImageAtCaret(Str);
+//                 }
+//             };
 
-                    let response = this.responseText;
-                    //console.log(response);
-
-                    document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-                    let imagename = document.getElementById("image-" + itemid).value;
-                    let randomId = "div-" + Math.floor(Math.random() * 1000000);
-                    let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
-                    insertImageAtCaret(Str);
-                }
-            };
-
-            xhttp.send(formData);
-        })
-}
+//             xhttp.send(formData);
+//         })
+// }
 
 function UploadAndReplaceBannerImg(event) {
 
@@ -2830,7 +2429,7 @@ function UploadAndReplaceBannerImg(event) {
     let fileelementid = elem.dataset.fileelementid;
     let saveasnameelementid = elem.dataset.saveasnameelementid;
     let itemid = elem.dataset.itemid;
-    popolatenewImageName(itemid);
+    //popolatenewImageName(itemid);
 
     // let saveasname = '';
     // try {
@@ -2902,57 +2501,46 @@ function UploadAndReplaceBannerImg(event) {
         alert("Please select a file");
     }
 
-
-
-
 }
 
-function toggleDescView(itemid) {
-    let divId = 'description-' + itemid;
+// function toggleDescView(itemid) {
+//     let divId = 'description-' + itemid;
 
-    // newHTML = document.getElementById(divId).innerHTML;
-    // newHTML = addNewLineInText(newHTML);
-    // document.getElementById("descriptionTextId").value = newHTML;
+//     if (document.getElementById("descriptionTextId").style.display == "block") {
+//         newHTML = document.getElementById("descriptionTextId").value;
+//         //**SM - May need to be reverted* */
+//         //newHTML = removeNewLine(newHTML);
+//         document.getElementById(divId).innerHTML = newHTML;
 
+//         document.getElementById(divId).style.display = "block";
+//         document.getElementById("descriptionTextId").style.display = "none"
+//     } else {
+//         newHTML = document.getElementById(divId).innerHTML;
+//         //**SM - May need to be reverted* */
+//         //newHTML = addNewLineInText(newHTML);
+//         document.getElementById("descriptionTextId").value = newHTML;
 
+//         document.getElementById(divId).style.display = "none";
+//         document.getElementById("descriptionTextId").style.display = "block"
+//     }
 
+// }
 
+// function addNewLineInText(innerHTML) {
+//     innerHTML = innerHTML.replaceAll("<div", "\r\n<div");
+//     innerHTML = innerHTML.replaceAll("<h1", "\r\n<h1");
+//     innerHTML = innerHTML.replaceAll("<h2", "\r\n<h2");
+//     innerHTML = innerHTML.replaceAll("<h3", "\r\n<h3");
+//     innerHTML = innerHTML.replaceAll("<ol", "\r\n<ol");
+//     innerHTML = innerHTML.replaceAll("<ul", "\r\n<ul");
+//     return innerHTML;
+// }
 
-    if (document.getElementById("descriptionTextId").style.display == "block") {
-        newHTML = document.getElementById("descriptionTextId").value;
-        //**SM - May need to be reverted* */
-        //newHTML = removeNewLine(newHTML);
-        document.getElementById(divId).innerHTML = newHTML;
-
-        document.getElementById(divId).style.display = "block";
-        document.getElementById("descriptionTextId").style.display = "none"
-    } else {
-        newHTML = document.getElementById(divId).innerHTML;
-        //**SM - May need to be reverted* */
-        //newHTML = addNewLineInText(newHTML);
-        document.getElementById("descriptionTextId").value = newHTML;
-
-        document.getElementById(divId).style.display = "none";
-        document.getElementById("descriptionTextId").style.display = "block"
-    }
-
-}
-
-function addNewLineInText(innerHTML) {
-    innerHTML = innerHTML.replaceAll("<div", "\r\n<div");
-    innerHTML = innerHTML.replaceAll("<h1", "\r\n<h1");
-    innerHTML = innerHTML.replaceAll("<h2", "\r\n<h2");
-    innerHTML = innerHTML.replaceAll("<h3", "\r\n<h3");
-    innerHTML = innerHTML.replaceAll("<ol", "\r\n<ol");
-    innerHTML = innerHTML.replaceAll("<ul", "\r\n<ul");
-    return innerHTML;
-}
-
-function removeNewLine(innerHTML) {
-    //innerHTML = innerHTML.replaceAll( "&#13;&#10;", "");
-    innerHTML = innerHTML.replace(/\r\n|\r|\n/g, "")
-    return innerHTML;
-}
+// function removeNewLine(innerHTML) {
+//     //innerHTML = innerHTML.replaceAll( "&#13;&#10;", "");
+//     innerHTML = innerHTML.replace(/\r\n|\r|\n/g, "")
+//     return innerHTML;
+// }
 function addComponent(itemid, type, elem = "dummy") {
 
     let componentid = 'description-' + itemid;
@@ -3846,6 +3434,8 @@ function shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,part
         document.getElementById(componentid).innerHTML = partOneHTML + contentToAdd + partTwoHTML;
     }
 }
+
+
 function myStore() {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
@@ -4275,179 +3865,7 @@ function refreshPage() {
     window.location.href = path;
 }
 
-// function updateDescription(itemid, createNewItem) {
 
-//     //let usremail = localStorage.getItem("userEmail");
-
-//     let title = "(New) Please Edit";
-
-//     if (usremail == null) {
-//         error_message = "Not authorized";
-//         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     } else if (usremail == "Guest") {
-//         error_message = "Not authorized";
-//         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     }
-
-
-//     let ele = document.getElementsByClassName('dynamicradio');
-
-//     for (let i = 0; i < ele.length; i++) {
-//         //if(ele[i].checked)
-//         //console.log(ele[i].parentElement.innerText);
-//         ele[i].value = ele[i].parentElement.innerText;
-
-
-//         //document.getElementById("result").innerHTML = "Gender: "+ele[i].value;
-//     }
-
-//     let elem = document.getElementsByClassName('qz1-rtans');
-//     let kys = {};
-//     let ki = "";
-//     let val = "";
-//     for (let i = 0; i < elem.length; i++) {
-
-
-//         //ki = elem[i].id;
-//         //kys.ki = elem[i].innerText;
-
-//         ki = elem[i].id;
-//         ki = ki.replace("-rtans", "");
-
-//         val = elem[i].innerText;
-//         val = val.replace(/(\r\n|\n|\r)/gm, "");
-//         kys[ki] = val;
-
-//     }
-
-//     if (itemid == "" && createNewItem == "y") {
-//         if (localStorage.getItem("userLoggedIn") == "n") {
-
-//             error_message = "Not authorized";
-//             document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//             return;
-
-//         } else if (localStorage.getItem("userLvl") != "9") {
-//             error_message = "Not authorized";
-//             document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//             return;
-//         }
-
-
-//     } else {
-//         document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = red>" + " " + "</font> ";
-
-//         title = document.getElementById("title-" + itemid).value;
-//         titleseq = document.getElementById("titleseq-" + itemid).value;
-//         category = document.getElementById("category-" + itemid).value;
-//         categoryseq = document.getElementById("categoryseq-" + itemid).value;
-//         subcategory = document.getElementById("subcategory-" + itemid).value;
-//         versionseq = document.getElementById("versionseq-" + itemid).value;
-//         shortdescription = document.getElementById("shortdescription-" + itemid).value;
-
-//         city_state_country = document.getElementById("city_state_country-" + itemid).value;
-//         keywords = document.getElementById("keywords-" + itemid).value;
-//         discontinue = document.getElementById("discontinue-" + itemid).value;
-
-
-//         description = document.getElementById("description-" + itemid).innerHTML;
-
-//         let keys = Object.keys(kys);
-
-//         if (keys.length > 0) {
-//             if (description.includes("hdmidivid")) {
-//                 description = description.substring(0, description.indexOf("hdmidivid") - 9);
-//             }
-
-//             description = description + "<div id='hdmidivid' class='hdmicls'>" + JSON.stringify(kys) + "</div>";
-
-
-//         }
-//         discontinue = document.getElementById("discontinue-" + itemid).value;
-
-
-//         if (localStorage.getItem("userLoggedIn") == "n") {
-
-//             error_message = "Not authorized";
-//             document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//             return;
-
-//         } else if (localStorage.getItem("userLvl") != "9") {
-//             error_message = "Not authorized";
-//             document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//             return;
-//         }
-//     }
-//     let StrFunction = "UpdateDesc";
-
-//     title = title.replaceAll("'", "''");
-//     category = category.replaceAll("'", "''");
-//     subcategory = subcategory.replaceAll("'", "''");
-//     shortdescription = shortdescription.replace(/"/g, '\'');
-//     shortdescription = shortdescription.replaceAll("'", "''");
-//     description = description.replaceAll("'", "''");
-//     //let regex = /\\/g;
-//     description = description.replace(/\\/g, "\\\\");
-
-//     city_state_country = city_state_country.replaceAll("'", "''");
-//     keywords = keywords.replaceAll("'", "''");
-
-
-//     $.ajax({
-//         url: the.hosturl + '/php/process.php',
-//         data: {
-//             usremail: usremail,
-//             itemid: itemid,
-//             title: title,
-//             titleseq: titleseq,
-//             category: category,
-//             categoryseq: categoryseq,
-//             subcategory: subcategory,
-//             versionseq: versionseq,
-//             shortdescription: shortdescription,
-//             description: description,
-//             city_state_country: city_state_country,
-//             keywords: keywords,
-//             discontinue: discontinue,
-//             createNewItem: createNewItem,
-//             usrfunction: StrFunction
-//         },
-//         type: 'POST',
-//         dataType: 'json',
-//         success: function (retstatus) {
-//             //alert("Inside login success retstatus =" + retstatus);
-//             //console.log( "Inside updateItem success retstatus =" + retstatus);
-
-//             if (retstatus == "err") {
-//                 //alert("Please relogin");
-//                 goToLogin();
-//             }
-
-//             sessionStorage.setItem("itemsList", null);
-//             //sessionStorage.setItem("itemList", null);
-//             getItemsList();
-//             if (itemid == "") {
-//                 //showMdaItems();
-
-//             } else {
-//                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
-//             }
-//             //displayCart();
-
-//         },
-//         error: function (xhr, status, error) {
-//             if (!itemid == "") {
-//                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
-//             }
-//             //alert(xhr);
-
-//             //console.log(error);
-//             //console.log(xhr);
-//         }
-//     });
-// }
 
 async function saveNewStore(itemid, createNewItem) {
 
@@ -5058,35 +4476,6 @@ function saveItemChanges(evt) {
 
 }
 
-function updateInfo(data) {
-
-    let StrFunction = "updateinfo"
-
-    //let usremail = localStorage.getItem("userEmail");
-
-    if (usremail == null) {
-        return;
-    } else if (usremail == "Guest") {
-        return;
-    }
-
-    $.ajax({
-        url: the.hosturl + '/php/process.php',
-        data: {
-            usremail: usremail,
-            data: data,
-            usrfunction: StrFunction
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (retstatus) {
-
-        },
-        error: function (xhr, status, error) {
-
-        }
-    });
-}
 
 function activateAccount(pass) {
 
@@ -5102,28 +4491,13 @@ function activateAccount(pass) {
             //console.log("success");
             //console.log(response);
             if (response == "s") {
-                //console.log("Account activated");
-                //Show('login');
-
-                //document.getElementById("helpDisplayDivId").style.display = "block";
-                //Update url
-
-                //document.getElementById("languageScanResultDivId").style.display = "none";
-                //document.getElementById("languageOverride").style.display = "none";
-                //document.getElementById("helpDetailsDivId").style.display = "none";
                 document.getElementById("contactusDivId").style.display = "none";
                 document.getElementById("howtoDivId").style.display = "none";
 
-                //document.getElementById("filescannerDivId").style.display = "none";
-                //document.getElementById("HelpTopicsDivId").style.display = "none";
-                //document.getElementById("projectscannerDivId").style.display = "none";
+
                 document.getElementById("loginDivId").style.display = "block";
                 //document.getElementById("loginDivId").style.width = "70%";
                 document.getElementById("loginerrormsg").innerHTML = "";
-
-                //document.getElementById("helpDisplayDivId").style.width = "30%";
-
-
 
                 showHelpDivMessage("Login to add or make updates to the help scan codes");
 
@@ -5285,29 +4659,29 @@ function showcategory(tech) {
 }
 
 
-function showAllShopItemsInLeftPane(storename) {
+// function showAllShopItemsInLeftPane(storename) {
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
-    let rows = JSON.parse(tf);
-    let elementId = "menucardparent-" + storename
-    elementId = elementId.replaceAll(" ", "");
-    if (storename != "") {
-        storename = storename.toUpperCase();
-        rows = rows.filter(function (entry) {
-            return (entry.storename != null) && (entry.storename.toUpperCase() == storename) && (entry.storename != entry.title);
-        });
-    }
+//     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+//     let rows = JSON.parse(tf);
+//     let elementId = "menucardparent-" + storename
+//     elementId = elementId.replaceAll(" ", "");
+//     if (storename != "") {
+//         storename = storename.toUpperCase();
+//         rows = rows.filter(function (entry) {
+//             return (entry.storename != null) && (entry.storename.toUpperCase() == storename) && (entry.storename != entry.title);
+//         });
+//     }
 
-    populateStoreItemsList(rows);
+//     populateStoreItemsList(rows);
 
-    document.getElementById(elementId).style.width = "95%";
-    document.getElementById(elementId).style.maxWidth = "1200px";
-    document.getElementById(elementId).style.float = "none";
-    document.getElementById(elementId).style.top = "20px";
-    document.getElementById(elementId).style.margin = "auto";
+//     document.getElementById(elementId).style.width = "95%";
+//     document.getElementById(elementId).style.maxWidth = "1200px";
+//     document.getElementById(elementId).style.float = "none";
+//     document.getElementById(elementId).style.top = "20px";
+//     document.getElementById(elementId).style.margin = "auto";
 
-    // document.getElementById(elementId).style.overflow = "expand";
-}
+//     // document.getElementById(elementId).style.overflow = "expand";
+// }
 
 function searchItem() {
 
@@ -5580,56 +4954,6 @@ function populateItemsList(rows = "") {
 
             innerHTML = innerHTML + '</div> </div>';
 
-        // if (i == 0) {
-        //     innerHTML = innerHTML + '<div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="categoryHeader" >';
-
-        //     innerHTML = innerHTML + rows[i].storename +
-
-        //         '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-
-        //         '</div>';
-        //     startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
-
-        // } else if (rows[i].storename != rows[i - 1].storename) {
-        //     if (sessionStorage.getItem("max-count-" + rows[i - 1].category) > defaultDisplayCount) {
-        //         sessionStorage.setItem("display-count-" + rows[i - 1].category, defaultDisplayCount);
-        //         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv categoryFooter ' + rows[i - 1].category + ' " >' +
-        //             '<button id="showmore-' + rows[i - 1].category + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].category + '") >Show More</button>' +
-        //             '</div>';
-        //     } else {
-        //         sessionStorage.setItem("display-count-" + rows[i - 1].category, currDisplayCount);
-        //     }
-        //     currDisplayCount = 0;
-
-        //     innerHTML = innerHTML + '</div><div id="menucardparent-' + categorySqueezed + '"  class="cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="categoryHeader">';
-
-        //     innerHTML = innerHTML + rows[i].storename +
-        //         '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-        //         '</div>';
-        //     startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].category;
-        // }
-
-        // currDisplayCount = currDisplayCount + 1;
-
-        // if (currDisplayCount >= defaultDisplayCount) {
-        //     continue;
-        // }
-
-        // let discontinuedFlgCls = "";
-
-
-        // innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + categorySqueezed + '" >';
-        // innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
-
-
-        // innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-        // innerHTML = innerHTML + '</div>';
-   
-
-
-        // if (i == rows.length - 1) {
-        //     innerHTML = innerHTML + '</div>';
-        // }
     }
 
     if (sessionStorage.getItem("max-count-" + categorySqueezed) > defaultDisplayCount) {
@@ -5641,11 +4965,6 @@ function populateItemsList(rows = "") {
         sessionStorage.setItem("display-count-" + categorySqueezed, currDisplayCount);
     }
 
-    //innerHTML = innerHTML + '</div>';
-    //document.getElementById("itemDivId").innerHTML = innerHTML;
-    
-    //document.getElementById("itemListDivId").style.display = "none";
-    //document.getElementById("itemEditDivId").style.display = "none";
 
     document.getElementById("homeDivId").style.display = "none";
     document.getElementById("loginDivId").style.display = "none";
@@ -5656,10 +4975,6 @@ function populateItemsList(rows = "") {
     document.getElementById("itemDivId").style.display = "none";
     document.getElementById("bgSVGId").style.display = "none";
     
-    // setTimeout(() => {
-    //     populateItemDropDown();
-    // }, 10);
-
     setTimeout(function () {
         colorFavoriteItems();
     }, 10);
@@ -5667,161 +4982,150 @@ function populateItemsList(rows = "") {
     setTimeout(() => {
         hideAllImageNavBtns();
     }, 20);
-
 }
 
 
 
-function populateStoreItemsList(rows = "") {
+// function populateStoreItemsList(rows = "") {
+
+//     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
+//     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
 
-    //console.log(document.getElementById("cardsContainerDivId").innerHTML);
+//     if (rows == "") {
+//         rows = JSON.parse(tf);
+//     }
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+//     if (the.smusr) {
+//     } else {
+//         rows = rows.filter(function (entry) {
+//             return entry.discontinue == "0";
+//         });
+//     }
 
+//     //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
+//     //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
+//     let innerHTML = "";
+//     let itemName = "";
+//     let path = window.location.pathname;
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+//     let storenameSqueezed = "";
+//     let storenameOrig = "";
+//     let storename = "";
+//     let storenameUrl = "";
 
-    if (rows == "") {
-        rows = JSON.parse(tf);
-    }
+//     let category = "";
 
+//     let defaultDisplayCount = 1000;
+//     let storenameMaxCount = 0;
+//     let currDisplayCount = 0;
 
-    if (the.smusr) {
-    } else {
-        rows = rows.filter(function (entry) {
-            return entry.discontinue == "0";
-        });
-    }
+//     for (let i = 0; i < rows.length; i++) {
 
+//         itemName = rows[i].title;
+//         itemName = itemName.replaceAll(" ", "-");
 
-    //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
-    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
-    let innerHTML = "";
-    let itemName = "";
-    let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
-    let storenameSqueezed = "";
-    let storenameOrig = "";
-    let storename = "";
-    let storenameUrl = "";
+//         storenameOrig = rows[i].storename;
+//         storename = rows[i].storename;
+//         category = rows[i].category;
+//         storename = storename.replaceAll(" ", "-");
 
-    let category = "";
+//         categorySpaceReplaced = category.replaceAll(" ", "-");
 
-    let defaultDisplayCount = 1000;
-    let storenameMaxCount = 0;
-    let currDisplayCount = 0;
+//         //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
+//         itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
 
-    for (let i = 0; i < rows.length; i++) {
+//         //storenameUrl = myUrl + "items/" + storenameOrig;
+//         storenameUrl = myUrl + storenameOrig;
 
-        itemName = rows[i].title;
-        itemName = itemName.replaceAll(" ", "-");
+//         storenameSqueezed = rows[i].storename;
+//         storenameSqueezed = storenameSqueezed.replaceAll(' ', '')
 
-        storenameOrig = rows[i].storename;
-        storename = rows[i].storename;
-        category = rows[i].category;
-        storename = storename.replaceAll(" ", "-");
+//         storenameMaxCount = sessionStorage.getItem("max-count-" + storenameSqueezed);
 
-        categorySpaceReplaced = category.replaceAll(" ", "-");
+//         if (i == 0) {
+//             innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="storenameHeader" >';
+//             // if (the.smusr) {
+//             //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
+//             // }
+//             innerHTML = innerHTML + rows[i].storename +
 
-        //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
-        itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
+//                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+//                 '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
 
-        //storenameUrl = myUrl + "items/" + storenameOrig;
-        storenameUrl = myUrl + storenameOrig;
+//                 '</div>';
+//             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
 
-        storenameSqueezed = rows[i].storename;
-        storenameSqueezed = storenameSqueezed.replaceAll(' ', '')
-
-        storenameMaxCount = sessionStorage.getItem("max-count-" + storenameSqueezed);
-
-        if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="storenameHeader" >';
-            // if (the.smusr) {
-            //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
-            // }
-            innerHTML = innerHTML + rows[i].storename +
-
-                //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-
-                '</div>';
-            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
-
-        } else if (rows[i].storename != rows[i - 1].storename) {
+//         } else if (rows[i].storename != rows[i - 1].storename) {
 
 
-            if (sessionStorage.getItem("max-count-" + rows[i - 1].storename) > defaultDisplayCount) {
-                sessionStorage.setItem("display-count-" + rows[i - 1].storename, defaultDisplayCount);
-                innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv storenameFooter ' + rows[i - 1].storename + ' " >' +
-                    '<button id="showmore-' + rows[i - 1].storename + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].storename + '") >Show More</button>' +
-                    '</div>';
-            } else {
-                sessionStorage.setItem("display-count-" + rows[i - 1].storename, currDisplayCount);
-            }
+//             if (sessionStorage.getItem("max-count-" + rows[i - 1].storename) > defaultDisplayCount) {
+//                 sessionStorage.setItem("display-count-" + rows[i - 1].storename, defaultDisplayCount);
+//                 innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv storenameFooter ' + rows[i - 1].storename + ' " >' +
+//                     '<button id="showmore-' + rows[i - 1].storename + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].storename + '") >Show More</button>' +
+//                     '</div>';
+//             } else {
+//                 sessionStorage.setItem("display-count-" + rows[i - 1].storename, currDisplayCount);
+//             }
 
-            currDisplayCount = 0;
+//             currDisplayCount = 0;
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="storenameHeader">';
+//             innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="storenameHeader">';
 
-            // if (the.smusr) {
-            //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
-            // }
+//             innerHTML = innerHTML + rows[i].storename +
+//                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
+//                 '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
+//                 '</div>';
 
-            innerHTML = innerHTML + rows[i].storename +
-                //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-                '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-                '</div>';
+//             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
+//         }
 
-            startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
-        }
+//         currDisplayCount = currDisplayCount + 1;
 
-        currDisplayCount = currDisplayCount + 1;
-
-        if (currDisplayCount >= defaultDisplayCount) {
-            continue;
-        }
+//         if (currDisplayCount >= defaultDisplayCount) {
+//             continue;
+//         }
 
 
-        let discontinuedFlgCls = "";
+//         let discontinuedFlgCls = "";
 
-        if (rows[i].discontinue == "1") {
-            discontinuedFlgCls = " discontinued ";
-        }
+//         if (rows[i].discontinue == "1") {
+//             discontinuedFlgCls = " discontinued ";
+//         }
 
-        //It is not a new child item 
-        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
-        innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
+//         //It is not a new child item 
+//         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
+//         innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
 
-        if (the.smusr) {
-            innerHTML = innerHTML + rows[i].titleseq + '. ';
-        }
+//         if (the.smusr) {
+//             innerHTML = innerHTML + rows[i].titleseq + '. ';
+//         }
 
-        innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-        innerHTML = innerHTML + '</div>';
-        // }
+//         innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
+//         innerHTML = innerHTML + '</div>';
+//         // }
 
 
-        if (i == rows.length - 1) {
-            innerHTML = innerHTML + '</div>';
-        }
-    }
+//         if (i == rows.length - 1) {
+//             innerHTML = innerHTML + '</div>';
+//         }
+//     }
 
-    if (sessionStorage.getItem("max-count-" + storenameSqueezed) > defaultDisplayCount) {
-        sessionStorage.setItem("display-count-" + storenameSqueezed, defaultDisplayCount);
-        innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv storenameFooter ' + storenameSqueezed + ' " >' +
-            '<button id="showmore-"' + rows[i - 1].storename + ' type="button" class="showmore-btn" onclick=showMoreitems("' + storenameSqueezed + '") >Show More</button>' +
-            '</div>';
-    } else {
-        sessionStorage.setItem("display-count-" + storenameSqueezed, currDisplayCount);
-    }
+//     if (sessionStorage.getItem("max-count-" + storenameSqueezed) > defaultDisplayCount) {
+//         sessionStorage.setItem("display-count-" + storenameSqueezed, defaultDisplayCount);
+//         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv storenameFooter ' + storenameSqueezed + ' " >' +
+//             '<button id="showmore-"' + rows[i - 1].storename + ' type="button" class="showmore-btn" onclick=showMoreitems("' + storenameSqueezed + '") >Show More</button>' +
+//             '</div>';
+//     } else {
+//         sessionStorage.setItem("display-count-" + storenameSqueezed, currDisplayCount);
+//     }
 
-    innerHTML = innerHTML + '</div>';
-    //document.getElementById("itemDivId").innerHTML = innerHTML;
-    document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+//     innerHTML = innerHTML + '</div>';
+//     //document.getElementById("itemDivId").innerHTML = innerHTML;
+//     document.getElementById("itemListDivId").style.display = "block";
+//     document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 
-    
-
-}
+// }
 
 function hideAllImageNavBtns() {
 
@@ -5831,32 +5135,31 @@ function hideAllImageNavBtns() {
         btns[j].style.display = "none";
     }
 
-
 }
 
 
-function handleShowToggle(checkbox) {
-    let categorySqueezed = checkbox.dataset.cat;
-    categorySqueezed = categorySqueezed.replaceAll(' ', '');
+// function handleShowToggle(checkbox) {
+//     let categorySqueezed = checkbox.dataset.cat;
+//     categorySqueezed = categorySqueezed.replaceAll(' ', '');
 
-    let catCards = document.getElementsByClassName(categorySqueezed);
+//     let catCards = document.getElementsByClassName(categorySqueezed);
 
-    if (checkbox.checked == false) {
-        //document.getElementsByClassName('appBanner')[0].style.visibility = 'hidden';	
+//     if (checkbox.checked == false) {
+//         //document.getElementsByClassName('appBanner')[0].style.visibility = 'hidden';	
 
-        for (let i = 0; i < catCards.length; i++) {
-            //if (i > 1){
-            catCards[i].style.display = 'none';
-            //}
-        }
-    } else {
-        for (let i = 0; i < catCards.length; i++) {
-            //if (i > 1){
-            catCards[i].style.display = 'block';
-            //}
-        }
-    }
-}
+//         for (let i = 0; i < catCards.length; i++) {
+//             //if (i > 1){
+//             catCards[i].style.display = 'none';
+//             //}
+//         }
+//     } else {
+//         for (let i = 0; i < catCards.length; i++) {
+//             //if (i > 1){
+//             catCards[i].style.display = 'block';
+//             //}
+//         }
+//     }
+// }
 
 function goToHome() {
 
@@ -5866,29 +5169,29 @@ function goToHome() {
     window.location.href = myUrl;
 }
 
-function goToItem() {
+// function goToItem() {
 
-    let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
-    myUrl = myUrl + "?target=item";
-    window.location.href = myUrl;
-}
+//     let path = window.location.pathname;
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     myUrl = myUrl + "?target=item";
+//     window.location.href = myUrl;
+// }
 
-function goToHowToVideos() {
+// function goToHowToVideos() {
 
-    let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
-    myUrl = myUrl + "?target=howto";
-    window.location.href = myUrl;
-}
+//     let path = window.location.pathname;
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     myUrl = myUrl + "?target=howto";
+//     window.location.href = myUrl;
+// }
 
-function goToContactUs() {
+// function goToContactUs() {
 
-    let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
-    myUrl = myUrl + "?target=contactus";
-    window.location.href = myUrl;
-}
+//     let path = window.location.pathname;
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     myUrl = myUrl + "?target=contactus";
+//     window.location.href = myUrl;
+// }
 
 function goToLogin() {
 
@@ -5899,18 +5202,18 @@ function goToLogin() {
     window.location.href = myUrl;
 }
 
-function toggleCollapse(el) {
-    //console.log("Div clicked");
+// function toggleCollapse(el) {
+//     //console.log("Div clicked");
 
-    el.classList.toggle("active");
-    let content = el.nextElementSibling;
-    if (content.style.display === "block") {
-        content.style.display = "none";
-    } else {
-        content.style.display = "block";
-    }
+//     el.classList.toggle("active");
+//     let content = el.nextElementSibling;
+//     if (content.style.display === "block") {
+//         content.style.display = "none";
+//     } else {
+//         content.style.display = "block";
+//     }
 
-}
+// }
 
 function myTopNavFunction() {
     let x = document.getElementById("myTopnav");
@@ -6007,93 +5310,93 @@ function login() {
     });
 }
 
-function loginWithoutRefresh() {
-    document.getElementById("Subloginerrormsg").innerHTML = "<font color = red>" + " " + "</font> ";
-    StrEmail = document.getElementById("Subemailid").value
-    StrPass = document.getElementById("Subpassword").value
+// function loginWithoutRefresh() {
+//     document.getElementById("Subloginerrormsg").innerHTML = "<font color = red>" + " " + "</font> ";
+//     StrEmail = document.getElementById("Subemailid").value
+//     StrPass = document.getElementById("Subpassword").value
 
-    let StrRemember = "Y"
+//     let StrRemember = "Y"
 
-    let StrFunction = "login";
+//     let StrFunction = "login";
 
-    let error_message = "";
+//     let error_message = "";
 
-    if (StrEmail.trim() == "") {
-        error_message = "Please enter the email id";
-        document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-        return;
-    }
+//     if (StrEmail.trim() == "") {
+//         error_message = "Please enter the email id";
+//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+//         return;
+//     }
 
-    let atpos = StrEmail.indexOf("@");
-    let dotpos = StrEmail.lastIndexOf(".");
+//     let atpos = StrEmail.indexOf("@");
+//     let dotpos = StrEmail.lastIndexOf(".");
 
-    if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= StrEmail.length) {
-        error_message = "Email id is not valid";
-        document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-        return;
-    }
+//     if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= StrEmail.length) {
+//         error_message = "Email id is not valid";
+//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+//         return;
+//     }
 
-    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(StrEmail))) {
-        error_message = "Email id is not valid";
-        document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-        return;
-    }
+//     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(StrEmail))) {
+//         error_message = "Email id is not valid";
+//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+//         return;
+//     }
 
-    if (StrPass.trim() == "") {
-        error_message = "Please provide password";
-        document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-        return;
-    }
+//     if (StrPass.trim() == "") {
+//         error_message = "Please provide password";
+//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
+//         return;
+//     }
 
-    $.ajax({
-        url: the.hosturl + '/php/process.php',
-        data: { usremail: StrEmail, usrpassword: StrPass, usrremember: StrRemember, usrfunction: StrFunction },
-        type: 'POST',
-        dataType: 'json',
-        success: function (retstatus) {
-            //alert(substr(retstatus,4));
-            //alert("Inside login loginWithoutRefresh retstatus =" + retstatus);
-            //console.log( "Inside loginWithoutRefresh success retstatus =" + retstatus);
-            if (retstatus.substring(0, 2) == "6S") {
-                //document.getElementById("Subloginerrormsg").innerHTML = "Login Successful"
+//     $.ajax({
+//         url: the.hosturl + '/php/process.php',
+//         data: { usremail: StrEmail, usrpassword: StrPass, usrremember: StrRemember, usrfunction: StrFunction },
+//         type: 'POST',
+//         dataType: 'json',
+//         success: function (retstatus) {
+//             //alert(substr(retstatus,4));
+//             //alert("Inside login loginWithoutRefresh retstatus =" + retstatus);
+//             //console.log( "Inside loginWithoutRefresh success retstatus =" + retstatus);
+//             if (retstatus.substring(0, 2) == "6S") {
+//                 //document.getElementById("Subloginerrormsg").innerHTML = "Login Successful"
 
-                loggedIn = "Y";
-                document.getElementById("loginLinkId").style.display = "none";
-                document.getElementById("SubloginDivId").style.display = "none";
+//                 loggedIn = "Y";
+//                 document.getElementById("loginLinkId").style.display = "none";
+//                 document.getElementById("SubloginDivId").style.display = "none";
 
-                showAdditionalMenuItemsForLoggedIn();
-                // document.getElementById("logoutLinkId").style.display = "block";
-                // document.getElementById("myfavoritesLinkId").style.display = "block";
+//                 showAdditionalMenuItemsForLoggedIn();
+//                 // document.getElementById("logoutLinkId").style.display = "block";
+//                 // document.getElementById("myfavoritesLinkId").style.display = "block";
 
-                document.getElementById("helpAddUpdateMsg").innerHTML = "";
-                //Show("projectscanner");
+//                 document.getElementById("helpAddUpdateMsg").innerHTML = "";
+//                 //Show("projectscanner");
 
-                localStorage.setItem("userLoggedIn", "y");
-                localStorage.setItem("userLvl", retstatus.substring(2, 3));
+//                 localStorage.setItem("userLoggedIn", "y");
+//                 localStorage.setItem("userLvl", retstatus.substring(2, 3));
 
-            }
+//             }
 
-            else {
-                document.getElementById("Subloginerrormsg").innerHTML = "<font color = orange>" + retstatus + "</font> ";
-            }
-        },
-        error: function (xhr, status, error) {
-            alert(xhr);
-            console.log(error);
-            console.log(xhr);
-        }
-    });
-}
+//             else {
+//                 document.getElementById("Subloginerrormsg").innerHTML = "<font color = orange>" + retstatus + "</font> ";
+//             }
+//         },
+//         error: function (xhr, status, error) {
+//             alert(xhr);
+//             console.log(error);
+//             console.log(xhr);
+//         }
+//     });
+// }
 
-function SubshowCreateAccount() {
-    document.getElementById("SubloginSecDivId").style.display = "none"
-    document.getElementById("SubregisterSecDivId").style.display = "block"
-}
+// function SubshowCreateAccount() {
+//     document.getElementById("SubloginSecDivId").style.display = "none"
+//     document.getElementById("SubregisterSecDivId").style.display = "block"
+// }
 
-function SubshowLogin() {
-    document.getElementById("SubregisterSecDivId").style.display = "none"
-    document.getElementById("SubloginSecDivId").style.display = "block"
-}
+// function SubshowLogin() {
+//     document.getElementById("SubregisterSecDivId").style.display = "none"
+//     document.getElementById("SubloginSecDivId").style.display = "block"
+// }
 
 async function Logout() {
 
@@ -6262,21 +5565,10 @@ function getStoreTypeList() {
 
     let rows = JSON.parse(tf);
 
-
-
-    //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
-    //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
     let innerHTML = "";
-    //let itemName = "";
-    //let path = window.location.pathname;
-    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+
     let categorySqueezed = "";
     let categoryOrig = "";
-    //let categoryUrl = "";
-
-    //let defaultDisplayCount = 1000;
-    //let categoryMaxCount = 0;
-    //let currDisplayCount = 0;
 
     for (let i = 0; i < rows.length; i++) {
 
@@ -6339,9 +5631,6 @@ function categoryClicked(categoryNameOrig) {
     localStorage.setItem("storecatsequence", categorySeq);
     localStorage.setItem("storetype", categoryNameOrig);
 
-    //let itemstr = categoryNameOrig + "/" + rows[0].title;
-    //itemstr = itemstr.replaceAll(" ", "-");
-    //customizeShop(itemstr);
     document.querySelector(".itemDescription").style.display = "block";
     document.querySelector("#storeSelectedDivId").innerHTML = categoryNameOrig;
     document.querySelector("#storeSelectedDivId").style.display = "block";
@@ -6597,10 +5886,10 @@ function contactus() {
     });
 }
 
-function toggleHideLeftParent(elem) {
-    //elem.parentElement.classList.toggleClass("panel-hide-left");
-    $("#itemListDivId").toggle("slide")
-}
+// function toggleHideLeftParent(elem) {
+//     //elem.parentElement.classList.toggleClass("panel-hide-left");
+//     $("#itemListDivId").toggle("slide")
+// }
 
 
 function onMobileBrowser() {
@@ -6615,9 +5904,9 @@ function onMobileBrowser() {
 
 }
 
-function providerSelected() {
-    document.getElementById("addresscontainerDiv").style.display = "block";
-}
+// function providerSelected() {
+//     document.getElementById("addresscontainerDiv").style.display = "block";
+// }
 
 function setProvAddr() {
 
@@ -6650,13 +5939,13 @@ function escape(s) {
     });
 }
 
-function updateParentBGVideo(element) {
-    element.parentElement.parentElement.dataset.backgroundvideo = element.value;
-    //element.parentElement.parentElement.style.background = url('/smshopify/video/' + element.value);
+// function updateParentBGVideo(element) {
+//     element.parentElement.parentElement.dataset.backgroundvideo = element.value;
+//     //element.parentElement.parentElement.style.background = url('/smshopify/video/' + element.value);
 
-    let selectedVid = element.parentElement.querySelector('.selectedVid');
-    selectedVid.innerHTML = element.value;
-}
+//     let selectedVid = element.parentElement.querySelector('.selectedVid');
+//     selectedVid.innerHTML = element.value;
+// }
 
 function updateParentBGImage(element) {
     element.parentElement.parentElement.dataset.background = element.value;
@@ -6673,9 +5962,9 @@ function updateParentBGImage(element) {
     let selectedImg = element.parentElement.querySelector('.selectedImg');
     selectedImg.innerHTML = element.value;
 }
-function updateParentAutoAnimate(element) {
-    element.parentElement.parentElement.dataset.autoanimate = element.value;
-}
+// function updateParentAutoAnimate(element) {
+//     element.parentElement.parentElement.dataset.autoanimate = element.value;
+// }
 
 function updateTextDivColor(element) {
     let rgbColor = hexToRgb(element.dataset.clr);
@@ -6693,22 +5982,12 @@ function changeTransparency(){
 }
 
 function updateParentBGColor(element) {
-    //element.parentElement.parentElement.dataset.bgcolor = element.value;
 
-    //element.parentElement.parentElement.dataset.bgcolor = element.style.backgroundColor;
-
-    //element.parentElement.parentElement.style.backgroundColor = element.value;
-    //element.style.backgroundColor = element.value;
 
     let rgbColor = hexToRgb(element.dataset.clr);
     //let rgbColor = element.dataset.clr;
     let textColour = getFontColorForRGBbackGroundColor(rgbColor);
 
-    //let parentSecDiv = element.parentElement.parentElement;
-    //let previewDiv = parentSecDiv.querySelector('.secPreview');
-    //let previewDiv = document.querySelector('.secPreview');
-
-    //let parentSecDiv = element.parentElement.parentElement.parentElement;
     let previewDiv = element.parentElement.parentElement.parentElement;
     //let previewDiv = parentSecDiv.querySelector('.secPreview');
 
