@@ -6953,9 +6953,11 @@ function getFavoritesList() {
 
             // localStorage.setItem("favitems", JSON.stringify(tags[0].favoriteitems));
             // localStorage.setItem("favstores", JSON.stringify(tags[0].favoritestores));
+            if (tags != ""){
+                localStorage.setItem("favitems", tags[0].favoriteitems);
+                localStorage.setItem("favstores", tags[0].favoritestores);
+            }
 
-            localStorage.setItem("favitems", tags[0].favoriteitems);
-            localStorage.setItem("favstores", tags[0].favoritestores);
 
             //localStorage.setItem("favsList", JSON.stringify(response));
         },
@@ -7240,6 +7242,26 @@ function makeElementDraggable(parentElmntId, headerElemId) {
 function hideParentToastDiv(elem){
     //elem.parentElement.classList.remove("show");
     elem.parentElement.style.display = "none";
+}
+
+function showpolicyAfterURLHistUpd(){
+
+    //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
+
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "?target=policy";
+
+
+    const nextURL = myUrl;
+    const nextTitle = 'Code Helper';
+    const nextState = {
+        additionalInformation: 'Updated the URL with JS'
+    };
+
+    // This will create a new entry in the browser's history, without reloading
+    window.history.pushState(nextState, nextTitle, nextURL);
+
+    showPolicy();
 }
 
 function showPolicy(){
