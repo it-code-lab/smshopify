@@ -751,4 +751,20 @@ input.confirmBtn:hover {
     cursor: pointer;
   }
 
-  
+  .myShopTopBanner1 {
+    height: 100px;
+    width: 100%;
+    background-size: cover;
+}
+
+.shopCategoryHeader1 {
+    background-color: #ccc;
+    margin: auto;
+    text-align: center;
+    height: 100px;
+}
+
+.shopCategoryDisplay:hover .shopCategoryHeader1 {
+    background-color: #766f03;
+    color: #fff;
+}

@@ -3506,44 +3506,46 @@ function myStore() {
                     document.getElementById("itemDivId").style.display = "none";
                     document.getElementById("itemListDivId").style.display = "none";
                     document.getElementById("itemEditDivId").style.display = "none";
+                    
+                    checkMyStores();
+
+                    // let tags = localStorage.getItem("storeinfo")
+                    // if ((tags != null) && (tags != undefined)) {
+                    //     if ((tags != "") && (tags != "null")) {
+                    //         if (tags == "n"){
+                    //             getCreateStore();
+                    //             return;
+                    //         }
+                    //     }
+                    // }
                 
-                    let tags = localStorage.getItem("storeinfo")
-                    if ((tags != null) && (tags != undefined)) {
-                        if ((tags != "") && (tags != "null")) {
-                            if (tags == "n"){
-                                getCreateStore();
-                                return;
-                            }
-                        }
-                    }
                 
+                    // tags = localStorage.getItem("mystoreitemsList")
                 
-                    tags = localStorage.getItem("mystoreitemsList")
+                    // if (tags != null) {
+                    //     if ((tags != "") && (tags != "null")) {
+                    //         populateMyStore(JSON.parse(tags));
+                    //         return;
+                    //     }
+                    // }
                 
-                    if (tags != null) {
-                        if ((tags != "") && (tags != "null")) {
-                            populateMyStore(JSON.parse(tags));
-                            return;
-                        }
-                    }
-                
-                    $.ajax({
-                        url: the.hosturl + '/php/process.php',
-                        type: 'POST',
-                        data: jQuery.param({
-                            usrfunction: "getmystorenitems"
-                        }),
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        success: function (response) {
-                            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
-                            localStorage.setItem("mystoreitemsList", response);
-                            populateMyStore(JSON.parse(response));
-                        },
-                        error: function (xhr, status, error) {
-                            // console.log(error);
-                            // console.log(xhr);
-                        }
-                    });
+                    // $.ajax({
+                    //     url: the.hosturl + '/php/process.php',
+                    //     type: 'POST',
+                    //     data: jQuery.param({
+                    //         usrfunction: "getmystorenitems"
+                    //     }),
+                    //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //     success: function (response) {
+                    //         //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+                    //         //localStorage.setItem("mystoreitemsList", response);
+                    //         populateMyStore(JSON.parse(response));
+                    //     },
+                    //     error: function (xhr, status, error) {
+                    //         // console.log(error);
+                    //         // console.log(xhr);
+                    //     }
+                    // });
                 
                 }
             },
@@ -3554,6 +3556,114 @@ function myStore() {
     }
 
 
+}
+
+function checkMyStores(){
+    removeActiveClassFromNavLinks();
+    let x = document.getElementById("mystoreLinkId");
+    x.classList.add("active");
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: { usrfunction: "checkmystores" },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
+            // setTimeout(() => {
+            //     populateItemDropDown();
+            // }, 10);
+
+            populateStoresList(response);
+        },
+        error: function (xhr, status, error) {
+            //alert(xhr);
+            console.log(error);
+            console.log(xhr);
+        }
+    });
+
+}
+
+function populateStoresList(rows = "") {
+
+    let innerHTML = "<div class='ContainerType_1'>";
+    let path = window.location.pathname;
+
+    for (let record of rows) {
+
+
+        let category = record.category;
+        let title = record.title;
+        let city_state_country = record.city_state_country;
+        let lastupdatedate = record.lastupdatedate;
+        let itemstr = record.itemstr;
+        let discontinue = record.discontinue;
+        let bannerhtml = record.bannerhtml;
+        let bannerimagediv = "";
+
+        if (bannerhtml.includes("background-image")){
+            bannerimagediv = bannerhtml.substring(0, bannerhtml.indexOf(">") + 1) + "</div>";
+            //console.log("bannerimagediv = " + bannerimagediv)
+            bannerimagediv = bannerimagediv.replace("shopTopBanner", "myShopTopBanner1");
+        }
+
+
+        //let chatIssue = issue.replace("^Chat reported^ -","");
+        
+        //let lastupdatedate = record.lastupdatedate;
+        //let comment = record.comment;
+        
+
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+
+        innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getStoreDetails('+ "'" + title + "'" +')"  > ';
+        
+
+        innerHTML = innerHTML + bannerimagediv;
+        //innerHTML = innerHTML + '<img src="/smshopify/images/Car and bike repair.png" alt="items" class="storeCategoryImg">';
+        innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>'+ category + '</u><br>' + city_state_country.replaceAll("~", ",") + '</div>';
+        
+        innerHTML = innerHTML + '</div>';
+    }
+
+    
+    innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getCreateStore()" > ';
+    innerHTML = innerHTML + '<div class="myShopTopBanner1"> <img src="/smshopify/images/createstore.png" alt="items" class="storeCategoryImg"></div>';
+    innerHTML = innerHTML + '<div class="shopCategoryHeader1 "  >'+ '' +'</div>';
+    innerHTML = innerHTML + '</div>';
+
+    innerHTML = innerHTML + '</div>';
+    document.getElementById("homeDivId").style.display = "none";
+    document.getElementById("loginDivId").style.display = "none";
+    document.getElementById("contactusDivId").style.display = "none";
+
+    document.getElementById("itemListDivId").style.display = "block";
+    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+ 
+    document.getElementById("bgSVGId").style.display = "none";
+    document.getElementById("itemDivId").style.display = "none";
+}
+
+function getStoreDetails(storename){
+        $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "getmystorenitems",
+            storename: storename
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
+            //localStorage.setItem("mystoreitemsList", response);
+            populateMyStore(JSON.parse(response));
+        },
+        error: function (xhr, status, error) {
+            // console.log(error);
+            // console.log(xhr);
+        }
+    });
 }
 
 function populateMyStore(tags) {

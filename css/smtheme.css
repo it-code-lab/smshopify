@@ -256,6 +256,11 @@
 .bgcolor_4{
     background-color: #debf63;
 }
+
+.bgcolor_5{
+    background-color: orange !important;
+}
+
 .white_bg {
     background-color: #fff !important;
 }

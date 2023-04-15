@@ -1369,7 +1369,8 @@ i.loaderDot:nth-child(3) {
 #accActivatedDivId,
 #forgotPWDivId,
 #providerSecDivId,
-#selectStoreTypeDivId {
+#selectStoreTypeDivId,
+.ContainerType_1 {
   /* display: block; */
   margin: 20px auto auto;
   margin-bottom: 20px;
@@ -1395,7 +1396,7 @@ i.loaderDot:nth-child(3) {
   width: 90%;
 }
 
-#selectStoreTypeDivId {
+#selectStoreTypeDivId, .ContainerType_1 {
   /* max-width: 1000px; */
   overflow: auto;
 }
