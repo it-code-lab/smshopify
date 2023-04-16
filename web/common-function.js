@@ -5,25 +5,25 @@
 https://javascript-minifier.com/ 
 */
 let the = {
-    use_codemirror: !window.location.href.match(/without-codemirror/),
-    beautifier_file: window.location.href.match(/debug/) ? 'beautifier' : './beautifier.min',
-    beautifier: null,
-    beautify_in_progress: false,
-    editor: null, // codemirror editor
+    // use_codemirror: !window.location.href.match(/without-codemirror/),
+    // beautifier_file: window.location.href.match(/debug/) ? 'beautifier' : './beautifier.min',
+    // beautifier: null,
+    // beautify_in_progress: false,
+    // editor: null, // codemirror editor
 
-    codetext: null, // SM:Added
-    commentedCodePosArr: null, // SM:Added
-    codeLanguage: null, // SM:Added
-    codeLanguageRowId: null, // SM:Added
-    languageListPopulated: null, // SM:Added
-    selectedCodeId: null, // SM:Added
-    languageOverridden: null, //SM:Added
-    newProjectContent: [], //SM:Added
+    // codetext: null, // SM:Added
+    // commentedCodePosArr: null, // SM:Added
+    // codeLanguage: null, // SM:Added
+    // codeLanguageRowId: null, // SM:Added
+    // languageListPopulated: null, // SM:Added
+    // selectedCodeId: null, // SM:Added
+    // languageOverridden: null, //SM:Added
+    // newProjectContent: [], //SM:Added
     uploadedFiles: null, //SM:Added
-    idOfProjectToUpdate: null, //SM:Added
+    //idOfProjectToUpdate: null, //SM:Added
     captcha: null, //SM:Added
-    LanguageHelpCodeAndIds_LclJson: null, //SM:Added
-    filelvlhelp: null,
+    //LanguageHelpCodeAndIds_LclJson: null, //SM:Added
+    //filelvlhelp: null,
     smusr: false,
     hosturl: '/bizzlistings',
     newImageName: '',
