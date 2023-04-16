@@ -25,7 +25,7 @@ https://javascript-minifier.com/
 //     LanguageHelpCodeAndIds_LclJson: null, //SM:Added
 //     filelvlhelp: null,
 //     smusr: false,
-//     hosturl: '/smshopify',
+//     hosturl: '/bizzlistings',
 //     newImageName: '',
 
 
@@ -121,7 +121,7 @@ https://javascript-minifier.com/
 
 //     + '<div class="itmImgContainer">'
 
-//     + '<img class="myitemImages" style="display:block" src="/smshopify/images/addImages.png" >'
+//     + '<img class="myitemImages" style="display:block" src="/bizzlistings/images/addImages.png" >'
 //     + '</div>'
 
 //     + '<a class="prevItmImg navbtn" onclick="plusitemImages(-1, this)">❮</a>'
@@ -1183,10 +1183,10 @@ function admFnGetItem(itemstr) {
 //         "@context": "https://schema.org/",
 //         "@type": "WebSite",
 //         "name": title,
-//         "url": "https://smshopify.com/" ,
+//         "url": "https://bizzlistings.com/" ,
 //         "datePublished": "2022-07-10",
 //         "description": metaDesc,
-//         "thumbnailUrl": "https://smshopify.com/images/banner.png"
+//         "thumbnailUrl": "https://bizzlistings.com/images/banner.png"
 //     };
 
 //     let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
@@ -1220,7 +1220,7 @@ function admgetOneItemOfShop(tags, itemstr) {
 
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 
     //START: Find the next item to be put at the bottom of the page
 
@@ -1242,9 +1242,9 @@ function admgetOneItemOfShop(tags, itemstr) {
         return entry.discontinue == "0" && entry.title == tags[0].storename;
     });
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/?target=item";
-    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + categorySpaceReplaced;
-    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + categorySpaceReplaced + "/" + storeRow[0].title.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/?target=item";
+    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced;
+    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced + "/" + storeRow[0].title.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
@@ -1308,10 +1308,10 @@ function admgetOneItemOfShop(tags, itemstr) {
         "@context": "https://schema.org/",
         "@type": "WebSite",
         "name": title,
-        "url": "https://smshopify.com/" + itemstr,
+        "url": "https://bizzlistings.com/" + itemstr,
         "datePublished": "2022-07-10",
         "description": metaDesc,
-        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+        "thumbnailUrl": "https://bizzlistings.com/images/banner.png"
     };
 
     let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
@@ -1345,7 +1345,7 @@ function admgetFullShopDetails(tags, itemstr) {
     let discontinue = tags[0].discontinue;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 
     //START: Find the next item to be put at the bottom of the page
 
@@ -1366,10 +1366,10 @@ function admgetFullShopDetails(tags, itemstr) {
 
 
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/?target=item";
-    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + category;
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/?target=item";
+    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category;
 
-    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + category + "/" + tags[0].title.replaceAll(" ", "-") + "/" + tags[0].title.replaceAll(" ", "-");
+    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category + "/" + tags[0].title.replaceAll(" ", "-") + "/" + tags[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
@@ -1464,10 +1464,10 @@ function admgetFullShopDetails(tags, itemstr) {
         "@context": "https://schema.org/",
         "@type": "WebSite",
         "name": title,
-        "url": "https://smshopify.com/" + itemstr,
+        "url": "https://bizzlistings.com/" + itemstr,
         "datePublished": "2022-07-10",
         "description": metaDesc,
-        "thumbnailUrl": "https://smshopify.com/images/banner.png"
+        "thumbnailUrl": "https://bizzlistings.com/images/banner.png"
     };
 
     let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
@@ -1693,7 +1693,7 @@ function adm_getItemsHTML(storeItems) {
     let newHTML = "";
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
 
     for (let i = 0; i < storeItems.length; i++) {
 
@@ -1916,44 +1916,44 @@ function admEditItem(btn) {
     //Shop - Items*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>"
-        + "<button title='shopItem1' type='button' style='background: url(/smshopify/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
+        + "<button title='shopItem1' type='button' style='background: url(/bizzlistings/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
 
     //Shop - Items*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>"
-        + "<button title='shopName1' type='button' style='background: url(/smshopify/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
+        + "<button title='shopName1' type='button' style='background: url(/bizzlistings/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
 
     //Reveal Js Slide - Section - Divs*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>"
-        + "<button title='secTitlePlane1' type='button' style='background: url(/smshopify/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
+        + "<button title='secTitlePlane1' type='button' style='background: url(/bizzlistings/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
 
-        + "<button title='secTitleWithBG' type='button' style='background: url(/smshopify/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
+        + "<button title='secTitleWithBG' type='button' style='background: url(/bizzlistings/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
 
-        + "<button title='SemiTransBG' type='button' style='background: url(/smshopify/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
+        + "<button title='SemiTransBG' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
 
-        + "<button title='SemiTransBG2' type='button' style='background: url(/smshopify/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
+        + "<button title='SemiTransBG2' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
 
         + "<label class='toolBarlabel'>Div - Sections - Lists</label>"
 
-        + "<button title='secWithList1' type='button' style='background: url(/smshopify/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
+        + "<button title='secWithList1' type='button' style='background: url(/bizzlistings/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
 
-        + "<button title='titleWithItems1' type='button' style='background: url(/smshopify/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
+        + "<button title='titleWithItems1' type='button' style='background: url(/bizzlistings/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
 
-        + "<button title='titleWithItems2' type='button' style='background: url(/smshopify/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
+        + "<button title='titleWithItems2' type='button' style='background: url(/bizzlistings/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
 
-        + "<button title='titleWithItems3' type='button' style='background: url(/smshopify/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
+        + "<button title='titleWithItems3' type='button' style='background: url(/bizzlistings/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
 
         + "<label class='toolBarlabel'>Div - Code Explaination</label>"
-        + "<button title='titleTextCode1' type='button' style='background: url(/smshopify/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
-        + "<button title='titleTextCode2' type='button' style='background: url(/smshopify/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
+        + "<button title='titleTextCode1' type='button' style='background: url(/bizzlistings/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
+        + "<button title='titleTextCode2' type='button' style='background: url(/bizzlistings/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
 
         + "<label class='toolBarlabel'>Div - Quiz MCQ</label>"
-        + "<button title='quizMCQFullScreen' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
-        + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/smshopify/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
+        + "<button title='quizMCQFullScreen' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
+        + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
 
         + "<label class='toolBarlabel'>Images</label>"
-        + "<button title='zoomingImage1' type='button' style='background: url(/smshopify/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
+        + "<button title='zoomingImage1' type='button' style='background: url(/bizzlistings/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
         + "<hr>"
         + "<label for='insertInner'>Insert component before active Div:</label>"
         + "<input type='checkbox' id='insertInner' >";
@@ -2131,18 +2131,18 @@ function admEditItem(btn) {
 // function getShopTopBannersList(itemid) {
 
 //     return "<label class='informationBox fontsize_14px'>If you want to change the design of your store banner above, use the button below to change design</label>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/smshopify/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/smshopify/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/smshopify/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/smshopify/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-A',this) ><img src='/smshopify/secimages/shopTopBanner3-A.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-B',this) ><img src='/smshopify/secimages/shopTopBanner3-B.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-C',this) ><img src='/smshopify/secimages/shopTopBanner3-C.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-D',this) ><img src='/smshopify/secimages/shopTopBanner3-D.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-E',this) ><img src='/smshopify/secimages/shopTopBanner3-E.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-F',this) ><img src='/smshopify/secimages/shopTopBanner3-F.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-G',this) ><img src='/smshopify/secimages/shopTopBanner3-G.png' alt='items' class='storeBannerImg'></div>"
-//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-H',this) ><img src='/smshopify/secimages/shopTopBanner3-H.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/bizzlistings/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/bizzlistings/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/bizzlistings/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/bizzlistings/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-A',this) ><img src='/bizzlistings/secimages/shopTopBanner3-A.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-B',this) ><img src='/bizzlistings/secimages/shopTopBanner3-B.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-C',this) ><img src='/bizzlistings/secimages/shopTopBanner3-C.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-D',this) ><img src='/bizzlistings/secimages/shopTopBanner3-D.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-E',this) ><img src='/bizzlistings/secimages/shopTopBanner3-E.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-F',this) ><img src='/bizzlistings/secimages/shopTopBanner3-F.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-G',this) ><img src='/bizzlistings/secimages/shopTopBanner3-G.png' alt='items' class='storeBannerImg'></div>"
+//         + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-H',this) ><img src='/bizzlistings/secimages/shopTopBanner3-H.png' alt='items' class='storeBannerImg'></div>"
 
 // }
 
@@ -2794,7 +2794,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2903,7 +2903,7 @@ function admremoveNewLine(innerHTML) {
 
 //     } else if (type == "shopTopBanner2") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-2175.png&quot;);">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-2175.png&quot;);">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';
 
@@ -2978,7 +2978,7 @@ function admremoveNewLine(innerHTML) {
 
 //     } else if (type == "shopTopBanner3") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -2986,7 +2986,7 @@ function admremoveNewLine(innerHTML) {
 
 //     } else if (type == "shopTopBanner3-A") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -2994,7 +2994,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-B") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3002,7 +3002,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-C") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3010,7 +3010,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-D") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3018,7 +3018,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-E") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3026,7 +3026,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-F") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3034,7 +3034,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-G") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3042,7 +3042,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner3-H") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/smshopify/img/loops-in-java-5681.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';       
 
@@ -3050,7 +3050,7 @@ function admremoveNewLine(innerHTML) {
 
 //     }else if (type == "shopTopBanner4") {
 
-//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/smshopify/img/loops-in-java-5570.png&quot;); ">'
+//         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/bizzlistings/img/loops-in-java-5570.png&quot;); ">'
 //             + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
 //             + "\n" + '</div>';
 
@@ -3165,7 +3165,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3185,7 +3185,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3205,7 +3205,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3226,7 +3226,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3251,7 +3251,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3279,7 +3279,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3310,7 +3310,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3321,13 +3321,13 @@ function admremoveNewLine(innerHTML) {
 
 
 //     } else if (type == "zoomingImage1") {
-//         let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/smshopify/img/animaker-test9-1414.png">';
+//         let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/bizzlistings/img/animaker-test9-1414.png">';
 //         htmlPart = escape(htmlPartOrig);
 //         let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3355,7 +3355,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3375,7 +3375,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3389,13 +3389,13 @@ function admremoveNewLine(innerHTML) {
 //             + "\n" + '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
 //             + "\n" + '</div>'
 
-//             + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/smshopify/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
 
 //             + "\n" + '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
-//             + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/smshopify/sounds/bell-ding-586.wav" type="audio/wav"><source data-src="/smshopify/sounds/bell-ding-586.mp3" type="audio/mp3"></audio></div>';
+//             + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/bizzlistings/sounds/bell-ding-586.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/bell-ding-586.mp3" type="audio/mp3"></audio></div>';
 
 //         //htmlPartOrig = "Test";
 //         htmlPart = escape(htmlPartOrig);
@@ -3403,7 +3403,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3417,13 +3417,13 @@ function admremoveNewLine(innerHTML) {
 //             + "\n" + '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
 //             + "\n" + '</div>'
 
-//             + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/smshopify/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+//             + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
 
 //             + "\n" + '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
-//             + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/smshopify/sounds/low-bell-ding.wav" type="audio/wav"><source data-src="/smshopify/sounds/low-bell-ding.mp3" type="audio/mp3"></audio></div>';
+//             + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/bizzlistings/sounds/low-bell-ding.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-bell-ding.mp3" type="audio/mp3"></audio></div>';
 
 //         //htmlPartOrig = "Test";
 //         htmlPart = escape(htmlPartOrig);
@@ -3431,7 +3431,7 @@ function admremoveNewLine(innerHTML) {
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3442,13 +3442,13 @@ function admremoveNewLine(innerHTML) {
 
 
 //     } else if (type == "zoomingImage1") {
-//         let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/smshopify/img/animaker-test9-1414.png">';
+//         let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/bizzlistings/img/animaker-test9-1414.png">';
 //         htmlPart = escape(htmlPartOrig);
 //         let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
 //             + revealSecColor
 //             + secTranition
 //             + mediaSection
-//             + "<button type='button' style='background: url(/smshopify/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+//             + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
 //             + "</div>";
 
 //         document.getElementById(componentid).innerHTML = partOneHTML
@@ -3463,8 +3463,8 @@ function admremoveNewLine(innerHTML) {
 //         (type == "low-arrow-whoosh") || (type == "low-sand-swish") ||
 //         (type == "sand-swish") || (type == "ui-zoom-in")) {
 //         let htmlToInsert = "<audio>"
-//             + "<source data-src='/smshopify/sounds/" + type + ".wav' type='audio/wav'>"
-//             + "<source data-src='/smshopify/sounds/" + type + ".mp3' type='audio/mp3'>"
+//             + "<source data-src='/bizzlistings/sounds/" + type + ".wav' type='audio/wav'>"
+//             + "<source data-src='/bizzlistings/sounds/" + type + ".mp3' type='audio/mp3'>"
 //             + "</audio>";
 //         insertHTMLAtCaret(escape(htmlToInsert));
 //     } else if (type == "code-snippet") {
@@ -5060,7 +5060,7 @@ function admpopulateItemsStoresListForReview(rows = "") {
         //let comment = record.comment;
         
 
-        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3"  > ';
 
@@ -5119,7 +5119,7 @@ function admpopulateItemsStoresListForReview(rows = "") {
 //     let itemlocationCity = "";
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
 //     let categorySqueezed = "";
 //     let categoryOrig = "";
 //     let categoryUrl = "";
@@ -5172,7 +5172,7 @@ function admpopulateItemsStoresListForReview(rows = "") {
 //         innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-itemid="'+ rows[i].itemid +'" data-itemuid="'+ rows[i].itemuid +'" > ';
 
 //         if (rows[i].title == storename){
-//             innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a href=' + "'" + itemTitleURL + "'" + '>' + ' <img class="myitemImages" style="display:block" src="/smshopify/images/storeitem.png" >' ;
+//             innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a href=' + "'" + itemTitleURL + "'" + '>' + ' <img class="myitemImages" style="display:block" src="/bizzlistings/images/storeitem.png" >' ;
 //             innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></a></div>';
            
 //         } else {
@@ -5278,7 +5278,7 @@ function admpopulateItemsStoresListForReview(rows = "") {
 //     let itemlocationCity = "";
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
 //     let categorySqueezed = "";
 //     let categoryOrig = "";
 //     let categoryUrl = "";
@@ -5450,7 +5450,7 @@ function admlistReports(rows = []){
         //let chatIssue = issue.replace("^Chat reported^ -","");
         let reviewed = record.smreviewed;
         let itemstr = record.itemstr;
-        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
 
@@ -5527,7 +5527,7 @@ function admlistReviews(rows = []){
         let comment = record.comment;
         let itemstr = record.itemstr;
 
-        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+        let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-itemid="'+ itemid +'" data-customerid="'+ customerid +'" > ';
 
@@ -5608,7 +5608,7 @@ function admlistAccs(rows = []){
 
         let store_city_state_country = record.store_city_state_country;
 
-        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
 
@@ -5693,7 +5693,7 @@ function admlistChats(rows){
         //let chatIssue = issue.replace("^Chat reported^ -","");
         let user1_name = record.user1_name;
         let user2_name = record.user2_name;
-        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1) + "kisna/items/" + itemstr;
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
 
@@ -5943,7 +5943,7 @@ function admsaveReviewUpdates(evt){
 //     let innerHTML = "";
 //     let itemName = "";
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
 //     let storenameSqueezed = "";
 //     let storenameOrig = "";
 //     let storename = "";
@@ -6102,7 +6102,7 @@ function admsaveReviewUpdates(evt){
 // function goToHome() {
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 //     myUrl = myUrl + "?target=home";
 //     window.location.href = myUrl;
 // }
@@ -6110,7 +6110,7 @@ function admsaveReviewUpdates(evt){
 // function goToItem() {
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 //     myUrl = myUrl + "?target=item";
 //     window.location.href = myUrl;
 // }
@@ -6118,7 +6118,7 @@ function admsaveReviewUpdates(evt){
 // function goToHowToVideos() {
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 //     myUrl = myUrl + "?target=howto";
 //     window.location.href = myUrl;
 // }
@@ -6126,7 +6126,7 @@ function admsaveReviewUpdates(evt){
 // function goToContactUs() {
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 //     myUrl = myUrl + "?target=contactus";
 //     window.location.href = myUrl;
 // }
@@ -6135,7 +6135,7 @@ function admgoToLogin() {
 
     let path = window.location.pathname;
     sessionStorage.setItem("lastUrl", window.location.href);
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
     myUrl = myUrl + "?target=login";
     window.location.href = myUrl;
 }
@@ -6878,7 +6878,7 @@ function admlogin() {
 
 function updateParentBGVideo(element) {
     element.parentElement.parentElement.dataset.backgroundvideo = element.value;
-    //element.parentElement.parentElement.style.background = url('/smshopify/video/' + element.value);
+    //element.parentElement.parentElement.style.background = url('/bizzlistings/video/' + element.value);
 
     let selectedVid = element.parentElement.querySelector('.selectedVid');
     selectedVid.innerHTML = element.value;
@@ -6886,14 +6886,14 @@ function updateParentBGVideo(element) {
 
 // function updateParentBGImage(element) {
 //     element.parentElement.parentElement.dataset.background = element.value;
-//     //element.parentElement.parentElement.style.backgroundImage  = "url('/smshopify/img/" + element.value + "')";
+//     //element.parentElement.parentElement.style.backgroundImage  = "url('/bizzlistings/img/" + element.value + "')";
 
 //     //let parentSecDiv = element.parentElement.parentElement;
 //     //let previewDiv = parentSecDiv.querySelector('.secPreview');
 //     let previewDiv = document.querySelector('.secPreview');
 
 //     if (previewDiv.style.display != "none") {
-//         previewDiv.style.backgroundImage = "url('/smshopify/img/" + element.value + "')";
+//         previewDiv.style.backgroundImage = "url('/bizzlistings/img/" + element.value + "')";
 //     }
 
 //     let selectedImg = element.parentElement.querySelector('.selectedImg');
@@ -6991,12 +6991,12 @@ function updateParentBGVideo(element) {
 //             previewDiv.style.backgroundColor = parentSecDiv.dataset.bgcolor;
 //         } else {
 //             //Background image
-//             //secProps = secProps + " data-background-image = '/smshopify/img/" + parentSecDiv.dataset.background + "' ";
-//             previewDiv.style.backgroundImage = "url('/smshopify/img/" + parentSecDiv.dataset.background + "')";
+//             //secProps = secProps + " data-background-image = '/bizzlistings/img/" + parentSecDiv.dataset.background + "' ";
+//             previewDiv.style.backgroundImage = "url('/bizzlistings/img/" + parentSecDiv.dataset.background + "')";
 //         }
 //     } else {
 //         //Background video
-//         //secProps = secProps + " data-background-video = '/smshopify/video/" + parentSecDiv.dataset.backgroundvideo + "' ";
+//         //secProps = secProps + " data-background-video = '/bizzlistings/video/" + parentSecDiv.dataset.backgroundvideo + "' ";
 //     }
 
 // }
@@ -7026,11 +7026,11 @@ function updateParentBGVideo(element) {
 //                 secProps = secProps + " data-background = '" + element.dataset.bgcolor + "'";
 //             } else {
 //                 //Background image
-//                 secProps = secProps + " data-background-image = '/smshopify/img/" + element.dataset.background + "' ";
+//                 secProps = secProps + " data-background-image = '/bizzlistings/img/" + element.dataset.background + "' ";
 //             }
 //         } else {
 //             //Background video
-//             secProps = secProps + " data-background-video = '/smshopify/video/" + element.dataset.backgroundvideo + "' ";
+//             secProps = secProps + " data-background-video = '/bizzlistings/video/" + element.dataset.backgroundvideo + "' ";
 //         }
 
 //         if (element.dataset.autoanimate == "Yes") {
@@ -8107,7 +8107,7 @@ function updateParentBGVideo(element) {
  
 //     //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
 
-//     fetch('/smshopify/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
+//     fetch('/bizzlistings/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
 //         // Update the status
 //         //status = 'Idle';
 //         // Update the conversations tab content
@@ -8242,7 +8242,7 @@ function updateParentBGVideo(element) {
 //     let newHTML = "";
 
 //     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('smshopify')) + 1);
+//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
 
 //     for (let i = 0; i < storeItems.length; i++) {
 
