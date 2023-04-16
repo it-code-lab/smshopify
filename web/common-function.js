@@ -3470,10 +3470,20 @@ function myStore() {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
 
-        let x = document.getElementById("toastsnackbar_center");
-        x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-        x.style.display = "block";
+        // let x = document.getElementById("toastsnackbar_center");
+        // x.innerHTML = "Please <a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to create or access your store <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+        // x.style.display = "block";
+        // Show('login');
+
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Login to create or access your store";
+        x.classList.add("show");
+        setTimeout(function () { 
+            x.classList.remove("show");
+        }, 3000);
+
         Show('login');
+
         //DONOTDELETE
         // setTimeout(() => {
         //     x.style.display = "none";
@@ -7350,6 +7360,25 @@ function mychat(){
         // Update the status
         //status = 'Idle';
         // Update the conversations tab content
+
+        //Check for no messages
+        let tempData = data.replace('<div class="chat-widget-conversations">','');
+        tempData = tempData.replace('</div>','');
+        tempData = tempData.replace(' ','');
+        tempData = tempData.replace(' ','');
+        tempData = tempData.replace(/(?:\r\n|\r|\n)/g, '');
+        if (tempData.trim() == ""){
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "No messages are found. To initiate the conversation, go to the product page and click on chat icon";
+
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 6000);
+            document.querySelector('.chat-widget').classList.remove('chatopen');
+            return;
+        }
+
         document.querySelector('.chat-widget-conversations-tab').innerHTML = data;
         // Execute the conversation handler function
         conversationHandler();
