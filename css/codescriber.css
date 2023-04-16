@@ -638,14 +638,14 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   text-align: center;
   width: 100%;
   font-family: Georgia, Arial, Helvetica, sans-serif !important;
-  font-size: 60px;
+  font-size: 80px;
 }
 
 .bannerSmallText {
   margin: auto;
   text-align: center;
   width: 100%;
-  font-size: 30px;
+  font-size: 50px;
   font-family: 'Brush Script MT', cursive !important;
 }
 
