@@ -74,8 +74,9 @@
   color: #b4bdc6;
 }
 
-.chat-widget .chat-widget-header .close-chat-widget-btn:hover {
-  color: #d16a10;
+/* .chat-widget .chat-widget-header .close-chat-widget-btn:hover { */
+.close-chat-widget-btn:hover {
+  color: #f3b007 !important;
 }
 
 .chat-widget .chat-widget-header .previous-chat-tab-btn {

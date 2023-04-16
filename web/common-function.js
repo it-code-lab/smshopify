@@ -5728,12 +5728,30 @@ function register() {
 }
 
 function populateStoreType(divid) {
-    document.getElementById(divid).innerHTML = '<label class="form_header_label1 scale-up-ver-top"> SELECT STORE TYPE </label><hr>' + getStoreTypeList() + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-    document.getElementById(divid).style.display = "block";
-}
 
-function getStoreTypeList() {
-    let tf = JSON.parse(sessionStorage.getItem("categoryList"));
+    let tags = sessionStorage.getItem("categoryList")
+
+    if ((tags == null) ||(tags == "") || (tags == "null")) {
+            $.ajax({
+                url: the.hosturl + '/php/process.php',
+                type: 'POST',
+                data: jQuery.param({
+                    usrfunction: "categories"
+                }),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (response) {
+                    sessionStorage.setItem("categoryList", JSON.stringify(response));
+                    populateStoreType(divid);
+                },
+                error: function (xhr, status, error) {
+                    //console.log(error);
+                    //console.log(xhr);
+                }
+            });
+            return;        
+    }
+
+    let tf = JSON.parse(tags);
 
     let rows = JSON.parse(tf);
 
@@ -5784,8 +5802,9 @@ function getStoreTypeList() {
 
 
     innerHTML = innerHTML + '</div>';
-    return innerHTML;
-
+    //return innerHTML;
+    document.getElementById(divid).innerHTML = '<label class="form_header_label1 scale-up-ver-top"> SELECT STORE TYPE </label><hr>' + innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById(divid).style.display = "block";
 }
 
 function categoryClicked(categoryNameOrig) {
