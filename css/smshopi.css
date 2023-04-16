@@ -472,7 +472,8 @@ input.confirmBtn:hover {
 .shopCategoryDisplay {
     padding: 1vw;
     /*border-radius: 5px; */
-    box-shadow: rgb(247, 199, 122) 0px 22px 70px 4px;
+    box-shadow: rgb(176 140 71) 0px 22px 70px 4px;
+    /* box-shadow: rgb(247, 199, 122) 0px 22px 70px 4px; */
     /* box-shadow: rgb(247, 199, 122) 0px 5px 15px; */
 }
 
