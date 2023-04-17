@@ -1428,14 +1428,14 @@ function getFullShopDetails(tags, itemstr) {
     if (tags[0].bannerhtml != undefined) {
         if (tags[0].bannerhtml != "") {
             newHTML = newHTML
-                + '<div class="slides">' + tags[0].bannerhtml + '</div>';
+                + '<div class="slides slide-in-left" style="animation-delay: 0.2s">' + tags[0].bannerhtml + '</div>';
         }
     }
 
     if (tags[0].description != undefined) {
         if (tags[0].description != "") {
             newHTML = newHTML
-                + '<div class="shopDescriptionCls bgcolor_2 padding_50px color_white margin_10px">' + tags[0].description + '</div>';
+                + '<div class="shopDescriptionCls bgcolor_8 padding_50px color_white">' + tags[0].description + '</div>';
         }
     }
 
@@ -1627,7 +1627,7 @@ function getItemsHTML(storeItems) {
 
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -7320,7 +7320,7 @@ function showPolicy(){
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
 
-    let tempHTML = '<div class="header_1"><label class="bannerLargeText">Usage Policy</label><br><hr></div>';
+    let tempHTML = '<div class="header_1 slide-in-left"><label class="bannerLargeText">Usage Policy</label><br><hr></div>';
     tempHTML = tempHTML + "<p>The following Fair Usage Policy is designed to ensure that all users of our website can benefit from a fair and equal experience. By using our website, you agree to abide by this policy.</p> <ol>    <li>Prohibited Activities: You are not allowed to engage in any activities that could harm the website or its users, including, but not limited to:</li> </ol><p>a) Posting or uploading any inappropriate, offensive, or illegal content. b) Attempting to gain unauthorized access to other users&apos; accounts or personal information. c) Engaging in any fraudulent or deceptive practices. d) Harassing, threatening, or intimidating other users. e) Violating any applicable laws or regulations.</p> <ol start='2'>    <li>         <p>Limitations on Usage: We reserve the right to limit or restrict your usage of the website if we suspect that you are engaging in any activities that are not in compliance with this policy or our terms and conditions.</p>    </li>     <li>        <p>Account Suspension or Termination: We reserve the right to suspend or terminate your account if we determine that you have violated this policy or our terms and conditions. We may also suspend or terminate your account if we receive complaints from other users about your behavior on the website.</p>     </li>    <li>         <p>Monitoring: We may monitor your usage of the website to ensure compliance with this policy and our terms and conditions. This may include reviewing your account activity, messages, and posts.</p>    </li>     <li>        <p>Changes to Policy: We may change this Fair Usage Policy at any time without prior notice. Your continued use of the website after any changes to this policy will constitute your acceptance of the revised policy.</p>     </li></ol> <p>By using our website, you acknowledge that you have read, understood, and agree to abide by this Fair Usage Policy.</p>";
     tempHTML = tempHTML + '<br> <br> <button class="button_type1 btnCenterAlign width_200px" onclick="goToPrevURL()">Close</button><br><br><br>';
     document.getElementById("itemListDivId").style.display = "block";
@@ -7462,3 +7462,31 @@ function reportChatUser(elem){
     placePopupAtPosFromBtn(elem, -300, -10);
     //placePopupAtPosFromBtnXOffset(elem, -300, -10);
 }
+
+
+function checkAnimation(){
+
+    let $animationElements = $('.animate_inview');
+    let $window = $(window);
+
+    let windowHeight = $window.height();
+    let windowTopPosition = $window.scrollTop();
+    let windowBottomPosition = (windowTopPosition + windowHeight);
+
+    $.each($animationElements, function () {
+
+        let $element = $(this);
+        let elementHeight = $element.outerHeight();
+        let elementTopPosition = $element.offset().top;
+        let elementBottomPosition = (elementTopPosition + elementHeight);
+        if (! $element.hasClass('slide-in-right')){ 
+            if ((elementBottomPosition >= windowTopPosition) &&
+                (elementTopPosition <= windowBottomPosition)) {
+                $element.addClass('slide-in-right');
+            // } else {
+            //     $element.removeClass('slide-in-right');//SM-Removed this to avoid multiple times animation
+            }
+         }
+    });
+}
+

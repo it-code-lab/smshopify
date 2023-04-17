@@ -540,6 +540,18 @@ input.confirmBtn:hover {
     border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
 }
 
+.shopDescriptionCls {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto !important;
+    font-size: 18px;
+}
+.itemDetailsContainerCls{
+    width: 98%;
+    max-width: 900px;
+    margin: 40px auto !important;
+    border-radius: 20px;
+}
 .websiteDescriptionCls{
     width: 90%;
     max-width: 1200px;

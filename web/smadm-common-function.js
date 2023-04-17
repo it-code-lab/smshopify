@@ -1418,7 +1418,7 @@ function admgetFullShopDetails(tags, itemstr) {
         if (storehead.description != undefined) {
             if (storehead.description != "") {
                 newHTML = newHTML
-                    + '<div contenteditable="true" class="shopDescriptionCls bgcolor_2 padding_50px color_white margin_10px">' + storehead.description + '</div>';
+                    + '<div contenteditable="true" class="shopDescriptionCls bgcolor_8 padding_50px color_white ">' + storehead.description + '</div>';
             }
         }
 
@@ -1716,7 +1716,7 @@ function adm_getItemsHTML(storeItems) {
 
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
