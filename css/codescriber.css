@@ -2318,6 +2318,7 @@ ul.unordered-list-arrow li:before {
 .searchWrapper{
   float: none !important; 
   overflow: hidden !important;
+  padding: 8px 8px !important;
 }
 #item-search-box {
   /* width: calc(100% - 120px);
@@ -2326,6 +2327,7 @@ ul.unordered-list-arrow li:before {
   max-width: 500px;
   width: 90%;
   border-radius: 10px;
+  padding: 5px;
 }
 
  #itemsearchBtnId {

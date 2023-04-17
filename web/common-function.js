@@ -1260,7 +1260,7 @@ function getOneItemOfShop(tags, itemstr) {
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
@@ -1408,7 +1408,7 @@ function getFullShopDetails(tags, itemstr) {
     //let itemStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + title.replaceAll(" ", "-");
     let storeStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
@@ -1605,6 +1605,7 @@ function getItemsHTML(storeItems) {
 
     let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
+    let itmCount = storeItems.length;
 
     for (let i = 0; i < storeItems.length; i++) {
 
@@ -1627,7 +1628,11 @@ function getItemsHTML(storeItems) {
 
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        if (itmCount > 2){
+            newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        }else {
+            newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        }
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -3592,6 +3597,7 @@ function checkMyStores(){
     let x = document.getElementById("mystoreLinkId");
     x.classList.add("active");
 
+
     $.ajax({
         url: the.hosturl + '/php/process.php',
         data: { usrfunction: "checkmystores" },
@@ -3601,8 +3607,7 @@ function checkMyStores(){
             //sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(response)));
             // setTimeout(() => {
             //     populateItemDropDown();
-            // }, 10);
-
+            // }, 10);            
             populateStoresList(response);
         },
         error: function (xhr, status, error) {
@@ -3686,6 +3691,8 @@ function getStoreDetails(storename){
         success: function (response) {
             //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
             //localStorage.setItem("mystoreitemsList", response);
+            
+            localStorage.setItem("mystoreitemsList", response);
             populateMyStore(JSON.parse(response));
         },
         error: function (xhr, status, error) {
@@ -4458,23 +4465,21 @@ function saveItemChanges(evt) {
                     x.classList.remove("show");
                 }, 3000);
             
-                $.ajax({
-                    url: the.hosturl + '/php/process.php',
-                    type: 'POST',
-                    data: jQuery.param({
-                        usrfunction: "getmystorenitems"
-                    }),
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    success: function (response) {
-                        localStorage.setItem("mystoreitemsList", response);
-                        //SM-TODO-Done*****Uncomment Below Line******
-                        populateMyStore(JSON.parse(response));
-                    },
-                    error: function (xhr, status, error) {
-                        // console.log(error);
-                        // console.log(xhr);
-                    }
-                });
+                // $.ajax({
+                //     url: the.hosturl + '/php/process.php',
+                //     type: 'POST',
+                //     data: jQuery.param({
+                //         usrfunction: "checkmystores"
+                //     }),
+                //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //     success: function (response) {
+                //         localStorage.setItem("mystoreitemsList", response);
+                //     },
+                //     error: function (xhr, status, error) {
+                //         // console.log(error);
+                //         // console.log(xhr);
+                //     }
+                // });
             },
             error: function (xhr, status, error) {
                 console.log("failed");
@@ -4618,23 +4623,23 @@ function saveItemChanges(evt) {
                         x.classList.remove("show");
                     }, 3000);
 
-                    $.ajax({
-                        url: the.hosturl + '/php/process.php',
-                        type: 'POST',
-                        data: jQuery.param({
-                            usrfunction: "getmystorenitems"
-                        }),
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        success: function (response) {
-                            localStorage.setItem("mystoreitemsList", response);
-                            //SM-Done -Uncomment below line*********
-                            populateMyStore(JSON.parse(response));
-                        },
-                        error: function (xhr, status, error) {
-                            // console.log(error);
-                            // console.log(xhr);
-                        }
-                    });
+                    // $.ajax({
+                    //     url: the.hosturl + '/php/process.php',
+                    //     type: 'POST',
+                    //     data: jQuery.param({
+                    //         usrfunction: "checkmystores"
+                    //     }),
+                    //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //     success: function (response) {
+                    //         localStorage.setItem("mystoreitemsList", response);
+
+                    //         //populateMyStore(JSON.parse(response));
+                    //     },
+                    //     error: function (xhr, status, error) {
+                    //         // console.log(error);
+                    //         // console.log(xhr);
+                    //     }
+                    // });
 
                 },
                 error: function (xhr, status, error) {

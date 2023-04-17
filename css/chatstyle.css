@@ -327,6 +327,7 @@
 
 #mychatLinkId{
   position: relative;
+  padding: 11px !important;
 }
 .chatBadge {
   position: absolute;

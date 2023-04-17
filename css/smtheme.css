@@ -86,6 +86,10 @@
 .display_block{
     display: block;
 }
+
+.line_height2{
+    line-height: 2.2;
+}
 /***************Label**********************/
 /****************************************** */
 .form_header_label1{

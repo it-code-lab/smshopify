@@ -1246,7 +1246,7 @@ function admgetOneItemOfShop(tags, itemstr) {
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced + "/" + storeRow[0].title.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
@@ -1371,7 +1371,7 @@ function admgetFullShopDetails(tags, itemstr) {
 
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category + "/" + tags[0].title.replaceAll(" ", "-") + "/" + tags[0].title.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
