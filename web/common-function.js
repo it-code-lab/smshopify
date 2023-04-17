@@ -722,6 +722,7 @@ function Show(pageName) {
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "block";
         document.getElementById("homeDivId").style.width = "100%";
+        document.getElementById("bgSVGId").style.display = "block";
         //document.getElementById("mainContainer").style.width = "100%";
     } else if (pageName == "mystore") {
         myStore();
@@ -1348,6 +1349,16 @@ function getOneItemOfShop(tags, itemstr) {
     setTimeout(function () {
         disableImageClickAction();
     }, 20);
+
+    setTimeout(function () {
+
+        let x = document.getElementsByClassName("storeOpeninghourscontent");
+        for (let i = 0; i < x.length; i++) {
+                x[i].setAttribute("contenteditable", false);
+        }
+        updateStatus();
+
+    }, 50);
 }
 
 function getFullShopDetails(tags, itemstr) {
@@ -1495,6 +1506,14 @@ function getFullShopDetails(tags, itemstr) {
     setTimeout(function () {
         colorFavoriteItems();
     }, 10);
+
+    setTimeout(function () {
+        let x = document.getElementsByClassName("storeOpeninghourscontent");
+        for (let i = 0; i < x.length; i++) {
+                x[i].setAttribute("contenteditable", false);
+        }
+        updateStatus();
+    }, 50);    
 }
 
 function getShopLocationAndHours(tags) {
