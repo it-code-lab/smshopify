@@ -27,6 +27,14 @@
     margin: 10px;
 }
 
+.margin_20px{
+    margin: 20px;
+}
+
+.margin_40px{
+    margin: 40px;
+}
+
 .marginbottom_50px{
     margin-bottom: 50px;
 }
@@ -49,6 +57,10 @@
 
 .font_size_12px {
     font-size: 12px !important;
+}
+
+.font_size_18px {
+    font-size: 18px !important;
 }
 
 .font_size_20px {
@@ -90,6 +102,11 @@
 }
 /***************Zindex**********************/
 /****************************************** */
+
+.z_index5{
+    z-index: 5 !important;
+
+}
 
 .z_index10{
     z-index: 10 !important;
@@ -259,6 +276,18 @@
 
 .bgcolor_5{
     background-color: orange !important;
+}
+
+.bgcolor_6 {
+    background-color: rgb(156 155 159);
+}
+
+.bgcolor_7 {
+    background-color:indianred
+}
+
+.bgcolor_8 {
+    background-color:#3498DB
 }
 
 .white_bg {
