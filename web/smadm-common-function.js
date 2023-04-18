@@ -1405,7 +1405,7 @@ function admgetFullShopDetails(tags, itemstr) {
         let keywords = storehead.keywords;
         let discontinue = storehead.discontinue;
 
-        newHTML = newHTML + "<div class = 'shopLyrics' data-itemid= '" + itemid + "'  >" + "<div class = 'storeItemDivCls' >";
+        newHTML = newHTML + "<div class = 'shopLyrics' data-itemid= '" + itemid + "' data-titlename= '" + title + "' data-storename= '" + title + "' >" + "<div class = 'storeItemDivCls' >";
 
         //Start: div class="slides"
         if (storehead.bannerhtml != undefined) {
@@ -1578,7 +1578,7 @@ function adm_getShopLocationAndHours(storehead) {
 
     }
     newHTML = newHTML + '<span title="itemid" class="title-tip">' + storehead.itemid + '</span>';
-    newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storehead.versionseq + '</span>';
+    newHTML = newHTML + '<span title="versionseq" class="title-tip versionseqcls">' + storehead.versionseq + '</span>';
 
     newHTML = newHTML + '<button class="" style="" onclick="admsaveShopItemReview(event)">Save</button>';
     return newHTML;
@@ -1588,6 +1588,8 @@ function adm_getShopLocationAndHours(storehead) {
 function admsaveShopItemReview(evt){
     let parentDiv = evt.currentTarget.parentElement.parentElement;
     let itemid = parentDiv.dataset.itemid;
+    let title = parentDiv.dataset.titlename;
+    let storename = parentDiv.dataset.storename;
 
     let description = parentDiv.querySelector(".shopDescriptionCls").innerHTML;
     let hourshtml = parentDiv.querySelector(".shophrscls").innerHTML;
@@ -1597,7 +1599,7 @@ function admsaveShopItemReview(evt){
     let availabilityinfo = parentDiv.querySelector(".shopavailinfocls").textContent;
     let discontinue = parentDiv.querySelector(".shopdiscontinuecls").textContent;
     let reviewed = parentDiv.querySelector(".shopreviewedcls").textContent;
-    
+    let versionseq = parentDiv.querySelector(".versionseqcls").textContent;
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -1610,6 +1612,9 @@ function admsaveShopItemReview(evt){
                 availabilityinfo: availabilityinfo,
                 discontinue: discontinue,
                 reviewed: reviewed,
+                versionseq: versionseq,
+                title: title,
+                storename: storename,
                 usrfunction: "saveshopitemreview" 
             },
         type: 'POST',
@@ -1645,12 +1650,15 @@ function admsaveShopItemReview(evt){
 function admsaveItemReview(evt){
     let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
     let itemid = parentDiv.dataset.itemid;
+    let storename = parentDiv.dataset.storename;
+    let origtitle = parentDiv.dataset.titlename;
 
     let title = parentDiv.querySelector('.shopItemTitle').textContent;    
     let itemprice = parentDiv.querySelector('.shopItemPrice').textContent;
     let itemdescription = parentDiv.querySelector('.shopItemDescription').innerHTML;
     let discontinue = parentDiv.querySelector(".itemdiscontinuecls").textContent;
     let reviewed = parentDiv.querySelector(".itemreviewedcls").textContent;   
+    let versionseq = parentDiv.querySelector(".versionseqcls").textContent;
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -1660,6 +1668,9 @@ function admsaveItemReview(evt){
                 itemdescription:itemdescription,
                 discontinue: discontinue,
                 reviewed: reviewed,
+                versionseq: versionseq,
+                origtitle: origtitle,
+                storename: storename,                
                 usrfunction: "saveitemreview" 
             },
         type: 'POST',
@@ -1716,7 +1727,7 @@ function adm_getItemsHTML(storeItems) {
 
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
-        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+        newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-titlename="' + storeItems[i].title + '" data-storename="' + storeItems[i].storename + '" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
 
         //Start: max_2box_responsive
         newHTML = newHTML + '<div class="max_2box_responsive padding_10px"><div class="margin_auto text_align_center">';
@@ -1780,7 +1791,7 @@ function adm_getItemsHTML(storeItems) {
             newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
         }
      newHTML = newHTML + '<span title="itemid" class="title-tip">' + storeItems[i].itemid + '</span>';
-    newHTML = newHTML + '<span title="versionseq" class="title-tip">' + storeItems[i].versionseq + '</span>';
+    newHTML = newHTML + '<span title="versionseq" class="title-tip versionseqcls">' + storeItems[i].versionseq + '</span>';
    
         newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="admsaveItemReview(event)">Save</button>';
 
