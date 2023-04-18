@@ -318,8 +318,13 @@ function admdisplayStore(storename) {
         document.getElementById("itemDivId").style.display = "block";
         admFnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
     } else {
-        document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
-        document.getElementById("itemDivId").style.display = "block";
+        if (storename == ""){
+            Show('home');
+        }else {
+            document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+            document.getElementById("itemDivId").style.display = "block";
+    
+        }  
     }
 }
 
