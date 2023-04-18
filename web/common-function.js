@@ -5,25 +5,9 @@
 https://javascript-minifier.com/ 
 */
 let the = {
-    // use_codemirror: !window.location.href.match(/without-codemirror/),
-    // beautifier_file: window.location.href.match(/debug/) ? 'beautifier' : './beautifier.min',
-    // beautifier: null,
-    // beautify_in_progress: false,
-    // editor: null, // codemirror editor
 
-    // codetext: null, // SM:Added
-    // commentedCodePosArr: null, // SM:Added
-    // codeLanguage: null, // SM:Added
-    // codeLanguageRowId: null, // SM:Added
-    // languageListPopulated: null, // SM:Added
-    // selectedCodeId: null, // SM:Added
-    // languageOverridden: null, //SM:Added
-    // newProjectContent: [], //SM:Added
     uploadedFiles: null, //SM:Added
-    //idOfProjectToUpdate: null, //SM:Added
     captcha: null, //SM:Added
-    //LanguageHelpCodeAndIds_LclJson: null, //SM:Added
-    //filelvlhelp: null,
     smusr: false,
     hosturl: '/bizzlistings',
     newImageName: '',
@@ -478,13 +462,6 @@ function getItemsList() {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
-            //alert(response);
-            //let tags = JSON.parse(response);
-            //sessionStorage.setItem("LanguageHelpCodeAndIds", JSON.stringify(response));
-            //console.log(response);
-
-            //the.LanguageHelpCodeAndIds_LclJson = response;
-
             sessionStorage.setItem("itemsList", JSON.stringify(response));
             setTimeout(() => {
                 populateItemDropDown();
@@ -550,8 +527,6 @@ function populateitemsDropDownDisplay() {
 }
 
 function showcategoryAfterURLHistUpd(category){
-
-    //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
 
     let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + category;
@@ -1388,19 +1363,6 @@ function getFullShopDetails(tags, itemstr) {
     let path = window.location.pathname;
     //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 
-    //START: Find the next item to be put at the bottom of the page
-
-
-    //let nextItemTitle = "";
-    //let nextItemTitleURL = "";
-
-
-    // let rows = allRows.filter(function (entry) {
-    //     return entry.discontinue == "0" && entry.category == category;
-    // });
-
-    //let path = window.location.pathname;
-
     let storeItems = allRows.filter(function (entry) {
         return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title != tags[0].storename;
     });
@@ -1419,9 +1381,6 @@ function getFullShopDetails(tags, itemstr) {
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
 
-    //END - Navigation Links
-
-    //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
 
     //***SM-DONOTDELETE-Maybe used later */
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
@@ -1751,298 +1710,6 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-// function editItem(btn) {
-//     let itemid = btn.dataset.itemid;
-//     let category = btn.dataset.category;
-//     let categoryseq = btn.dataset.categoryseq;
-//     let subcategory = btn.dataset.subcategory;
-//     let versionseq = btn.dataset.versionseq;
-//     let title = btn.dataset.title;
-//     let titleseq = btn.dataset.titleseq;
-//     let shortdescription = btn.dataset.shortdescription;
-//     let description = sessionStorage.getItem("data-description");
-//     let city_state_country = btn.dataset.city_state_country;
-//     let keywords = btn.dataset.keywords;
-//     let discontinue = btn.dataset.discontinue;
-
-//     $.ajax({
-//         url: the.hosturl + '/php/process.php',
-//         data: { usrfunction: "checksession" },
-//         type: 'POST',
-//         dataType: 'json',
-//         success: function (retstatus) {
-//             if (retstatus == "err") {
-//                 //alert("Please relogin");
-//                 goToLogin();
-//             }
-//         },
-//         error: function (xhr, status, error) {
-//             //console.log("")
-//         }
-//     });
-
-//     let newHTML = "<div class = 'shopContainer' >";
-//     newHTML = newHTML + " ";
-
-
-
-//     newHTML = newHTML +
-//         "<div class = 'editFieldHead'>Title: </div><br>"
-//         +
-//         "<input type='text'  id='title-" + itemid + "' style='width:95%; margin:auto;' value='" + title + "'>"
-//         + "";
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Title Sort Sequence: </div><br>" +
-//         "<input type='text' id='titleseq-" + itemid + "' style='width:95%; margin:auto;' value='" + titleseq + "'>";
-
-//     newHTML = newHTML + "<br><br><div class = 'editFieldHead'>category: </div><br>" +
-//         "<input type='text' id='category-" + itemid + "' style='width:95%; margin:auto;'  value='" + category + "'>";
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>category Sort Sequence: </div><br>" +
-//         "<input type='text' id='categoryseq-" + itemid + "' style='width:95%; margin:auto;' value='" + categoryseq + "'>";
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Path(not in use): </div><br>" +
-//         "<input type='text' id='subcategory-" + itemid + "' style='width:95%; margin:auto;' value='" + subcategory + "'>";
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Path Sort Sequence(not in use): </div><br>" +
-//         "<input type='text' id='versionseq-" + itemid + "' style='width:95%; margin:auto;' value='" + versionseq + "'>";
-
-
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Short Description: </div><br>" +
-//         "<textarea id='shortdescription-" + itemid + "' style='width:95%; margin:auto;' >" + shortdescription + "</textarea>";
-
-//     let toolbarHTML = "";
-//     //toolbarHTML =  "<button  type='button' class='itmToggledBtn btn btn-primary' onclick=toggleDescView('" + itemid + "') >Toggle View</button>" + "<br>" ;
-
-//     toolbarHTML = toolbarHTML + "<div id='toolBarId' class = 'toolBar'><div>" +
-//         "<button  title='toggle desc view' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleDescView('" + itemid + "') >TglDesc</button>" +
-//         "<button  title='toggle hide' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=toggleToolBarView() >TglHide</button>";
-
-//     //Shop - Topbanner*********************
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopTopBanner</label>"
-//         + getShopTopBannersList(itemid);
-
-//     //Shop - Items*********************
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>"
-//         + "<button title='shopItem1' type='button' style='background: url(/bizzlistings/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
-
-//     //Shop - Items*********************
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>"
-//         + "<button title='shopName1' type='button' style='background: url(/bizzlistings/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
-
-//     //Reveal Js Slide - Section - Divs*********************
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>"
-//         + "<button title='secTitlePlane1' type='button' style='background: url(/bizzlistings/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
-
-//         + "<button title='secTitleWithBG' type='button' style='background: url(/bizzlistings/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
-
-//         + "<button title='SemiTransBG' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
-
-//         + "<button title='SemiTransBG2' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
-
-//         + "<label class='toolBarlabel'>Div - Sections - Lists</label>"
-
-//         + "<button title='secWithList1' type='button' style='background: url(/bizzlistings/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
-
-//         + "<button title='titleWithItems1' type='button' style='background: url(/bizzlistings/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
-
-//         + "<button title='titleWithItems2' type='button' style='background: url(/bizzlistings/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
-
-//         + "<button title='titleWithItems3' type='button' style='background: url(/bizzlistings/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
-
-//         + "<label class='toolBarlabel'>Div - Code Explaination</label>"
-//         + "<button title='titleTextCode1' type='button' style='background: url(/bizzlistings/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
-//         + "<button title='titleTextCode2' type='button' style='background: url(/bizzlistings/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
-
-//         + "<label class='toolBarlabel'>Div - Quiz MCQ</label>"
-//         + "<button title='quizMCQFullScreen' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
-//         + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
-
-//         + "<label class='toolBarlabel'>Images</label>"
-//         + "<button title='zoomingImage1' type='button' style='background: url(/bizzlistings/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
-//         + "<hr>"
-//         + "<label for='insertInner'>Insert component before active Div:</label>"
-//         + "<input type='checkbox' id='insertInner' >";
-//     //*************ANIMATION CLASSES************* */
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>"
-//         + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"
-//         + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
-//         + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
-//         + "<br><br>Ex. " + escape("<div class='fragment fr-rotate-in-center' style='margin:auto; padding-top: 100px;  animation-duration: 4s; animation-delay: 0s; animation-iteration-count: 1'>text</div>")
-//         + "<br><br><b>ImageZooming:-</b> kenburns-top;  kenburns-left; kenburns-right; zoomingImg;"
-//         + "<br><br><b>Entrances(Reveal):-</b> scale-in-ver-top; scale-in-hor-center; scale-in-hor-right; scale-up-ver-top; slide-left; slide-right"
-//         + "<br><br><b>Entrances(Rotate):-</b> rotate-in-center; rotate-in-right; "
-//         + "<br><br><b>Entrances(Bounce):-</b> bounce-in-top; bounce-in-right; bounce-in-bottom; bounce-in-left; bounce-in-fwd; "
-//         + "<br><br><b>Entrances(Roll):-</b> roll-in-left; roll-in-top; roll-in-right; roll-in-bottom;  "
-//         + "<br><br><b>Entrances(Tilt):-</b> tilt-in-top-1; tilt-in-top-2; tilt-in-fwd-tr  "
-//         + "<br><br><b>Entrances(Swing):-</b> swing-in-top-fwd; swing-in-left-bck  "
-//         + "<br><br><b>Entrances(Text-Expand/Contract):-</b> tracking-in-expand;tracking-in-expand-fwd;tracking-in-contract-bck;tracking-in-contract;text-pop-up-top  "
-//         + "<br><br><b>Attention:-</b> shake-vertical; jello-diagonal-1; jello-horizontal;wobble-hor-bottom; wobble-hor-top; bounce-top; bounce-bottom; bounce-left; bounce-right  "
-//         + "<br><br><b>Others:-</b> slidingUp10px; slidingUp600px; slidingDown10px; slidingDown600px; slidingleft10px; slidingleft600px; slidingright10px; slidingright600px;"
-//         + "<br><br>slideFragmentUp10px;slideFragmentUp600px;slideFragmentDown10px;slideFragmentDown600px;slideFragmentLeft10px;slideFragmentLeft600px;slideFragmentRight10px; slideFragmentRight600px;"
-//         + "<br><br> </div>";
-
-//     //*************SOUNDS************* */
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Sounds (Click to insert at Carot) </label>"
-
-//         + "<button title='air-in-a-hit' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','air-in-a-hit') >air-in-a-hit</button>"
-//         + "<button title='arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','arrow-whoosh') >arrow-whoosh</button>"
-//         + "<button title='bell-ding-586' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','bell-ding-586') >bell-ding-586</button>"
-//         + "<button title='fast-blow' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-blow') >fast-blow</button>"
-//         + "<button title='fast-sweep' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','fast-sweep') >fast-sweep</button>"
-//         + "<button title='keyboard-key-presses' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','keyboard-key-presses') >keyboard-key-presses</button>"
-//         + "<button title='page-flip-01a' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','page-flip-01a') >page-flip-01a</button>"
-//         + "<button title='paper-slide' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','paper-slide') >paper-slide</button>"
-//         + "<button title='pop' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','pop') >pop</button>"
-//         + "<button title='sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','sand-swish') >sand-swish</button>"
-//         + "<button title='ui-zoom-in' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','ui-zoom-in') >ui-zoom-in</button>"
-//         + "<button title='low-arrow-whoosh' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-arrow-whoosh') >low-arrow-whoosh</button>"
-//         + "<button title='low-sand-swish' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-sand-swish') >low-sand-swish</button>"
-//         + "<button title='low-bell-ding' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','low-bell-ding') >low-bell-ding</button>";
-
-//     //*************BACKGROUND SOUNDS************* */
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Background Sounds (Click to insert at Carot) </label>"
-
-//         + "<button title='background1' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background1') >background1</button>"
-//         + "<button title='background2' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background2') >background2</button>"
-//         + "<button title='background3' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background3') >background3</button>"
-//         + "<button title='background4' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background4') >background4</button>"
-//         + "<button title='background5' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background5') >background5</button>"
-//         + "<button title='background6' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background6') >background6</button>"
-
-//         + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>";
-
-//     //****************IMAGES****************/
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
-//         + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>"
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Upload Image</label>"
-//         + "Upload Image:(e.g. myimage.png)" +
-//         "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
-//         +
-//         "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/" + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
-
-//         +
-//         "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
-
-//         +
-//         "<br><label id='image-ererrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>"
-//         +
-//         "<input class='itmUpdBtnSmall' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >"
-//         +
-//         "<input class='itmUpdBtnSmall' type='button' value='Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='insertImageAtCarot(event);'  >"
-//         +
-//         "<input class='itmUpdBtnSmall' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  ><br>"
-//         + "<label class='toolBarlabel'>Search Images (Click to Save)</label>"
-//         + "<input class = 'itmUpdBtnSmall' type='text' id='search-img' value=''> "
-//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
-//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
-//         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
-//         + "<div class='srchimages'></div>";
-
-//     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Paragraphs</label>" +
-//         "<button title='paragraph1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph1') >P1</button>" +
-//         "<button title='paragraph2 white BG' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','paragraph2') >P2</button>" +
-//         "<label class='toolBarlabel'>Ordered Lists</label>" +
-//         "<button title='ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','orderedlist') >OL1</button>" +
-//         "<button title='sub-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','suborderedlist') >OL2</button>" +
-//         "<label class='toolBarlabel'>Unordered Lists</label>" +
-//         "<button title='un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','unorderedlist') >UL1</button>" +
-//         "<button title='sub-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','subunorderedlist') >UL2</button>" +
-//         "<button title='sub2-un-ordered-list' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sub2unorderedlist') >UL3</button>" +
-//         "<label class='toolBarlabel'>Code Snippets</label>" +
-//         "<button title='Code-Dark Intellij' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript1') >Dark</button>" +
-//         "<button title='Code-Light-VSCode' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript2') >Light</button>" +
-//         "<button title='Code-CommandLine'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','codescript3') >Cmd</button>" +
-//         "<label class='toolBarlabel'>Headers</label>" +
-//         "<button title='header1' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header1') >H1</button>" +
-//         "<button title='header2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header2') >H2</button>" +
-//         "<button title='header3-padding' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header3') >H3</button>" +
-//         "<button title='header3' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','header4') >H4</button>" +
-//         "<label class='toolBarlabel'>Images</label>" +
-//         "<button title='Image-Full-width' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image1') >I1</button>" +
-//         "<button title='Image-Smaller' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image2') >I2</button>" +
-//         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image3') >I3</button>" +
-//         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image4') >I@Car</button>" +
-//         "<label class='toolBarlabel'>Messages</label>" +
-//         "<button title='Warning'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','warning') >Warn</button>" +
-//         "<button title='Error' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','error') >Err</button>" +
-//         "<button title='Green-Success' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','greenmsg') >Succ</button>" +
-
-//         "<label class='toolBarlabel'>Quiz</label>" +
-//         "<button title='Quiz1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz1') >Q1</button>" +
-//         "<button title='Quiz2' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','qz2') >Q2</button>" +
-//         "<button title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
-//         "</div>";
-
-//     //*************END OF TOOLBAR DIV */
-//     toolbarHTML = toolbarHTML + "</div><br><br><br>";
-//     //*************END OF TOOLBAR DIV */
-
-
-
-//     newHTML = newHTML + "<br><br>" +
-//         "<textarea id='descriptionTextId' class = ''   ></textarea>"
-//         +
-//         "<div class='editDescriptionDiv' contenteditable='true'  class='span2 fullWidth lyricsDiv' id='description-" + itemid + "'  >" + description + "</div>";
-
-
-//     //newHTML = newHTML + "<br><br>" +
-//     //"<textarea id='description-" + itemid + " class = 'fullWidth tiny ' rows='5'>" + description + "</textarea>";
-
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>city_state_country: </div><br>" +
-//         "<input type='text' id='city_state_country-" + itemid + "' style='width:95%; margin:auto;' value='" + city_state_country + "'>";
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
-//         "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
-
-
-//     newHTML = newHTML +
-//         "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +
-//         "<input type='text' id='discontinue-" + itemid + "' style='width:95%; margin:auto;' value='" + discontinue + "'>"
-
-//         +
-//         "<label id='updateitemerrormsg-" + itemid + "' style='color: #cc0000; font-size: 14px; min-height: 20px;'></label>";
-
-//     newHTML = newHTML +
-//         "<div class = 'saveChangesDivCls'>" +
-//         "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','n') >Save Changes</button><br>" +
-//         "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateDescription('" + itemid + "','y') >Save As New Item</button><br>" +
-//         "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
-//         "</div>" +
-//         "<br><br><br><br><br><br><br><br><br></div></div>";
-
-//     newHTML = newHTML + "</div>";
-//     newHTML = newHTML + "</div>";
-//     newHTML = newHTML + "</div>";
-
-//     document.getElementById("itemDivId").innerHTML = newHTML;
-//     document.getElementById("itemEditDivId").innerHTML = toolbarHTML;
-
-
-//     document.getElementById("itemEditDivId").style.display = "block";
-
-//     document.getElementById("itemDivId").style.width = "100%";
-//     document.getElementById("itemDivId").style.display = "block";
-    
-//     document.getElementById("mainContainer").style.width = "100%";
-//     document.getElementById("itemEditDivId").style.width = "700px";
-//     document.getElementById("itemListDivId").style.display = "none";
-
-// }
 
 function getShopTopBannersList(itemid) {
 
@@ -2062,41 +1729,7 @@ function getShopTopBannersList(itemid) {
 
 }
 
-// function toggleToolBarView() {
 
-//     if (document.getElementById("toolBarId").clientHeight > 50) {
-//         document.getElementById("toolBarId").style.height = "50px";
-//     } else {
-//         document.getElementById("toolBarId").style.height = "600px";
-//     }
-// }
-
-// function popolatenewImageName(itemid) {
-//     let name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
-//     name = name.replaceAll("#", "");
-//     the.newImageName = name;
-//     try {
-//         document.getElementById("image-" + itemid).value = name;
-//     } catch {
-
-//     }
-
-// }
-
-
-// function deleteCurrentComponent(btn) {
-
-//     btn.parentElement.remove();
-//     //btn.parentElement.innerHTML = "";
-// }
-
-// function copyCurrentComponent(btn) {
-//     let text = btn.parentElement.textContent;
-//     text = text.substring(1, text.lastIndexOf('Copy'));
-
-//     navigator.clipboard.writeText(text);
-//     console.log(text);
-// }
 
 function showImage(event) {
     let elem = event.target;
@@ -2207,14 +1840,6 @@ function uploadFile(event) {
     let saveasnameelementid = elem.dataset.saveasnameelementid;
     let itemid = elem.dataset.itemid;
 
-    //let saveasname = document.getElementById(saveasnameelementid + itemid).value;
-
-    // let saveasname = '';
-    // try {
-    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    // } catch {
-    //     saveasname = the.newImageName;
-    // }
 
     let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
 
@@ -2345,144 +1970,6 @@ function resizeImage(settings) {
     });
 }
 
-// function uploadAndInsertFile(event) {
-//     if (localStorage.getItem("userLoggedIn") == "n") {
-
-//         error_message = "Not authorized";
-//         return;
-
-//     } else if (localStorage.getItem("userLvl") != "9") {
-//         error_message = "Not authorized";
-//         return;
-//     }
-//     let elem = event.target;
-//     let fileelementid = elem.dataset.fileelementid;
-//     let saveasnameelementid = elem.dataset.saveasnameelementid;
-//     let itemid = elem.dataset.itemid;
-
-//     let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
-
-//     saveasname = saveasname.trim();
-//     saveasname = saveasname.toLowerCase();
-
-//     let errormsgelementid = elem.dataset.errormsgelementid;
-
-//     if (!saveasname.includes(".png")) {
-//         saveasname = saveasname + ".png";
-//     }
-
-//     //let files = document.getElementById(fileelementid + itemid).files;
-
-//     let elemClassname = fileelementid + itemid;
-
-//     let files = elem.parentElement.querySelector("." + elemClassname).files;
-
-//     if (files.length > 0) {
-
-
-
-//         resizeImage({
-//             file: files[0],
-//             maxSize: 500
-//         }).then(function (resizedImage) {
-//             let formData = new FormData();
-//             formData.append("file", resizedImage);
-//             formData.append("saveasname", saveasname);
-//             formData.append("dir", "img");
-
-//             let xhttp = new XMLHttpRequest();
-
-//             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-
-//             // call on request changes state
-//             xhttp.onreadystatechange = function () {
-//                 if (this.readyState == 4 && this.status == 200) {
-
-//                     let response = this.responseText;
-//                     //console.log(response);
-
-//                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-//                     let imagename = document.getElementById("image-" + itemid).value;
-//                     let randomId = "div-" + Math.floor(Math.random() * 1000000);
-//                     let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
-//                     insertImageAtCaret(Str);
-//                 }
-//             };
-
-//             xhttp.send(formData);
-
-//         }).catch(function (err) {
-//             console.error(err);
-//         });
-
-//     } else {
-//         alert("Please select a file");
-//     }
-
-// }
-
-// function SaveImageAndInsertAtCarot(event) {
-//     if (localStorage.getItem("userLoggedIn") == "n") {
-
-//         error_message = "Not authorized";
-//         return;
-
-//     } else if (localStorage.getItem("userLvl") != "9") {
-//         error_message = "Not authorized";
-//         return;
-//     }
-//     let elem = event.target;
-//     let fileelementid = elem.dataset.fileelementid;
-//     let saveasnameelementid = elem.dataset.saveasnameelementid;
-//     let itemid = elem.dataset.itemid;
-//     //popolatenewImageName(itemid);
-
-//     let saveasname = document.getElementById(saveasnameelementid + itemid).value;
-//     saveasname = saveasname.trim();
-//     saveasname = saveasname.toLowerCase();
-
-//     let errormsgelementid = elem.dataset.errormsgelementid;
-
-//     if (!saveasname.includes(".png")) {
-//         saveasname = saveasname + ".png";
-//     }
-
-//     const url = elem.dataset.imageurl;
-//     const fileName = 'tempName.png';
-
-//     fetch(url)
-//         .then(async response => {
-//             const contentType = response.headers.get('content-type')
-//             const blob = await response.blob()
-//             const filefromUrl = new File([blob], fileName, { contentType })
-//             let formData = new FormData();
-//             formData.append("file", filefromUrl);
-//             formData.append("saveasname", saveasname);
-//             formData.append("dir", "img");
-
-//             let xhttp = new XMLHttpRequest();
-
-//             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
-
-//             // call on request changes state
-//             xhttp.onreadystatechange = function () {
-//                 if (this.readyState == 4 && this.status == 200) {
-
-//                     let response = this.responseText;
-//                     //console.log(response);
-
-//                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
-//                     let imagename = document.getElementById("image-" + itemid).value;
-//                     let randomId = "div-" + Math.floor(Math.random() * 1000000);
-//                     let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
-//                     insertImageAtCaret(Str);
-//                 }
-//             };
-
-//             xhttp.send(formData);
-//         })
-// }
-
 function UploadAndReplaceBannerImg(event) {
 
     let elem = event.target;
@@ -2490,13 +1977,6 @@ function UploadAndReplaceBannerImg(event) {
     let saveasnameelementid = elem.dataset.saveasnameelementid;
     let itemid = elem.dataset.itemid;
     //popolatenewImageName(itemid);
-
-    // let saveasname = '';
-    // try {
-    //     saveasname = document.getElementById(saveasnameelementid + itemid).value;
-    // } catch {
-    //     saveasname = the.newImageName;
-    // }
 
     let saveasname = localStorage.getItem("userdata") + "-" + (Math.floor(Math.random() * 100000000000) + 1) + ".png";
 
@@ -2563,44 +2043,6 @@ function UploadAndReplaceBannerImg(event) {
 
 }
 
-// function toggleDescView(itemid) {
-//     let divId = 'description-' + itemid;
-
-//     if (document.getElementById("descriptionTextId").style.display == "block") {
-//         newHTML = document.getElementById("descriptionTextId").value;
-//         //**SM - May need to be reverted* */
-//         //newHTML = removeNewLine(newHTML);
-//         document.getElementById(divId).innerHTML = newHTML;
-
-//         document.getElementById(divId).style.display = "block";
-//         document.getElementById("descriptionTextId").style.display = "none"
-//     } else {
-//         newHTML = document.getElementById(divId).innerHTML;
-//         //**SM - May need to be reverted* */
-//         //newHTML = addNewLineInText(newHTML);
-//         document.getElementById("descriptionTextId").value = newHTML;
-
-//         document.getElementById(divId).style.display = "none";
-//         document.getElementById("descriptionTextId").style.display = "block"
-//     }
-
-// }
-
-// function addNewLineInText(innerHTML) {
-//     innerHTML = innerHTML.replaceAll("<div", "\r\n<div");
-//     innerHTML = innerHTML.replaceAll("<h1", "\r\n<h1");
-//     innerHTML = innerHTML.replaceAll("<h2", "\r\n<h2");
-//     innerHTML = innerHTML.replaceAll("<h3", "\r\n<h3");
-//     innerHTML = innerHTML.replaceAll("<ol", "\r\n<ol");
-//     innerHTML = innerHTML.replaceAll("<ul", "\r\n<ul");
-//     return innerHTML;
-// }
-
-// function removeNewLine(innerHTML) {
-//     //innerHTML = innerHTML.replaceAll( "&#13;&#10;", "");
-//     innerHTML = innerHTML.replace(/\r\n|\r|\n/g, "")
-//     return innerHTML;
-// }
 function addComponent(itemid, type, elem = "dummy") {
 
     let componentid = 'description-' + itemid;
@@ -2881,12 +2323,6 @@ function addComponent(itemid, type, elem = "dummy") {
             + shopBannerTabOptions
             + shopBannerTabContentDivs
             + "</div>";
-
-        // document.getElementById(componentid).innerHTML = partOneHTML 
-        //     + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
-        //     + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
-        //     + hdMeDiv 
-        //     + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
 
         let contentToAdd = "<div id= div-" + randomId + " class='shopTopBnrCls scale-in-center' style='animation-duration: 0.2' contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style=' margin: 10px;'><div class='slides'>" + htmlPartOrig + "</div></div>"
@@ -3547,46 +2983,7 @@ function myStore() {
                     document.getElementById("itemListDivId").style.display = "none";
                     document.getElementById("itemEditDivId").style.display = "none";
                     
-                    checkMyStores();
-
-                    // let tags = localStorage.getItem("storeinfo")
-                    // if ((tags != null) && (tags != undefined)) {
-                    //     if ((tags != "") && (tags != "null")) {
-                    //         if (tags == "n"){
-                    //             getCreateStore();
-                    //             return;
-                    //         }
-                    //     }
-                    // }
-                
-                
-                    // tags = localStorage.getItem("mystoreitemsList")
-                
-                    // if (tags != null) {
-                    //     if ((tags != "") && (tags != "null")) {
-                    //         populateMyStore(JSON.parse(tags));
-                    //         return;
-                    //     }
-                    // }
-                
-                    // $.ajax({
-                    //     url: the.hosturl + '/php/process.php',
-                    //     type: 'POST',
-                    //     data: jQuery.param({
-                    //         usrfunction: "getmystorenitems"
-                    //     }),
-                    //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    //     success: function (response) {
-                    //         //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
-                    //         //localStorage.setItem("mystoreitemsList", response);
-                    //         populateMyStore(JSON.parse(response));
-                    //     },
-                    //     error: function (xhr, status, error) {
-                    //         // console.log(error);
-                    //         // console.log(xhr);
-                    //     }
-                    // });
-                
+                    checkMyStores();               
                 }
             },
             error: function (xhr, status, error) {
@@ -4471,21 +3868,6 @@ function saveItemChanges(evt) {
                     x.classList.remove("show");
                 }, 3000);
             
-                // $.ajax({
-                //     url: the.hosturl + '/php/process.php',
-                //     type: 'POST',
-                //     data: jQuery.param({
-                //         usrfunction: "checkmystores"
-                //     }),
-                //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                //     success: function (response) {
-                //         localStorage.setItem("mystoreitemsList", response);
-                //     },
-                //     error: function (xhr, status, error) {
-                //         // console.log(error);
-                //         // console.log(xhr);
-                //     }
-                // });
             },
             error: function (xhr, status, error) {
                 console.log("failed");
@@ -4628,24 +4010,6 @@ function saveItemChanges(evt) {
                     setTimeout(function () { 
                         x.classList.remove("show");
                     }, 3000);
-
-                    // $.ajax({
-                    //     url: the.hosturl + '/php/process.php',
-                    //     type: 'POST',
-                    //     data: jQuery.param({
-                    //         usrfunction: "checkmystores"
-                    //     }),
-                    //     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    //     success: function (response) {
-                    //         localStorage.setItem("mystoreitemsList", response);
-
-                    //         //populateMyStore(JSON.parse(response));
-                    //     },
-                    //     error: function (xhr, status, error) {
-                    //         // console.log(error);
-                    //         // console.log(xhr);
-                    //     }
-                    // });
 
                 },
                 error: function (xhr, status, error) {
@@ -4838,30 +4202,6 @@ function showcategory(tech) {
 
 }
 
-
-// function showAllShopItemsInLeftPane(storename) {
-
-//     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
-//     let rows = JSON.parse(tf);
-//     let elementId = "menucardparent-" + storename
-//     elementId = elementId.replaceAll(" ", "");
-//     if (storename != "") {
-//         storename = storename.toUpperCase();
-//         rows = rows.filter(function (entry) {
-//             return (entry.storename != null) && (entry.storename.toUpperCase() == storename) && (entry.storename != entry.title);
-//         });
-//     }
-
-//     populateStoreItemsList(rows);
-
-//     document.getElementById(elementId).style.width = "95%";
-//     document.getElementById(elementId).style.maxWidth = "1200px";
-//     document.getElementById(elementId).style.float = "none";
-//     document.getElementById(elementId).style.top = "20px";
-//     document.getElementById(elementId).style.margin = "auto";
-
-//     // document.getElementById(elementId).style.overflow = "expand";
-// }
 
 function searchItem() {
 
@@ -5185,147 +4525,6 @@ function getItemAfterURLHistUpd(itemStr){
 }
 
 
-// function populateStoreItemsList(rows = "") {
-
-//     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
-//     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
-
-
-//     if (rows == "") {
-//         rows = JSON.parse(tf);
-//     }
-
-//     if (the.smusr) {
-//     } else {
-//         rows = rows.filter(function (entry) {
-//             return entry.discontinue == "0";
-//         });
-//     }
-
-//     //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
-//     //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
-//     let innerHTML = "";
-//     let itemName = "";
-//     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
-//     let storenameSqueezed = "";
-//     let storenameOrig = "";
-//     let storename = "";
-//     let storenameUrl = "";
-
-//     let category = "";
-
-//     let defaultDisplayCount = 1000;
-//     let storenameMaxCount = 0;
-//     let currDisplayCount = 0;
-
-//     for (let i = 0; i < rows.length; i++) {
-
-//         itemName = rows[i].title;
-//         itemName = itemName.replaceAll(" ", "-");
-
-//         storenameOrig = rows[i].storename;
-//         storename = rows[i].storename;
-//         category = rows[i].category;
-//         storename = storename.replaceAll(" ", "-");
-
-//         categorySpaceReplaced = category.replaceAll(" ", "-");
-
-//         //itemTitleURL = myUrl + "items/" + storename.toLowerCase() + "/" + substorename.toLowerCase() + "/" + itemName.toLowerCase();
-//         itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storename.toLowerCase() + "/" + itemName.toLowerCase();
-
-//         //storenameUrl = myUrl + "items/" + storenameOrig;
-//         storenameUrl = myUrl + storenameOrig;
-
-//         storenameSqueezed = rows[i].storename;
-//         storenameSqueezed = storenameSqueezed.replaceAll(' ', '')
-
-//         storenameMaxCount = sessionStorage.getItem("max-count-" + storenameSqueezed);
-
-//         if (i == 0) {
-//             innerHTML = innerHTML + '<div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" > <div class="storenameHeader" >';
-//             // if (the.smusr) {
-//             //     innerHTML = innerHTML + rows[i].storenameseq + '. ';
-//             // }
-//             innerHTML = innerHTML + rows[i].storename +
-
-//                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-//                 '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-
-//                 '</div>';
-//             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
-
-//         } else if (rows[i].storename != rows[i - 1].storename) {
-
-
-//             if (sessionStorage.getItem("max-count-" + rows[i - 1].storename) > defaultDisplayCount) {
-//                 sessionStorage.setItem("display-count-" + rows[i - 1].storename, defaultDisplayCount);
-//                 innerHTML = innerHTML + '<div id="itemDiv-' + rows[i - 1].itemid + '" class="itemDiv storenameFooter ' + rows[i - 1].storename + ' " >' +
-//                     '<button id="showmore-' + rows[i - 1].storename + '"  type="button" class="showmore-btn" onclick=showMoreitems("' + rows[i - 1].storename + '") >Show More</button>' +
-//                     '</div>';
-//             } else {
-//                 sessionStorage.setItem("display-count-" + rows[i - 1].storename, currDisplayCount);
-//             }
-
-//             currDisplayCount = 0;
-
-//             innerHTML = innerHTML + '</div><div id="menucardparent-' + storenameSqueezed + '"  class=" cardsContainerDivClassPadd max_4box_responsive_withmargin" ><div class="storenameHeader">';
-
-//             innerHTML = innerHTML + rows[i].storename +
-//                 //  '<label class="switch storenameToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].storename + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-//                 '<a class="goToTechLink" href ="' + storenameUrl.replaceAll(' ', '-') + '"> GO </a>' +
-//                 '</div>';
-
-//             startingCharURL = myUrl + "starting/bollywood-items-starting-with-" + rows[i].storename;
-//         }
-
-//         currDisplayCount = currDisplayCount + 1;
-
-//         if (currDisplayCount >= defaultDisplayCount) {
-//             continue;
-//         }
-
-
-//         let discontinuedFlgCls = "";
-
-//         if (rows[i].discontinue == "1") {
-//             discontinuedFlgCls = " discontinued ";
-//         }
-
-//         //It is not a new child item 
-//         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv ' + discontinuedFlgCls + storenameSqueezed + '" >';
-//         innerHTML = innerHTML + '<a class="itemLink" href ="' + itemTitleURL + '"> <span class="itemTitleSpan"  > <h2 class="itemTitleH2" >';
-
-//         if (the.smusr) {
-//             innerHTML = innerHTML + rows[i].titleseq + '. ';
-//         }
-
-//         innerHTML = innerHTML + rows[i].title + ' </h2> </span> </a>';
-//         innerHTML = innerHTML + '</div>';
-//         // }
-
-
-//         if (i == rows.length - 1) {
-//             innerHTML = innerHTML + '</div>';
-//         }
-//     }
-
-//     if (sessionStorage.getItem("max-count-" + storenameSqueezed) > defaultDisplayCount) {
-//         sessionStorage.setItem("display-count-" + storenameSqueezed, defaultDisplayCount);
-//         innerHTML = innerHTML + '<div id="itemDiv-' + rows[i].itemid + '" class="itemDiv storenameFooter ' + storenameSqueezed + ' " >' +
-//             '<button id="showmore-"' + rows[i - 1].storename + ' type="button" class="showmore-btn" onclick=showMoreitems("' + storenameSqueezed + '") >Show More</button>' +
-//             '</div>';
-//     } else {
-//         sessionStorage.setItem("display-count-" + storenameSqueezed, currDisplayCount);
-//     }
-
-//     innerHTML = innerHTML + '</div>';
-//     //document.getElementById("itemDivId").innerHTML = innerHTML;
-//     document.getElementById("itemListDivId").style.display = "block";
-//     document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-
-// }
-
 function hideAllImageNavBtns() {
 
     let btns = document.querySelectorAll(".navbtn");
@@ -5337,28 +4536,7 @@ function hideAllImageNavBtns() {
 }
 
 
-// function handleShowToggle(checkbox) {
-//     let categorySqueezed = checkbox.dataset.cat;
-//     categorySqueezed = categorySqueezed.replaceAll(' ', '');
 
-//     let catCards = document.getElementsByClassName(categorySqueezed);
-
-//     if (checkbox.checked == false) {
-//         //document.getElementsByClassName('appBanner')[0].style.visibility = 'hidden';	
-
-//         for (let i = 0; i < catCards.length; i++) {
-//             //if (i > 1){
-//             catCards[i].style.display = 'none';
-//             //}
-//         }
-//     } else {
-//         for (let i = 0; i < catCards.length; i++) {
-//             //if (i > 1){
-//             catCards[i].style.display = 'block';
-//             //}
-//         }
-//     }
-// }
 
 function goToHome() {
 
@@ -5367,30 +4545,6 @@ function goToHome() {
     myUrl = myUrl + "?target=home";
     window.location.href = myUrl;
 }
-
-// function goToItem() {
-
-//     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
-//     myUrl = myUrl + "?target=item";
-//     window.location.href = myUrl;
-// }
-
-// function goToHowToVideos() {
-
-//     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
-//     myUrl = myUrl + "?target=howto";
-//     window.location.href = myUrl;
-// }
-
-// function goToContactUs() {
-
-//     let path = window.location.pathname;
-//     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
-//     myUrl = myUrl + "?target=contactus";
-//     window.location.href = myUrl;
-// }
 
 function goToLogin() {
 
@@ -5401,18 +4555,6 @@ function goToLogin() {
     window.location.href = myUrl;
 }
 
-// function toggleCollapse(el) {
-//     //console.log("Div clicked");
-
-//     el.classList.toggle("active");
-//     let content = el.nextElementSibling;
-//     if (content.style.display === "block") {
-//         content.style.display = "none";
-//     } else {
-//         content.style.display = "block";
-//     }
-
-// }
 
 function myTopNavFunction() {
     let x = document.getElementById("myTopnav");
@@ -5508,94 +4650,6 @@ function login() {
         }
     });
 }
-
-// function loginWithoutRefresh() {
-//     document.getElementById("Subloginerrormsg").innerHTML = "<font color = red>" + " " + "</font> ";
-//     StrEmail = document.getElementById("Subemailid").value
-//     StrPass = document.getElementById("Subpassword").value
-
-//     let StrRemember = "Y"
-
-//     let StrFunction = "login";
-
-//     let error_message = "";
-
-//     if (StrEmail.trim() == "") {
-//         error_message = "Please enter the email id";
-//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     }
-
-//     let atpos = StrEmail.indexOf("@");
-//     let dotpos = StrEmail.lastIndexOf(".");
-
-//     if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= StrEmail.length) {
-//         error_message = "Email id is not valid";
-//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     }
-
-//     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(StrEmail))) {
-//         error_message = "Email id is not valid";
-//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     }
-
-//     if (StrPass.trim() == "") {
-//         error_message = "Please provide password";
-//         document.getElementById("Subloginerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
-//         return;
-//     }
-
-//     $.ajax({
-//         url: the.hosturl + '/php/process.php',
-//         data: { usremail: StrEmail, usrpassword: StrPass, usrremember: StrRemember, usrfunction: StrFunction },
-//         type: 'POST',
-//         dataType: 'json',
-//         success: function (retstatus) {
-//             //alert(substr(retstatus,4));
-//             //alert("Inside login loginWithoutRefresh retstatus =" + retstatus);
-//             //console.log( "Inside loginWithoutRefresh success retstatus =" + retstatus);
-//             if (retstatus.substring(0, 2) == "6S") {
-//                 //document.getElementById("Subloginerrormsg").innerHTML = "Login Successful"
-
-//                 loggedIn = "Y";
-//                 document.getElementById("loginLinkId").style.display = "none";
-//                 document.getElementById("SubloginDivId").style.display = "none";
-
-//                 showAdditionalMenuItemsForLoggedIn();
-//                 // document.getElementById("logoutLinkId").style.display = "block";
-//                 // document.getElementById("myfavoritesLinkId").style.display = "block";
-
-//                 document.getElementById("helpAddUpdateMsg").innerHTML = "";
-//                 //Show("projectscanner");
-
-//                 localStorage.setItem("userLoggedIn", "y");
-//                 localStorage.setItem("userLvl", retstatus.substring(2, 3));
-
-//             }
-
-//             else {
-//                 document.getElementById("Subloginerrormsg").innerHTML = "<font color = orange>" + retstatus + "</font> ";
-//             }
-//         },
-//         error: function (xhr, status, error) {
-//             alert(xhr);
-//             console.log(error);
-//             console.log(xhr);
-//         }
-//     });
-// }
-
-// function SubshowCreateAccount() {
-//     document.getElementById("SubloginSecDivId").style.display = "none"
-//     document.getElementById("SubregisterSecDivId").style.display = "block"
-// }
-
-// function SubshowLogin() {
-//     document.getElementById("SubregisterSecDivId").style.display = "none"
-//     document.getElementById("SubloginSecDivId").style.display = "block"
-// }
 
 async function Logout() {
 
@@ -6125,10 +5179,6 @@ function onMobileBrowser() {
 
 }
 
-// function providerSelected() {
-//     document.getElementById("addresscontainerDiv").style.display = "block";
-// }
-
 function setProvAddr() {
 
     let error_message = "";
@@ -6160,13 +5210,6 @@ function escape(s) {
     });
 }
 
-// function updateParentBGVideo(element) {
-//     element.parentElement.parentElement.dataset.backgroundvideo = element.value;
-//     //element.parentElement.parentElement.style.background = url('/bizzlistings/video/' + element.value);
-
-//     let selectedVid = element.parentElement.querySelector('.selectedVid');
-//     selectedVid.innerHTML = element.value;
-// }
 
 function updateParentBGImage(element) {
     element.parentElement.parentElement.dataset.background = element.value;
@@ -6183,9 +5226,6 @@ function updateParentBGImage(element) {
     let selectedImg = element.parentElement.querySelector('.selectedImg');
     selectedImg.innerHTML = element.value;
 }
-// function updateParentAutoAnimate(element) {
-//     element.parentElement.parentElement.dataset.autoanimate = element.value;
-// }
 
 function updateTextDivColor(element) {
     let rgbColor = hexToRgb(element.dataset.clr);
@@ -6761,9 +5801,6 @@ function markFavourite(elem) {
 
 function openItemChat(elem) {
         if (localStorage.getItem("userLoggedIn") == "n") {
-        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
-        //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        //     + "</div>";
 
         let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
         + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"

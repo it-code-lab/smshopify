@@ -73,6 +73,11 @@
 
    <!--REF: https://highlightjs.org/usage/ -->
    <link rel="stylesheet" href="/bizzlistings/css/default.min.css">
+   <!-- <script src="/bizzlistings/js/highlight.min.js"></script> -->
+
+   <!-- For Location Display on Map -->
+   <!-- <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
 
    <!-- For Location Display on Map -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
@@ -91,18 +96,17 @@
 
    <script src="/bizzlistings/web/common-function.js"></script>
 
-   <!-- ****SM-TO-SMADM******* -->
-   <script src="/bizzlistings/web/smadm-common-function.js"></script>
-   
-   <script src="/bizzlistings/web/chat-function.js"></script>
+  <!-- ****SM-TO-SMADM******* -->
+  <script src="/bizzlistings/web/smadm-common-function.js"></script>
 
+   <script src="/bizzlistings/web/chat-function.js"></script>
 
    <script type="application/ld+json">{
 			"@context": "https://schema.org/",
 			"@type":"WebSite","url":"https://bizzlistings.com/",
 			"name": "BizzListings - Grow your business",
 			"datePublished": "2022-07-10",
-			"description": "BizzListings - Grow your business",
+			"description": "Grow your business",
 			"thumbnailUrl": "https://bizzlistings.com/images/banner.png"         
 		 }
 		 </script>
@@ -115,20 +119,19 @@
       <div id="page-content-wrapper">
          <!-- Top navigation-->
          <div class="topnav" id="myTopnav">
-            <a id="homeLinkId" class="navLink" href="/bizzlistings/kisna/?target=home" onclick="Show('home'); return false; " >HOME</a>
+            <a id="homeLinkId" class="navLink" href="/bizzlistings/?target=home" onclick="Show('home'); return false; ">HOME</a>
 
-            <!-- SM-TODO - Remove some of these links -->
-            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/kisna/?target=item" onclick="Show('item'); return false; " >LISTINGS <i class="fa fa-caret-down"></i></a>
+            <a id="itemLinkId" class="navLink dropDownNav"  href="/bizzlistings/?target=item" onclick="Show('item'); return false; " >LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
 
-            <a id="howtoLinkId" class="navLink" href="/bizzlistings/kisna/?target=howto" onclick="Show('howto'); return false; " >HOW TO VIDEOS</a>
-            <a id="contactusLinkId" class="navLink" href="/bizzlistings/kisna/?target=contactus" onclick="Show('contactus'); return false; ">CONTACT US</a>
-            <a id="loginLinkId" class="navLink" href="/bizzlistings/kisna/?target=login"  onclick="Show('login'); return false; " >LOG IN</a>
-            <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()" onclick="Show('logout'); " >LOGOUT</a>
-            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/kisna/?target=mystore" onclick="Show('mystore');">CREATE MY STORE</a>
-            <a id="myfavoritesLinkId" class="navLink displayNone" href="javascript:myfavorites()">FAVORITES</a>
+            <a id="howtoLinkId" class="navLink" href="/bizzlistings/?target=howto" onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
+            <a id="contactusLinkId" class="navLink" href="/bizzlistings/?target=contactus" onclick="Show('contactus'); return false; ">CONTACT US</a>
+            <a id="loginLinkId" class="navLink" href="/bizzlistings/?target=login" onclick="Show('login'); return false; ">LOG IN</a>
+            <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
+            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/?target=mystore" onclick="Show('mystore'); return false;">CREATE MY STORE</a>
+            <a id="myfavoritesLinkId"class="navLink"  class="displayNone" href="javascript:myfavorites()">FAVORITES</a>
             <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
                <i class="fa fa-commenting font_size_24px" aria-hidden="true"></i>
                <span class="chatBadge displayNone">0</span>
@@ -138,16 +141,15 @@
             </a>
 
              <!-- ****SM-TO-SMADM******* -->
-            <a id="admLinkId" class="navLink dropDownNav displayNone" href="">MANAGE <i class="fa fa-caret-down"></i></a>
-            <div class="dropdown-content">
-            <a id="itemsPendingReviewLinkId" class="navLink displayNone" href="javascript:admgetItmPendingReview()">Check and approve Created Stores and Items Pending Review</a>
-            <a id="reportsPendingReviewLinkId" class="navLink displayNone" href="javascript:admgetreportsPendingReview()">Check the Issues Reported with Items and Chats</a>
-            <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:admgetaccMgMt()">Review and Manage User Accounts</a>
-            <a id="messageLinkId" class="navLink displayNone" href="javascript:admgetChatMgt()">Review Chats</a>
-            <a id="reviewsLinkId" class="navLink displayNone" href="javascript:admgetReviews()">Check and approve the review submitted for items</a>
-            <a id="checkallStoresLinkId" class="navLink" href="javascript:admcheckStores()">Check All Stores</a>
-
-         </div>
+             <a id="admLinkId" class="navLink dropDownNav displayNone" href="">MANAGE <i class="fa fa-caret-down"></i></a>
+             <div class="dropdown-content">
+             <a id="itemsPendingReviewLinkId" class="navLink displayNone" href="javascript:admgetItmPendingReview()">Check and approve Created Stores and Items Pending Review</a>
+             <a id="reportsPendingReviewLinkId" class="navLink displayNone" href="javascript:admgetreportsPendingReview()">Check the Issues Reported with Items and Chats</a>
+             <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:admgetaccMgMt()">Review and Manage User Accounts</a>
+             <a id="messageLinkId" class="navLink displayNone" href="javascript:admgetChatMgt()">Review Chats</a>
+             <a id="reviewsLinkId" class="navLink displayNone" href="javascript:admgetReviews()">Check and approve the review submitted for items</a>
+             <a id="checkallStoresLinkId" class="navLink" href="javascript:admcheckStores()">Check All Stores</a>
+            </div>
 
             <a class="searchWrapper"><span id="itemsearchDivId" ><input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
                placeholder='search' />
@@ -164,6 +166,7 @@
          <!-- End of Top navigation-->
          <!-- Page content-->
          <div id="loaderDivId">
+
             <div class="loader">
                <i class="loaderDot"></i>
                <i class="loaderDot"></i>
@@ -194,22 +197,59 @@
                            <label class="bannerSmallText scale-in-center" style="animation-delay: 1.2s; animation-duration: 1s;" >Grow your business</label>
                         </div>
                      </div>
-                     <div id="homeCardsContainerDivId" >
-                        <div class="menucard" onclick="Show('item')">
-                           <img src=" /bizzlistings/images/items.png" alt="items" class="homeCardImg">
-                           <div class="homeCardText">items</div>
-                           <hr>
-                           <div class="cardMsg">items and sample programs.</div>
-                        </div>
-
-                        <div class="menucard" onclick="Show('contactus')">
-                           <img src="/bizzlistings/images/howto.png" alt="File Scan" class="homeCardImg">
-                           <div class="homeCardText">Question or Comments</div>
-                           <hr>
-                           <div class="cardMsg">Contact Us</div>
-                        </div>
-
+                     <div class="websiteDescriptionCls bgcolor_8 font_size_18px padding_50px color_white">
+                        Welcome to BizzListings, the ultimate platform for business owners, professionals and enterpreneurs to showcase their businesses and services on the internet! With our easy-to-use website, you can create an attractive business page for your shop, business or services in as little as just 30 minutes. Your business page will provide a permanent web presence for your business, making it easy for potential customers to find you online.
                      </div>
+
+                     <div class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_3 marginbottom_50px" >   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="itemImageshow-container cursor_pointer">
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="http://localhost/bizzlistings/images/selectCategory.png"></div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="shopItemDescription padding_20px">Find your perfect category on BizzListings! With over 30 and counting categories to choose from, we can accommodate any type of business. Whether you're a restaurant owner or a freelancer, we've got a category for you.</div>
+                           </div>
+                        </div>   
+                     </div>
+
+                     <div class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_9 marginbottom_50px" >   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="itemImageshow-container cursor_pointer">
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="http://localhost/bizzlistings/images/createPage.png"></div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="shopItemDescription padding_20px">Creating your business page has never been easier! BizzListings offers sample business pages in several categories to help get you started. Simply upload related photos for your products or services and write some information about them. With our user-friendly platform, you can have your business page up and running in just 30 minutes. You can also make the changes easily</div>
+                           </div>
+                        </div>   
+                     </div>
+
+                     <div class="animate_inview  websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_6 marginbottom_50px" >   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="itemImageshow-container cursor_pointer">
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="http://localhost/bizzlistings/images/findonMap.png"></div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="max_2box_responsive padding_10px">
+                           <div class="margin_auto text_align_center">
+                              <div class="shopItemDescription padding_20px">Make it easy for potential buyers to find and connect with your business! BizzListings allows buyers to easily search for your business and products on the internet. With our built-in chat feature, you can connect with potential customers and answer any questions they may have.</div>
+                           </div>
+                        </div>   
+                     </div>
+
+                     <div class="websiteDescriptionCls bgcolor_7 font_size_18px padding_50px color_white">
+                        Don't miss out on the opportunity to grow your business online. Join the BizzListings community today and create your own business page to connect with potential customers! Our user-friendly platform makes it simple and quick to get started. Let's grow your business together!
+                     </div>
+
                      <div class="displayNone"
                         style="background-color: rgba(9, 84, 132); width: 100%; margin: 0px; padding: 20px; ">
                         <label style="color: white"> Lots of programming languages supported. Some of them are listed
@@ -234,6 +274,7 @@
                <!--*************************************************************--->
                <!--***********************START - items LIST DIV************--->
                <!--*************************************************************--->
+
 
                <div id="itemListDivId">
 
@@ -266,7 +307,7 @@
                      <label id="loginerrormsg" style="color: #cc0000; font-size: 14px;"></label>
                      <br>
                      <br>
-                     <button class="helper btnCenterAlign width_200px" onclick="admlogin();">Log in</button>
+                     <button class="helper btnCenterAlign width_200px" onclick="login();">Log in</button>
                      <br>
                      <br>
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
@@ -280,10 +321,10 @@
                      <label class="form_header_label1 scale-up-ver-top"> REGISTER </label>
                      <hr>
                      <input class="un" id='registerusname' type="text" placeholder="Your full name">
-                     <input class="un " id='registeremailid' type="text"  placeholder="Login Email Id">
-                     <input class="pass" id='registerpassword' type="password" 
+                     <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
+                     <input class="pass" id='registerpassword' type="password" align="center"
                         placeholder="Set Password">
-                     <input class="pass" id='registerpasswordre' type="password" 
+                     <input class="pass" id='registerpasswordre' type="password" align="center"
                         placeholder="Re-enter Password">
                      <br>
 
@@ -301,6 +342,7 @@
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
                      <br>
+
                   </div>
 
 
@@ -347,14 +389,13 @@
 
                   </div>
 
-
                   <div id="forgotPasswordSecDivId" class="displayNone" style="margin-top: 20px; ">
                      <label class="form_header_label1 scale-up-ver-top"> FORGOT PASSWORD </label>
                      <hr>
                      <label>Enter your email address and we will email you instructions on password reset</label>
                      <br>
                      <br>
-                     <input class="un " id='forgotpwemailid' type="text"  placeholder="Login Email Id">
+                     <input class="un " id='forgotpwemailid' type="text" align="center" placeholder="Login Email Id">
                      <br>
                      <label id="forgotpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
@@ -382,9 +423,9 @@
                      <hr>
                      <!---->
                      <br>
-                     <input class="pass" id='newpassword' type="password"  placeholder="Set New Password">
+                     <input class="pass" id='newpassword' type="password" align="center" placeholder="Set New Password">
                      <br>
-                     <input class="pass" id='newpasswordRe' type="password" 
+                     <input class="pass" id='newpasswordRe' type="password" align="center"
                         placeholder="Re-enter New Password">
                      <br>
                      <label id="newpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
@@ -455,9 +496,6 @@
             </div>
             <!-- *****END OF MAIN CONTAINER DIV -->
          </div>
-         <!-- Right Sidebar
-               <div class="splitter"  ></div>
-                           -->
          <!--**************START: HELP DISPLAY DIV**************-->
       </div>
    </div>
@@ -477,11 +515,12 @@
                <h3 class="footer-heading">
                   KEY LINKS
                </h3>
+               <!-- ****SM-TO-SMADM******* -->
                <div class="footer-languages">
-                  <a href="/bizzlistings/kisna/?target=home">Home</a>
-                  <a href="/bizzlistings/kisna/?target=item">Listings</a>
-                  <a href="/bizzlistings/kisna/?target=contactus">Contact Us</a>
-                  <a href="/bizzlistings/kisna/?target=policy">Usage Policy</a>
+                  <a onclick="Show('home'); return false;" href="/bizzlistings/kisna/?target=home">Home</a>
+                  <a onclick="Show('item'); return false;" href="/bizzlistings/kisna/?target=item">Listings</a>
+                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/kisna/?target=contactus">Contact Us</a>
+                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/kisna/?target=policy">Usage Policy</a>
 
                </div>
             </div>
@@ -556,9 +595,6 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Core theme JS-->
    <script src="/bizzlistings/js/scripts.js"></script>
-         
-         
-         -->
    <script>
       $(".panel-left").resizable({
          handleSelector: ".splitter",
@@ -577,9 +613,13 @@
       setTimeout(() => {
          getCategoryList();
       }, 0);
-
       
+      // ****SM-TO-SMADM*******
       admcheckURL();
+
+   $(window).scroll(function(){
+      checkAnimation();
+   });
    </script>
    <script src="/bizzlistings/web/onload.js"></script>
    <!-- Go to www.addthis.com/dashboard to customize your tools -->
