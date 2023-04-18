@@ -829,3 +829,55 @@ input.confirmBtn:hover {
     background-color: #766f03;
     color: #fff;
 }
+
+.sampleBusPageLinkContainer{
+    position: relative;
+    /* height: 400px; */
+    width: 100%;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    background-color: #454c60;
+    z-index: 5;
+
+    text-align: center;
+    color: white;
+    padding: 40px;
+    font-size: 18px;
+}
+
+.sampleBustxtdiv{
+    width: 70%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.sapleBusPagesList{
+    list-style: none;
+    padding-left: 0;
+}
+
+.sapleBusPagesList > *{
+    color: beige
+}
+
+.anchor_tag_btn3{
+
+       padding: 5px;
+        /* background-color: #a7a5a5; */
+        background-color: rgb(200, 153, 44);
+        color: #fff;
+        text-align: center;
+        margin: auto;
+        font-weight: normal;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 8px;
+        width: 90%;
+        max-width: 400px;
+        display: block;
+}
+.anchor_tag_btn3:hover{
+    background-color:#3770ba
+}
