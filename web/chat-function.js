@@ -188,7 +188,7 @@ const conversationHandler = () => {
 // Get conversation function - execute an AJAX request that will retrieve the conversation based on the conversation ID column
 function getConversation(id) {
     // Execute GET AJAX request
-    fetch(`/${the.hostnm}/php/chatconversation.php?id=${id}`, { cache: 'no-store' }).then(response => response.text()).then(data => {
+    fetch(`${the.hosturl}/php/chatconversation.php?id=${id}`, { cache: 'no-store' }).then(response => response.text()).then(data => {
         // Update conversation ID variable
         conversationId = id;
         // Update the status
@@ -230,10 +230,10 @@ function getConversation(id) {
                     }),
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     success: function (response) {
-                        console.log("")
+                        //console.log("")
                     },
                     error: function (xhr, status, error) {
-                        console.log("")
+                        //console.log("")
                     }
                 });
 
