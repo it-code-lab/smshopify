@@ -10,9 +10,8 @@ let the = {
     captcha: null, //SM:Added
     smusr: false,
     hosturl: '/bizzlistings',
+    hostnm:'bizzlistings',
     newImageName: '',
-
-
 };
 
 let itemImageIndex = 1;
@@ -105,7 +104,7 @@ let itemImagesDiv = '<div class="itemImageshow-container">'
 
     + '<div class="itmImgContainer">'
 
-    + '<img class="myitemImages" style="display:block" src="/bizzlistings/images/addImages.png" >'
+    + '<img class="myitemImages" style="display:block" src="/'+ the.hosturl +'/images/addImages.png" >'
 
     + '</div>'
 
@@ -529,7 +528,7 @@ function populateitemsDropDownDisplay() {
 function showcategoryAfterURLHistUpd(category){
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + category;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + category;
 
 
     const nextURL = myUrl;
@@ -636,7 +635,7 @@ function Show(pageName) {
     //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?target=" + pageName;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "?target=" + pageName;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=" + pageName;
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
@@ -1207,7 +1206,7 @@ function getOneItemOfShop(tags, itemstr) {
 
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
 
     //START: Find the next item to be put at the bottom of the page
 
@@ -1232,9 +1231,9 @@ function getOneItemOfShop(tags, itemstr) {
     let itemStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
     let storeStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].storename.replaceAll(" ", "-");
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "?target=item";
-    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + categorySpaceReplaced;
-    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + storeRow[0].title.replaceAll(" ", "-");
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=item";
+    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + categorySpaceReplaced;
+    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
         '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
@@ -1361,17 +1360,17 @@ function getFullShopDetails(tags, itemstr) {
 
 
     let path = window.location.pathname;
-    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
+    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
 
     let storeItems = allRows.filter(function (entry) {
         return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title != tags[0].storename;
     });
 
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "?target=item";
-    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + category;
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=item";
+    let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + category;
 
-    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + tags[0].storename.replaceAll(" ", "-");
+    let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + tags[0].storename.replaceAll(" ", "-");
 
     //let itemStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + title.replaceAll(" ", "-");
     let storeStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-");
@@ -1569,7 +1568,7 @@ function getItemsHTML(storeItems) {
     let newHTML = "";
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1);
     let itmCount = storeItems.length;
 
     for (let i = 0; i < storeItems.length; i++) {
@@ -1714,18 +1713,18 @@ function deg2rad(deg) {
 function getShopTopBannersList(itemid) {
 
     return "<label class='informationBox fontsize_14px'>If you want to change the design of your store banner above, use the button below to change design</label>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='/bizzlistings/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='/bizzlistings/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='/bizzlistings/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='/bizzlistings/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-A',this) ><img src='/bizzlistings/secimages/shopTopBanner3-A.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-B',this) ><img src='/bizzlistings/secimages/shopTopBanner3-B.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-C',this) ><img src='/bizzlistings/secimages/shopTopBanner3-C.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-D',this) ><img src='/bizzlistings/secimages/shopTopBanner3-D.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-E',this) ><img src='/bizzlistings/secimages/shopTopBanner3-E.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-F',this) ><img src='/bizzlistings/secimages/shopTopBanner3-F.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-G',this) ><img src='/bizzlistings/secimages/shopTopBanner3-G.png' alt='items' class='storeBannerImg'></div>"
-        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-H',this) ><img src='/bizzlistings/secimages/shopTopBanner3-H.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner1',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner1.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner2',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner2.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner4',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner4.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-A',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-A.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-B',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-B.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-C',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-C.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-D',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-D.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-E',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-E.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-F',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-F.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-G',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-G.png' alt='items' class='storeBannerImg'></div>"
+        + "<div  type='button'  class='shopTopBannerBtn max_4box_responsive hover_shadow1' onclick=addComponent('" + itemid + "','shopTopBanner3-H',this) ><img src='" + the.hosturl + "/secimages/shopTopBanner3-H.png' alt='items' class='storeBannerImg'></div>"
 
 }
 
@@ -2166,7 +2165,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2275,7 +2274,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     } else if (type == "shopTopBanner2") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-2175.png&quot;);">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-2175.png&quot;);">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
@@ -2344,7 +2343,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     } else if (type == "shopTopBanner3") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2352,7 +2351,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     } else if (type == "shopTopBanner3-A") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2360,7 +2359,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-B") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2368,7 +2367,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-C") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2376,7 +2375,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-D") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2384,7 +2383,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-E") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2392,7 +2391,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-F") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2400,7 +2399,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-G") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2408,7 +2407,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner3-H") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;/bizzlistings/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
@@ -2416,7 +2415,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     }else if (type == "shopTopBanner4") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;/bizzlistings/img/loops-in-java-5570.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5570.png&quot;); ">'
             + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
@@ -2531,7 +2530,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2551,7 +2550,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2571,7 +2570,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2592,7 +2591,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2617,7 +2616,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2645,7 +2644,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2676,7 +2675,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2687,13 +2686,13 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
     } else if (type == "zoomingImage1") {
-        let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/bizzlistings/img/animaker-test9-1414.png">';
+        let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="' + the.hosturl + '/img/animaker-test9-1414.png">';
         htmlPart = escape(htmlPartOrig);
         let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2721,7 +2720,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2741,7 +2740,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2755,13 +2754,13 @@ function addComponent(itemid, type, elem = "dummy") {
             + "\n" + '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
             + "\n" + '</div>'
 
-            + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/bizzlistings/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
 
             + "\n" + '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
-            + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/bizzlistings/sounds/bell-ding-586.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/bell-ding-586.mp3" type="audio/mp3"></audio></div>';
+            + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="' + the.hosturl + '/sounds/bell-ding-586.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/bell-ding-586.mp3" type="audio/mp3"></audio></div>';
 
         //htmlPartOrig = "Test";
         htmlPart = escape(htmlPartOrig);
@@ -2769,7 +2768,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2783,13 +2782,13 @@ function addComponent(itemid, type, elem = "dummy") {
             + "\n" + '<div class="fragment slideFragmentUp10px" style="color:#fff; font-size: x-large; text-align:left">Heading</div>'
             + "\n" + '</div>'
 
-            + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
-            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="/bizzlistings/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px  boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large;  background-color: #EA6A47; color:#fff; padding:1%;">2. ABC<audio><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">3. ABC<audio><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">4. ABC<audio><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
+            + "\n" + '<div class="fragment slideFragmentUp600px boxShadow5 ansOption" style=" margin: auto; width:90%; margin-top:1%;  font-size: x-large; background-color: #EA6A47; color:#fff; padding:1%;">5. ABC<audio><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-arrow-whoosh.mp3" type="audio/mp3"></audio></div>'
 
             + "\n" + '<div  class="fragment countDown5" style="background:#000; color:#fff; opacity: 0.4 ; width: 4%; border-radius: 10px; position: absolute; top: 1%; right: 1%">5</div>'
-            + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="/bizzlistings/sounds/low-bell-ding.wav" type="audio/wav"><source data-src="/bizzlistings/sounds/low-bell-ding.mp3" type="audio/mp3"></audio></div>';
+            + "\n" + '<div  class="fragment showRightAns" data-ans="3. ABC"><audio><source data-src="' + the.hosturl + '/sounds/low-bell-ding.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-bell-ding.mp3" type="audio/mp3"></audio></div>';
 
         //htmlPartOrig = "Test";
         htmlPart = escape(htmlPartOrig);
@@ -2797,7 +2796,7 @@ function addComponent(itemid, type, elem = "dummy") {
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2808,13 +2807,13 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
     } else if (type == "zoomingImage1") {
-        let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="/bizzlistings/img/animaker-test9-1414.png">';
+        let htmlPartOrig = '<img class="zoomingImg" style="animation-duration: 4s;" src="' + the.hosturl + '/img/animaker-test9-1414.png">';
         htmlPart = escape(htmlPartOrig);
         let hdMeDiv = "<div class='hdMeDivCls' contenteditable='false'>"
             + revealSecColor
             + secTranition
             + mediaSection
-            + "<button type='button' style='background: url(/bizzlistings/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
+            + "<button type='button' style='background: url(" + the.hosturl + "/secimages/" + type + ".png); background-size: contain;' class='itmSecImg btn btn-primary' ></button>"
             + "</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML
@@ -2829,8 +2828,8 @@ function addComponent(itemid, type, elem = "dummy") {
         (type == "low-arrow-whoosh") || (type == "low-sand-swish") ||
         (type == "sand-swish") || (type == "ui-zoom-in")) {
         let htmlToInsert = "<audio>"
-            + "<source data-src='/bizzlistings/sounds/" + type + ".wav' type='audio/wav'>"
-            + "<source data-src='/bizzlistings/sounds/" + type + ".mp3' type='audio/mp3'>"
+            + "<source data-src='" + the.hosturl + "/sounds/" + type + ".wav' type='audio/wav'>"
+            + "<source data-src='" + the.hosturl + "/sounds/" + type + ".mp3' type='audio/mp3'>"
             + "</audio>";
         insertHTMLAtCaret(escape(htmlToInsert));
     } else if (type == "code-snippet") {
@@ -3052,13 +3051,13 @@ function populateStoresList(rows = "") {
         //let comment = record.comment;
         
 
-        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
+        //let itemurl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "kisna/items/" + itemstr;
 
         innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getStoreDetails('+ "'" + title + "'" +')"  > ';
         
 
         innerHTML = innerHTML + bannerimagediv;
-        //innerHTML = innerHTML + '<img src="/bizzlistings/images/Car and bike repair.png" alt="items" class="storeCategoryImg">';
+        //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/Car and bike repair.png" alt="items" class="storeCategoryImg">';
         innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>'+ category + '</u><br>' + city_state_country.replaceAll("~", ",") + '</div>';
         
         innerHTML = innerHTML + '</div>';
@@ -3066,7 +3065,7 @@ function populateStoresList(rows = "") {
 
     
     innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getCreateStore()" > ';
-    innerHTML = innerHTML + '<div class="myShopTopBanner1"> <img src="/bizzlistings/images/createstore.png" alt="items" class="storeCategoryImg"></div>';
+    innerHTML = innerHTML + '<div class="myShopTopBanner1"> <img src="' + the.hosturl + '/images/createstore.png" alt="items" class="storeCategoryImg"></div>';
     innerHTML = innerHTML + '<div class="shopCategoryHeader1 "  >'+ '' +'</div>';
     innerHTML = innerHTML + '</div>';
 
@@ -4364,7 +4363,7 @@ function populateItemsList(rows = "") {
     let itemlocationCity = "";
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1);
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1);
     let categorySqueezed = "";
     let categoryOrig = "";
     let categoryUrl = "";
@@ -4509,7 +4508,7 @@ function populateItemsList(rows = "") {
 
 function getItemAfterURLHistUpd(itemStr){
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "items/" + itemStr;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + itemStr;
 
 
     const nextURL = myUrl;
@@ -4541,7 +4540,7 @@ function hideAllImageNavBtns() {
 function goToHome() {
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
     myUrl = myUrl + "?target=home";
     window.location.href = myUrl;
 }
@@ -4550,7 +4549,7 @@ function goToLogin() {
 
     let path = window.location.pathname;
     sessionStorage.setItem("lastUrl", window.location.href);
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
     myUrl = myUrl + "?target=login";
     window.location.href = myUrl;
 }
@@ -4690,7 +4689,7 @@ async function Logout() {
                 //window.open(myUrl + "?target=" + "projectscanner", "_self");	
 
                 let path = window.location.pathname;
-                let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "?target=home";
+                let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=home";
 
                 window.open(myUrl, "_self");
             }
@@ -5213,14 +5212,14 @@ function escape(s) {
 
 function updateParentBGImage(element) {
     element.parentElement.parentElement.dataset.background = element.value;
-    //element.parentElement.parentElement.style.backgroundImage  = "url('/bizzlistings/img/" + element.value + "')";
+    //element.parentElement.parentElement.style.backgroundImage  = "url('" + the.hosturl + "/img/" + element.value + "')";
 
     //let parentSecDiv = element.parentElement.parentElement;
     //let previewDiv = parentSecDiv.querySelector('.secPreview');
     let previewDiv = document.querySelector('.secPreview');
 
     if (previewDiv.style.display != "none") {
-        previewDiv.style.backgroundImage = "url('/bizzlistings/img/" + element.value + "')";
+        previewDiv.style.backgroundImage = "url(" +the.hosturl + "'/img/" + element.value + "')";
     }
 
     let selectedImg = element.parentElement.querySelector('.selectedImg');
@@ -5305,8 +5304,8 @@ function updatePreviewDiv(element) {
             previewDiv.style.backgroundColor = parentSecDiv.dataset.bgcolor;
         } else {
             //Background image
-            //secProps = secProps + " data-background-image = '/bizzlistings/img/" + parentSecDiv.dataset.background + "' ";
-            previewDiv.style.backgroundImage = "url('/bizzlistings/img/" + parentSecDiv.dataset.background + "')";
+            //secProps = secProps + " data-background-image = '" + the.hosturl +"/img/" + parentSecDiv.dataset.background + "' ";
+            previewDiv.style.backgroundImage = "url('" + the.hosturl + "/img/" + parentSecDiv.dataset.background + "')";
         }
     } else {
         //Background video
@@ -5340,7 +5339,7 @@ function updatePreviewUsingDivs(componentid) {
                 secProps = secProps + " data-background = '" + element.dataset.bgcolor + "'";
             } else {
                 //Background image
-                secProps = secProps + " data-background-image = '/bizzlistings/img/" + element.dataset.background + "' ";
+                secProps = secProps + " data-background-image = '" + the.hosturl +"/img/" + element.dataset.background + "' ";
             }
         } else {
             //Background video
@@ -6345,7 +6344,7 @@ function showpolicyAfterURLHistUpd(){
     //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "?target=policy";
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=policy";
 
 
     const nextURL = myUrl;
@@ -6442,7 +6441,7 @@ function mychat(){
  
     //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
 
-    fetch('/bizzlistings/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
+    fetch(the.hosturl + '/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
         // Update the status
         //status = 'Idle';
         // Update the conversations tab content

@@ -1041,44 +1041,44 @@ function admEditItem(btn) {
     //Shop - Items*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - shopItems</label>"
-        + "<button title='shopItem1' type='button' style='background: url(/bizzlistings/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
+        + "<button title='shopItem1' type='button' style='background: url(" + the.hosturl + "/secimages/shopItem1.png); background-size: contain;' class='shopItem btn btn-primary' onclick=addComponent('" + itemid + "','shopItem1') ></button>";
 
     //Shop - Items*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Check Store Name Availability</label>"
-        + "<button title='shopName1' type='button' style='background: url(/bizzlistings/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
+        + "<button title='shopName1' type='button' style='background: url(" + the.hosturl + "/secimages/shopName1.png); background-size: contain;' class='shopName btn btn-primary' onclick=addComponent('" + itemid + "','shopName1') ></button>";
 
     //Reveal Js Slide - Section - Divs*********************
 
     toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>"
-        + "<button title='secTitlePlane1' type='button' style='background: url(/bizzlistings/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
+        + "<button title='secTitlePlane1' type='button' style='background: url(" + the.hosturl + "/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>"
 
-        + "<button title='secTitleWithBG' type='button' style='background: url(/bizzlistings/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
+        + "<button title='secTitleWithBG' type='button' style='background: url(" + the.hosturl + "/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>"
 
-        + "<button title='SemiTransBG' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
+        + "<button title='SemiTransBG' type='button' style='background: url(" + the.hosturl + "/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>"
 
-        + "<button title='SemiTransBG2' type='button' style='background: url(/bizzlistings/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
+        + "<button title='SemiTransBG2' type='button' style='background: url(" + the.hosturl + "/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>"
 
         + "<label class='toolBarlabel'>Div - Sections - Lists</label>"
 
-        + "<button title='secWithList1' type='button' style='background: url(/bizzlistings/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
+        + "<button title='secWithList1' type='button' style='background: url(" + the.hosturl + "/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>"
 
-        + "<button title='titleWithItems1' type='button' style='background: url(/bizzlistings/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
+        + "<button title='titleWithItems1' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>"
 
-        + "<button title='titleWithItems2' type='button' style='background: url(/bizzlistings/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
+        + "<button title='titleWithItems2' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>"
 
-        + "<button title='titleWithItems3' type='button' style='background: url(/bizzlistings/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
+        + "<button title='titleWithItems3' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>"
 
         + "<label class='toolBarlabel'>Div - Code Explaination</label>"
-        + "<button title='titleTextCode1' type='button' style='background: url(/bizzlistings/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
-        + "<button title='titleTextCode2' type='button' style='background: url(/bizzlistings/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
+        + "<button title='titleTextCode1' type='button' style='background: url(" + the.hosturl + "/secimages/titleTextCode1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode1') ></button>"
+        + "<button title='titleTextCode2' type='button' style='background: url(" + the.hosturl + "/secimages/titleTextCode2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleTextCode2') ></button>"
 
         + "<label class='toolBarlabel'>Div - Quiz MCQ</label>"
-        + "<button title='quizMCQFullScreen' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
-        + "<button title='quizMCQFullScreenLow' type='button' style='background: url(/bizzlistings/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
+        + "<button title='quizMCQFullScreen' type='button' style='background: url(" + the.hosturl + "/secimages/quizMCQFullScreen.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreen') ></button>"
+        + "<button title='quizMCQFullScreenLow' type='button' style='background: url(" + the.hosturl + "/secimages/quizMCQFullScreenLow.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQFullScreenLow') ></button>"
 
         + "<label class='toolBarlabel'>Images</label>"
-        + "<button title='zoomingImage1' type='button' style='background: url(/bizzlistings/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
+        + "<button title='zoomingImage1' type='button' style='background: url(" + the.hosturl + "/secimages/zoomingImage1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','zoomingImage1') ></button>"
         + "<hr>"
         + "<label for='insertInner'>Insert component before active Div:</label>"
         + "<input type='checkbox' id='insertInner' >";
@@ -2165,7 +2165,6 @@ function admlogin() {
 
 function updateParentBGVideo(element) {
     element.parentElement.parentElement.dataset.backgroundvideo = element.value;
-    //element.parentElement.parentElement.style.background = url('/bizzlistings/video/' + element.value);
 
     let selectedVid = element.parentElement.querySelector('.selectedVid');
     selectedVid.innerHTML = element.value;
