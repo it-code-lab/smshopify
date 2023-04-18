@@ -1105,7 +1105,8 @@ function fnGetItem(itemstr) {
             let tags = JSON.parse(response);
             if (tags[0].title == "Create My Store") {
                 getCreateStore();
-            } else if (tags[0].title != tags[0].storename) {
+            //} else if (tags[0].title != tags[0].storename) {
+            } else if (tags.length < 3 ) {
                 getOneItemOfShop(tags);
                 $(".cardsContainerDivClassPadd").css("width", "95%");
                 $(".cardsContainerDivClassPadd").css("margin", "auto");
@@ -1362,36 +1363,41 @@ function getOneItemOfShop(tags, itemstr) {
 }
 
 function getFullShopDetails(tags, itemstr) {
+    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    let allRows = JSON.parse(tf);
 
-    let itemid = tags[0].itemid;
-    let itemuid = tags[0].itemuid;
-    let category = tags[0].category;
-    let categoryseq = tags[0].categoryseq;
-    let subcategory = tags[0].subcategory;
-    let versionseq = tags[0].versionseq;
-    let title = tags[0].title;
-    let titleseq = tags[0].titleseq;
-    let shortdescription = tags[0].shortdescription;
-    let description = tags[0].description;
-    let city_state_country = tags[0].city_state_country;
-    let keywords = tags[0].keywords;
-    let discontinue = tags[0].discontinue;
+    let storeRow = allRows.filter(function (entry) {
+        return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title == tags[0].storename;
+    });
+
+    //let itemid = tags[0].itemid;
+    //let itemuid = tags[0].itemuid;
+    let category = storeRow[0].category;
+    //let categoryseq = tags[0].categoryseq;
+    let subcategory = storeRow[0].subcategory;
+    //let versionseq = tags[0].versionseq;
+    let title = storeRow[0].title;
+    //let titleseq = tags[0].titleseq;
+    //let shortdescription = tags[0].shortdescription;
+    let description = storeRow[0].description;
+    //let city_state_country = tags[0].city_state_country;
+    let keywords = storeRow[0].keywords;
+    //let discontinue = tags[0].discontinue;
 
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
+    //let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
 
     //START: Find the next item to be put at the bottom of the page
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
-    let nextItemTitle = "";
-    let nextItemTitleURL = "";
-    let allRows = JSON.parse(tf);
+    //let nextItemTitle = "";
+    //let nextItemTitleURL = "";
 
-    let rows = allRows.filter(function (entry) {
-        return entry.discontinue == "0" && entry.category == category;
-    });
+
+    // let rows = allRows.filter(function (entry) {
+    //     return entry.discontinue == "0" && entry.category == category;
+    // });
 
     //let path = window.location.pathname;
 
@@ -1425,23 +1431,23 @@ function getFullShopDetails(tags, itemstr) {
     newHTML = newHTML + "<div class = 'shopLyrics' >" + "<div class = 'storeItemDivCls' >";
 
     //Start: div class="slides"
-    if (tags[0].bannerhtml != undefined) {
-        if (tags[0].bannerhtml != "") {
+    if (storeRow[0].bannerhtml != undefined) {
+        if (storeRow[0].bannerhtml != "") {
             newHTML = newHTML
-                + '<div class="slides slide-in-left" style="animation-delay: 0.2s">' + tags[0].bannerhtml + '</div>';
+                + '<div class="slides slide-in-left" style="animation-delay: 0.2s">' + storeRow[0].bannerhtml + '</div>';
         }
     }
 
-    if (tags[0].description != undefined) {
-        if (tags[0].description != "") {
+    if (storeRow[0].description != undefined) {
+        if (storeRow[0].description != "") {
             newHTML = newHTML
-                + '<div class="shopDescriptionCls bgcolor_8 padding_50px color_white">' + tags[0].description + '</div>';
+                + '<div class="shopDescriptionCls bgcolor_8 padding_50px color_white">' + storeRow[0].description + '</div>';
         }
     }
 
     //End: div class="slides"
 
-    newHTML = newHTML + getShopLocationAndHours(tags);
+    newHTML = newHTML + getShopLocationAndHours(storeRow);
 
     //newHTML = newHTML + '<div class="fullwidthdummydiv bottom_shadow">&nbsp;</div>';
 
