@@ -1280,7 +1280,7 @@ function copyCurrentComponent(btn) {
     text = text.substring(1, text.lastIndexOf('Copy'));
 
     navigator.clipboard.writeText(text);
-    console.log(text);
+    // console.log(text);
 }
 
 function admuploadAndInsertFile(event) {
@@ -1477,8 +1477,8 @@ function admgetItmPendingReview(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 
@@ -1504,8 +1504,8 @@ function admcheckStores(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 
@@ -1582,8 +1582,8 @@ function admgetreportsPendingReview(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 
@@ -1656,8 +1656,8 @@ function admgetReviews(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 
@@ -1737,8 +1737,8 @@ function admgetaccMgMt(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -1932,8 +1932,8 @@ function admgetChat(chatid){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -2161,8 +2161,8 @@ function admlogin() {
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }

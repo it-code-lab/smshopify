@@ -433,7 +433,29 @@ function autocomplete(inp, arr) {
     //console.log("Autocomplete End Time = " + new Date());
 }
 
+function getInfo(){
+    let tags = localStorage.getItem("posinf")
+    if (tags != null) {
+        if ((tags != "") && (tags != "null")) {            
+            return;
+        }
+    }
 
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "info"
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            localStorage.setItem("posinf", response);
+        },
+        error: function (xhr, status, error) {
+            //console.log("error");
+        }
+    });    
+}
 
 function getItemsList() {
 
@@ -471,8 +493,8 @@ function getItemsList() {
            }, 10);
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -497,8 +519,8 @@ function getCategoryList() {
             sessionStorage.setItem("categoryList", JSON.stringify(response));
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -946,10 +968,9 @@ function checkURL() {
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Login to create or access your store";
-            //x.className = "show";
+
             x.classList.add("show");
             setTimeout(function () { 
-                //x.className = x.className.replace("show", ""); 
                 x.classList.remove("show");
             }, 3000);
 
@@ -1096,7 +1117,7 @@ function fnGetItem(itemstr) {
             }
         },
         error: function (xhr, status, error) {
-            console.log("error");
+            //console.log("error");
             //console.log(xhr);
         }
     });
@@ -1512,7 +1533,27 @@ function getShopLocationAndHours(tags) {
         newHTML = newHTML + shopAddr + '</div>';
     }
 
-    if ((tags[0].coordinatesfromaddress != undefined) && (tags[0].coordinatesfromaddress != null) && (tags[0].coordinatesfromaddress != "") && (tags[0].coordinatesfromaddress != "null,null")) {
+    if (tags[0].subcategory == "Sample"){
+
+        let info = localStorage.getItem("posinf");
+        if (info != null) {
+            if ((info != "") && (info != "null") && (info != ",")) {  
+
+                let crd = info.split(",");
+                newHTML = newHTML
+                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: This is not a real shop. It is a sample business listing page for demo';
+    
+                setTimeout(function () {
+                    let latitude = crd[0];
+                    let longitude = crd[1];
+                    const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                    L.marker([latitude, longitude]).addTo(map);
+                }, 10);
+            }
+        }
+
+    }else if ((tags[0].coordinatesfromaddress != undefined) && (tags[0].coordinatesfromaddress != null) && (tags[0].coordinatesfromaddress != "") && (tags[0].coordinatesfromaddress != "null,null")) {
 
         let crd = tags[0].coordinatesfromaddress.split(",");
         
@@ -3020,8 +3061,8 @@ function checkMyStores(){
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            //console.log(error);
+            //console.log(xhr);
         }
     });
 
@@ -3875,7 +3916,7 @@ function saveItemChanges(evt) {
             
             },
             error: function (xhr, status, error) {
-                console.log("failed");
+                //console.log("failed");
             }
         });
     } else {        
@@ -4018,7 +4059,7 @@ function saveItemChanges(evt) {
 
                 },
                 error: function (xhr, status, error) {
-                    console.log("failed");
+                    //console.log("failed");
                 }
             }); 
     }
@@ -4127,9 +4168,9 @@ function setPassword() {
 
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
-            console.log(status);
+            // console.log(error);
+            // console.log(xhr);
+            // console.log(status);
             document.getElementById("newpwerrormsg").innerHTML = "There was a problem in completing the request. Issue has been logged and will be resolved soon. Please try again later";
         }
     });
@@ -4461,8 +4502,12 @@ function populateItemsList(rows = "") {
 
             if (rows[i].city_state_country != undefined) {
                 if (rows[i].city_state_country != "") {
-                    let arr = rows[i].city_state_country.split("~");
-                    innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';
+                    if (rows[i].subcategory != "Sample"){
+                        let arr = rows[i].city_state_country.split("~");
+                        innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
+                    }else {
+                        innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + '< 20Km' + '</a>';    
+                    }
                 }
             }
 
@@ -4650,8 +4695,8 @@ function login() {
         },
         error: function (xhr, status, error) {
             //alert(xhr);
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -4705,8 +4750,8 @@ async function Logout() {
             }
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
+            // console.log(error);
+            // console.log(xhr);
         }
     });
 }
@@ -4808,9 +4853,9 @@ function register() {
 
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
-            console.log(status);
+            // console.log(error);
+            // console.log(xhr);
+            // console.log(status);
             document.getElementById("registererrormsg").innerHTML = "There was a problem in completing registration. Issue has been logged and will be resolved soon. Please try again later";
         }
     });
@@ -5017,9 +5062,9 @@ function Subregister() {
 
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
-            console.log(status);
+            // console.log(error);
+            // console.log(xhr);
+            // console.log(status);
             document.getElementById("Subregistererrormsg").innerHTML = "There was a problem in completing registration. Issue has been logged and will be resolved soon. Please try again later";
         }
     });
@@ -5083,9 +5128,9 @@ function forgotpw() {
 
         },
         error: function (xhr, status, error) {
-            console.log(error);
-            console.log(xhr);
-            console.log(status);
+            // console.log(error);
+            // console.log(xhr);
+            // console.log(status);
             document.getElementById("forgotpwerrormsg").innerHTML = "There was a problem in completing the request. Issue has been logged and will be resolved soon. Please try again later";
         }
     });
@@ -5755,21 +5800,25 @@ function logCommon(msg) {
 function markFavourite(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
 
+
         // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites"
-        //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        //     + "</div>";
+        // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        // + "</div>";
 
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to add this to your favourites"
-        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-        + "</div>";
+        // document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+        // placePopupUnderClickedBtnParent(elem);
+        // setTimeout(() => {
+        //     document.getElementById("popupDivId").style.display = "none";
+        // }, 5000);
 
-        placePopupUnderClickedBtnParent(elem);
-        setTimeout(() => {
-            document.getElementById("popupDivId").style.display = "none";
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Login to add this to your favourites";
+
+        x.classList.add("show");
+        setTimeout(function () { 
+            x.classList.remove("show");
         }, 5000);
-
 
 
     } else {
@@ -5780,24 +5829,40 @@ function markFavourite(elem) {
             innerIcon.classList.remove('color_light_pink');
             innerIcon.classList.add('color_red_heart');
             addToFavorites(elem);
-            let tempHTML = "Added to your favourites"
-            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-            + "</div>";
+            // let tempHTML = "Added to your favourites"
+            // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+            // + "</div>";
 
-            document.getElementById("popupDivId").innerHTML = tempHTML;
-            placePopupUnderClickedBtnParent(elem);
+            // document.getElementById("popupDivId").innerHTML = tempHTML;
+            // placePopupUnderClickedBtnParent(elem);
+
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Added to your favourites";
+
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 5000);
+
         } else {
 
 
             innerIcon.classList.remove('color_red_heart');
             innerIcon.classList.add('color_light_pink');
             removeFromFavorites(elem);
-            let tempHTML = "Removed from your favourites"
-            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-            + "</div>";
+            // let tempHTML = "Removed from your favourites"
+            // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+            // + "</div>";
 
-            document.getElementById("popupDivId").innerHTML = tempHTML;
-            placePopupUnderClickedBtnParent(elem);
+            // document.getElementById("popupDivId").innerHTML = tempHTML;
+            // placePopupUnderClickedBtnParent(elem);
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Removed from your favourites";
+
+            x.classList.add("show");
+            setTimeout(function () { 
+                x.classList.remove("show");
+            }, 5000);            
         }
 
 
@@ -5807,16 +5872,25 @@ function markFavourite(elem) {
 function openItemChat(elem) {
         if (localStorage.getItem("userLoggedIn") == "n") {
 
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
-        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-        + "</div>";
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
+        // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        // + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+        // document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtnParent(elem);
-        setTimeout(() => {
-            document.getElementById("popupDivId").style.display = "none";
-        }, 5000);        
+        // placePopupUnderClickedBtnParent(elem);
+        // setTimeout(() => {
+        //     document.getElementById("popupDivId").style.display = "none";
+        // }, 5000);        
+
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Login to contact the listing owner";
+
+        x.classList.add("show");
+        setTimeout(function () { 
+            x.classList.remove("show");
+        }, 5000);
+
     } else {
 
         let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
@@ -5845,58 +5919,84 @@ function openItemChat(elem) {
 
 function provideReview(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
-        + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-        + "</div>";
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to submit review for this item "
+        // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        // + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+        // document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtnParent(elem);
+        // placePopupUnderClickedBtnParent(elem);
 
-        setTimeout(() => {
-            document.getElementById("popupDivId").style.display = "none";
-        }, 5000);
+        // setTimeout(() => {
+        //     document.getElementById("popupDivId").style.display = "none";
+        // }, 5000);
+
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Login to submit review for this item";
+
+        x.classList.add("show");
+        setTimeout(function () { 
+            x.classList.remove("show");
+        }, 3000);
 
     } else {
         let tempHTML = ratingStars
             + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Select rating stars and enter review comments"></div>'
             + '<button class="helper width_100px margintop_10px float_left" onclick="submitReview(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
 
-            + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+            + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
             + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+            
+        document.getElementById("modalhtmlid").innerHTML = tempHTML;
+        document.getElementById("myModal").style.display = "block";
 
-        placePopupUnderClickedBtnParent(elem);
+        //document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        //placePopupUnderClickedBtnParent(elem);
 
     }
 }
 
 function reportItem(elem) {
     if (localStorage.getItem("userLoggedIn") == "n") {
-        let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
-            + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
-            + "</div>";
+        // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to report issue with this item "
+        //     + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
+        //     + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+        // document.getElementById("popupDivId").innerHTML = tempHTML;
 
-        placePopupUnderClickedBtnParent(elem);
+        // placePopupUnderClickedBtnParent(elem);
 
-        setTimeout(() => {
-            document.getElementById("popupDivId").style.display = "none";
+        // setTimeout(() => {
+        //     document.getElementById("popupDivId").style.display = "none";
+        // }, 5000);
+
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Login to report issue with this item";
+
+        x.classList.add("show");
+        setTimeout(function () { 
+            x.classList.remove("show");
         }, 5000);
 
     } else {
-        let tempHTML = '<div class="warningMsg width_250px">Please use this only to report inappropriate listing</div>'
+        let tempHTML = '<div class="warningMsg">Please use this only to report inappropriate listing</div>'
             + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of why this listing is inappropriate"></div>'
             + '<button class="helper width_100px margintop_10px float_left" onclick="reportIssue(' + "'" + elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid + "'" + ');">Submit</button>'
 
-            + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+            + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
             + "</div>";
 
-        document.getElementById("popupDivId").innerHTML = tempHTML;
+        document.getElementById("modalhtmlid").innerHTML = tempHTML;
+        document.getElementById("myModal").style.display = "block";
 
-        placePopupUnderClickedBtnParent(elem);
+        //document.getElementById("popupDivId").innerHTML = tempHTML;
+
+        //placePopupUnderClickedBtnParent(elem);
+
+
+
     }
 }
 
@@ -5904,22 +6004,22 @@ function reportItem(elem) {
 
 function placePopupUnderClickedBtnParent(elem) {
     $("#popupDivId").css({
-        'position': 'absolute',
-        'left': elem.parentElement.offsetLeft,
-        'top': elem.offsetTop + elem.clientHeight + 50,
+        // 'position': 'absolute',
+        // 'left': elem.parentElement.offsetLeft,
+        // 'top': elem.offsetTop + elem.clientHeight + 50,
         'display': 'block'
     })
-    //}).show("slow").delay(3000).hide("slow");
+    
 }
 
 function placePopupUnderClickedBtn(elem) {
     $("#popupDivId").css({
-        'position': 'absolute',
-        'left': elem.offsetLeft,
-        'top': elem.offsetTop + elem.clientHeight + 50,
+        // 'position': 'absolute',
+        // 'left': elem.offsetLeft,
+        // 'top': elem.offsetTop + elem.clientHeight + 50,
         'display': 'block'
     })
-    //}).show("slow").delay(3000).hide("slow");
+    
 }
 
 function placePopupAtPosFromBtn(elem, xDir, yDir ) {
@@ -5935,9 +6035,9 @@ function placePopupAtPosFromBtn(elem, xDir, yDir ) {
     }
 
     $("#popupDivId").css({
-        'position': 'absolute',
-        'left': leftOffset + xDir + "px",
-        'top': topOffset + yDir + "px",
+        // 'position': 'absolute',
+        // 'left': leftOffset + xDir + "px",
+        // 'top': topOffset + yDir + "px",
         'display': 'block'
     })
 }
@@ -5954,9 +6054,9 @@ function placePopupAtPosFromBtnXOffset(elem, xDir, yDir ) {
     }
 
     $("#popupDivId").css({
-        'position': 'absolute',
-        'left': leftOffset + xDir + "px",
-        'top': topOffset + yDir + "px",
+        // 'position': 'absolute',
+        // 'left': leftOffset + xDir + "px",
+        // 'top': topOffset + yDir + "px",
         'display': 'block'
     })
 }
@@ -6173,16 +6273,25 @@ function submitReview(itemid) {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
+            //console.log("");
         },
         error: function (xhr, status, error) {
+            //console.log("err");
         }
     });
+    closeModal();
+    let x = document.getElementById("toastsnackbar");
+    x.innerHTML = "Thank you for submitting your review";
 
-    let tempHTML = "Thank you for submitting your review."
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        + "</div>";
+    x.classList.add("show");
+    setTimeout(function () { 
+        x.classList.remove("show");
+    }, 5000);
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+    // let tempHTML = "Thank you for submitting your review."
+    //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+    //     + "</div>";
+    // document.getElementById("popupDivId").innerHTML = tempHTML;
     //placePopupUnderClickedBtnParent(elem);
 }
 
@@ -6212,16 +6321,29 @@ function reportIssue(itemid) {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
+            console.log("");
         },
         error: function (xhr, status, error) {
+            console.log("");
         }
     });
 
-    let tempHTML = "Thank you for reporting the issue."
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        + "</div>";
+    closeModal();
+    let x = document.getElementById("toastsnackbar");
+    x.innerHTML = "Thank you for reporting the issue";
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+    x.classList.add("show");
+    setTimeout(function () { 
+        x.classList.remove("show");
+    }, 5000);
+
+    // let tempHTML = "Thank you for reporting the issue."
+    //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+    //     + "</div>";
+
+    // document.getElementById("popupDivId").innerHTML = tempHTML;
+
+
     //placePopupUnderClickedBtnParent(elem);
 }
 
@@ -6255,11 +6377,21 @@ function reportChatIssue(convid){
         }
     });
 
-    let tempHTML = "Thank you for reporting the issue."
-        + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
-        + "</div>";
+    closeModal();
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+    let x = document.getElementById("toastsnackbar");
+    x.innerHTML = "Thank you for reporting the issue";
+
+    x.classList.add("show");
+    setTimeout(function () { 
+        x.classList.remove("show");
+    }, 5000);
+
+    // let tempHTML = "Thank you for reporting the issue."
+    //     + '<button class="helper btnCenterAlign width_100px margintop_10px" onclick="closePopup();">Close</button>'
+    //     + "</div>";
+
+    // document.getElementById("popupDivId").innerHTML = tempHTML;
     //placePopupUnderClickedBtnParent(elem);
 }
 
@@ -6501,14 +6633,17 @@ function mychat(){
 function reportChatUser(elem){
     let convid = document.getElementById("convid").value;
 
-    let tempHTML = '<div class="warningMsg width_250px">Please use this only to report inappropriate messages</div>'
+    let tempHTML = '<div class="warningMsg">Please use this only to report inappropriate messages</div>'
     + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of what was inappropriate in the message"></div>'
     + '<button class="helper width_100px margintop_10px float_left" onclick="reportChatIssue(' + "'" + convid + "'" + ');">Submit</button>'
 
-    + '<button class="helper width_100px margintop_10px float_right" onclick="closePopup();">Cancel</button>'
+    + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
     + "</div>";
 
-    document.getElementById("popupDivId").innerHTML = tempHTML;
+    document.getElementById("modalhtmlid").innerHTML = tempHTML;
+    document.getElementById("myModal").style.display = "block";
+
+    //document.getElementById("popupDivId").innerHTML = tempHTML;
 
     //placePopupUnderClickedBtn(elem);
     //placePopupUnderClickedBtnParent(elem);
@@ -6543,3 +6678,6 @@ function checkAnimation(){
     });
 }
 
+function closeModal(){
+    document.getElementById("myModal").style.display = "none";
+}
