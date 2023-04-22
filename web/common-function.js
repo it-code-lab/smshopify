@@ -2244,7 +2244,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding-top: 100px;background-color: rgb(91, 94, 166); color: white;">'
-            + "\n" + '<div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div>'
+            + "\n" + '<div contenteditable="false" class="bannerStoreNameCls">My Store Name</div>'
             + "\n" + '</div>';
 
 
@@ -2322,7 +2322,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner2") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-2175.png&quot;);">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -2391,7 +2391,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner3") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2399,7 +2399,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner3-A") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2407,7 +2407,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-B") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2415,7 +2415,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-C") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2423,7 +2423,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-D") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2431,7 +2431,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-E") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2439,7 +2439,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-F") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2447,7 +2447,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-G") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2455,7 +2455,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-H") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2463,7 +2463,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner4") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5570.png&quot;); ">'
-            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div style="font-size:30px" contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -6507,7 +6507,7 @@ function showPolicy(){
 
     let tempHTML = '<div class="header_1 slide-in-left"><label class="bannerLargeText">Usage Policy</label><br><hr></div>';
     tempHTML = tempHTML + "<p>The following Fair Usage Policy is designed to ensure that all users of our website can benefit from a fair and equal experience. By using our website, you agree to abide by this policy.</p> <ol>    <li>Prohibited Activities: You are not allowed to engage in any activities that could harm the website or its users, including, but not limited to:</li> </ol><p>a) Posting or uploading any inappropriate, offensive, or illegal content. b) Attempting to gain unauthorized access to other users&apos; accounts or personal information. c) Engaging in any fraudulent or deceptive practices. d) Harassing, threatening, or intimidating other users. e) Violating any applicable laws or regulations.</p> <ol start='2'>    <li>         <p>Limitations on Usage: We reserve the right to limit or restrict your usage of the website if we suspect that you are engaging in any activities that are not in compliance with this policy or our terms and conditions.</p>    </li>     <li>        <p>Account Suspension or Termination: We reserve the right to suspend or terminate your account if we determine that you have violated this policy or our terms and conditions. We may also suspend or terminate your account if we receive complaints from other users about your behavior on the website.</p>     </li>    <li>         <p>Monitoring: We may monitor your usage of the website to ensure compliance with this policy and our terms and conditions. This may include reviewing your account activity, messages, and posts.</p>    </li>     <li>        <p>Changes to Policy: We may change this Fair Usage Policy at any time without prior notice. Your continued use of the website after any changes to this policy will constitute your acceptance of the revised policy.</p>     </li></ol> <p>By using our website, you acknowledge that you have read, understood, and agree to abide by this Fair Usage Policy.</p>";
-    tempHTML = tempHTML + '<br> <br> <button class="button_type1 btnCenterAlign width_200px" onclick="goToPrevURL()">Close</button><br><br><br>';
+    tempHTML = tempHTML + '<br> <br> <button class="helper btnCenterAlign width_200px" onclick="goToPrevURL()">Close</button><br><br><br>';
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = tempHTML;
     $('html, body').animate({

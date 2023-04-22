@@ -456,20 +456,33 @@ label {
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
+    overflow: auto;
 }
 
 
 input.confirmBtn {
-    padding: 5px 10px;
+    /* padding: 5px 10px;
     margin: 10px;
     border-radius: 5px;
     cursor: pointer;
     background: #ddd;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; */
+    margin: 20px;
+    width: 90px;
+    padding: 10px;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #095484;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
 }
 
 input.confirmBtn:hover {
-    background: #ccc;
+    /* background: #ccc; */
+    background-color: #04AA6D;
 }
 
 .itemDescriptionCls,
@@ -890,4 +903,7 @@ input.confirmBtn:hover {
 }
 .anchor_tag_btn3:hover{
     background-color:#3770ba
+}
+.bannerStoreNameCls{
+    font-size: x-large;
 }
