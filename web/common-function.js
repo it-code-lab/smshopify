@@ -718,7 +718,7 @@ function Show(pageName) {
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "block";
         document.getElementById("homeDivId").style.width = "100%";
-        document.getElementById("bgSVGId").style.display = "block";
+        //document.getElementById("bgSVGId").style.display = "block";
         //document.getElementById("mainContainer").style.width = "100%";
     } else if (pageName == "mystore") {
         myStore();
