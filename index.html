@@ -137,12 +137,15 @@
             </a>
 
 
-
-            <a class="searchWrapper"><span id="itemsearchDivId" ><input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
-               placeholder='search' />
-            <button id="itemsearchBtnId" class=''
-               onclick='searchItem(); return false;'><i class="fas fa-search"></i></button>
-            </span></a>
+            <a class="searchWrapper"><span id="itemsearchDivId" >
+                  <form autocomplete="off" class="dummyForm">
+                     <input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
+                     placeholder='search' />
+                     <button id="itemsearchBtnId" class=''
+                     onclick='searchItem(); return false;'><i class="fas fa-search"></i></button>
+                  </form>
+               </span>
+            </a>
 
 
             <a href="javascript:void(0);" class="icon" style="margin-right: 20px" onclick="myTopNavFunction()">

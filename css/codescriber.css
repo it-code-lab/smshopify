@@ -2336,6 +2336,7 @@ ul.unordered-list-arrow li:before {
   background: transparent;
   border: none;
   color: #b39265;
+  cursor: pointer;
 } 
 
 .searchButtonCls {

@@ -8,7 +8,6 @@ let the = {
 
     uploadedFiles: null, //SM:Added
     captcha: null, //SM:Added
-    smusr: false,
     hosturl: '/bizzlistings',
     hostnm:'bizzlistings',
     newImageName: '',
@@ -827,10 +826,6 @@ function checkURL() {
 
         showAdditionalMenuItemsForLoggedIn();
 
-        if (localStorage.getItem("userLvl") == "9") {
-            the.smusr = true;
-        }
-
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
@@ -950,12 +945,6 @@ function checkURL() {
 
     if (pageName == "HelpTopics") {
 
-        if ((localStorage.getItem("userLoggedIn") == "n") || (localStorage.getItem("userLvl") != "9")) {
-            //pageName = "projectscanner";
-            Show("projectscanner");
-            return
-        }
-
         populateHelpTopics();
         document.getElementById("HelpTopicsDivId").style.width = "100%";
 
@@ -983,10 +972,6 @@ function checkURL() {
         return;
     }else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
-        populateStoredProjectList();
-        if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
-            document.getElementById("addNewProjBtnId").style.display = "block";
-        }
         document.getElementById("projectscannerDivId").style.width = "100%";
         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
@@ -2187,11 +2172,6 @@ function addComponent(itemid, type, elem = "dummy") {
             + "<div id= '" + randomId + "-ans2' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-ans'> <input class='dynamicradio' type ='radio' name ='" + randomId + "' value='q'/>Option2 <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"
             + "<div id= '" + randomId + "-ans3' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-ans'> <input class='dynamicradio' type ='radio' name ='" + randomId + "' value='e'/>Option3 <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"
             + "<div id= '" + randomId + "-ans4' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-ans'> <input class='dynamicradio' type ='radio' name ='" + randomId + "' value='t'/>Option4 <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>";
-
-        //+ " <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"
-        if (the.smusr) {
-            tempCompHTML = tempCompHTML + "<div id= '" + randomId + "-rtans' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-rtans'> TODO Edit - Correct Answer <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>";
-        }
 
         document.getElementById(componentid).innerHTML = tempCompHTML + partTwoHTML;
     } else if (type == "sbmtqz") {
@@ -5187,7 +5167,7 @@ function contactus() {
     StrComment = StrComment + "<br><br><br>" + window.location.pathname;
 
     if (the.captcha != document.getElementsByClassName("enteredCaptchaTextCls").value) {
-        if ((localStorage.getItem("userLoggedIn") == "n") || (localStorage.getItem("userLvl") != "9")) {
+        if (localStorage.getItem("userLoggedIn") == "n") {
             error_message = "Entered code is incorrect";
             document.getElementById("contactuserrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
             return;
@@ -6321,10 +6301,10 @@ function reportIssue(itemid) {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
-            console.log("");
+            //console.log("");
         },
         error: function (xhr, status, error) {
-            console.log("");
+            //console.log("");
         }
     });
 
