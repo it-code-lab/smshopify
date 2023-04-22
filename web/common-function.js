@@ -6647,7 +6647,7 @@ function reportChatUser(elem){
 
     //placePopupUnderClickedBtn(elem);
     //placePopupUnderClickedBtnParent(elem);
-    placePopupAtPosFromBtn(elem, -300, -10);
+    //placePopupAtPosFromBtn(elem, -300, -10);
     //placePopupAtPosFromBtnXOffset(elem, -300, -10);
 }
 
