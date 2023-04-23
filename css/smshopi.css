@@ -846,6 +846,7 @@ input.confirmBtn:hover {
     margin: auto;
     text-align: center;
     height: 100px;
+    font-size: 14px;
 }
 
 .shopCategoryDisplay:hover .shopCategoryHeader1 {

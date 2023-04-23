@@ -1269,11 +1269,6 @@ function admtoggleToolBarView() {
     }
 }
 
-function deleteCurrentComponent(btn) {
-
-    btn.parentElement.remove();
-    //btn.parentElement.innerHTML = "";
-}
 
 function copyCurrentComponent(btn) {
     let text = btn.parentElement.textContent;

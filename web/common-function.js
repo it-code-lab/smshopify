@@ -1205,6 +1205,12 @@ function getCreateStore() {
 
 }
 
+function deleteCurrentComponent(btn) {
+
+    btn.parentElement.remove();
+    //btn.parentElement.innerHTML = "";
+}
+
 function getOneItemOfShop(tags, itemstr) {
 
     let itemid = tags[0].itemid;
@@ -3325,8 +3331,8 @@ function addNewShopItem() {
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'itemPrice' + "'" + ')">Price</button>'
         + '<button class="shopTablinks" onclick="openShopTab(event, ' + "'" + 'CloseItemCust' + "'" + ')">Close</button>';
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
-        + '<button class="shopTablinks red_font" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks itemSaveBtnCls" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
+        + '<button class="shopTablinks red_font itemDeleteBtnCls" style="float:right" onclick="openShopTab(event, ' + "'" + 'deleteItem' + "'" + ')">Delete</button>'
         + '</div>';
 
 
@@ -3407,8 +3413,8 @@ function getItemForUpd(itemid, itmimageshtml, itemname, itemdescription, itempri
         shopItemTabOptions = shopItemTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
     }
 
-    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
-        + '<button class="shopTablinks red_font" style="float:right" onclick="discontinueItem(event)">Delete</button>'
+    shopItemTabOptions = shopItemTabOptions + '<button class="shopTablinks itemSaveBtnCls" style="float:right" onclick="saveItemChanges(event)">Save Item</button>'
+        + '<button class="shopTablinks red_font itemDeleteBtnCls" style="float:right" onclick="discontinueItem(event)">Delete</button>'
         + '</div>';
 
     let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
@@ -3691,7 +3697,6 @@ async function saveNewStore(itemid, createNewItem) {
         $.ajax({
             url: the.hosturl + '/php/process.php',
             data: {
-                usremail: usremail,
                 itemid: itemid,
                 title: title,
                 titleseq: titleseq,
@@ -3839,6 +3844,12 @@ function saveItemChanges(evt) {
     let StrFunction = "SubmitForReview";
     let keywords = title + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
+    let maplocationcoordinates = "";
+
+    if (localStorage.getItem("latitude") != null){
+        maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    }
+
     if (itemid == "new") {
         if (title == "") {
             errorInfo = errorInfo + "Please provide item name";
@@ -3876,7 +3887,7 @@ function saveItemChanges(evt) {
                 itemimages: itemimages,
                 itemdescription: itemdescription,
                 displaylocationflag: "0",
-                maplocationcoordinates: "",
+                maplocationcoordinates: maplocationcoordinates,
                 address: "",
                 uselocationfromaddress: "",
                 coordinatesfromaddress: "",
@@ -3894,6 +3905,10 @@ function saveItemChanges(evt) {
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Item has been saved";
                 x.classList.add("show");
+                
+                parentDiv.querySelector(".itemSaveBtnCls").style.display = "none";
+                parentDiv.querySelector(".itemDeleteBtnCls").style.display = "none";
+
                 setTimeout(function () { 
                     x.classList.remove("show");
                 }, 3000);
@@ -4019,7 +4034,7 @@ function saveItemChanges(evt) {
                     itemimages: itemimages,
                     itemdescription: itemdescription,
                     displaylocationflag: displaylocationflag,
-                    maplocationcoordinates: "",
+                    maplocationcoordinates: maplocationcoordinates,
                     address: "",
                     uselocationfromaddress: uselocationfromaddress,
                     coordinatesfromaddress: "",
@@ -5511,29 +5526,48 @@ function gotoNextTab(elem) {
                 
 
 
-                if (containerHTML.includes("addImages.png")){                    
-                    tempHTML = "Please remove default image and add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-                    document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -100, -200);
-                    //x.innerHTML = tempHTML;
-                    //x.style.display = "block";
+                if (containerHTML.includes("addImages.png")){  
+
+                    // tempHTML = "Please remove default image and add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    // document.getElementById("popupDivId").innerHTML = tempHTML;
+                    // placePopupAtPosFromBtn(elem, -100, -200);
+
+                    let x = document.getElementById("toastsnackbar");
+                    x.innerHTML = "Please remove default image and add your images. Save the changes before going to next tab.";
+                    x.classList.add("show");
+                    setTimeout(function () { 
+                        x.classList.remove("show");
+                    }, 6000);
+
                     return;                    
                 }else if (images.length < 1) {
-                    tempHTML = "Please add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-                    //x.innerHTML = tempHTML;
-                    //x.style.display = "block";
-                    document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -100, -200);
+                    // tempHTML = "Please add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    // document.getElementById("popupDivId").innerHTML = tempHTML;
+                    // placePopupAtPosFromBtn(elem, -100, -200);
+
+                    let x = document.getElementById("toastsnackbar");
+                    x.innerHTML = "Please add your images. Save the changes before going to next tab.";
+                    x.classList.add("show");
+                    setTimeout(function () { 
+                        x.classList.remove("show");
+                    }, 6000);
+
                     return;    
                 }
             }else if ((tablinks[i].innerHTML == "Name") || (tablinks[i].innerHTML == "Save Item")){
                 let enteredName = tabcontent[i].parentElement.parentElement.querySelector(".itemNameCls").innerHTML
                 if (enteredName == ""){
-                    tempHTML = "Please enter the name <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-                    //x.innerHTML = tempHTML;
-                    //x.style.display = "block";
-                    document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -100, -100);
+                    // tempHTML = "Please enter the name <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    // document.getElementById("popupDivId").innerHTML = tempHTML;
+                    // placePopupAtPosFromBtn(elem, -100, -100);
+
+                    let x = document.getElementById("toastsnackbar");
+                    x.innerHTML = "Please enter the name";
+                    x.classList.add("show");
+                    setTimeout(function () { 
+                        x.classList.remove("show");
+                    }, 6000);
+
                     return;
                 }
             }else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")){
@@ -5542,11 +5576,17 @@ function gotoNextTab(elem) {
                 let shopcountry = document.getElementById("shopcountry").innerHTML;
 
                 if ((shopcity == "") ||(shopstate == "") || (shopcountry == "")){
-                    tempHTML = "City/Town/Village, State and Country information is required <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
-                    //x.innerHTML = tempHTML;
-                    //x.style.display = "block";
-                    document.getElementById("popupDivId").innerHTML = tempHTML;
-                    placePopupAtPosFromBtn(elem, -100, -200);
+                    // tempHTML = "City/Town/Village, State and Country information is required <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
+                    // document.getElementById("popupDivId").innerHTML = tempHTML;
+                    // placePopupAtPosFromBtn(elem, -100, -200);
+
+                    let x = document.getElementById("toastsnackbar");
+                    x.innerHTML = "City/Town/Village, State and Country information is required";
+                    x.classList.add("show");
+                    setTimeout(function () { 
+                        x.classList.remove("show");
+                    }, 6000);
+
                     return;                   
                 }
             }
