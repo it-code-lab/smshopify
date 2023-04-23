@@ -4148,21 +4148,16 @@ function setPassword() {
             //alert(msg);
             //console.log(retstatus);
 
-            if (retstatus == "S") {
+            if (retstatus == "s") {
                 //document.getElementById("newpwerrormsg").innerHTML = "Password has been set successfully.";
                 document.getElementById("setPwDivId").style.display = "none";
                 document.getElementById("setPwSuccessDivId").style.display = "block";
                 document.getElementById("itemEditDivId").style.display = "none";
                 document.getElementById("homeDivId").style.display = "none";
-            }
-
-            if (retstatus == "F") {
-                document.getElementById("newpwerrormsg").innerHTML = "There was a problem in completing the request. Issue has been logged and will be resolved soon. Please try again later";
-
-            }
-
-            if ((retstatus != "S") && (retstatus != "F")) {
-                document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + retstatus + "</font> ";
+            } else if (retstatus == "w") {
+                document.getElementById("newpwerrormsg").innerHTML = "Invalid request url";
+            } else if (retstatus == "e")  {
+                document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + "Failed to process" + "</font> ";
 
             }
 
