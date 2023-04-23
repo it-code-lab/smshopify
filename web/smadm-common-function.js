@@ -227,7 +227,7 @@ function admproceedWithRequest(){
             document.getElementById("addNewProjBtnId").style.display = "block";
         }
         document.getElementById("projectscannerDivId").style.width = "100%";
-        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Upload project files and click on the file to scan the code"
+        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:#cc0000;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
         document.getElementById("loginDivId").style.display = "block";
 
@@ -445,7 +445,7 @@ function admgetOneItemOfShop(tags, itemstr) {
 
     //START: Change the background color of the active item link 
     //let elemId = "itemDiv-" + itemid;
-    //document.getElementById(elemId).style.backgroundColor = "orange";
+    //document.getElementById(elemId).style.backgroundColor = "#cc0000";
     //END: Change the background color of the active item link
 
     let metaDesc = title + ", " + tags[0].itemdescription ;
@@ -601,7 +601,7 @@ function admgetFullShopDetails(tags, itemstr) {
 
     // showcategory(category);
     // let elemId = "itemDiv-" + itemid;
-    // document.getElementById(elemId).style.backgroundColor = "orange";
+    // document.getElementById(elemId).style.backgroundColor = "#cc0000";
 
     //END: Change the background color of the active item link
 

@@ -479,8 +479,8 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 #loginDivId {
   display: none;
   margin: auto;
-  margin-bottom: 100px;
-  padding: 0px 0px 20px 0px;
+  /* margin-bottom: 100px; */
+  padding: 0px 0px 300px 0px;
   background-color: #fff;
   min-width: 50%;
 }

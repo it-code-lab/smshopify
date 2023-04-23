@@ -799,15 +799,17 @@ function checkURL() {
 
     LocationSearchStr = LocationSearchStr.replace(re, ' ');
 
+    if (localStorage.getItem("cookieAccepted") == "y") {
+        document.getElementById("cookie-div-id").style.display = "none"
+    }
+
     if (LocationSearchStr.indexOf('passkey=') > 0) {
         let ar = LocationSearchStr.split('passkey=');
         let accountactivationkey = ar[1];
         activateAccount(accountactivationkey);
         return;
     }
-    if (localStorage.getItem("cookieAccepted") == "y") {
-        document.getElementById("cookie-div-id").style.display = "none"
-    }
+
 
     let myCookie = getCookie("cookname");
 
@@ -921,6 +923,8 @@ function checkURL() {
 
         document.getElementById("loginSecDivId").style.display = "none";
         document.getElementById("forgotPWDivId").style.display = "block";
+        document.getElementById("itemEditDivId").style.display = "none";
+        document.getElementById("homeDivId").style.display = "none";
         return;
     }
 
@@ -973,7 +977,7 @@ function checkURL() {
     }else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
         document.getElementById("projectscannerDivId").style.width = "100%";
-        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + "Upload project files and click on the file to scan the code"
+        document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:#cc0000;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
         document.getElementById("loginDivId").style.display = "block";
 
@@ -1287,7 +1291,7 @@ function getOneItemOfShop(tags, itemstr) {
 
     //START: Change the background color of the active item link 
     //let elemId = "itemDiv-" + itemid;
-    //document.getElementById(elemId).style.backgroundColor = "orange";
+    //document.getElementById(elemId).style.backgroundColor = "#cc0000";
     //END: Change the background color of the active item link
 
     let metaDesc = title + ", " + tags[0].itemdescription ;
@@ -1437,7 +1441,7 @@ function getFullShopDetails(tags, itemstr) {
 
     // showcategory(category);
     // let elemId = "itemDiv-" + itemid;
-    // document.getElementById(elemId).style.backgroundColor = "orange";
+    // document.getElementById(elemId).style.backgroundColor = "#cc0000";
 
     //END: Change the background color of the active item link
 
@@ -4066,17 +4070,32 @@ function activateAccount(pass) {
 
 
                 document.getElementById("loginDivId").style.display = "block";
-                //document.getElementById("loginDivId").style.width = "70%";
                 document.getElementById("loginerrormsg").innerHTML = "";
-
-                //showHelpDivMessage("Login to add or make updates to the help scan codes");
-
                 document.getElementById("loginSecDivId").style.display = "none";
                 document.getElementById("accActivatedDivId").style.display = "block";
-                //markHelpCodes();
+                document.getElementById("itemEditDivId").style.display = "none";
+                document.getElementById("homeDivId").style.display = "none";
 
-            } else {
-                //console.log("Failed to activate account");
+            } else if (response == "w") {
+                Show('login');
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Activation code is not valid";
+                //x.className = "show";
+                x.classList.add("show");
+                setTimeout(function () { 
+                    //x.className = x.className.replace("show", ""); 
+                    x.classList.remove("show");
+                }, 6000);
+            } else if (response == "e"){
+                Show('login');
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Failed to process";
+                //x.className = "show";
+                x.classList.add("show");
+                setTimeout(function () { 
+                    //x.className = x.className.replace("show", ""); 
+                    x.classList.remove("show");
+                }, 6000);
             }
         },
         error: function () {
@@ -4087,7 +4106,7 @@ function activateAccount(pass) {
 
 function setPassword() {
 
-    document.getElementById("newpwerrormsg").innerHTML = "<font color = orange>" + " " + "</font> ";
+    document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + " " + "</font> ";
 
 
     let StrPass = document.getElementById("newpassword").value
@@ -4133,6 +4152,8 @@ function setPassword() {
                 //document.getElementById("newpwerrormsg").innerHTML = "Password has been set successfully.";
                 document.getElementById("setPwDivId").style.display = "none";
                 document.getElementById("setPwSuccessDivId").style.display = "block";
+                document.getElementById("itemEditDivId").style.display = "none";
+                document.getElementById("homeDivId").style.display = "none";
             }
 
             if (retstatus == "F") {
@@ -4743,7 +4764,7 @@ function cookieAccepted() {
 
 function register() {
 
-    document.getElementById("registererrormsg").innerHTML = "<font color = orange>" + " " + "</font> ";
+    document.getElementById("registererrormsg").innerHTML = "<font color = #cc0000>" + " " + "</font> ";
 
     let StrEmail = document.getElementById("registeremailid").value
     let StrName = document.getElementById("registerusname").value
@@ -4826,7 +4847,7 @@ function register() {
             }
 
             if ((retstatus != "S") && (retstatus != "F")) {
-                document.getElementById("registererrormsg").innerHTML = "<font color = orange>" + retstatus + "</font> ";
+                document.getElementById("registererrormsg").innerHTML = "<font color = #cc0000>" + retstatus + "</font> ";
 
             }
 
@@ -4958,7 +4979,7 @@ function setUpMyStore() {
 }
 
 function Subregister() {
-    document.getElementById("Subregistererrormsg").innerHTML = "<font color = orange>" + " " + "</font> ";
+    document.getElementById("Subregistererrormsg").innerHTML = "<font color = #cc0000>" + " " + "</font> ";
 
     let StrEmail = document.getElementById("Subregisteremailid").value
     let StrName = document.getElementById("Subregisterusname").value
