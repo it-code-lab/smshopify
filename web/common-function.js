@@ -103,7 +103,7 @@ let itemImagesDiv = '<div class="itemImageshow-container">'
 
     + '<div class="itmImgContainer">'
 
-    + '<img class="myitemImages" style="display:block" src="/'+ the.hosturl +'/images/addImages.png" >'
+    + '<img class="myitemImages" style="display:block" src="images/addImages.png" >'
 
     + '</div>'
 

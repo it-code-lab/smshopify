@@ -1846,15 +1846,6 @@ input:checked+.slider:after {
   background-color: orange;
 }
 
-.itmUpdSaveBtn {
-  width: 200px;
-  margin: 5px;
-}
-
-.itmUpdSaveBtn:hover {
-  background-color: orange;
-}
-
 .deleteBtn {
   background-color: crimson;
 }
@@ -2282,7 +2273,7 @@ ul.unordered-list-arrow li:before {
   z-index: 10;
   width: 100%;
   padding: 10px;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: auto;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   min-height: 100vh;

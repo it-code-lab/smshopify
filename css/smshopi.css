@@ -913,3 +913,29 @@ form.dummyForm {
     padding: 2px;
     background:transparent;
 }
+
+#store-search-box{
+    min-width: 200px;
+    max-width: 350px;
+    width: 90%;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.itmUpdSaveBtn {
+    width: 200px;
+    padding: 10px;
+    background-color: rgb(117, 89, 218);
+    color: #fff;
+    text-align: center;
+    margin: 10px auto;
+    font-weight: normal;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+
+  }
+  
+  .itmUpdSaveBtn:hover {
+    background-color: #555353;
+  }
