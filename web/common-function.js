@@ -4112,7 +4112,7 @@ function setPassword() {
 
     if (StrPass != StrPassRe) {
         error_message = "Entered passwords do not match";
-        document.getElementById("newpwerrormsg").innerHTML = "<font color = orange>" + error_message + "</font> ";
+        document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + error_message + "</font> ";
         return;
     }
 
@@ -4141,7 +4141,7 @@ function setPassword() {
             }
 
             if ((retstatus != "S") && (retstatus != "F")) {
-                document.getElementById("newpwerrormsg").innerHTML = "<font color = red>" + retstatus + "</font> ";
+                document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + retstatus + "</font> ";
 
             }
 
@@ -4811,11 +4811,11 @@ function register() {
             //console.log(retstatus);
 
             if (retstatus == "S") {
-                document.getElementById("registererrormsg").innerHTML = "Registration completed successfully. Account activation email is sent to the provided email id.<br><br>If you would like to set up your own online store click on the button below";
+                document.getElementById("registrationFieldsDiv").innerHTML = "Registration completed successfully. Account activation email is sent to the provided email id.";
 
                 document.getElementById("registerBtnId").style.display = "none";
 
-                document.getElementById("createMyStoreBtnId").style.display = "block";
+                document.getElementById("closeRegisterBtnId").style.display = "block";
 
                 //localStorage.setItem("userEmail", StrEmail);
             }
@@ -5026,7 +5026,9 @@ function Subregister() {
             //console.log(retstatus);
 
             if (retstatus == "S") {
-                document.getElementById("Subregistererrormsg").innerHTML = "Registration completed successfully. Please check your email for account activation.";
+                document.getElementById("registrationFieldsDiv").innerHTML = "Registration completed successfully. Please check your email for account activation.";
+                document.getElementById("registerBtnId").style.display = "none";
+                document.getElementById("closeRegisterBtnId").style.display = "block";
             }
 
             if (retstatus == "F") {

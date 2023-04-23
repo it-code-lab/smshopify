@@ -332,23 +332,26 @@
                   <div id="registerSecDivId" class="displayNone" style="margin-top: 20px;">
                      <label class="form_header_label1 scale-up-ver-top"> REGISTER </label>
                      <hr>
-                     <input class="un" id='registerusname' type="text" placeholder="Your full name">
-                     <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
-                     <input class="pass" id='registerpassword' type="password" align="center"
-                        placeholder="Set Password">
-                     <input class="pass" id='registerpasswordre' type="password" align="center"
-                        placeholder="Re-enter Password">
-                     <br>
-
+                     <div id="registrationFieldsDiv">
+                        <input class="un" id='registerusname' type="text" placeholder="Your full name">
+                        <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
+                        <input class="pass" id='registerpassword' type="password" align="center"
+                           placeholder="Set Password">
+                        <input class="pass" id='registerpasswordre' type="password" align="center"
+                           placeholder="Re-enter Password">
+                        <br>
+                     </div>
 
                      <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
                      <button id="registerBtnId" class="helper btnCenterAlign width_200px" 
                         onclick="register();">Register</button>
-                     <!---->
-                     <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
-                        onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button>
+                     <button id="closeRegisterBtnId" style="display: none;" class="helper btnCenterAlign width_200px" 
+                     onclick="Show('home'); return false; ">Close</button>
+                        <!---->
+                     <!-- <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
+                        onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button> -->
                      <br>
                      <br>
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
