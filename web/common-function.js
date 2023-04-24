@@ -1635,9 +1635,9 @@ function getItemsHTML(storeItems) {
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
         if (itmCount > 2){
-            newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+            newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-storename="' + storeItems[i].storename + '" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
         }else {
-            newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
+            newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-storename="' + storeItems[i].storename + '" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
         }
 
         //Start: max_2box_responsive
@@ -4474,7 +4474,7 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-itemid="'+ rows[i].itemid +'" data-itemuid="'+ rows[i].itemuid +'" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-storename="'+ rows[i].storename +'"  data-itemid="'+ rows[i].itemid +'" data-itemuid="'+ rows[i].itemuid +'" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
         
@@ -5933,11 +5933,12 @@ function openItemChat(elem) {
 
         let itemid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemid;
         let itemuid = elem.parentElement.parentElement.parentElement.parentElement.dataset.itemuid;
+        let storename = elem.parentElement.parentElement.parentElement.parentElement.dataset.storename;
 
         $.ajax({
             url: the.hosturl + '/php/process.php',
             type: 'POST',
-            data: jQuery.param({ itemid: itemid, itemuid: itemuid, usrfunction: "getconversationid" 
+            data: jQuery.param({ itemid: itemid, itemuid: itemuid, storename:storename , usrfunction: "getconversationid" 
             }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (retstatus) {
