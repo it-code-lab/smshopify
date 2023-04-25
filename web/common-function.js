@@ -555,7 +555,7 @@ function showcategoryAfterURLHistUpd(category){
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
     const nextState = {
-        additionalInformation: 'Updated the URL with JS'
+        lasturl: window.location.href
     };
 
     // This will create a new entry in the browser's history, without reloading
@@ -661,7 +661,7 @@ function Show(pageName) {
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
     const nextState = {
-        additionalInformation: 'Updated the URL with JS'
+        lasturl: window.location.href
     };
 
     // This will create a new entry in the browser's history, without reloading
@@ -672,7 +672,7 @@ function Show(pageName) {
 
     //populateLanguages("helpTopics-lang-box");
 
-    x = document.getElementById(pageName + "LinkId");
+    let x = document.getElementById(pageName + "LinkId");
     x.className += " active";
    
     if (pageName == "item") {
@@ -1222,7 +1222,7 @@ function getOneItemOfShop(tags, itemstr) {
     let titleseq = tags[0].titleseq;
     //let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let city_state_country = tags[0].city_state_country;
+    let country = tags[0].country;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
 
@@ -1376,7 +1376,6 @@ function getFullShopDetails(tags, itemstr) {
     //let titleseq = tags[0].titleseq;
     //let shortdescription = tags[0].shortdescription;
     let description = storeRow[0].description;
-    //let city_state_country = tags[0].city_state_country;
     let keywords = storeRow[0].keywords;
     //let discontinue = tags[0].discontinue;
 
@@ -2312,7 +2311,7 @@ function addComponent(itemid, type, elem = "dummy") {
     } else if (type == "shopTopBanner2") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-2175.png&quot;);">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div contenteditable="false" style="margin: unset" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
         htmlPart = escape(htmlPartOrig);
@@ -2397,7 +2396,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-B") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 87% 49%, 75% 100%, 13% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 85% 50%, 75% 100%, 15% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2405,7 +2404,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-C") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 82% 49%, 50% 100%, 19% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 80% 50%, 50% 100%, 20% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2421,7 +2420,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-E") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 87% 52%, 75% 100%, 25% 100%, 14% 51%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 85% 50%, 75% 100%, 25% 100%, 15% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -2429,7 +2428,7 @@ function addComponent(itemid, type, elem = "dummy") {
     }else if (type == "shopTopBanner3-F") {
 
         let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
-            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(33% 0, 68% 0, 87% 23%, 87% 82%, 70% 100%, 31% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
+            + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(35% 0, 66% 0, 88% 23%, 88% 78%, 66% 100%, 35% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';       
 
         shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
@@ -3068,7 +3067,9 @@ function populateStoresList(rows = "") {
 
         let category = record.category;
         let title = record.title;
-        let city_state_country = record.city_state_country;
+        let city = record.city;
+        let state = record.state;
+        let country = record.country;
         let lastupdatedate = record.lastupdatedate;
         let itemstr = record.itemstr;
         let discontinue = record.discontinue;
@@ -3095,7 +3096,7 @@ function populateStoresList(rows = "") {
 
         innerHTML = innerHTML + bannerimagediv;
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/Car and bike repair.png" alt="items" class="storeCategoryImg">';
-        innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>'+ category + '</u><br>' + city_state_country.replaceAll("~", ",") + '</div>';
+        innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>'+ category + '</u><br>' + city + '</div>';
         
         innerHTML = innerHTML + '</div>';
     }
@@ -3525,7 +3526,9 @@ async function saveNewStore(itemid, createNewItem) {
         "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
         "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
 
-    let city_state_country = document.getElementById("shopcity").innerHTML + "~" + document.getElementById("shopstate").innerHTML + "~" + document.getElementById("shopcountry").innerHTML ;
+    let city = document.getElementById("shopcity").innerHTML ;
+    let state = document.getElementById("shopstate").innerHTML ;
+    let country = document.getElementById("shopcountry").innerHTML ;
 
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
@@ -3620,7 +3623,9 @@ async function saveNewStore(itemid, createNewItem) {
             versionseq: versionseq,
             shortdescription: shortdescription,
             description: description,
-            city_state_country: city_state_country,
+            city: city,
+            state: state,
+            country: country,
             keywords: keywords,
             discontinue: discontinue,
             createNewItem: createNewItem,
@@ -3651,7 +3656,9 @@ async function saveNewStore(itemid, createNewItem) {
                 url: the.hosturl + '/php/process.php',
                 data: {
                     storename: storename   ,
-                    city_state_country: city_state_country   
+                    city: city,
+                    state: state,
+                    country: country
                 },
                 type: 'POST',
                 dataType: 'json',
@@ -3706,7 +3713,9 @@ async function saveNewStore(itemid, createNewItem) {
                 versionseq: versionseq,
                 shortdescription: shortdescription,
                 description: "",
-                city_state_country: city_state_country,
+                city: city,
+                state: state,
+                country: country,
                 keywords: keywords,
                 discontinue: discontinue,
                 createNewItem: createNewItem,
@@ -3787,7 +3796,9 @@ function saveItemChanges(evt) {
     let description = "";
     let uselocationfromaddress = "";
 
-    let city_state_country = document.getElementById("shopcity").innerHTML + "~" + document.getElementById("shopstate").innerHTML + "~" + document.getElementById("shopcountry").innerHTML ;
+    let city = document.getElementById("shopcity").innerHTML ;
+    let state = document.getElementById("shopstate").innerHTML ;
+    let country = document.getElementById("shopcountry").innerHTML ;
 
     if (itemType == "store") {
         bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
@@ -3879,7 +3890,9 @@ function saveItemChanges(evt) {
                 versionseq: "1",
                 shortdescription: "",
                 description: "",
-                city_state_country: city_state_country,
+                city: city,
+                state: state,
+                country: country,
                 keywords: keywords,
                 discontinue: "0",
                 createNewItem: createNewItem,
@@ -4026,7 +4039,9 @@ function saveItemChanges(evt) {
                     versionseq: versionseq,
                     shortdescription: changesDone,
                     description: description,
-                    city_state_country: city_state_country,
+                    city: city,
+                    state: state,
+                    country: country,
                     keywords: keywords,
                     discontinue: "0",
                     createNewItem: createNewItem,
@@ -4050,7 +4065,7 @@ function saveItemChanges(evt) {
                 dataType: 'json',
                 success: function (retstatus) {
                     let x = document.getElementById("toastsnackbar");
-                    x.innerHTML = "Changes have been saved";
+                    x.innerHTML = "Changes have been saved. Reload the listing page to view latest.";
                     x.classList.add("show");
                     setTimeout(function () { 
                         x.classList.remove("show");
@@ -4511,16 +4526,15 @@ function populateItemsList(rows = "") {
                 }
             }
 
-            if (rows[i].city_state_country != undefined) {
-                if (rows[i].city_state_country != "") {
-                    if (rows[i].subcategory != "Sample"){
-                        let arr = rows[i].city_state_country.split("~");
+            if (rows[i].subcategory == "Sample"){
+                innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + '< 20Km' + '</a>';    
+            } else  if (rows[i].city != undefined) {
+                if (rows[i].city != "") {                    
+                        let arr = rows[i].city;
                         innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
-                    }else {
-                        innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + '< 20Km' + '</a>';    
-                    }
                 }
             }
+
 
             if (rows[i].lastupdatedate != undefined) {
                 if (rows[i].lastupdatedate != "") {
@@ -4576,7 +4590,7 @@ function getItemAfterURLHistUpd(itemStr){
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
     const nextState = {
-        additionalInformation: 'Updated the URL with JS'
+        lasturl: window.location.href
     };
 
     // This will create a new entry in the browser's history, without reloading
@@ -6527,7 +6541,7 @@ function showpolicyAfterURLHistUpd(){
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
     const nextState = {
-        additionalInformation: 'Updated the URL with JS'
+        lasturl: window.location.href
     };
 
     // This will create a new entry in the browser's history, without reloading

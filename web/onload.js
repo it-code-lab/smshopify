@@ -1,3 +1,15 @@
+
+// listen for popstate event
+window.addEventListener("popstate", function(event) {
+  // check if the state object exists
+  if (event.state) {
+    // handle the state change (e.g. navigate to the previous page)
+    window.location.href = event.state.lasturl;
+    //e.preventDefault();
+  }
+});
+
+
 setTimeout(function () {
   updateStatus();
 }, 800);

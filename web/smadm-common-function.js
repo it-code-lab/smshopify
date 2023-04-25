@@ -373,7 +373,7 @@ function admgetOneItemOfShop(tags, itemstr) {
     let titleseq = tags[0].titleseq;
     //let shortdescription = tags[0].shortdescription;
     let description = tags[0].description;
-    let city_state_country = tags[0].city_state_country;
+    let city = tags[0].city;
     let keywords = tags[0].keywords;
     let discontinue = tags[0].discontinue;
 
@@ -544,12 +544,7 @@ function admgetFullShopDetails(tags, itemstr) {
 
     //END - Item name Heading
 
-    //SM-DONOTDELETE
-    // if (localStorage.getItem("userLoggedIn") == "n") {
-    // } else if (localStorage.getItem("userLvl") == "9") {
-    //     sessionStorage.setItem("data-description", description);
-    //     newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-itemuid= "' + itemuid + '" data-category= "' + category + '" data-categoryseq= "' + categoryseq + '" data-subcategory= "' + subcategory + '" data-versionseq= "' + versionseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-city_state_country= "' + city_state_country + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
-    // }
+
 
     let storeHeads = allRows.filter(function (entry) {
         return  entry.storename == tags[0].storename && entry.title == tags[0].storename;
@@ -659,8 +654,12 @@ function adm_getShopLocationAndHours(storehead) {
     //Start: max_2box_responsive
     newHTML = newHTML + '<div class="max_2box_responsive padding_10px">';
 
+
     newHTML = newHTML + '<div title="Shop Address" contenteditable="true" class="title-tip shopaddress margin_auto maxwidth_300px">' + storehead.uselocationfromaddress + '</div>';
     newHTML = newHTML + '<div title="Lat,Long from Address" contenteditable="true" class="title-tip warningMsg1 shopaddresscoord margin_auto maxwidth_300px">' + storehead.coordinatesfromaddress + '</div>';
+    newHTML = newHTML + '<div title="city" contenteditable="true" class="title-tip city margin_auto maxwidth_300px">' + storehead.city + '</div>';
+    newHTML = newHTML + '<div title="state" contenteditable="true" class="title-tip state margin_auto maxwidth_300px">' + storehead.state + '</div>';
+    newHTML = newHTML + '<div title="country" contenteditable="true" class="title-tip country margin_auto maxwidth_300px">' + storehead.country + '</div>';
 
     if ((storehead.coordinatesfromaddress != undefined) && (storehead.coordinatesfromaddress != null) && (storehead.coordinatesfromaddress != "") && (storehead.coordinatesfromaddress != "null,null")) {
 
@@ -753,6 +752,11 @@ function admsaveShopItemReview(evt){
     let description = parentDiv.querySelector(".shopDescriptionCls").innerHTML;
     let hourshtml = parentDiv.querySelector(".shophrscls").innerHTML;
     let uselocationfromaddress = parentDiv.querySelector(".shopaddress").textContent;
+
+    let city = parentDiv.querySelector(".city").textContent;
+    let state = parentDiv.querySelector(".state").textContent;
+    let country = parentDiv.querySelector(".country").textContent;
+
     let coordinatesfromaddress = parentDiv.querySelector(".shopaddresscoord").textContent;
     let maplocationcoordinates = parentDiv.querySelector(".brwsrmapcoord").textContent;
     let availabilityinfo = parentDiv.querySelector(".shopavailinfocls").textContent;
@@ -766,6 +770,9 @@ function admsaveShopItemReview(evt){
                 description:description,
                 hourshtml: hourshtml,
                 uselocationfromaddress:uselocationfromaddress,
+                city: city,
+                state: state,
+                country: country,
                 coordinatesfromaddress:coordinatesfromaddress,
                 maplocationcoordinates: maplocationcoordinates,
                 availabilityinfo: availabilityinfo,
@@ -975,7 +982,9 @@ function admEditItem(btn) {
     let titleseq = btn.dataset.titleseq;
     let shortdescription = btn.dataset.shortdescription;
     let description = sessionStorage.getItem("data-description");
-    let city_state_country = btn.dataset.city_state_country;
+    let city = btn.dataset.city;
+    let state = btn.dataset.state;
+    let country = btn.dataset.country;
     let keywords = btn.dataset.keywords;
     let discontinue = btn.dataset.discontinue;
 
@@ -1216,8 +1225,8 @@ function admEditItem(btn) {
 
 
     newHTML = newHTML +
-        "<br><br><div class = 'editFieldHead'>city_state_country: </div><br>" +
-        "<input type='text' id='city_state_country-" + itemid + "' style='width:95%; margin:auto;' value='" + city_state_country + "'>";
+        "<br><br><div class = 'editFieldHead'>city: </div><br>" +
+        "<input type='text' id='city-" + itemid + "' style='width:95%; margin:auto;' value='" + city + "'>";
 
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
@@ -1516,7 +1525,9 @@ function admpopulateItemsStoresListForReview(rows = "") {
 
         let category = record.category;
         let title = record.title;
-        let city_state_country = record.city_state_country;
+        let city = record.city;
+        let state = record.state;
+        let country = record.country;
         let lastupdatedate = record.lastupdatedate;
         let itemstr = record.itemstr;
         let discontinue = record.discontinue;
@@ -1536,7 +1547,9 @@ function admpopulateItemsStoresListForReview(rows = "") {
 
         innerHTML = innerHTML + '<div  data-title="title"  >' + title + '</div>';
 
-        innerHTML = innerHTML + '<div  data-title="city_state_country"  >' + city_state_country + '</div>';
+        innerHTML = innerHTML + '<div  data-title="city"  >' + city + '</div>';
+        innerHTML = innerHTML + '<div  data-title="state"  >' + state + '</div>';
+        innerHTML = innerHTML + '<div  data-title="country"  >' + country + '</div>';
 
         innerHTML = innerHTML + '<div data-title="Store" ><a  href ="' + itemurl + '"   >Store</a></div>';
 
@@ -1753,7 +1766,9 @@ function admlistAccs(rows = []){
         let storename = record.storename;
         let additionalinfo = record.additionalinfo;
 
-        let store_city_state_country = record.store_city_state_country;
+        let city = record.city;
+        let state = record.state;
+        let country = record.country;
 
         //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
@@ -1777,7 +1792,9 @@ function admlistAccs(rows = []){
         
         
         innerHTML = innerHTML + '<div data-title="storename" >' + storename + '</div>';
-        innerHTML = innerHTML + '<div data-title="store_city_state_country" >' + store_city_state_country + '</div>';
+        innerHTML = innerHTML + '<div data-title="city" >' + city + '</div>';
+        innerHTML = innerHTML + '<div data-title="state" >' + state + '</div>';
+        innerHTML = innerHTML + '<div data-title="country" >' + country + '</div>';
 
         innerHTML = innerHTML + '<div data-title="timestamp" >' + timestamp + '</div>';
 
@@ -1849,7 +1866,7 @@ function admlistChats(rows){
         innerHTML = innerHTML + '<div data-title="user1_customerid" >' + user1_customerid + '</div>';
         
 
-        innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="getChat(' + id +')" >' + id + '</div>';
+        innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="admgetChat(' + id +')" >' + id + '</div>';
 
         innerHTML = innerHTML + '<div data-title="user2_name" >' + user2_name + '</div>';
         innerHTML = innerHTML + '<div data-title="user2_customerid" >' + user2_customerid + '</div>';

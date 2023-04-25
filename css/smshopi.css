@@ -907,6 +907,8 @@ input.confirmBtn:hover {
 }
 .bannerStoreNameCls{
     font-size: x-large;
+    margin: auto;
+    max-width: 50%;
 }
 
 form.dummyForm {
