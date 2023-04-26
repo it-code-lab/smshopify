@@ -9,7 +9,7 @@ let the = {
     uploadedFiles: null, //SM:Added
     captcha: null, //SM:Added
     hosturl: '/bizzlistings',
-    hostnm:'bizzlistings',
+    hostnm: 'bizzlistings',
     newImageName: '',
 };
 
@@ -149,7 +149,7 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
     + '<div id="deleteItem" class="shopTabcontent">'
     + '</div>';
 
-let colorList = ["#000000", "#ffffff","#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
+let colorList = ["#000000", "#ffffff", "#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
 
 let revealSecColor = getSecColors();
 
@@ -432,12 +432,29 @@ function autocomplete(inp, arr) {
     //console.log("Autocomplete End Time = " + new Date());
 }
 
-function getInfo(){
+function getInfo() {
     let tags = localStorage.getItem("posinf")
     if (tags != null) {
-        if ((tags != "") && (tags != "null")) {            
+        if ((tags != "") && (tags != "null")) {
+            let srcCrd = tags.split(",");
+            $.ajax({
+                url: the.hosturl + '/php/process.php',
+                type: 'POST',
+                data: jQuery.param({
+                    loc: srcCrd[2],
+                    usrfunction: "setinfo"
+                }),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (response) {
+                    sessionStorage.setItem("locset", "y");
+                },
+                error: function (xhr, status, error) {
+                    //console.log("error");
+                }
+            });
             return;
         }
+
     }
 
     $.ajax({
@@ -449,14 +466,24 @@ function getInfo(){
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
             localStorage.setItem("posinf", response);
+            sessionStorage.setItem("locset", "y");
         },
         error: function (xhr, status, error) {
             //console.log("error");
         }
-    });    
+    });
 }
 
 function getItemsList() {
+
+    if (sessionStorage.getItem("locset") == null) {
+        document.getElementById("loaderDivId").style.display = "block";
+        setTimeout(function () {
+            document.getElementById("loaderDivId").style.display = "none";
+            getItemsList();
+        }, 50);
+        return;
+    }
 
     let tags = sessionStorage.getItem("itemsList")
     if (tags != null) {
@@ -468,8 +495,8 @@ function getItemsList() {
 
             setTimeout(() => {
                 populateitemsDropDownDisplay();
-           }, 10);
-            
+            }, 10);
+
             return;
         }
     }
@@ -482,14 +509,23 @@ function getItemsList() {
         }),
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
-            sessionStorage.setItem("itemsList", JSON.stringify(response));
+            let rows = JSON.parse(response);
+            let updatedRows = rows;
+            let info = localStorage.getItem("posinf");
+            if ((info != undefined) && (info != null) && (info != "") && (info != "null") && (info != ",,")) {
+                updatedRows = rows.map(row => {
+                    return { ...row, distance: getDistance(row, info) };
+                }
+                );
+            }
+            sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
             setTimeout(() => {
                 populateItemDropDown();
             }, 10);
 
             setTimeout(() => {
                 populateitemsDropDownDisplay();
-           }, 10);
+            }, 10);
         },
         error: function (xhr, status, error) {
             // console.log(error);
@@ -497,6 +533,22 @@ function getItemsList() {
         }
     });
 }
+function getDistance(row, info) {
+    let dest = row.coordinatesfromaddress;
+
+    let distanceKm = 0;
+
+    //SM-TODONE-Fix name to Sample
+    if (row.subcategory == "Sample"){
+        distanceKm = 20;
+    }else if ((dest != undefined) && (dest != null) && (dest != "") && (dest != "null") && (dest != ",")) {
+        let srcCrd = info.split(",");
+        let destCrd = dest.split(",");
+        distanceKm = getDistanceFromLatLonInKm(srcCrd[0], srcCrd[1], destCrd[0], destCrd[1]);
+    }
+    return distanceKm;
+}
+
 
 function getCategoryList() {
 
@@ -526,27 +578,37 @@ function getCategoryList() {
 
 function populateitemsDropDownDisplay() {
 
-    if ((document.getElementById("dropDownItmCatgListId").innerHTML).trim() != ""){
+    if ((document.getElementById("dropDownItmCatgListId").innerHTML).trim() != "") {
         return;
     }
+    
+    // let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
+    
+    // if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
+    //     distanceLimit = 50;  
+    // }
+    
+    
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+
     let rows = JSON.parse(tf);
     rows = rows.filter(function (entry) {
-        return entry.discontinue == "0";
+        return entry.discontinue == "0"
+        //return (entry.discontinue == "0") && (entry.distance < distanceLimit);
     });
     let innHTML = "";
 
     for (let i = 0; i < rows.length; i++) {
         if (i == 0) {
-            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
-        }else if (rows[i].category != rows[i-1].category){
-            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>"+ rows[i].category +"</a>";
-        } 
+            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>" + rows[i].category + "</a>";
+        } else if (rows[i].category != rows[i - 1].category) {
+            innHTML = innHTML + "<a onclick='showcategoryAfterURLHistUpd(" + '"' + rows[i].category + '"' + "); return false; ' href= '" + the.hosturl + "/items/" + rows[i].category + "'>" + rows[i].category + "</a>";
+        }
     }
     document.getElementById("dropDownItmCatgListId").innerHTML = innHTML;
 }
 
-function showcategoryAfterURLHistUpd(category){
+function showcategoryAfterURLHistUpd(category) {
 
     let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + category;
@@ -624,7 +686,7 @@ function hideDiv(divId) {
     document.getElementById(divId).style.display = "none";
 }
 
-function removeActiveClassFromNavLinks(){
+function removeActiveClassFromNavLinks() {
     let navlinks = document.querySelectorAll(".navLink");
 
     for (let i = 0; i < navlinks.length; i++) {
@@ -632,7 +694,7 @@ function removeActiveClassFromNavLinks(){
     }
 }
 
-function updateCommonDivsToDisplayNone(){
+function updateCommonDivsToDisplayNone() {
     document.getElementById("loginDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
@@ -674,7 +736,7 @@ function Show(pageName) {
 
     let x = document.getElementById(pageName + "LinkId");
     x.className += " active";
-   
+
     if (pageName == "item") {
         document.getElementById("itemDivId").style.display = "none";
 
@@ -721,6 +783,8 @@ function Show(pageName) {
         //document.getElementById("mainContainer").style.width = "100%";
     } else if (pageName == "mystore") {
         myStore();
+    }else if (pageName == "myfavorites") {
+        myfavorites();
     }
 
     //Scroll to top
@@ -778,13 +842,13 @@ function listVideos() {
 
 }
 
-function showAdditionalMenuItemsForLoggedIn(){
+function showAdditionalMenuItemsForLoggedIn() {
     document.getElementById("logoutLinkId").style.display = "block";
     document.getElementById("myfavoritesLinkId").style.display = "block";
     document.getElementById("mychatLinkId").style.display = "block";
 }
 
-function hideMenuItemsForLoggedOut(){
+function hideMenuItemsForLoggedOut() {
     document.getElementById("logoutLinkId").style.display = "none";
     document.getElementById("myfavoritesLinkId").style.display = "none";
     document.getElementById("mychatLinkId").style.display = "none";
@@ -810,13 +874,21 @@ function checkURL() {
         return;
     }
 
+    let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
+    
+    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
+        sessionStorage.setItem("selectedDistance", 50);
+    }else{
+        document.getElementById("distanceSlider").value = distanceLimit;
+        document.getElementById("selectedDist").innerHTML = distanceLimit;
+    }
 
     let myCookie = getCookie("cookname");
 
     if (myCookie == null) {
         localStorage.setItem("userLoggedIn", "n");
 
-        
+
         document.getElementById("loginLinkId").style.display = "block";
 
         hideMenuItemsForLoggedOut();
@@ -928,6 +1000,13 @@ function checkURL() {
         return;
     }
 
+    if (LocationSearchStr.indexOf('find=') > 0) {
+        let ar = LocationSearchStr.split('find=');
+        document.getElementById("item-search-box").value = ar[1];
+        searchItem();
+        return;
+    }
+
     if (LocationSearchStr.indexOf('target=') > 0) {
         let ar = LocationSearchStr.split('target=');
         pageName = ar[1];
@@ -963,16 +1042,19 @@ function checkURL() {
             x.innerHTML = "Login to create or access your store";
 
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
 
             return;
-        } 
+        }
         myStore();
         return;
-    }else if (pageName == "policy") {
+    } else if (pageName == "policy") {
         showPolicy();
+        return;
+    } else if (pageName == "myfavorites") {
+        myfavorites();
         return;
     }else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
@@ -1066,14 +1148,14 @@ function displayStore(storename) {
         document.getElementById("itemDivId").style.display = "block";
         fnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
     } else {
-        if (storename == ""){
+        if (storename == "") {
             Show('home');
-        }else {
+        } else {
             document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
             document.getElementById("itemDivId").style.display = "block";
-    
-        }       
-        
+
+        }
+
     }
 }
 
@@ -1095,8 +1177,8 @@ function fnGetItem(itemstr) {
             let tags = JSON.parse(response);
             if (tags[0].title == "Create My Store") {
                 getCreateStore();
-            //} else if (tags[0].title != tags[0].storename) {
-            } else if (tags.length < 3 ) {
+                //} else if (tags[0].title != tags[0].storename) {
+            } else if (tags.length < 3) {
                 getOneItemOfShop(tags);
                 $(".cardsContainerDivClassPadd").css("width", "95%");
                 $(".cardsContainerDivClassPadd").css("margin", "auto");
@@ -1112,17 +1194,17 @@ function fnGetItem(itemstr) {
     });
 }
 
-function getStoreURLMsg(){
+function getStoreURLMsg() {
 
     let storename = localStorage.getItem("storename");
     storename = storename.toLocaleLowerCase();
     storename = storename.replaceAll(" ", "-");
     let tempHTML = 'Store name is available. Your store site is going to be: <br><br>';
     tempHTML = tempHTML + window.location.protocol + "//" + window.location.host +
-    window.location.pathname + storename ;
+        window.location.pathname + storename;
     tempHTML = tempHTML + '<br><br> If this looks good click on the button below create store banner. <br> <br>';
     tempHTML = tempHTML + '<button class="button_type1" onclick="showBanner()">Design Store banner</button>';
-    
+
     return tempHTML;
 }
 
@@ -1131,14 +1213,14 @@ function getCreateStore() {
 
     let title = "Create Store";
     let description = '<div id="div-shopName1-690541" contenteditable="true" data-bgcolor="#ccc" data-transition="zoom" data-autoanimate="" data-background="" data-backgroundiframe="" data-backgroundvideo="" class="secdiv" onmousedown="setLastFocusedDivId(this.id)"> <textarea class="secDivTextArea" onchange="updatePreviewDiv(this)">&lt;div class="storeNmChkDiv" contenteditable="false"&gt;&lt;input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name "&gt;'
-    + '&lt;button  class="button_type1" onclick="searchStoreNameItem(); return false;"&gt;Check Availability&lt;/button&gt;'
-    + '&lt;div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;&lt;/div&gt;'
-    + '&lt;div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;Store name is available. &lt;button class="button_type1" onclick="showBanner()"&gt;Design Store banner&lt;/button&gt;&lt;/div&gt;'
-    + '&lt;/div&gt;</textarea><div class="secPreview"><div contenteditable="true" class="revealDummy" style=" margin: 10px;"><div class="slides"><div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name ">'
-    + '<button  class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
-    + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
-    + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
-    + '</div></div></div></div><div class="hdMeDivCls" contenteditable="false"><button class="togglePreviewBtn" onclick="toggleSecPreview(this)"> Toggle Preview </button></div><button class="deleteDivInnImg" onclick="deleteCurrentComponent(this)"></button>  </div>';
+        + '&lt;button  class="button_type1" onclick="searchStoreNameItem(); return false;"&gt;Check Availability&lt;/button&gt;'
+        + '&lt;div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;&lt;/div&gt;'
+        + '&lt;div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"&gt;Store name is available. &lt;button class="button_type1" onclick="showBanner()"&gt;Design Store banner&lt;/button&gt;&lt;/div&gt;'
+        + '&lt;/div&gt;</textarea><div class="secPreview"><div contenteditable="true" class="revealDummy" style=" margin: 10px;"><div class="slides"><div class="storeNmChkDiv" contenteditable="false"><input id="store-search-box" type="text" class="margin_5px" autocomplete="off" placeholder="Enter Your Store Name ">'
+        + '<button  class="button_type1" onclick="searchStoreNameItem(); return false;">Check Availability</button>'
+        + '<div class="storeNameNotAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1"></div>'
+        + '<div class="storeNameAvailable displayNone scale-up-ver-top" style="animation-duration: 0.1">Store name is available. <button class="button_type1" onclick="showBanner()">Design Store banner</button></div>'
+        + '</div></div></div></div><div class="hdMeDivCls" contenteditable="false"><button class="togglePreviewBtn" onclick="toggleSecPreview(this)"> Toggle Preview </button></div><button class="deleteDivInnImg" onclick="deleteCurrentComponent(this)"></button>  </div>';
 
 
     let newHTML = "";
@@ -1165,7 +1247,8 @@ function getCreateStore() {
 
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListDivId").innerHTML = newHTML;
+    document.getElementById("itemListInnerDivId").innerHTML = newHTML;
+    document.getElementById("distanceFilter").style.display = "none";
 
     let metaDesc = "Create your store and listings";
 
@@ -1183,7 +1266,7 @@ function getCreateStore() {
         "@context": "https://schema.org/",
         "@type": "WebSite",
         "name": title,
-        "url": "https://bizzlistings.com/" ,
+        "url": "https://bizzlistings.com/",
         "datePublished": "2022-07-10",
         "description": metaDesc,
         "thumbnailUrl": "https://bizzlistings.com/images/banner.png"
@@ -1258,17 +1341,17 @@ function getOneItemOfShop(tags, itemstr) {
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
-        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
+        '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + storeStr + "'" + '); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
-    
+
     //***SM-DONOTDELETE-Maybe used later */
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' >  <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
- 
+
     //END - Item name Heading
 
 
@@ -1287,7 +1370,9 @@ function getOneItemOfShop(tags, itemstr) {
 
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
 
-    document.getElementById("itemListDivId").innerHTML = newHTML;
+    //document.getElementById("itemListDivId").innerHTML = newHTML;
+    document.getElementById("itemListInnerDivId").innerHTML = newHTML;
+    document.getElementById("distanceFilter").style.display = "none";
 
     //refreshCaptcha();
 
@@ -1300,7 +1385,7 @@ function getOneItemOfShop(tags, itemstr) {
     //document.getElementById(elemId).style.backgroundColor = "#cc0000";
     //END: Change the background color of the active item link
 
-    let metaDesc = title + ", " + tags[0].itemdescription ;
+    let metaDesc = title + ", " + tags[0].itemdescription;
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
@@ -1351,7 +1436,7 @@ function getOneItemOfShop(tags, itemstr) {
 
         let x = document.getElementsByClassName("storeOpeninghourscontent");
         for (let i = 0; i < x.length; i++) {
-                x[i].setAttribute("contenteditable", false);
+            x[i].setAttribute("contenteditable", false);
         }
         updateStatus();
 
@@ -1397,9 +1482,9 @@ function getFullShopDetails(tags, itemstr) {
     let storeStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
-        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd('+ "'" + storeStr + "'" +'); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
+        '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + storeStr + "'" + '); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
 
 
     //***SM-DONOTDELETE-Maybe used later */
@@ -1439,7 +1524,10 @@ function getFullShopDetails(tags, itemstr) {
 
     newHTML = newHTML + '<br><br><br><br><br><br><br><br><br>';
 
-    document.getElementById("itemListDivId").innerHTML = newHTML;
+    //document.getElementById("itemListDivId").innerHTML = newHTML;
+    document.getElementById("itemListInnerDivId").innerHTML = newHTML;
+    document.getElementById("distanceFilter").style.display = "none";
+
     refreshCaptcha();
 
     //START: Change the background color of the active item link 
@@ -1495,10 +1583,10 @@ function getFullShopDetails(tags, itemstr) {
     setTimeout(function () {
         let x = document.getElementsByClassName("storeOpeninghourscontent");
         for (let i = 0; i < x.length; i++) {
-                x[i].setAttribute("contenteditable", false);
+            x[i].setAttribute("contenteditable", false);
         }
         updateStatus();
-    }, 50);    
+    }, 50);
 }
 
 function getShopLocationAndHours(tags) {
@@ -1527,16 +1615,16 @@ function getShopLocationAndHours(tags) {
         newHTML = newHTML + shopAddr + '</div>';
     }
 
-    if (tags[0].subcategory == "Sample"){
+    if (tags[0].subcategory == "Sample") {
 
         let info = localStorage.getItem("posinf");
         if (info != null) {
-            if ((info != "") && (info != "null") && (info != ",")) {  
+            if ((info != "") && (info != "null") && (info != ",,")) {
 
                 let crd = info.split(",");
                 newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: This is not a real shop. It is a sample business listing page for demo';
-    
+                    + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: This is not a real shop. It is a sample business listing page for demo';
+
                 setTimeout(function () {
                     let latitude = crd[0];
                     let longitude = crd[1];
@@ -1547,10 +1635,10 @@ function getShopLocationAndHours(tags) {
             }
         }
 
-    }else if ((tags[0].coordinatesfromaddress != undefined) && (tags[0].coordinatesfromaddress != null) && (tags[0].coordinatesfromaddress != "") && (tags[0].coordinatesfromaddress != "null,null")) {
+    } else if ((tags[0].coordinatesfromaddress != undefined) && (tags[0].coordinatesfromaddress != null) && (tags[0].coordinatesfromaddress != "") && (tags[0].coordinatesfromaddress != "null,null")) {
 
         let crd = tags[0].coordinatesfromaddress.split(",");
-        
+
         newHTML = newHTML
             + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
@@ -1563,21 +1651,21 @@ function getShopLocationAndHours(tags) {
             L.marker([latitude, longitude]).addTo(map);
         }, 10);
 
-    }   else if ((tags[0].maplocationcoordinates != undefined) && (tags[0].maplocationcoordinates != null) && (tags[0].maplocationcoordinates != "") && (tags[0].maplocationcoordinates != "null,null")) {
+    } else if ((tags[0].maplocationcoordinates != undefined) && (tags[0].maplocationcoordinates != null) && (tags[0].maplocationcoordinates != "") && (tags[0].maplocationcoordinates != "null,null")) {
 
-            let crd = tags[0].maplocationcoordinates.split(",");
-            
-            newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+        let crd = tags[0].maplocationcoordinates.split(",");
+
+        newHTML = newHTML
+            + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
 
-            setTimeout(function () {
-                let latitude = crd[0];
-                let longitude = crd[1];
-                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                L.marker([latitude, longitude]).addTo(map);
-            }, 10);
+        setTimeout(function () {
+            let latitude = crd[0];
+            let longitude = crd[1];
+            const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+            L.marker([latitude, longitude]).addTo(map);
+        }, 10);
     }
 
 
@@ -1633,9 +1721,9 @@ function getItemsHTML(storeItems) {
 
         let itemTitleURL = myUrl + "items/" + categorySpaceReplaced.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemNameSpaceReplaced.toLowerCase();
         //Start: Have Item image, Details under one parent div
-        if (itmCount > 2){
+        if (itmCount > 2) {
             newHTML = newHTML + '<div class="animate_inview flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-storename="' + storeItems[i].storename + '" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
-        }else {
+        } else {
             newHTML = newHTML + '<div class="flex_container_align_center box_shadow5 bgcolor_1 marginbottom_50px itemContainerCls itemDetailsContainerCls" data-storename="' + storeItems[i].storename + '" data-itemid="' + storeItems[i].itemid + '" data-itemuid="' + storeItems[i].itemuid + '">';
         }
 
@@ -1722,7 +1810,7 @@ function hideImageNavBtns() {
 
 }
 
-function disableImageClickAction(){
+function disableImageClickAction() {
     let imgContainers = document.querySelectorAll(".itemImageshow-container");
 
     for (let i = 0; i < imgContainers.length; i++) {
@@ -1743,6 +1831,14 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
         ;
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c; // Distance in km
+
+    //SM:Increase value for distance by road
+    d = d * 1.3;
+
+    //SM:Round to next 10
+    //https://stackoverflow.com/questions/11022488/javascript-using-round-to-the-nearest-10
+    d = Math.ceil((d + 1) / 10) * 10;
+
     return d;
 }
 
@@ -2310,7 +2406,7 @@ function addComponent(itemid, type, elem = "dummy") {
 
     } else if (type == "shopTopBanner2") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-2175.png&quot;);">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-2175.png&quot;);">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; padding:10px; text-align:left;  clip-path: polygon(0 0, 60% 0, 30% 100%, 0 100%); background-color: rgb(149, 82, 81); color: white;"><div contenteditable="false" style="margin: unset" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
@@ -2379,79 +2475,79 @@ function addComponent(itemid, type, elem = "dummy") {
 
     } else if (type == "shopTopBanner3") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(30% at 50% 50%); background-color: rgb(223, 207, 190); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
     } else if (type == "shopTopBanner3-A") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(32% 0, 97% 0, 69% 100%, 5% 100%); background-color: rgb(151, 159, 209); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-B") {
+    } else if (type == "shopTopBanner3-B") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(75% 0%, 85% 50%, 75% 100%, 15% 100%, 25% 50%, 15% 0); background-color: rgb(209, 151, 203); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-C") {
+    } else if (type == "shopTopBanner3-C") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(50% 0%, 80% 50%, 50% 100%, 20% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-D") {
+    } else if (type == "shopTopBanner3-D") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(26% 0, 75% 0%, 90% 50%, 75% 100%, 26% 100%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-E") {
+    } else if (type == "shopTopBanner3-E") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(25% 0%, 75% 0%, 85% 50%, 75% 100%, 25% 100%, 15% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-F") {
+    } else if (type == "shopTopBanner3-F") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: polygon(35% 0, 66% 0, 88% 23%, 88% 78%, 66% 100%, 35% 100%, 13% 78%, 13% 23%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-G") {
+    } else if (type == "shopTopBanner3-G") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: circle(50% at 50% 50%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner3-H") {
+    } else if (type == "shopTopBanner3-H") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5681.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5681.png&quot;); ">'
             + "\n" + '<div id="textDivId" style="padding-top: 100px; height:100%; text-align:center;  clip-path: inset(25% 15% 41% 15%); background-color: rgb(161, 209, 151); color: black;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
-            + "\n" + '</div>';       
+            + "\n" + '</div>';
 
-        shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem );
+        shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem);
 
-    }else if (type == "shopTopBanner4") {
+    } else if (type == "shopTopBanner4") {
 
-        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;'+ the.hosturl +'/img/loops-in-java-5570.png&quot;); ">'
+        let htmlPartOrig = '<div class="shopTopBanner" style="margin:auto; padding:10px; background-image: url(&quot;' + the.hosturl + '/img/loops-in-java-5570.png&quot;); ">'
             + "\n" + '<div id="textDivId" class="semiTransparentBlackBG boxShadow5" style=" opacity: 0.7;  padding:20px; text-align:center; width:80%;  margin:40px auto ;  border-radius: 20px;"><div contenteditable="false" class="bannerStoreNameCls">My Store Name</div><div style="font-size:15px"></div></div>'
             + "\n" + '</div>';
 
@@ -2899,8 +2995,8 @@ function addComponent(itemid, type, elem = "dummy") {
 
 }
 
-function shopTopBanner3Updates(htmlPartOrig,componentid,AllHTML,partOneHTML,partTwoHTML, randomId, elem){
-    
+function shopTopBanner3Updates(htmlPartOrig, componentid, AllHTML, partOneHTML, partTwoHTML, randomId, elem) {
+
     htmlPart = escape(htmlPartOrig);
 
     let shopBannerTabOptions = '<div class="shopTab">'
@@ -2979,7 +3075,7 @@ function myStore() {
         let x = document.getElementById("toastsnackbar");
         x.innerHTML = "Login to create or access your store";
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             x.classList.remove("show");
         }, 3000);
 
@@ -3002,35 +3098,35 @@ function myStore() {
                 if (retstatus == "err") {
                     //alert("Please relogin");
                     goToLogin();
-                }else{
+                } else {
                     document.getElementById("loginDivId").style.display = "none";
                     document.getElementById("contactusDivId").style.display = "none";
                     document.getElementById("howtoDivId").style.display = "none";
                     document.getElementById("homeDivId").style.display = "none";
-                
-                
+
+
                     //document.getElementById("helpDisplayDivId").style.display = "none";
-                
-                    
+
+
                     document.getElementById("mainContainer").style.width = "100%";
-                
+
                     document.getElementById("itemDivId").style.display = "none";
                     document.getElementById("itemListDivId").style.display = "none";
                     document.getElementById("itemEditDivId").style.display = "none";
-                    
-                    checkMyStores();               
+
+                    checkMyStores();
                 }
             },
             error: function (xhr, status, error) {
                 //console.log("")
             }
-        });        
+        });
     }
 
 
 }
 
-function checkMyStores(){
+function checkMyStores() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("mystoreLinkId");
     x.classList.add("active");
@@ -3076,7 +3172,7 @@ function populateStoresList(rows = "") {
         let bannerhtml = record.bannerhtml;
         let bannerimagediv = "";
 
-        if (bannerhtml.includes("background-image")){
+        if (bannerhtml.includes("background-image")) {
             bannerimagediv = bannerhtml.substring(0, bannerhtml.indexOf(">") + 1) + "</div>";
             //console.log("bannerimagediv = " + bannerimagediv)
             bannerimagediv = bannerimagediv.replace("shopTopBanner", "myShopTopBanner1");
@@ -3084,27 +3180,32 @@ function populateStoresList(rows = "") {
 
 
         //let chatIssue = issue.replace("^Chat reported^ -","");
-        
+
         //let lastupdatedate = record.lastupdatedate;
         //let comment = record.comment;
-        
+
 
         //let itemurl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "kisna/items/" + itemstr;
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getStoreDetails('+ "'" + title + "'" +')"  > ';
-        
+        innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getStoreDetails(' + "'" + title + "'" + ')"  > ';
+
 
         innerHTML = innerHTML + bannerimagediv;
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/Car and bike repair.png" alt="items" class="storeCategoryImg">';
-        innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>'+ category + '</u><br>' + city + '</div>';
-        
+        innerHTML = innerHTML + '<div class="shopCategoryHeader1" >' + title + '<br><u>' + category + '</u><br>';
+        if ((city != undefined) && (city != null) && (city != "null") && (city != "")) {
+            innerHTML = innerHTML + city;
+        }
+
+        innerHTML = innerHTML + '</div>';
+
         innerHTML = innerHTML + '</div>';
     }
 
-    
+
     innerHTML = innerHTML + '<div class="max_4box_responsive shopCategoryDisplay cursor_pointer" onclick="getCreateStore()" > ';
     innerHTML = innerHTML + '<div class="myShopTopBanner1"> <img src="' + the.hosturl + '/images/createstore.png" alt="items" class="storeCategoryImg"></div>';
-    innerHTML = innerHTML + '<div class="shopCategoryHeader1 "  >'+ '' +'</div>';
+    innerHTML = innerHTML + '<div class="shopCategoryHeader1 "  >' + '' + '</div>';
     innerHTML = innerHTML + '</div>';
 
     innerHTML = innerHTML + '</div>';
@@ -3113,14 +3214,14 @@ function populateStoresList(rows = "") {
     document.getElementById("contactusDivId").style.display = "none";
 
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById("distanceFilter").style.display = "none";
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 }
 
-function getStoreDetails(storename){
-        $.ajax({
+function getStoreDetails(storename) {
+    $.ajax({
         url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
@@ -3131,7 +3232,7 @@ function getStoreDetails(storename){
         success: function (response) {
             //localStorage.setItem("mystoreitemsList", JSON.stringify(response));
             //localStorage.setItem("mystoreitemsList", response);
-            
+
             localStorage.setItem("mystoreitemsList", response);
             populateMyStore(JSON.parse(response));
         },
@@ -3156,7 +3257,10 @@ function populateMyStore(tags) {
     }
 
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addNewShopItem(); return false;">Add Item</button></div>';
+    document.getElementById("itemListInnerDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addNewShopItem(); return false;">Add Item</button></div>';
+    
+    document.getElementById("distanceFilter").style.display = "none";
+
 }
 function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromaddress, hourshtml, itemreviewed) {
 
@@ -3178,7 +3282,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         shopBannerTabOptions = shopBannerTabOptions + "<button class='shopTablinks pendingReviewCls'>Pending Review</button>";
     }
 
-    shopBannerTabOptions = shopBannerTabOptions + '<button class="shopTablinks" style="float:right" onclick="saveItemChanges(event)">Save</button>';
+    shopBannerTabOptions = shopBannerTabOptions + '<button class="shopTablinks itemSaveBtnCls" style="float:right" onclick="saveItemChanges(event)">Save</button>';
 
 
     shopBannerTabOptions = shopBannerTabOptions + '</div>';
@@ -3506,17 +3610,17 @@ async function saveNewStore(itemid, createNewItem) {
         }
     }
 
-    if (availabilityinfo.length > 200){
+    if (availabilityinfo.length > 200) {
         errorInfo = errorInfo + "Please limit availability information to 200 characters." + "<br>";
     }
 
-    if (storename.length > 200){
+    if (storename.length > 200) {
         errorInfo = errorInfo + "Please limit the store name to 200 characters." + "<br>";
     }
 
     let displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     let maplocationcoordinates = "";
-    if (localStorage.getItem("latitude") != null){
+    if (localStorage.getItem("latitude") != null) {
         maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
     }
     //let uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
@@ -3526,9 +3630,9 @@ async function saveNewStore(itemid, createNewItem) {
         "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
         "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
 
-    let city = document.getElementById("shopcity").innerHTML ;
-    let state = document.getElementById("shopstate").innerHTML ;
-    let country = document.getElementById("shopcountry").innerHTML ;
+    let city = document.getElementById("shopcity").innerHTML;
+    let state = document.getElementById("shopstate").innerHTML;
+    let country = document.getElementById("shopcountry").innerHTML;
 
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
@@ -3536,7 +3640,7 @@ async function saveNewStore(itemid, createNewItem) {
         }
     }
 
-    if (uselocationfromaddress.length > 500){
+    if (uselocationfromaddress.length > 500) {
         errorInfo = errorInfo + "Address is too long. Please limit to 500 characters." + "<br>";
     }
 
@@ -3549,32 +3653,32 @@ async function saveNewStore(itemid, createNewItem) {
         let itemprice = allItems[i].querySelector('.itemPriceCls').textContent;
         let itemimages = allItems[i].querySelector('.itemImageshow-container').innerHTML;
 
-        if ( itemName == "") {
+        if (itemName == "") {
             errorInfo = errorInfo + "Name has not been provided for one or more items added." + "<br>";
             break;
         }
-        if (itemName.length > 200){
+        if (itemName.length > 200) {
             errorInfo = errorInfo + "Please limit the item name to 200 characters." + "<br>";
             break;
         }
-        if (itemprice.length > 40){
+        if (itemprice.length > 40) {
             errorInfo = errorInfo + "Please limit the price information to 40 characters." + "<br>";
             break;
         }
 
-        if (itemimages.length > 5000){
+        if (itemimages.length > 5000) {
             errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
             break;
         }
-        if (itemDescription.length > 500){
+        if (itemDescription.length > 500) {
             errorInfo = errorInfo + "Please limit the item description to 500 characters" + "<br>";
             break;
-        }  
+        }
 
     }
     let description = document.querySelector(".storeDescriptionCls").innerHTML;
 
-    if (description.length > 3000){
+    if (description.length > 3000) {
         errorInfo = errorInfo + "Please limit the shop description to 3000 characters." + "<br>";
     }
 
@@ -3655,7 +3759,7 @@ async function saveNewStore(itemid, createNewItem) {
             $.ajax({
                 url: the.hosturl + '/php/process.php',
                 data: {
-                    storename: storename   ,
+                    storename: storename,
                     city: city,
                     state: state,
                     country: country
@@ -3669,8 +3773,8 @@ async function saveNewStore(itemid, createNewItem) {
 
                 }
 
-             });
-            },
+            });
+        },
         error: function (xhr, status, error) {
             if (!itemid == "") {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
@@ -3796,9 +3900,9 @@ function saveItemChanges(evt) {
     let description = "";
     let uselocationfromaddress = "";
 
-    let city = document.getElementById("shopcity").innerHTML ;
-    let state = document.getElementById("shopstate").innerHTML ;
-    let country = document.getElementById("shopcountry").innerHTML ;
+    let city = document.getElementById("shopcity").innerHTML;
+    let state = document.getElementById("shopstate").innerHTML;
+    let country = document.getElementById("shopcountry").innerHTML;
 
     if (itemType == "store") {
         bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
@@ -3816,7 +3920,7 @@ function saveItemChanges(evt) {
             "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
     }
 
-    if (availabilityinfo.length > 200){
+    if (availabilityinfo.length > 200) {
         errorInfo = errorInfo + "Please limit availability information to 200 characters." + "<br>";
     }
 
@@ -3827,7 +3931,7 @@ function saveItemChanges(evt) {
     let itemdescription = "";
     let title = storename;
 
-    if ((itemType == "item") ||  (itemType == "new")) {
+    if ((itemType == "item") || (itemType == "new")) {
         //itemprice = parentDiv.querySelector('.itemPriceCls').innerHTML;
         itemprice = parentDiv.querySelector('.itemPriceCls').textContent;
         itemimages = parentDiv.querySelector('.itemImageshow-container').innerHTML;
@@ -3836,20 +3940,20 @@ function saveItemChanges(evt) {
         title = parentDiv.querySelector('.itemNameCls').textContent;
     }
 
-    if (title.length > 200){
+    if (title.length > 200) {
         errorInfo = errorInfo + "Please limit the item name to 200 characters." + "<br>";
     }
 
-    if (itemprice.length > 40){
+    if (itemprice.length > 40) {
         errorInfo = errorInfo + "Please limit the price information to 40 characters." + "<br>";
     }
 
-    if (itemimages.length > 5000){
+    if (itemimages.length > 5000) {
         errorInfo = errorInfo + "Too many images for one or more item. Please limit the number of images to 10." + "<br>";
     }
-    if (itemdescription.length > 500){
+    if (itemdescription.length > 500) {
         errorInfo = errorInfo + "Please limit the item description to 500 characters" + "<br>";
-    }     
+    }
 
     let createNewItem = "y";
     let StrFunction = "SubmitForReview";
@@ -3857,20 +3961,20 @@ function saveItemChanges(evt) {
 
     let maplocationcoordinates = "";
 
-    if (localStorage.getItem("latitude") != null){
+    if (localStorage.getItem("latitude") != null) {
         maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
     }
 
     if (itemid == "new") {
         if (title == "") {
             errorInfo = errorInfo + "Please provide item name";
-        }       
+        }
 
-        if (errorInfo != ""){
+        if (errorInfo != "") {
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = errorInfo;
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
             return;
@@ -3916,26 +4020,26 @@ function saveItemChanges(evt) {
             dataType: 'json',
             success: function (retstatus) {
                 let x = document.getElementById("toastsnackbar");
-                x.innerHTML = "Item has been saved";
+                x.innerHTML = "Item has been saved. Please reload the listing to view latest or to make further updates to the submitted information";
                 x.classList.add("show");
-                
+
                 parentDiv.querySelector(".itemSaveBtnCls").style.display = "none";
                 parentDiv.querySelector(".itemDeleteBtnCls").style.display = "none";
 
-                setTimeout(function () { 
+                setTimeout(function () {
                     x.classList.remove("show");
-                }, 3000);
-            
+                }, 7000);
+
             },
             error: function (xhr, status, error) {
                 //console.log("failed");
             }
         });
-    } else {        
+    } else {
         //Check item fields are changed 
         let maplocationcoordinates = "";
 
-        if (localStorage.getItem("latitude") != null){
+        if (localStorage.getItem("latitude") != null) {
             maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
         }
         if ((rows[0].bannerhtml == bannerhtml)
@@ -3949,133 +4053,142 @@ function saveItemChanges(evt) {
             && (rows[0].itemprice == itemprice)
             && (rows[0].itemimages == itemimages)
             && (rows[0].itemdescription == itemdescription)
-            && (rows[0].title == title) ) {
+            && (rows[0].title == title)) {
 
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "No changes to save";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
             return;
-        } 
+        }
         let changesDone = "";
-        if (rows[0].bannerhtml != bannerhtml){
+        if (rows[0].bannerhtml != bannerhtml) {
             changesDone = changesDone + "Banner HTML, ";
         }
-        if (rows[0].description != description){
+        if (rows[0].description != description) {
             changesDone = changesDone + "Shop Description, ";
         }
-        if (rows[0].uselocationfromaddress != uselocationfromaddress){
+        if (rows[0].uselocationfromaddress != uselocationfromaddress) {
             changesDone = changesDone + "Shop Address, ";
         }
 
-        if (rows[0].maplocationcoordinates != maplocationcoordinates){
-            if (maplocationcoordinates !=""){
+        if (rows[0].maplocationcoordinates != maplocationcoordinates) {
+            if (maplocationcoordinates != "") {
                 changesDone = changesDone + "Map Location Coordinates, ";
-            }else {
+            } else {
                 maplocationcoordinates = rows[0].maplocationcoordinates;
-            }            
+            }
         }
 
-        if (rows[0].hourshtml != hourshtml){
+        if (rows[0].hourshtml != hourshtml) {
             changesDone = changesDone + "Hours HTML, ";
         }
-        if (rows[0].availabilityinfo != availabilityinfo){
+        if (rows[0].availabilityinfo != availabilityinfo) {
             changesDone = changesDone + "Availability Info, ";
         }
-        if (rows[0].displayhoursflag != displayhoursflag){
+        if (rows[0].displayhoursflag != displayhoursflag) {
             changesDone = changesDone + "displayhoursflag, ";
         }
-        if (rows[0].displaylocationflag != displaylocationflag){
+        if (rows[0].displaylocationflag != displaylocationflag) {
             changesDone = changesDone + "displaylocationflag, ";
         }
-        if (rows[0].itemprice != itemprice){
+        if (rows[0].itemprice != itemprice) {
             changesDone = changesDone + "itemprice, ";
         }
-        if (rows[0].itemimages != itemimages){
+        if (rows[0].itemimages != itemimages) {
             changesDone = changesDone + "itemimages, ";
         }
-        if (rows[0].itemdescription != itemdescription){
+        if (rows[0].itemdescription != itemdescription) {
             changesDone = changesDone + "itemdescription, ";
         }
-        if (rows[0].title != title){
+        if (rows[0].title != title) {
             changesDone = changesDone + "title, ";
         }
 
 
-        if (description.length > 3000){
+        if (description.length > 3000) {
             errorInfo = errorInfo + "Please limit the shop description to 3000 characters." + "<br>";
         }
 
-        
-        if (errorInfo != ""){
+
+        if (errorInfo != "") {
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = errorInfo;
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
             return;
         }
-        
+
         let versionseq = parseInt(rows[0].versionseq) + 1;
 
         keywords = title + "," + storename + "," + document.getElementById("shopaddressline1").innerHTML + "," + document.getElementById("shopcity").innerHTML + "," + document.getElementById("shopstate").innerHTML
 
 
-        if (rows[0].reviewed == "0"){
+        if (rows[0].reviewed == "0") {
             createNewItem = "n";
         }
-            $.ajax({
-                url: the.hosturl + '/php/process.php',
-                data: {
-                    itemid: itemid,
-                    title: title,
-                    titleseq: rows[0].titleseq,
-                    category: category,
-                    categoryseq: categoryseq,
-                    subcategory: subcategory,
-                    versionseq: versionseq,
-                    shortdescription: changesDone,
-                    description: description,
-                    city: city,
-                    state: state,
-                    country: country,
-                    keywords: keywords,
-                    discontinue: "0",
-                    createNewItem: createNewItem,
-                    itemprice: itemprice,
-                    itemimages: itemimages,
-                    itemdescription: itemdescription,
-                    displaylocationflag: displaylocationflag,
-                    maplocationcoordinates: maplocationcoordinates,
-                    address: "",
-                    uselocationfromaddress: uselocationfromaddress,
-                    coordinatesfromaddress: "",
-                    displayhoursflag: displayhoursflag,
-                    hourshtml: hourshtml,
-                    availabilityinfo: availabilityinfo,
-                    storename: storename,
-                    bannerhtml: bannerhtml,
-                    usrfunction: StrFunction
-    
-                },
-                type: 'POST',
-                dataType: 'json',
-                success: function (retstatus) {
-                    let x = document.getElementById("toastsnackbar");
-                    x.innerHTML = "Changes have been saved. Reload the listing page to view latest.";
-                    x.classList.add("show");
-                    setTimeout(function () { 
-                        x.classList.remove("show");
-                    }, 3000);
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            data: {
+                itemid: itemid,
+                title: title,
+                titleseq: rows[0].titleseq,
+                category: category,
+                categoryseq: categoryseq,
+                subcategory: subcategory,
+                versionseq: versionseq,
+                shortdescription: changesDone,
+                description: description,
+                city: city,
+                state: state,
+                country: country,
+                keywords: keywords,
+                discontinue: "0",
+                createNewItem: createNewItem,
+                itemprice: itemprice,
+                itemimages: itemimages,
+                itemdescription: itemdescription,
+                displaylocationflag: displaylocationflag,
+                maplocationcoordinates: maplocationcoordinates,
+                address: "",
+                uselocationfromaddress: uselocationfromaddress,
+                coordinatesfromaddress: "",
+                displayhoursflag: displayhoursflag,
+                hourshtml: hourshtml,
+                availabilityinfo: availabilityinfo,
+                storename: storename,
+                bannerhtml: bannerhtml,
+                usrfunction: StrFunction
 
-                },
-                error: function (xhr, status, error) {
-                    //console.log("failed");
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (retstatus) {
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Changes have been saved. Reload the listing page to view latest or make further updates to the submitted information.";
+
+                parentDiv.querySelector(".itemSaveBtnCls").style.display = "none";
+                try {
+                    parentDiv.querySelector(".itemDeleteBtnCls").style.display = "none";
+                } catch (e) {
+
                 }
-            }); 
+
+
+                x.classList.add("show");
+                setTimeout(function () {
+                    x.classList.remove("show");
+                }, 7000);
+
+            },
+            error: function (xhr, status, error) {
+                //console.log("failed");
+            }
+        });
     }
 
 }
@@ -4112,17 +4225,17 @@ function activateAccount(pass) {
                 x.innerHTML = "Activation code is not valid";
                 //x.className = "show";
                 x.classList.add("show");
-                setTimeout(function () { 
+                setTimeout(function () {
                     //x.className = x.className.replace("show", ""); 
                     x.classList.remove("show");
                 }, 6000);
-            } else if (response == "e"){
+            } else if (response == "e") {
                 Show('login');
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Failed to process";
                 //x.className = "show";
                 x.classList.add("show");
-                setTimeout(function () { 
+                setTimeout(function () {
                     //x.className = x.className.replace("show", ""); 
                     x.classList.remove("show");
                 }, 6000);
@@ -4186,7 +4299,7 @@ function setPassword() {
                 document.getElementById("homeDivId").style.display = "none";
             } else if (retstatus == "w") {
                 document.getElementById("newpwerrormsg").innerHTML = "Invalid request url";
-            } else if (retstatus == "e")  {
+            } else if (retstatus == "e") {
                 document.getElementById("newpwerrormsg").innerHTML = "<font color = #cc0000>" + "Failed to process" + "</font> ";
 
             }
@@ -4280,6 +4393,18 @@ function searchItem() {
 
     let searchText = document.getElementById("item-search-box").value;
 
+    let path = window.location.pathname;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?find=" + searchText;
+
+    const nextURL = myUrl;
+    const nextTitle = 'Code Helper';
+    const nextState = {
+        lasturl: window.location.href
+    };
+
+    // This will create a new entry in the browser's history, without reloading
+    window.history.pushState(nextState, nextTitle, nextURL);
+
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     let rows = JSON.parse(tf);
 
@@ -4363,7 +4488,7 @@ function refreshStoreName() {
         document.querySelector('.bottomNavigationCls').innerHTML = '<div class="centerAlignBorderBox"><button  class="button_type1 width_150px" onclick="addShopItem(); return false;">Add Item</button></div> <div class="shopSmErr displayNone redMsg"></div>' +
             "<div class='submitShopAppr'><button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=saveNewStore('','y') >Submit for Review</button>" +
             "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=cancelStoreCreation() >Cancel</button></div>";
-         
+
     }, 100);
 }
 
@@ -4386,7 +4511,7 @@ function addShopItem() {
 }
 function populateItemDropDown(fieldId = "item-search-box") {
 
-    if (document.getElementById('item-search-box').dataset.dropdownset == "y"){
+    if (document.getElementById('item-search-box').dataset.dropdownset == "y") {
         return;
     }
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
@@ -4424,6 +4549,15 @@ function populateItemsList(rows = "") {
     }
 
 
+    let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
+    
+    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
+        distanceLimit = 50;  
+    }
+
+    rows = rows.filter(function (entry) {
+        return entry.distance < distanceLimit;
+    });
 
     //let innerHTML = "<input id='item-search-box' type='text'	name='item' autocomplete='off' placeholder='search'/>" +
     //"<button class='buttonCls' onclick='searchItem(); return false;' >Update</button>";
@@ -4440,7 +4574,7 @@ function populateItemsList(rows = "") {
     let categorySqueezed = "";
     let categoryOrig = "";
     let categoryUrl = "";
-    
+
 
     let storenameUrl = "";
 
@@ -4460,12 +4594,12 @@ function populateItemsList(rows = "") {
         category = rows[i].category;
         storename = rows[i].storename;
 
-        if (rows[i].title == storename){
-            if (rows.length == 1){
+        if (rows[i].title == storename) {
+            if (rows.length == 1) {
                 document.getElementById("homeDivId").style.display = "none";
                 document.getElementById("loginDivId").style.display = "none";
-                document.getElementById("contactusDivId").style.display = "none";            
-                
+                document.getElementById("contactusDivId").style.display = "none";
+
                 getFullShopDetails(rows, storename);
                 document.getElementById("itemListDivId").style.display = "block";
                 return;
@@ -4476,7 +4610,7 @@ function populateItemsList(rows = "") {
         category = category.replaceAll(" ", "-");
 
         //itemTitleURL = myUrl + "items/" + category.toLowerCase() + "/" + subcategory.toLowerCase() + "/" + itemName.toLowerCase();
-        
+
         let itemStr = category.toLowerCase() + "/" + storeNameSpaceReplaced.toLowerCase() + "/" + itemName.toLowerCase();
 
         itemTitleURL = myUrl + "items/" + itemStr;
@@ -4489,68 +4623,84 @@ function populateItemsList(rows = "") {
         categoryMaxCount = sessionStorage.getItem("max-count-" + categorySqueezed);
 
 
-        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-storename="'+ rows[i].storename +'"  data-itemid="'+ rows[i].itemid +'" data-itemuid="'+ rows[i].itemuid +'" > ';
+        innerHTML = innerHTML + '<div class="max_4box_responsive itemDisplay itemContainerCls itemListView-container" data-storename="' + rows[i].storename + '"  data-itemid="' + rows[i].itemid + '" data-itemuid="' + rows[i].itemuid + '" > ';
 
         //innerHTML = innerHTML + '<img src="' + the.hosturl + '/images/' + categoryOrig + '.png" alt="items" class="storeCategoryImg">' ;
-        
+
         //SM-DONOTDELETE
         //innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer" onclick="location.href=' + "'" + itemTitleURL + "'" + '">' + rows[i].itemimages ;
         //innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" href="' + itemTitleURL + '">Show More</a></div>';
 
-        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a  onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
-        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">Show More</a></a></div>';
+        innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer"><a  onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages;
+        innerHTML = innerHTML + '<a class="position_absolute_center hoverShowBtn" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">Show More</a></a></div>';
 
 
         //innerHTML = innerHTML + '<a class="wg-box-content"><a class="wg-box-content-image" href=' + "'" + itemTitleURL + "'" + '>' + rows[i].itemimages ;
         //innerHTML = innerHTML + '<div class="wg-box-content-overlay"></div><div class="wg-box-content-details wg-box-fadeIn-bottom"><h3 class="wg-box-content-title">This is a title</h3></div></a></a>';
 
 
-        innerHTML = innerHTML + '<div class="itemListView-Header" >' ;
+        innerHTML = innerHTML + '<div class="itemListView-Header" >';
 
 
         innerHTML = innerHTML + "<div><div><div class='itmbtn float_left'  onclick='markFavourite(this)'><i class='fa fa-heart color_light_pink '></i></div></div></div>"; //color_red_heart, color_light_pink
 
         innerHTML = innerHTML + "<div><div><div class='itmbtn float_right'  onclick='openItemChat(this)'><i class='fa fa-commenting font_size_24px'></i></div></div></div>";
 
-            if (rows[i].title != undefined) {
-                if (rows[i].title != "") {
-                    innerHTML = innerHTML
-                        + '<div class="shopItemTitle ">' + rows[i].title + '</div>';
-                }
+        if (rows[i].title != undefined) {
+            if (rows[i].title != "") {
+                innerHTML = innerHTML
+                    + '<div class="shopItemTitle ">' + rows[i].title + '</div>';
             }
-    
-            if (rows[i].itemprice != undefined) {
-                if (rows[i].itemprice != "") {
-                    innerHTML = innerHTML
-                        + '<div class="shopItemPrice ">' + rows[i].itemprice + '</div>';
-                }
+        }
+
+        if (rows[i].itemprice != undefined) {
+            if (rows[i].itemprice != "") {
+                innerHTML = innerHTML
+                    + '<div class="shopItemPrice ">' + rows[i].itemprice + '</div>';
             }
+        }
+        //let info = localStorage.getItem("posinf");
+        //let dest = rows[i].coordinatesfromaddress;
+        //let distanceKm = 5;
 
-            if (rows[i].subcategory == "Sample"){
-                innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + '< 20Km' + '</a>';    
-            } else  if (rows[i].city != undefined) {
-                if (rows[i].city != "") {                    
-                        let arr = rows[i].city;
-                        innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
-                }
+        //SM - DONOTDELETE
+        // if ((info != undefined) &&(info != null) && (info != "") && (info != "null") && (info != ",,")) { 
+        //     if ((dest != undefined) && (dest != null) && (dest != "") && (dest != "null") && (dest != ",")) { 
+        //         let srcCrd = info.split(",");
+        //         let destCrd = dest.split(",");
+        //         distanceKm = getDistanceFromLatLonInKm(srcCrd[0], srcCrd[1],destCrd[0], destCrd[1] );
+        //     }
+        // }
+
+
+        if (rows[i].subcategory == "Sample") {
+            //SM-TODONE-UnComment below-Comment out next line
+            innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + '~ 20 Km' + '</a>';
+
+            //SM-TODONE-Done-Comment out Below-DO Not Delete
+            //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ '+ rows[i].distance +' Km)' + '</a>';    
+
+        } else if (rows[i].distance > 5) {
+            //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
+            innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + '~ ' + rows[i].distance + ' Km' + '</a>';
+        }
+
+
+        if (rows[i].lastupdatedate != undefined) {
+            if (rows[i].lastupdatedate != "") {
+
+                let dateStr = (rows[i].lastupdatedate).substring(0, 10); // yyyy-mm-dd format
+                let date = new Date(dateStr); // convert string to Date object    
+                let month = date.toLocaleString('default', { month: 'short' }); // get short month name
+                let day = date.getDate(); // get day of the month    
+                let formattedDate = `${month}-${day}`; // create formatted date string    
+                innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + formattedDate + '</div>';
+
+                //innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + (rows[i].lastupdatedate).substring(0, 10) + '</div>';
             }
+        }
 
-
-            if (rows[i].lastupdatedate != undefined) {
-                if (rows[i].lastupdatedate != "") {
-
-                    let dateStr = (rows[i].lastupdatedate).substring(0, 10); // yyyy-mm-dd format
-                    let date = new Date(dateStr); // convert string to Date object    
-                    let month = date.toLocaleString('default', { month: 'short' }); // get short month name
-                    let day = date.getDate(); // get day of the month    
-                    let formattedDate = `${month}-${day}`; // create formatted date string    
-                    innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + formattedDate + '</div>';   
-
-                    //innerHTML = innerHTML + '<div class="shopItemLastupdatedate ">Updated: ' + (rows[i].lastupdatedate).substring(0, 10) + '</div>';
-                }
-            }
-
-            innerHTML = innerHTML + '</div> </div>';
+        innerHTML = innerHTML + '</div> </div>';
 
     }
 
@@ -4569,10 +4719,12 @@ function populateItemsList(rows = "") {
     document.getElementById("contactusDivId").style.display = "none";
 
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById("itemListInnerDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    document.getElementById("distanceFilter").style.display = "block";
+
     document.getElementById("itemDivId").style.display = "none";
     document.getElementById("bgSVGId").style.display = "none";
-    
+
     setTimeout(function () {
         colorFavoriteItems();
     }, 10);
@@ -4582,7 +4734,7 @@ function populateItemsList(rows = "") {
     }, 20);
 }
 
-function getItemAfterURLHistUpd(itemStr){
+function getItemAfterURLHistUpd(itemStr) {
     let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + itemStr;
 
@@ -4755,7 +4907,7 @@ async function Logout() {
                 hideMenuItemsForLoggedOut();
                 //document.getElementById("logoutLinkId").style.display = "none";
                 //document.getElementById("myfavoritesLinkId").style.display = "none";
-                
+
                 //document.getElementById("mystoreLinkId").style.display = "none";
                 localStorage.setItem("userLoggedIn", "n");
                 localStorage.setItem("favitems", "");
@@ -4890,24 +5042,24 @@ function populateStoreType(divid) {
 
     let tags = sessionStorage.getItem("categoryList")
 
-    if ((tags == null) ||(tags == "") || (tags == "null")) {
-            $.ajax({
-                url: the.hosturl + '/php/process.php',
-                type: 'POST',
-                data: jQuery.param({
-                    usrfunction: "categories"
-                }),
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                success: function (response) {
-                    sessionStorage.setItem("categoryList", JSON.stringify(response));
-                    populateStoreType(divid);
-                },
-                error: function (xhr, status, error) {
-                    //console.log(error);
-                    //console.log(xhr);
-                }
-            });
-            return;        
+    if ((tags == null) || (tags == "") || (tags == "null")) {
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            type: 'POST',
+            data: jQuery.param({
+                usrfunction: "categories"
+            }),
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (response) {
+                sessionStorage.setItem("categoryList", JSON.stringify(response));
+                populateStoreType(divid);
+            },
+            error: function (xhr, status, error) {
+                //console.log(error);
+                //console.log(xhr);
+            }
+        });
+        return;
     }
 
     let tf = JSON.parse(tags);
@@ -5297,7 +5449,7 @@ function updateParentBGImage(element) {
     let previewDiv = document.querySelector('.secPreview');
 
     if (previewDiv.style.display != "none") {
-        previewDiv.style.backgroundImage = "url(" +the.hosturl + "'/img/" + element.value + "')";
+        previewDiv.style.backgroundImage = "url(" + the.hosturl + "'/img/" + element.value + "')";
     }
 
     let selectedImg = element.parentElement.querySelector('.selectedImg');
@@ -5315,7 +5467,7 @@ function updateTextDivColor(element) {
     document.getElementById("textDivId").style.opacity = document.getElementById("transparencySlider").value / 100;
 }
 
-function changeTransparency(){
+function changeTransparency() {
     document.getElementById("textDivId").style.opacity = document.getElementById("transparencySlider").value / 100;
 }
 
@@ -5334,7 +5486,7 @@ function updateParentBGColor(element) {
         let bannerDiv = previewDiv.querySelector('.shopTopBanner');
         bannerDiv.style.backgroundColor = element.style.backgroundColor;;
         bannerDiv.style.color = textColour;
-        
+
     }
 }
 
@@ -5417,7 +5569,7 @@ function updatePreviewUsingDivs(componentid) {
                 secProps = secProps + " data-background = '" + element.dataset.bgcolor + "'";
             } else {
                 //Background image
-                secProps = secProps + " data-background-image = '" + the.hosturl +"/img/" + element.dataset.background + "' ";
+                secProps = secProps + " data-background-image = '" + the.hosturl + "/img/" + element.dataset.background + "' ";
             }
         } else {
             //Background video
@@ -5537,10 +5689,10 @@ function gotoNextTab(elem) {
                 let containerHTML = imgContainer.innerHTML;
                 let images = imgContainer.querySelectorAll(".myitemImages");
                 let tempHTML = "";
-                
 
 
-                if (containerHTML.includes("addImages.png")){  
+
+                if (containerHTML.includes("addImages.png")) {
 
                     // tempHTML = "Please remove default image and add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
                     // document.getElementById("popupDivId").innerHTML = tempHTML;
@@ -5549,12 +5701,12 @@ function gotoNextTab(elem) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "Please remove default image and add your images. Save the changes before going to next tab.";
                     x.classList.add("show");
-                    setTimeout(function () { 
+                    setTimeout(function () {
                         x.classList.remove("show");
                     }, 6000);
 
-                    return;                    
-                }else if (images.length < 1) {
+                    return;
+                } else if (images.length < 1) {
                     // tempHTML = "Please add your images. Save the changes before going to next tab <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
                     // document.getElementById("popupDivId").innerHTML = tempHTML;
                     // placePopupAtPosFromBtn(elem, -100, -200);
@@ -5562,15 +5714,15 @@ function gotoNextTab(elem) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "Please add your images. Save the changes before going to next tab.";
                     x.classList.add("show");
-                    setTimeout(function () { 
+                    setTimeout(function () {
                         x.classList.remove("show");
                     }, 6000);
 
-                    return;    
+                    return;
                 }
-            }else if ((tablinks[i].innerHTML == "Name") || (tablinks[i].innerHTML == "Save Item")){
+            } else if ((tablinks[i].innerHTML == "Name") || (tablinks[i].innerHTML == "Save Item")) {
                 let enteredName = tabcontent[i].parentElement.parentElement.querySelector(".itemNameCls").innerHTML
-                if (enteredName == ""){
+                if (enteredName == "") {
                     // tempHTML = "Please enter the name <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
                     // document.getElementById("popupDivId").innerHTML = tempHTML;
                     // placePopupAtPosFromBtn(elem, -100, -100);
@@ -5578,18 +5730,18 @@ function gotoNextTab(elem) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "Please enter the name";
                     x.classList.add("show");
-                    setTimeout(function () { 
+                    setTimeout(function () {
                         x.classList.remove("show");
                     }, 6000);
 
                     return;
                 }
-            }else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")){
+            } else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")) {
                 let shopcity = document.getElementById("shopcity").innerHTML;
-                let shopstate  = document.getElementById("shopstate").innerHTML;
+                let shopstate = document.getElementById("shopstate").innerHTML;
                 let shopcountry = document.getElementById("shopcountry").innerHTML;
 
-                if ((shopcity == "") ||(shopstate == "") || (shopcountry == "")){
+                if ((shopcity == "") || (shopstate == "") || (shopcountry == "")) {
                     // tempHTML = "City/Town/Village, State and Country information is required <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
                     // document.getElementById("popupDivId").innerHTML = tempHTML;
                     // placePopupAtPosFromBtn(elem, -100, -200);
@@ -5597,11 +5749,11 @@ function gotoNextTab(elem) {
                     let x = document.getElementById("toastsnackbar");
                     x.innerHTML = "City/Town/Village, State and Country information is required";
                     x.classList.add("show");
-                    setTimeout(function () { 
+                    setTimeout(function () {
                         x.classList.remove("show");
                     }, 6000);
 
-                    return;                   
+                    return;
                 }
             }
 
@@ -5728,7 +5880,7 @@ async function discontinueItem(evt) {
                 x.innerHTML = "Item removed from your store";
                 //x.className = "show";
                 x.classList.add("show");
-                setTimeout(function () { 
+                setTimeout(function () {
                     //x.className = x.className.replace("show", ""); 
                     x.classList.remove("show");
                 }, 3000);
@@ -5868,7 +6020,7 @@ function markFavourite(elem) {
         x.innerHTML = "Login to add this to your favourites";
 
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             x.classList.remove("show");
         }, 5000);
 
@@ -5892,7 +6044,7 @@ function markFavourite(elem) {
             x.innerHTML = "Added to your favourites";
 
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 5000);
 
@@ -5912,9 +6064,9 @@ function markFavourite(elem) {
             x.innerHTML = "Removed from your favourites";
 
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
-            }, 5000);            
+            }, 5000);
         }
 
 
@@ -5922,7 +6074,7 @@ function markFavourite(elem) {
 }
 
 function openItemChat(elem) {
-        if (localStorage.getItem("userLoggedIn") == "n") {
+    if (localStorage.getItem("userLoggedIn") == "n") {
 
         // let tempHTML = "<div><a class='loginLinkCls' href='javascript:goToLogin()'>LOG IN</a> to contact the listing owner "
         // + "<div class='float_right marginleft_5px hover_pointer' onclick='closePopup()'><i class='fa fa-window-close'></i> </div>"
@@ -5939,7 +6091,7 @@ function openItemChat(elem) {
         x.innerHTML = "Login to contact the listing owner";
 
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             x.classList.remove("show");
         }, 5000);
 
@@ -5952,9 +6104,10 @@ function openItemChat(elem) {
         $.ajax({
             url: the.hosturl + '/php/process.php',
             type: 'POST',
-            data: jQuery.param({ itemid: itemid, itemuid: itemuid, storename:storename , usrfunction: "getconversationid" 
+            data: jQuery.param({
+                itemid: itemid, itemuid: itemuid, storename: storename, usrfunction: "getconversationid"
             }),
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (retstatus) {
                 initChat();
                 let obj = JSON.parse(retstatus);
@@ -5966,7 +6119,7 @@ function openItemChat(elem) {
 
             }
         });
-        
+
     }
 }
 
@@ -5988,7 +6141,7 @@ function provideReview(elem) {
         x.innerHTML = "Login to submit review for this item";
 
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             x.classList.remove("show");
         }, 3000);
 
@@ -6000,7 +6153,7 @@ function provideReview(elem) {
             + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
             + "</div>";
 
-            
+
         document.getElementById("modalhtmlid").innerHTML = tempHTML;
         document.getElementById("myModal").style.display = "block";
 
@@ -6029,7 +6182,7 @@ function reportItem(elem) {
         x.innerHTML = "Login to report issue with this item";
 
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             x.classList.remove("show");
         }, 5000);
 
@@ -6062,7 +6215,7 @@ function placePopupUnderClickedBtnParent(elem) {
         // 'top': elem.offsetTop + elem.clientHeight + 50,
         'display': 'block'
     })
-    
+
 }
 
 function placePopupUnderClickedBtn(elem) {
@@ -6072,19 +6225,19 @@ function placePopupUnderClickedBtn(elem) {
         // 'top': elem.offsetTop + elem.clientHeight + 50,
         'display': 'block'
     })
-    
+
 }
 
-function placePopupAtPosFromBtn(elem, xDir, yDir ) {
+function placePopupAtPosFromBtn(elem, xDir, yDir) {
 
     let div = elem;
     let topOffset = 0;
     let leftOffset = div.offsetLeft;
-    
+
     while (div) {
-      topOffset += div.offsetTop;
-    //   leftOffset += div.offsetLeft;
-      div = div.offsetParent;
+        topOffset += div.offsetTop;
+        //   leftOffset += div.offsetLeft;
+        div = div.offsetParent;
     }
 
     $("#popupDivId").css({
@@ -6094,16 +6247,16 @@ function placePopupAtPosFromBtn(elem, xDir, yDir ) {
         'display': 'block'
     })
 }
-function placePopupAtPosFromBtnXOffset(elem, xDir, yDir ) {
+function placePopupAtPosFromBtnXOffset(elem, xDir, yDir) {
 
     let div = elem;
     let topOffset = 0;
     let leftOffset = div.offsetLeft;
-    
+
     while (div) {
-      topOffset += div.offsetTop;
-      leftOffset += div.offsetLeft;
-      div = div.offsetParent;
+        topOffset += div.offsetTop;
+        leftOffset += div.offsetLeft;
+        div = div.offsetParent;
     }
 
     $("#popupDivId").css({
@@ -6207,7 +6360,7 @@ function getFavoritesList() {
 
             // localStorage.setItem("favitems", JSON.stringify(tags[0].favoriteitems));
             // localStorage.setItem("favstores", JSON.stringify(tags[0].favoritestores));
-            if (tags != ""){
+            if (tags != "") {
                 localStorage.setItem("favitems", tags[0].favoriteitems);
                 localStorage.setItem("favstores", tags[0].favoritestores);
             }
@@ -6222,11 +6375,11 @@ function getFavoritesList() {
     });
 }
 
-function getstoreinfo(){
+function getstoreinfo() {
     let tags = localStorage.getItem("storeinfo")
     if ((tags != null) && (tags != undefined)) {
         if ((tags != "") && (tags != "null")) {
-            if (tags == "y"){
+            if (tags == "y") {
                 document.getElementById("mystoreLinkId").innerHTML = "MY STORE";
             }
             return;
@@ -6250,7 +6403,7 @@ function getstoreinfo(){
 
             localStorage.setItem("storeinfo", response);
 
-            if (response == "y"){
+            if (response == "y") {
                 document.getElementById("mystoreLinkId").innerHTML = "MY STORE";
             }
 
@@ -6305,7 +6458,7 @@ function submitReview(itemid) {
         x.innerHTML = "Please select rating stars";
         //x.className = "show";
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             //x.className = x.className.replace("show", ""); 
             x.classList.remove("show");
         }, 3000);
@@ -6337,7 +6490,7 @@ function submitReview(itemid) {
     x.innerHTML = "Thank you for submitting your review";
 
     x.classList.add("show");
-    setTimeout(function () { 
+    setTimeout(function () {
         x.classList.remove("show");
     }, 5000);
 
@@ -6357,7 +6510,7 @@ function reportIssue(itemid) {
         x.innerHTML = "Please enter the details in the box";
         //x.className = "show";
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             //x.className = x.className.replace("show", ""); 
             x.classList.remove("show");
         }, 3000);
@@ -6386,7 +6539,7 @@ function reportIssue(itemid) {
     x.innerHTML = "Thank you for reporting the issue";
 
     x.classList.add("show");
-    setTimeout(function () { 
+    setTimeout(function () {
         x.classList.remove("show");
     }, 5000);
 
@@ -6400,7 +6553,7 @@ function reportIssue(itemid) {
     //placePopupUnderClickedBtnParent(elem);
 }
 
-function reportChatIssue(convid){
+function reportChatIssue(convid) {
     let comment = document.querySelector('.reviewCommentDivCls').innerHTML;
 
     if (comment == "") {
@@ -6408,7 +6561,7 @@ function reportChatIssue(convid){
         x.innerHTML = "Please enter the details in the box";
         //x.className = "show";
         x.classList.add("show");
-        setTimeout(function () { 
+        setTimeout(function () {
             //x.className = x.className.replace("show", ""); 
             x.classList.remove("show");
         }, 3000);
@@ -6436,7 +6589,7 @@ function reportChatIssue(convid){
     x.innerHTML = "Thank you for reporting the issue";
 
     x.classList.add("show");
-    setTimeout(function () { 
+    setTimeout(function () {
         x.classList.remove("show");
     }, 5000);
 
@@ -6452,85 +6605,85 @@ function makeElementDraggable(parentElmntId, headerElemId) {
     let parentElmnt = document.getElementById(parentElmntId);
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     let isMouseDown;
-    let initX,initY,height = parentElmnt.offsetHeight,width = parentElmnt.offsetWidth;
+    let initX, initY, height = parentElmnt.offsetHeight, width = parentElmnt.offsetWidth;
 
     if (document.getElementById(headerElemId)) {
-      /* if present, the header is where you move the DIV from:*/
-      document.getElementById(headerElemId).onmousedown = dragMouseDownA;
-      document.getElementById(headerElemId).onmouseup = endMouseDragB;
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(headerElemId).onmousedown = dragMouseDownA;
+        document.getElementById(headerElemId).onmouseup = endMouseDragB;
 
 
-      document.addEventListener('mousemove', function(e) {
-        if (isMouseDown) {
-          var cx = e.clientX - initX,
-              cy = e.clientY - initY;
-          if (cx < 0) {
-            cx = 0;
-          }
-          if (cy < 0) {
-            cy = 0;
-          }
-          if (window.innerWidth - e.clientX + initX < width) {
-            cx = window.innerWidth - width;
-          }
-          if (e.clientY > window.innerHeight - height+ initY) {
-            cy = window.innerHeight - height;
-          }
-          parentElmnt.style.left = cx + 'px';
-          parentElmnt.style.top = cy + 'px';
-        }
+        document.addEventListener('mousemove', function (e) {
+            if (isMouseDown) {
+                var cx = e.clientX - initX,
+                    cy = e.clientY - initY;
+                if (cx < 0) {
+                    cx = 0;
+                }
+                if (cy < 0) {
+                    cy = 0;
+                }
+                if (window.innerWidth - e.clientX + initX < width) {
+                    cx = window.innerWidth - width;
+                }
+                if (e.clientY > window.innerHeight - height + initY) {
+                    cy = window.innerHeight - height;
+                }
+                parentElmnt.style.left = cx + 'px';
+                parentElmnt.style.top = cy + 'px';
+            }
         })
 
-    } 
-    function dragMouseDownA(e){
+    }
+    function dragMouseDownA(e) {
         isMouseDown = true;
         document.body.classList.add('no-select');
         initX = e.offsetX;
         initY = e.offsetY;
     }
 
-    function endMouseDragB(e){
+    function endMouseDragB(e) {
         isMouseDown = false;
         document.body.classList.remove('no-select');
     }
 
     function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
     }
-  
+
     function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      parentElmnt.style.top = (parentElmnt.offsetTop - pos2) + "px";
-      parentElmnt.style.left = (parentElmnt.offsetLeft - pos1) + "px";
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        parentElmnt.style.top = (parentElmnt.offsetTop - pos2) + "px";
+        parentElmnt.style.left = (parentElmnt.offsetLeft - pos1) + "px";
     }
-  
+
     function closeDragElement() {
-      /* stop moving when mouse button is released:*/
-      document.onmouseup = null;
-      document.onmousemove = null;
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
 }
 
-function hideParentToastDiv(elem){
+function hideParentToastDiv(elem) {
     //elem.parentElement.classList.remove("show");
     elem.parentElement.style.display = "none";
 }
 
-function showpolicyAfterURLHistUpd(){
+function showpolicyAfterURLHistUpd() {
 
     //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
 
@@ -6550,7 +6703,7 @@ function showpolicyAfterURLHistUpd(){
     showPolicy();
 }
 
-function showPolicy(){
+function showPolicy() {
     //sessionStorage.setItem("lastUrl", window.location.href);
 
     document.getElementById("loginDivId").style.display = "none";
@@ -6562,15 +6715,17 @@ function showPolicy(){
     tempHTML = tempHTML + "<p>The following Fair Usage Policy is designed to ensure that all users of our website can benefit from a fair and equal experience. By using our website, you agree to abide by this policy.</p> <ol>    <li>Prohibited Activities: You are not allowed to engage in any activities that could harm the website or its users, including, but not limited to:</li> </ol><p>a) Posting or uploading any inappropriate, offensive, or illegal content. b) Attempting to gain unauthorized access to other users&apos; accounts or personal information. c) Engaging in any fraudulent or deceptive practices. d) Harassing, threatening, or intimidating other users. e) Violating any applicable laws or regulations.</p> <ol start='2'>    <li>         <p>Limitations on Usage: We reserve the right to limit or restrict your usage of the website if we suspect that you are engaging in any activities that are not in compliance with this policy or our terms and conditions.</p>    </li>     <li>        <p>Account Suspension or Termination: We reserve the right to suspend or terminate your account if we determine that you have violated this policy or our terms and conditions. We may also suspend or terminate your account if we receive complaints from other users about your behavior on the website.</p>     </li>    <li>         <p>Monitoring: We may monitor your usage of the website to ensure compliance with this policy and our terms and conditions. This may include reviewing your account activity, messages, and posts.</p>    </li>     <li>        <p>Changes to Policy: We may change this Fair Usage Policy at any time without prior notice. Your continued use of the website after any changes to this policy will constitute your acceptance of the revised policy.</p>     </li></ol> <p>By using our website, you acknowledge that you have read, understood, and agree to abide by this Fair Usage Policy.</p>";
     tempHTML = tempHTML + '<br> <br> <button class="helper btnCenterAlign width_200px" onclick="goToPrevURL()">Close</button><br><br><br>';
     document.getElementById("itemListDivId").style.display = "block";
-    document.getElementById("itemListDivId").innerHTML = tempHTML;
+    document.getElementById("itemListInnerDivId").innerHTML = tempHTML;
+    document.getElementById("distanceFilter").style.display = "none";
+
     $('html, body').animate({
         scrollTop: $("#itemListDivId").offset().top - 80
     }, 100);
 }
 
-function goToPrevURL(){
+function goToPrevURL() {
     let myUrl = window.location.protocol + "//" + window.location.host +
-    window.location.pathname;
+        window.location.pathname;
 
     let lastUrl = sessionStorage.getItem("lastUrl");
     if ((lastUrl == null) || (lastUrl.includes("?target=login")) || (lastUrl.includes("?target=policy"))) {
@@ -6579,7 +6734,7 @@ function goToPrevURL(){
     window.open(lastUrl, "_self");
 }
 
-function myfavorites(){
+function myfavorites() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("myfavoritesLinkId");
     x.classList.add("active");
@@ -6593,32 +6748,33 @@ function myfavorites(){
 
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     let rows = JSON.parse(tf);
-    
+
     let tags = localStorage.getItem("favitems");
     let favitemsArr = [];
 
     if (tags != null) {
         if ((tags != "") && (tags != undefined) && (tags != [])) {
             favitemsArr = JSON.parse(tags);
-        } 
-    } 
+        }
+    }
 
-    if (favitemsArr.length == 0){
+    if (favitemsArr.length == 0) {
         document.getElementById("itemListDivId").style.display = "block";
-        document.getElementById("itemListDivId").innerHTML = "You have not marked any item as favorite yet <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        document.getElementById("itemListInnerDivId").innerHTML = "You have not marked any item as favorite yet <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        document.getElementById("distanceFilter").style.display = "none";
         document.getElementById("itemDivId").style.display = "none";
-        
-        return;
-    }else {
+
+        //return;
+    } else {
         rows = rows.filter(function (entry) {
-            return favitemsArr.includes(entry.itemid) ;
+            return favitemsArr.includes(entry.itemid);
         });
         populateItemsList(rows);
     }
 
 }
 
-function mychat(){
+function mychat() {
     document.querySelector('.chat-widget').style.display = 'flex';
     // Animate the chat widget
     document.querySelector('.chat-widget').getBoundingClientRect();
@@ -6629,7 +6785,7 @@ function mychat(){
         // Close the chat
         document.querySelector('.chat-widget').classList.remove('chatopen');
     };
- 
+
     //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
 
     fetch(the.hosturl + '/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
@@ -6638,17 +6794,17 @@ function mychat(){
         // Update the conversations tab content
 
         //Check for no messages
-        let tempData = data.replace('<div class="chat-widget-conversations">','');
-        tempData = tempData.replace('</div>','');
-        tempData = tempData.replace(' ','');
-        tempData = tempData.replace(' ','');
+        let tempData = data.replace('<div class="chat-widget-conversations">', '');
+        tempData = tempData.replace('</div>', '');
+        tempData = tempData.replace(' ', '');
+        tempData = tempData.replace(' ', '');
         tempData = tempData.replace(/(?:\r\n|\r|\n)/g, '');
-        if (tempData.trim() == ""){
+        if (tempData.trim() == "") {
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "No messages are found. To initiate the conversation, go to the product page and click on chat icon";
 
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 6000);
             document.querySelector('.chat-widget').classList.remove('chatopen');
@@ -6662,36 +6818,36 @@ function mychat(){
         selectChatTab(1);
 
         setTimeout(() => {
-            try{
-                let elems = document.querySelectorAll(".shop-user-city") ;
+            try {
+                let elems = document.querySelectorAll(".shop-user-city");
                 let elemsB = document.querySelectorAll("#reportChatUserDivId");
 
                 for (let i = 0; i < elems.length; i++) {
                     elems[i].innerHTML = "";
-                    elemsB[i].style.display = "none";  
+                    elemsB[i].style.display = "none";
                     //console.log("done2");
                     //document.getElementById("headerDragger").innerHTML = "";
                 }
                 //document.getElementById("reportChatUserDivId").style.display = "none";                
-            }catch(e){
-    
-            }            
+            } catch (e) {
+
+            }
         }, 50);
 
     });
 
-    makeElementDraggable("chat-window","chat-window-header");
+    makeElementDraggable("chat-window", "chat-window-header");
 }
 
-function reportChatUser(elem){
+function reportChatUser(elem) {
     let convid = document.getElementById("convid").value;
 
     let tempHTML = '<div class="warningMsg">Please use this only to report inappropriate messages</div>'
-    + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of what was inappropriate in the message"></div>'
-    + '<button class="helper width_100px margintop_10px float_left" onclick="reportChatIssue(' + "'" + convid + "'" + ');">Submit</button>'
+        + '<div class="reviewCommentDivCls" contenteditable="true" data-text="Provide details of what was inappropriate in the message"></div>'
+        + '<button class="helper width_100px margintop_10px float_left" onclick="reportChatIssue(' + "'" + convid + "'" + ');">Submit</button>'
 
-    + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
-    + "</div>";
+        + '<button class="helper width_100px margintop_10px float_right" onclick="closeModal();">Cancel</button>'
+        + "</div>";
 
     document.getElementById("modalhtmlid").innerHTML = tempHTML;
     document.getElementById("myModal").style.display = "block";
@@ -6704,8 +6860,46 @@ function reportChatUser(elem){
     //placePopupAtPosFromBtnXOffset(elem, -300, -10);
 }
 
+function updateSelectedval(){
+    let distance = document.getElementById("distanceSlider").value;
+    document.getElementById("selectedDist").innerHTML = distance;
+    sessionStorage.setItem("selectedDistance", distance);
+}
 
-function checkAnimation(){
+function applyDistanceFilter(){
+    (() => {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+            alert("Geolocation is not supported by your browser");
+        }
+
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            let info = latitude + "," + longitude;
+            let tags = sessionStorage.getItem("itemsList");
+            let rows = JSON.parse(JSON.parse(tags));
+            let updatedRows = rows.map(row => {
+                return { ...row, distance: getDistance(row, info) };
+            }
+            );
+            sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
+            checkURL();
+        }
+
+        function error() {
+            alert("Unable to retrieve location");
+        }
+    })();
+
+
+    
+}
+
+function checkAnimation() {
 
     let $animationElements = $('.animate_inview');
     let $window = $(window);
@@ -6720,17 +6914,17 @@ function checkAnimation(){
         let elementHeight = $element.outerHeight();
         let elementTopPosition = $element.offset().top;
         let elementBottomPosition = (elementTopPosition + elementHeight);
-        if (! $element.hasClass('slide-in-right')){ 
+        if (!$element.hasClass('slide-in-right')) {
             if ((elementBottomPosition >= windowTopPosition) &&
                 (elementTopPosition <= windowBottomPosition)) {
                 $element.addClass('slide-in-right');
-            // } else {
-            //     $element.removeClass('slide-in-right');//SM-Removed this to avoid multiple times animation
+                // } else {
+                //     $element.removeClass('slide-in-right');//SM-Removed this to avoid multiple times animation
             }
-         }
+        }
     });
 }
 
-function closeModal(){
+function closeModal() {
     document.getElementById("myModal").style.display = "none";
 }

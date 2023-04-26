@@ -1,9 +1,9 @@
-function admshowAdditionalMenuItemsForLoggedIn(){
+function admshowAdditionalMenuItemsForLoggedIn() {
     document.getElementById("logoutLinkId").style.display = "block";
     document.getElementById("myfavoritesLinkId").style.display = "block";
     document.getElementById("mychatLinkId").style.display = "block";
     document.getElementById("admLinkId").style.display = "block";
-    
+
     document.getElementById("itemsPendingReviewLinkId").style.display = "block";
     document.getElementById("reportsPendingReviewLinkId").style.display = "block";
     document.getElementById("accMgmtLinkId").style.display = "block";
@@ -12,7 +12,7 @@ function admshowAdditionalMenuItemsForLoggedIn(){
     document.getElementById("loginLinkId").style.display = "none";
 }
 
-function admhideMenuItemsForLoggedOut(){
+function admhideMenuItemsForLoggedOut() {
     document.getElementById("logoutLinkId").style.display = "none";
     document.getElementById("myfavoritesLinkId").style.display = "none";
     document.getElementById("mychatLinkId").style.display = "none";
@@ -55,8 +55,8 @@ function admcheckURL() {
     document.getElementById("itemListDivId").style.display = "none";
     document.getElementById("itemEditDivId").style.display = "none";
 
-    if (myCookie == null)  {
-         
+    if (myCookie == null) {
+
         localStorage.setItem("userLoggedIn", "n");
         document.getElementById("loginLinkId").style.display = "block";
 
@@ -97,7 +97,7 @@ function admcheckURL() {
 
 }
 
-function admproceedWithRequest(){
+function admproceedWithRequest() {
     let LocationSearchStr = location.search;
     let find = '%20';
     let re = new RegExp(find, 'g');
@@ -209,18 +209,18 @@ function admproceedWithRequest(){
             x.innerHTML = "Login to create or access your store";
 
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
 
             return;
-        } 
+        }
         myStore();
         return;
-    }else if (pageName == "policy") {
+    } else if (pageName == "policy") {
         showPolicy();
         return;
-    }else if (pageName == "projectscanner") {
+    } else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
         populateStoredProjectList();
         if ((localStorage.getItem("userLoggedIn") == "y") && (localStorage.getItem("userLvl") == "9")) {
@@ -318,13 +318,13 @@ function admdisplayStore(storename) {
         document.getElementById("itemDivId").style.display = "block";
         admFnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
     } else {
-        if (storename == ""){
+        if (storename == "") {
             Show('home');
-        }else {
+        } else {
             document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
             document.getElementById("itemDivId").style.display = "block";
-    
-        }  
+
+        }
     }
 }
 
@@ -406,17 +406,17 @@ function admgetOneItemOfShop(tags, itemstr) {
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced + "/" + storeRow[0].title.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
-        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
-    
+
     //***SM-DONOTDELETE-Maybe used later */
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' >  <span class='newStoreTypeHdr slide-in-left display_block margintop_15px'>" + title + "</span></div>";
- 
+
     //END - Item name Heading
 
 
@@ -448,7 +448,7 @@ function admgetOneItemOfShop(tags, itemstr) {
     //document.getElementById(elemId).style.backgroundColor = "#cc0000";
     //END: Change the background color of the active item link
 
-    let metaDesc = title + ", " + tags[0].itemdescription ;
+    let metaDesc = title + ", " + tags[0].itemdescription;
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
@@ -493,6 +493,71 @@ function admgetOneItemOfShop(tags, itemstr) {
 
 }
 
+function getItemsListadm() {
+
+    //SM - For ADM - Always pull
+
+    // let tags = sessionStorage.getItem("itemsList")
+    // if (tags != null) {
+    //     if ((tags != "") && (tags != "null")) {
+
+    //         setTimeout(() => {
+    //             populateItemDropDown();
+    //         }, 10);
+
+    //         setTimeout(() => {
+    //             populateitemsDropDownDisplay();
+    //        }, 10);
+
+    //         return;
+    //     }
+    // }
+
+    if (sessionStorage.getItem("locset") == null) {
+        document.getElementById("loaderDivId").style.display = "block";
+        setTimeout(function () {
+            document.getElementById("loaderDivId").style.display = "none";
+            getItemsListadm();
+        }, 50);
+        return;
+    }
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "itemsadm"
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+            let rows = JSON.parse(response);
+            let updatedRows = rows;
+            let info = localStorage.getItem("posinf");
+            if ((info != undefined) && (info != null) && (info != "") && (info != "null") && (info != ",,")) {
+                updatedRows = rows.map(row => {
+                    return { ...row, distance: getDistance(row, info) };
+                }
+                );
+            }
+
+            //sessionStorage.setItem("itemsList", JSON.stringify(response));
+            sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
+            setTimeout(() => {
+                populateItemDropDown();
+            }, 10);
+
+            setTimeout(() => {
+                populateitemsDropDownDisplay();
+            }, 10);
+        },
+        error: function (xhr, status, error) {
+            // console.log(error);
+            // console.log(xhr);
+        }
+    });
+}
+
+
 function admgetFullShopDetails(tags, itemstr) {
 
     let itemid = tags[0].itemid;
@@ -519,7 +584,7 @@ function admgetFullShopDetails(tags, itemstr) {
     //let path = window.location.pathname;
 
     let storeItems = allRows.filter(function (entry) {
-        return  entry.storename == tags[0].storename && entry.title != tags[0].storename;
+        return entry.storename == tags[0].storename && entry.title != tags[0].storename;
     });
 
 
@@ -531,8 +596,8 @@ function admgetFullShopDetails(tags, itemstr) {
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category + "/" + tags[0].title.replaceAll(" ", "-") + "/" + tags[0].title.replaceAll(" ", "-");
 
     let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
-        '<a class="anchor_tag_btn1" onclick="Show('+ "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd('+ "'" + category + "'" +'); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
+        '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
 
     //END - Navigation Links
@@ -547,10 +612,10 @@ function admgetFullShopDetails(tags, itemstr) {
 
 
     let storeHeads = allRows.filter(function (entry) {
-        return  entry.storename == tags[0].storename && entry.title == tags[0].storename;
+        return entry.storename == tags[0].storename && entry.title == tags[0].storename;
     });
 
-    for (let storehead of storeHeads){
+    for (let storehead of storeHeads) {
         let itemid = storehead.itemid;
         let category = storehead.category;
         let subcategory = storehead.subcategory;
@@ -664,7 +729,7 @@ function adm_getShopLocationAndHours(storehead) {
     if ((storehead.coordinatesfromaddress != undefined) && (storehead.coordinatesfromaddress != null) && (storehead.coordinatesfromaddress != "") && (storehead.coordinatesfromaddress != "null,null")) {
 
         let crd = storehead.coordinatesfromaddress.split(",");
-        
+
         newHTML = newHTML
             + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
@@ -679,21 +744,21 @@ function adm_getShopLocationAndHours(storehead) {
             L.marker([latitude, longitude]).addTo(map);
         }, 10);
 
-    }   else if ((storehead.maplocationcoordinates != undefined) && (storehead.maplocationcoordinates != null) && (storehead.maplocationcoordinates != "") && (storehead.maplocationcoordinates != "null,null")) {
+    } else if ((storehead.maplocationcoordinates != undefined) && (storehead.maplocationcoordinates != null) && (storehead.maplocationcoordinates != "") && (storehead.maplocationcoordinates != "null,null")) {
 
-            let crd = storehead.maplocationcoordinates.split(",");
-            
-            newHTML = newHTML
-                + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
+        let crd = storehead.maplocationcoordinates.split(",");
+
+        newHTML = newHTML
+            + '<div id="storeMapDivId" class="minheight_200px" >&nbsp; <br><br><br>' + '</div>Note: Location on the map is approximate';
 
 
-            setTimeout(function () {
-                let latitude = crd[0];
-                let longitude = crd[1];
-                const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                L.marker([latitude, longitude]).addTo(map);
-            }, 10);
+        setTimeout(function () {
+            let latitude = crd[0];
+            let longitude = crd[1];
+            const map = L.map("storeMapDivId").setView([latitude, longitude], 5);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+            L.marker([latitude, longitude]).addTo(map);
+        }, 10);
 
     }
     newHTML = newHTML + '<div title="Lat,Long from Browser"  contenteditable="true" class="title-tip brwsrmapcoord margin_auto maxwidth_300px">' + storehead.maplocationcoordinates + '</div>';
@@ -721,17 +786,17 @@ function adm_getShopLocationAndHours(storehead) {
     newHTML = newHTML + '</div>';
     //End: Have Info- Desc/Hours/Location under one parent div
 
-    if (storehead.discontinue == "1"){
+    if (storehead.discontinue == "1") {
         newHTML = newHTML + '<div title="Discontinued" contenteditable="true" class="shopdiscontinuecls title-tip warningMsg font_size_12px">' + storehead.discontinue + '</div>';
 
-    }else {
+    } else {
         newHTML = newHTML + '<div title="Discontinued"  contenteditable="true" class="title-tip shopdiscontinuecls font_size_12px">' + storehead.discontinue + '</div>';
 
     }
-    if (storehead.reviewed == "0"){
+    if (storehead.reviewed == "0") {
         newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip warningMsg1 shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
-       
-    }else {
+
+    } else {
         newHTML = newHTML + '<div title="Reviewed" contenteditable="true" class="title-tip shopreviewedcls font_size_12px">' + storehead.reviewed + '</div>';
 
     }
@@ -743,7 +808,7 @@ function adm_getShopLocationAndHours(storehead) {
 
 }
 
-function admsaveShopItemReview(evt){
+function admsaveShopItemReview(evt) {
     let parentDiv = evt.currentTarget.parentElement.parentElement;
     let itemid = parentDiv.dataset.itemid;
     let title = parentDiv.dataset.titlename;
@@ -766,34 +831,35 @@ function admsaveShopItemReview(evt){
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { itemid: itemid,
-                description:description,
-                hourshtml: hourshtml,
-                uselocationfromaddress:uselocationfromaddress,
-                city: city,
-                state: state,
-                country: country,
-                coordinatesfromaddress:coordinatesfromaddress,
-                maplocationcoordinates: maplocationcoordinates,
-                availabilityinfo: availabilityinfo,
-                discontinue: discontinue,
-                reviewed: reviewed,
-                versionseq: versionseq,
-                title: title,
-                storename: storename,
-                usrfunction: "saveshopitemreview" 
-            },
+        data: {
+            itemid: itemid,
+            description: description,
+            hourshtml: hourshtml,
+            uselocationfromaddress: uselocationfromaddress,
+            city: city,
+            state: state,
+            country: country,
+            coordinatesfromaddress: coordinatesfromaddress,
+            maplocationcoordinates: maplocationcoordinates,
+            availabilityinfo: availabilityinfo,
+            discontinue: discontinue,
+            reviewed: reviewed,
+            versionseq: versionseq,
+            title: title,
+            storename: storename,
+            usrfunction: "saveshopitemreview"
+        },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
             let x = document.getElementById("toastsnackbar");
-            if (retstatus) {                
+            if (retstatus) {
                 x.innerHTML = "Updates saved";
-            }else {
+            } else {
                 x.innerHTML = "Updates failed";
             }
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         },
@@ -803,7 +869,7 @@ function admsaveShopItemReview(evt){
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Updates failed";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         }
@@ -813,43 +879,44 @@ function admsaveShopItemReview(evt){
 
 }
 
-function admsaveItemReview(evt){
+function admsaveItemReview(evt) {
     let parentDiv = evt.currentTarget.parentElement.parentElement.parentElement;
     let itemid = parentDiv.dataset.itemid;
     let storename = parentDiv.dataset.storename;
     let origtitle = parentDiv.dataset.titlename;
 
-    let title = parentDiv.querySelector('.shopItemTitle').textContent;    
+    let title = parentDiv.querySelector('.shopItemTitle').textContent;
     let itemprice = parentDiv.querySelector('.shopItemPrice').textContent;
     let itemdescription = parentDiv.querySelector('.shopItemDescription').innerHTML;
     let discontinue = parentDiv.querySelector(".itemdiscontinuecls").textContent;
-    let reviewed = parentDiv.querySelector(".itemreviewedcls").textContent;   
+    let reviewed = parentDiv.querySelector(".itemreviewedcls").textContent;
     let versionseq = parentDiv.querySelector(".versionseqcls").textContent;
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { itemid: itemid,
-                title:title,
-                itemprice: itemprice,
-                itemdescription:itemdescription,
-                discontinue: discontinue,
-                reviewed: reviewed,
-                versionseq: versionseq,
-                origtitle: origtitle,
-                storename: storename,                
-                usrfunction: "saveitemreview" 
-            },
+        data: {
+            itemid: itemid,
+            title: title,
+            itemprice: itemprice,
+            itemdescription: itemdescription,
+            discontinue: discontinue,
+            reviewed: reviewed,
+            versionseq: versionseq,
+            origtitle: origtitle,
+            storename: storename,
+            usrfunction: "saveitemreview"
+        },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
             let x = document.getElementById("toastsnackbar");
-            if (retstatus) {                
+            if (retstatus) {
                 x.innerHTML = "Updates saved";
-            }else {
+            } else {
                 x.innerHTML = "Updates failed";
             }
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         },
@@ -859,7 +926,7 @@ function admsaveItemReview(evt){
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Updates failed";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         }
@@ -914,18 +981,18 @@ function adm_getItemsHTML(storeItems) {
         newHTML = newHTML + getItemButtons();
 
 
-                newHTML = newHTML
-                    + '<div data-title="Item Name" contenteditable="true" class="shopItemTitle ">' + storeItems[i].title + '</div>';
+        newHTML = newHTML
+            + '<div data-title="Item Name" contenteditable="true" class="shopItemTitle ">' + storeItems[i].title + '</div>';
 
 
 
-                newHTML = newHTML
-                    + '<div data-title="Item Price" contenteditable="true" class="shopItemPrice ">' + storeItems[i].itemprice + '</div>';
+        newHTML = newHTML
+            + '<div data-title="Item Price" contenteditable="true" class="shopItemPrice ">' + storeItems[i].itemprice + '</div>';
 
 
 
-                newHTML = newHTML
-                    + '<div data-title="Item Description" contenteditable="true" class="shopItemDescription padding_20px">' + storeItems[i].itemdescription + '</div>';
+        newHTML = newHTML
+            + '<div data-title="Item Description" contenteditable="true" class="shopItemDescription padding_20px">' + storeItems[i].itemdescription + '</div>';
 
 
         if (storeItems[i].lastupdatedate != undefined) {
@@ -945,23 +1012,23 @@ function adm_getItemsHTML(storeItems) {
             }
         }
 
-        if(storeItems[i].discontinue == "1"){
+        if (storeItems[i].discontinue == "1") {
             newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls warningMsg font_size_12px">' + storeItems[i].discontinue + '</div>';
-        }else {
+        } else {
             newHTML = newHTML + '<div data-title="Discontinue" contenteditable="true" class="itemdiscontinuecls font_size_12px">' + storeItems[i].discontinue + '</div>';
         }
 
-        if(storeItems[i].reviewed != "1"){
+        if (storeItems[i].reviewed != "1") {
             newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls warningMsg1 font_size_12px">' + storeItems[i].reviewed + '</div>';
-        }else {
+        } else {
             newHTML = newHTML + '<div data-title="Reviewed" contenteditable="true" class="itemreviewedcls font_size_12px">' + storeItems[i].reviewed + '</div>';
         }
-     newHTML = newHTML + '<span title="itemid" class="title-tip">' + storeItems[i].itemid + '</span>';
-    newHTML = newHTML + '<span title="versionseq" class="title-tip versionseqcls">' + storeItems[i].versionseq + '</span>';
-   
+        newHTML = newHTML + '<span title="itemid" class="title-tip">' + storeItems[i].itemid + '</span>';
+        newHTML = newHTML + '<span title="versionseq" class="title-tip versionseqcls">' + storeItems[i].versionseq + '</span>';
+
         newHTML = newHTML + '<button class="shopTablinks" style="float:right" onclick="admsaveItemReview(event)">Save</button>';
 
-        
+
         newHTML = newHTML + '</div></div>';
         //End: max_2box_responsive
 
@@ -1260,7 +1327,7 @@ function admEditItem(btn) {
 
     document.getElementById("itemDivId").style.width = "100%";
     document.getElementById("itemDivId").style.display = "block";
-    
+
     document.getElementById("mainContainer").style.width = "100%";
     document.getElementById("itemEditDivId").style.width = "700px";
     document.getElementById("itemListDivId").style.display = "none";
@@ -1466,7 +1533,7 @@ function admremoveNewLine(innerHTML) {
 }
 
 
-function admgetItmPendingReview(){
+function admgetItmPendingReview() {
     removeActiveClassFromNavLinks();
     // let x = document.getElementById("itemsPendingReviewLinkId");
     // x.classList.add("active");
@@ -1488,7 +1555,7 @@ function admgetItmPendingReview(){
 
 }
 
-function admcheckStores(){
+function admcheckStores() {
     removeActiveClassFromNavLinks();
     // let x = document.getElementById("itemsPendingReviewLinkId");
     // x.classList.add("active");
@@ -1532,10 +1599,10 @@ function admpopulateItemsStoresListForReview(rows = "") {
         let itemstr = record.itemstr;
         let discontinue = record.discontinue;
         //let chatIssue = issue.replace("^Chat reported^ -","");
-        
+
         //let lastupdatedate = record.lastupdatedate;
         //let comment = record.comment;
-        
+
 
         let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
@@ -1553,11 +1620,11 @@ function admpopulateItemsStoresListForReview(rows = "") {
 
         innerHTML = innerHTML + '<div data-title="Store" ><a  href ="' + itemurl + '"   >Store</a></div>';
 
-        
+
 
         if (discontinue == "1") {
             innerHTML = innerHTML + '<div  data-title="discontinue" class="bgcolor_4 " >' + discontinue + '</div>';
-        }else {
+        } else {
             innerHTML = innerHTML + '<div  data-title="discontinue" class="">' + discontinue + '</div>';
         }
         innerHTML = innerHTML + '<div data-title="lastupdatedate" >' + lastupdatedate + '</div>';
@@ -1570,12 +1637,12 @@ function admpopulateItemsStoresListForReview(rows = "") {
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 }
 
-function admgetreportsPendingReview(){
+function admgetreportsPendingReview() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("reportsPendingReviewLinkId");
     x.classList.add("active");
@@ -1597,7 +1664,7 @@ function admgetreportsPendingReview(){
 
 }
 
-function admlistReports(rows = []){
+function admlistReports(rows = []) {
 
     let innerHTML = "";
     let path = window.location.pathname;
@@ -1612,23 +1679,23 @@ function admlistReports(rows = []){
         let itemstr = record.itemstr;
         let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
-        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="' + record.seqid + '" > ';
 
 
         innerHTML = innerHTML + '<div data-title="user" >' + usrn + '</div>';
         innerHTML = innerHTML + '<div data-title="issue" >' + issue + '</div>';
-        
-        if ((!issue.includes("^Chat reported^")) && (itemstr != null)){
+
+        if ((!issue.includes("^Chat reported^")) && (itemstr != null)) {
             innerHTML = innerHTML + '<a class="" href ="' + itemurl + '" class="itemTopLinkCls"  >Item</a>';
-        }else{
-            innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="admgetChat(' + itemid +')" >' + itemid + '</div>';
+        } else {
+            innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="admgetChat(' + itemid + ')" >' + itemid + '</div>';
         }
 
         innerHTML = innerHTML + '<div data-title="datetime" >' + datetime + '</div>';
 
         if (reviewed != "1") {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="reviewed" class="bgcolor_4 reportreviewedcls" >' + reviewed + '</div>';
-        }else {
+        } else {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="reviewed" class="reportreviewedcls">' + reviewed + '</div>';
         }
 
@@ -1642,14 +1709,14 @@ function admlistReports(rows = []){
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 
 }
 
 
-function admgetReviews(){
+function admgetReviews() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("reviewsLinkId");
     x.classList.add("active");
@@ -1671,7 +1738,7 @@ function admgetReviews(){
 
 }
 
-function admlistReviews(rows = []){
+function admlistReviews(rows = []) {
 
     let innerHTML = "";
     let path = window.location.pathname;
@@ -1689,7 +1756,7 @@ function admlistReviews(rows = []){
 
         let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
-        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-itemid="'+ itemid +'" data-customerid="'+ customerid +'" > ';
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-itemid="' + itemid + '" data-customerid="' + customerid + '" > ';
 
 
         innerHTML = innerHTML + '<div data-title="userfullname" >' + userfullname + '</div>';
@@ -1705,7 +1772,7 @@ function admlistReviews(rows = []){
 
         if (smreviewed != "1") {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="smreviewed" class="bgcolor_4 reportreviewedcls" >' + smreviewed + '</div>';
-        }else {
+        } else {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="smreviewed" class="reportreviewedcls">' + smreviewed + '</div>';
         }
 
@@ -1719,13 +1786,13 @@ function admlistReviews(rows = []){
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 
 }
 
-function admgetaccMgMt(){
+function admgetaccMgMt() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("accMgmtLinkId");
     x.classList.add("active");
@@ -1751,7 +1818,7 @@ function admgetaccMgMt(){
     });
 }
 
-function admlistAccs(rows = []){
+function admlistAccs(rows = []) {
 
     let innerHTML = "";
     //let path = window.location.pathname;
@@ -1772,25 +1839,25 @@ function admlistAccs(rows = []){
 
         //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
-        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="' + record.seqid + '" > ';
 
 
         innerHTML = innerHTML + '<div data-title="userfullname" >' + userfullname + '</div>';
         innerHTML = innerHTML + '<div data-title="customerid" class="customeridcls" >' + customerid + '</div>';
 
-        if (userstatus == "I"){
+        if (userstatus == "I") {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="userstatus" class="bgcolor_4 userstatuscls" >' + userstatus + '</div>';
-        }else{
+        } else {
             innerHTML = innerHTML + '<div contenteditable="true" data-title="userstatus"  class="userstatuscls" >' + userstatus + '</div>';
         }
-        
-        if (userlevel == "9"){
+
+        if (userlevel == "9") {
             innerHTML = innerHTML + '<div data-title="userlevel" class="red_bg" >' + userlevel + '</div>';
-        }else{
+        } else {
             innerHTML = innerHTML + '<div data-title="userlevel"  >' + userlevel + '</div>';
         }
-        
-        
+
+
         innerHTML = innerHTML + '<div data-title="storename" >' + storename + '</div>';
         innerHTML = innerHTML + '<div data-title="city" >' + city + '</div>';
         innerHTML = innerHTML + '<div data-title="state" >' + state + '</div>';
@@ -1810,13 +1877,13 @@ function admlistAccs(rows = []){
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 
 }
 
-function admgetChatMgt(){
+function admgetChatMgt() {
     removeActiveClassFromNavLinks();
     let x = document.getElementById("messageLinkId");
     x.classList.add("active");
@@ -1842,12 +1909,12 @@ function admgetChatMgt(){
     });
 }
 
-function admlistChats(rows){
+function admlistChats(rows) {
     let innerHTML = "";
     //let path = window.location.pathname;
 
     for (let record of rows) {
-        if (record.id == undefined){
+        if (record.id == undefined) {
             continue;
         }
         let id = record.id;
@@ -1859,14 +1926,14 @@ function admlistChats(rows){
         let user2_name = record.user2_name;
         //let itemurl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + itemstr;
 
-        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="'+ record.seqid +'" > ';
+        innerHTML = innerHTML + '<div class="max_2box_responsive padding_20px shadow_3" data-seqid="' + record.seqid + '" > ';
 
 
         innerHTML = innerHTML + '<div data-title="user1_name" >' + user1_name + '</div>';
         innerHTML = innerHTML + '<div data-title="user1_customerid" >' + user1_customerid + '</div>';
-        
 
-        innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="admgetChat(' + id +')" >' + id + '</div>';
+
+        innerHTML = innerHTML + '<div data-title="get Chat" class="button_type2 " onclick="admgetChat(' + id + ')" >' + id + '</div>';
 
         innerHTML = innerHTML + '<div data-title="user2_name" >' + user2_name + '</div>';
         innerHTML = innerHTML + '<div data-title="user2_customerid" >' + user2_customerid + '</div>';
@@ -1882,36 +1949,37 @@ function admlistChats(rows){
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 
 }
-function admsaveUsrUpdates(evt){
+function admsaveUsrUpdates(evt) {
     let parentDiv = evt.currentTarget.parentElement;
 
     let userstatus = parentDiv.querySelector(".userstatuscls").textContent;
     let additionalinfo = parentDiv.querySelector(".additionalinfocls").innerHTML;
-    let customerid  = parentDiv.querySelector(".customeridcls").textContent;
+    let customerid = parentDiv.querySelector(".customeridcls").textContent;
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { customerid: customerid,
-                userstatus: userstatus,
-                additionalinfo: additionalinfo,
-                usrfunction: "saveusrupdates" 
-            },
+        data: {
+            customerid: customerid,
+            userstatus: userstatus,
+            additionalinfo: additionalinfo,
+            usrfunction: "saveusrupdates"
+        },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
             let x = document.getElementById("toastsnackbar");
-            if (retstatus) {                
+            if (retstatus) {
                 x.innerHTML = "Updates saved";
-            }else {
+            } else {
                 x.innerHTML = "Updates failed";
             }
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         },
@@ -1921,17 +1989,17 @@ function admsaveUsrUpdates(evt){
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Updates failed";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         }
     });
 }
 
-function admgetChat(chatid){
+function admgetChat(chatid) {
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { chatid:chatid, usrfunction: "getchat" },
+        data: { chatid: chatid, usrfunction: "getchat" },
         type: 'POST',
         dataType: 'json',
         success: function (response) {
@@ -1950,7 +2018,7 @@ function admgetChat(chatid){
     });
 }
 
-function admlistchat(rows){
+function admlistchat(rows) {
     let innerHTML = "";
     //let path = window.location.pathname;
     let flagx = true;
@@ -1961,7 +2029,7 @@ function admlistchat(rows){
 
         let user1_customerid = record.user1_customerid;
 
-        if (user1_customerid == undefined){
+        if (user1_customerid == undefined) {
             continue;
         }
         let user2_customerid = record.user2_customerid;
@@ -1972,17 +2040,17 @@ function admlistchat(rows){
         let submit_date = record.submit_date;
         let seen_date = record.seen_date;
         let sender_name = record.sender_name;
-        let sender_customerid = record.sender_customerid;        
+        let sender_customerid = record.sender_customerid;
 
-        if (flagx){
-            innerHTML = innerHTML + '<div data-title="user1" class="bgcolor_1">' + user1_customerid +"-" + user1_name + '</div>';
-            innerHTML = innerHTML + '<div data-title="user2" class = "bgcolor_1">' + user2_customerid +"-" + user2_name + '</div>';
-            
+        if (flagx) {
+            innerHTML = innerHTML + '<div data-title="user1" class="bgcolor_1">' + user1_customerid + "-" + user1_name + '</div>';
+            innerHTML = innerHTML + '<div data-title="user2" class = "bgcolor_1">' + user2_customerid + "-" + user2_name + '</div>';
+
             innerHTML = innerHTML + "<table class='table1' >" + "<tr><td>" + "sender_customerid" + "</td><td>" + "sender_name" + "</td><td>" + "message" + "</td><td>" + "submit_date" + "</td><td>" + "seen_date" + "</td></tr>";
             flagx = false;
         }
         innerHTML = innerHTML + "<tr><td>" + sender_customerid + "</td><td>" + sender_name + "</td><td>" + message + "</td><td>" + submit_date + "</td><td>" + seen_date + "</td></tr>";
-        
+
     }
     innerHTML = innerHTML + '</table></div>';
 
@@ -1992,33 +2060,34 @@ function admlistchat(rows){
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListDivId").innerHTML = innerHTML + "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
- 
+
     document.getElementById("bgSVGId").style.display = "none";
     document.getElementById("itemDivId").style.display = "none";
 }
 
-function admsaveReportUpdates(evt){
+function admsaveReportUpdates(evt) {
     let parentDiv = evt.currentTarget.parentElement;
     let reviewed = parentDiv.querySelector(".reportreviewedcls").textContent;
     let seqid = parentDiv.dataset.seqid;
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { seqid: seqid,
-                reviewed: reviewed,
-                usrfunction: "savereportupdates" 
-            },
+        data: {
+            seqid: seqid,
+            reviewed: reviewed,
+            usrfunction: "savereportupdates"
+        },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
             let x = document.getElementById("toastsnackbar");
-            if (retstatus) {                
+            if (retstatus) {
                 x.innerHTML = "Updates saved";
-            }else {
+            } else {
                 x.innerHTML = "Updates failed";
             }
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         },
@@ -2028,14 +2097,14 @@ function admsaveReportUpdates(evt){
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Updates failed";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         }
     });
 }
 
-function admsaveReviewUpdates(evt){
+function admsaveReviewUpdates(evt) {
     let parentDiv = evt.currentTarget.parentElement;
     let itemid = parentDiv.dataset.itemid;
     let customerid = parentDiv.dataset.customerid;
@@ -2047,24 +2116,25 @@ function admsaveReviewUpdates(evt){
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
-        data: { itemid: itemid,
-                customerid: customerid,
-                smreviewed: smreviewed,
-                comment: comment,
-                stars: stars,
-                usrfunction: "savereviewupdates" 
-            },
+        data: {
+            itemid: itemid,
+            customerid: customerid,
+            smreviewed: smreviewed,
+            comment: comment,
+            stars: stars,
+            usrfunction: "savereviewupdates"
+        },
         type: 'POST',
         dataType: 'json',
         success: function (retstatus) {
             let x = document.getElementById("toastsnackbar");
-            if (retstatus) {                
+            if (retstatus) {
                 x.innerHTML = "Updates saved";
-            }else {
+            } else {
                 x.innerHTML = "Updates failed";
             }
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         },
@@ -2074,7 +2144,7 @@ function admsaveReviewUpdates(evt){
             let x = document.getElementById("toastsnackbar");
             x.innerHTML = "Updates failed";
             x.classList.add("show");
-            setTimeout(function () { 
+            setTimeout(function () {
                 x.classList.remove("show");
             }, 3000);
         }
@@ -2162,7 +2232,7 @@ function admlogin() {
                 // if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
                 //     lastUrl = myUrl + "?target=" + "home"
                 // }
-                lastUrl = myUrl ;
+                lastUrl = myUrl;
                 window.open(lastUrl, "_self");
 
             }

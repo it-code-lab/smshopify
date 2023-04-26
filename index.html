@@ -80,8 +80,10 @@
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
 
    <!-- For Location Display on Map -->
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
 
 
@@ -115,34 +117,43 @@
       <div id="page-content-wrapper">
          <!-- Top navigation-->
          <div class="topnav" id="myTopnav">
-            <a id="homeLinkId" class="navLink" href="/bizzlistings/?target=home" onclick="Show('home'); return false; ">HOME</a>
+            <a id="homeLinkId" class="navLink" href="/bizzlistings/?target=home"
+               onclick="Show('home'); return false; ">HOME</a>
 
-            <a id="itemLinkId" class="navLink dropDownNav"  href="/bizzlistings/?target=item" onclick="Show('item'); return false; " >LISTINGS <i class="fa fa-caret-down"></i></a>
+            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/?target=item"
+               onclick="Show('item'); return false; ">LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
 
-            <a id="howtoLinkId" class="navLink" href="/bizzlistings/?target=howto" onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
-            <a id="contactusLinkId" class="navLink" href="/bizzlistings/?target=contactus" onclick="Show('contactus'); return false; ">CONTACT US</a>
-            <a id="loginLinkId" class="navLink" href="/bizzlistings/?target=login" onclick="Show('login'); return false; ">LOG IN</a>
+            <a id="howtoLinkId" class="navLink" href="/bizzlistings/?target=howto"
+               onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
+            <a id="contactusLinkId" class="navLink" href="/bizzlistings/?target=contactus"
+               onclick="Show('contactus'); return false; ">CONTACT US</a>
+            <a id="loginLinkId" class="navLink" href="/bizzlistings/?target=login"
+               onclick="Show('login'); return false; ">LOG IN</a>
             <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
-            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/?target=mystore" onclick="Show('mystore'); return false;">CREATE MY STORE</a>
-            <a id="myfavoritesLinkId"class="navLink"  class="displayNone" href="javascript:myfavorites()">FAVORITES</a>
+            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/?target=mystore"
+               onclick="Show('mystore'); return false;">CREATE MY STORE</a>
+
+            <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="/bizzlistings/?target=myfavorites"
+            onclick="Show('myfavorites'); return false;" >FAVORITES</a>
+
             <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
                <i class="fa fa-commenting font_size_24px" aria-hidden="true"></i>
                <span class="chatBadge displayNone">0</span>
-               <audio id="audioPreview" controls="controls" class="displayNone">  
+               <audio id="audioPreview" controls="controls" class="displayNone">
                   <source id="audioSourceIdWAV" src="/bizzlistings/sounds/low-bell-ding.wav" type="audio/wav">
                </audio>
             </a>
 
 
-            <a class="searchWrapper"><span id="itemsearchDivId" >
+            <a class="searchWrapper"><span id="itemsearchDivId">
                   <form autocomplete="off" class="dummyForm">
                      <input id='item-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
-                     placeholder='search' />
-                     <button id="itemsearchBtnId" class=''
-                     onclick='searchItem(); return false;'><i class="fas fa-search"></i></button>
+                        placeholder='search' />
+                     <button id="itemsearchBtnId" class='' onclick='searchItem(); return false;'><i
+                           class="fas fa-search"></i></button>
                   </form>
                </span>
             </a>
@@ -184,89 +195,127 @@
                   <div class="bannerParent">
                      <div class="bannerContainer">
                         <div class="bannerContent">
-                           <label class="bannerLargeText scale-in-center" style="animation-delay: 0.8s; animation-duration: 0.5s;">BizzListings</label>
+                           <label class="bannerLargeText scale-in-center"
+                              style="animation-delay: 0.8s; animation-duration: 0.5s;">BizzListings</label>
                            <br>
-                           <hr  class="slide-in-left" style="animation-delay: 0.2s">
-                           <label class="bannerSmallText scale-in-center" style="animation-delay: 1.2s; animation-duration: 1s;" >Grow your business</label>
+                           <hr class="slide-in-left" style="animation-delay: 0.2s">
+                           <label class="bannerSmallText scale-in-center"
+                              style="animation-delay: 1.2s; animation-duration: 1s;">Grow your business</label>
                         </div>
                      </div>
                      <div class="websiteDescriptionCls bgcolor_8 font_size_18px padding_50px color_white">
-                        Welcome to BizzListings, the ultimate platform for business owners, professionals and enterpreneurs to showcase their businesses and services on the internet for free! With our easy-to-use website, you can create an attractive business page for your shop, business or services in as little as just 30 minutes. Your business page will provide a permanent web presence for your business, making it easy for potential customers to find you online and connect.
+                        Welcome to BizzListings, the ultimate platform for business owners, professionals and
+                        enterpreneurs to showcase their businesses and services on the internet for free! With our
+                        easy-to-use website, you can create an attractive business page for your shop, business or
+                        services in as little as just 30 minutes. Your business page will provide a permanent web
+                        presence for your business, making it easy for potential customers to find you online and
+                        connect.
                      </div>
 
-                     <div class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_3 marginbottom_50px" >   
+                     <div
+                        class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_3 marginbottom_50px">
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
                               <div class="itemImageshow-container cursor_pointer">
-                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="/bizzlistings/images/selectCategory.png"></div>
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block"
+                                       src="/bizzlistings/images/selectCategory.png"></div>
                               </div>
                            </div>
-                        </div>   
+                        </div>
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
-                              <div class="shopItemDescription padding_20px">Find your perfect category on BizzListings! With over 30 and counting categories to choose from, we can accommodate any type of business. Whether you're a restaurant owner or a freelancer, we've got a category for you.</div>
+                              <div class="shopItemDescription padding_20px">Find your perfect category on BizzListings!
+                                 With over 30 and counting categories to choose from, we can accommodate any type of
+                                 business. Whether you're a restaurant owner or a freelancer, we've got a category for
+                                 you.</div>
                            </div>
-                        </div>   
+                        </div>
                      </div>
 
-                     <div class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_9 marginbottom_50px" >   
+                     <div
+                        class="animate_inview websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_9 marginbottom_50px">
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
                               <div class="itemImageshow-container cursor_pointer">
-                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="/bizzlistings/images/createPage.png"></div>
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block"
+                                       src="/bizzlistings/images/createPage.png"></div>
                               </div>
                            </div>
-                        </div>   
+                        </div>
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
-                              <div class="shopItemDescription padding_20px">Creating your business page has never been easier! BizzListings offers sample business pages in several categories to help get you started. Simply upload related photos for your products or services and write some information about them. With our user-friendly platform, you can have your business page up and running in just 30 minutes. You can also make the changes easily</div>
+                              <div class="shopItemDescription padding_20px">Creating your business page has never been
+                                 easier! BizzListings offers sample business pages in several categories to help get you
+                                 started. Simply upload related photos for your products or services and write some
+                                 information about them. With our user-friendly platform, you can have your business
+                                 page up and running in just 30 minutes. You can also make the changes easily</div>
                            </div>
-                        </div>   
+                        </div>
                      </div>
 
-                     <div class="animate_inview  websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_6 marginbottom_50px" >   
+                     <div
+                        class="animate_inview  websiteHomePgFlags flex_container_align_center box_shadow5 bgcolor_6 marginbottom_50px">
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
                               <div class="itemImageshow-container cursor_pointer">
-                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block" src="/bizzlistings/images/findonMap.png"></div>
+                                 <div class="itmImgContainer"><img class="homePageFlagImages" style="display:block"
+                                       src="/bizzlistings/images/findonMap.png"></div>
                               </div>
                            </div>
-                        </div>   
+                        </div>
                         <div class="max_2box_responsive padding_10px">
                            <div class="margin_auto text_align_center">
-                              <div class="shopItemDescription padding_20px">Make it easy for potential buyers to find and connect with your business! BizzListings allows buyers to easily search for your business and products on the internet. With our built-in chat feature, you can connect with potential customers and answer any questions they may have.</div>
+                              <div class="shopItemDescription padding_20px">Make it easy for potential buyers to find
+                                 and connect with your business! BizzListings allows buyers to easily search for your
+                                 business and products on the internet. With our built-in chat feature, you can connect
+                                 with potential customers and answer any questions they may have.</div>
                            </div>
-                        </div>   
+                        </div>
                      </div>
 
                      <div class="websiteDescriptionCls bgcolor_7 font_size_18px padding_50px color_white">
-                        Don't miss out on the opportunity to grow your business online. Join the BizzListings community today and create your own business page to connect with potential customers! Our user-friendly platform makes it simple and quick to get started. Let's grow your business together!
+                        Don't miss out on the opportunity to grow your business online. Join the BizzListings community
+                        today and create your own business page to connect with potential customers! Our user-friendly
+                        platform makes it simple and quick to get started. Let's grow your business together!
                      </div>
 
                      <div class="sampleBusPageLinkContainer">
-                        <div class="sampleBustxtdiv" >
-                        Get inspired by our sample business pages! Check out our showcase of businesses from various categories to get an idea of what your own business page could look like. Follow the links below to explore our sample pages and start creating your own unique business page on BizzListings.
+                        <div class="sampleBustxtdiv">
+                           Get inspired by our sample business pages! Check out our showcase of businesses from various
+                           categories to get an idea of what your own business page could look like. Follow the links
+                           below to explore our sample pages and start creating your own unique business page on
+                           BizzListings.
                         </div>
                         <div>
-                        <ul class="sapleBusPagesList">
-                           <li><a class="anchor_tag_btn3"  href="/bizzlistings/Beauty-Oasis-Sample">Beautician</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Fix-My-Tech-Sample">Electronics Repair</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Fresh-Choice-Market-Sample">Grocery Store</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Happy-Hearts-Childcare-Sample">Day Care</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Idli-Dosa-Joint-Sample">Food Joint</a></li>
-                           
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Rapid-Repairs-Sample">Car and Bike Repair</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/The-Stationery-Studio-Sample">Stationery Store</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Thread-and-Needle-Sample">Tailoring and dressmaking shops</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Wardrobe-Wonders-Sample">Clothes Shop</a></li>
-                           <li><a class="anchor_tag_btn3" href="/bizzlistings/Shutter-Bliss-Photography">Photography Shop</a></li>
-                        </ul>
+                           <ul class="sapleBusPagesList">
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Beauty-Oasis-Sample">Beautician</a>
+                              </li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Fix-My-Tech-Sample">Electronics
+                                    Repair</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Fresh-Choice-Market-Sample">Grocery
+                                    Store</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Happy-Hearts-Childcare-Sample">Day
+                                    Care</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Idli-Dosa-Joint-Sample">Food Joint</a>
+                              </li>
+
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Rapid-Repairs-Sample">Car and Bike
+                                    Repair</a></li>
+                              <li><a class="anchor_tag_btn3"
+                                    href="/bizzlistings/The-Stationery-Studio-Sample">Stationery Store</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Thread-and-Needle-Sample">Tailoring and
+                                    dressmaking shops</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Wardrobe-Wonders-Sample">Clothes
+                                    Shop</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Shutter-Bliss-Photography">Photography
+                                    Shop</a></li>
+                           </ul>
                         </div>
                      </div>
                      <div class="videoContainer">
-                        <div class='sampleBustxtdiv'>How to create free Business Listings</div> 
+                        <div class='sampleBustxtdiv'>How to create free Business Listings</div>
                         <div class='shopVideoIframeDiv'>
-                           <iframe src= 'https://www.youtube.com/embed/EmaA9rO2gwM'> </iframe>
+                           <iframe src='https://www.youtube.com/embed/EmaA9rO2gwM'> </iframe>
                         </div>
                      </div>
                      <div class="displayNone"
@@ -296,8 +345,16 @@
 
 
                <div id="itemListDivId">
+                  <div id="distanceFilter" class="padding_10px  ">
+                     Filter results by distance (<span id="selectedDist">50</span> Km)
+                     <div class="distantFltrInner">
+                        <i class="fa fa-map-marker locationMarker" style="font-size:36px"></i>
+                        <input type="range" min="1" max="1000" value="50" oninput="updateSelectedval()" onchange="updateSelectedval()" class="distanceSliderCls" id="distanceSlider">                  
+                        <button class="helper float_right width_100px" onclick="applyDistanceFilter();">Apply</button>
+                     </div>
+                  </div>
 
-                  <div id="itemListInnerDivId" ></div>
+                  <div id="itemListInnerDivId"></div>
 
                </div>
                <div id="itemDivId">
@@ -352,11 +409,11 @@
                      <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
-                     <button id="registerBtnId" class="helper btnCenterAlign width_200px" 
+                     <button id="registerBtnId" class="helper btnCenterAlign width_200px"
                         onclick="register();">Register</button>
-                     <button id="closeRegisterBtnId" style="display: none;" class="helper btnCenterAlign width_200px" 
-                     onclick="Show('home'); return false; ">Close</button>
-                        <!---->
+                     <button id="closeRegisterBtnId" style="display: none;" class="helper btnCenterAlign width_200px"
+                        onclick="Show('home'); return false; ">Close</button>
+                     <!---->
                      <!-- <button id="createMyStoreBtnId" class="helper btnCenterAlign " style="display: none; width: 300px"
                         onclick="setUpMyStore(); return false;">Set Up My Store &nbsp ❯</button> -->
                      <br>
@@ -395,7 +452,7 @@
                            <label class="addressfield">
                               <span class="addressfield__label" for="postalcode">Postal code</span>
                               <input class="addressfield__input" type="text" id="postalcode">
-                           </label>                           
+                           </label>
                         </div>
                      </div>
 
@@ -422,7 +479,7 @@
                      <label id="forgotpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <br>
-                     <button class="helper btnCenterAlign width_200px"  align="center"
+                     <button class="helper btnCenterAlign width_200px" align="center"
                         onclick="forgotpw();">Send</button>
                      <!---->
                      <br>
@@ -453,12 +510,12 @@
                      <label id="newpwerrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
                      <div id="setPwDivId">
-                        <button class="helper btnCenterAlign width_200px"  align="center"
-                           onclick="setPassword();">Set
+                        <button class="helper btnCenterAlign width_200px" align="center" onclick="setPassword();">Set
                            Password</button>
                      </div>
                      <div id="setPwSuccessDivId" style="display: none">
-                        <label style="color: #cc0000">Your account password has been set successfully. You can proceed to
+                        <label style="color: #cc0000">Your account password has been set successfully. You can proceed
+                           to
                            login</label>
                         <!---->
                         <br>
@@ -478,9 +535,9 @@
 
                      <div id="sndmsgdivid">
                         <hr>
-                        <input class="un formInputText contactusnameCls" style='width: calc(100% - 8px);'  type="text"
+                        <input class="un formInputText contactusnameCls" style='width: calc(100% - 8px);' type="text"
                            placeholder="Your full name">
-                        <input class="un formInputText contactusemailidCls " style='width: calc(100% - 8px);' 
+                        <input class="un formInputText contactusemailidCls " style='width: calc(100% - 8px);'
                            type="text" placeholder="Email Id">
                         <textarea id="contactus_msg" class="fullWidth" style="border: 1px solid rgba(0, 0, 0, 0.3);"
                            placeholder="Your message" rows="3"></textarea>
@@ -504,7 +561,8 @@
                         </div>
                         <label id="contactuserrormsg" style="color: #cc0000; font-size: 14px"></label>
                         <br> <br>
-                        <button class="helper btnCenterAlign width_200px" align="center" onclick="contactus();">Submit</button>
+                        <button class="helper btnCenterAlign width_200px" align="center"
+                           onclick="contactus();">Submit</button>
                      </div>
                   </div>
                </div>
@@ -541,7 +599,8 @@
                   <a onclick="Show('home'); return false;" href="/bizzlistings/?target=home">Home</a>
                   <a onclick="Show('item'); return false;" href="/bizzlistings/?target=item">Listings</a>
                   <a onclick="Show('contactus'); return false;" href="/bizzlistings/?target=contactus">Contact Us</a>
-                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/?target=policy">Usage Policy</a>
+                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/?target=policy">Usage
+                     Policy</a>
 
                </div>
             </div>
@@ -585,11 +644,11 @@
 
    <div class="confirmBG">
       <div class="confirmBox">
-        <div id="confirmMessage">Confirm text</div>
-        <div class="confirmBoxBtns">
-          <input id="confirmYes" class="confirmBtn" type="button" value="Yes" />
-          <input id="confirmNo" class="confirmBtn" type="button" value="No" />
-        </div>
+         <div id="confirmMessage">Confirm text</div>
+         <div class="confirmBoxBtns">
+            <input id="confirmYes" class="confirmBtn" type="button" value="Yes" />
+            <input id="confirmNo" class="confirmBtn" type="button" value="No" />
+         </div>
       </div>
    </div>
 
@@ -600,25 +659,26 @@
    <div id="myModal" class="modaldiv displayNone">
       <!-- Modal content -->
       <div class="modaldiv-content">
-        <!-- <span class="modaldivclose" onclick="closeModal()">&times;</span> -->
-        <div id="modalhtmlid"></div>
-      </div>    
-    </div>
+         <!-- <span class="modaldivclose" onclick="closeModal()">&times;</span> -->
+         <div id="modalhtmlid"></div>
+      </div>
+   </div>
 
-   <div id="chat-window" class="chat-widget" >
+   <div id="chat-window" class="chat-widget">
       <div id="chat-window-header" class="chat-widget-header">
-          <a href="javascript:goToPrev()" class="previous-chat-tab-btn">&lsaquo;</a>
-          <div id="headerDragger" class="shop-user-city"></div>
-          <div id="reportChatUserDivId" class="cursor_pointer float_right" onclick="reportChatUser(this)"><i class="fa fa-warning color_yellow_star" aria-hidden="true"></i></div>
-          <a href="#" class="close-chat-widget-btn">&times;</a>
+         <a href="javascript:goToPrev()" class="previous-chat-tab-btn">&lsaquo;</a>
+         <div id="headerDragger" class="shop-user-city"></div>
+         <div id="reportChatUserDivId" class="cursor_pointer float_right" onclick="reportChatUser(this)"><i
+               class="fa fa-warning color_yellow_star" aria-hidden="true"></i></div>
+         <a href="#" class="close-chat-widget-btn">&times;</a>
       </div>
       <div class="chat-widget-content">
-          <div class="chat-widget-tabs">
-              <div class="chat-widget-tab chat-widget-conversations-tab"></div>
-              <div class="chat-widget-tab chat-widget-conversation-tab"></div>
-          </div>
+         <div class="chat-widget-tabs">
+            <div class="chat-widget-tab chat-widget-conversations-tab"></div>
+            <div class="chat-widget-tab chat-widget-conversation-tab"></div>
+         </div>
       </div>
-  </div>
+   </div>
 
    <!-- Bootstrap core JS-->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -634,25 +694,28 @@
 
    </script>
    <script>
-      //getHowToVideos();
+
+      setTimeout(() => {
+         getInfo();
+      }, 0);
+
+
       setTimeout(() => {
          getItemsList();
       }, 0);
 
-      setTimeout(() => {
-         getInfo();
-      }, 2000);
+
 
       setTimeout(() => {
          getCategoryList();
       }, 0);
 
-      
+
       checkURL();
 
-   $(window).scroll(function(){
-      checkAnimation();
-   });
+      $(window).scroll(function () {
+         checkAnimation();
+      });
    </script>
    <script src="/bizzlistings/web/onload.js"></script>
    <!-- Go to www.addthis.com/dashboard to customize your tools -->
