@@ -155,17 +155,17 @@ let colorList = ["#000000", "#ffffff", "#00ffff", "#34568B", "#FF6F61", "#6B5B95
 
 let revealSecColor = getSecColors();
 
-function getCountryListHTML(){
-    let countryList = ["Afghanistan","Aland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bonaire, Sint Eustatius and Saba","Bosnia and Herzegovina","Botswana",
-                    "Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo, Democratic Republic of the Congo","Cook Islands","Costa Rica","Cote D'Ivoire",
-                    "Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar",
-                    "Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and Mcdonald Islands","Holy See (Vatican City State)","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya",
-                    "Kiribati","Korea, Democratic People's Republic of","Korea, Republic of","Kosovo","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libyan Arab Jamahiriya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia, the Former Yugoslav Republic of","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique",
-                    "Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Moldova, Republic of","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau",
-                    "Palestinian Territory, Occupied","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russian Federation","Rwanda","Saint Barthelemy","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Martin","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe",
-                    "Saudi Arabia","Senegal","Serbia","Serbia and Montenegro","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Swaziland","Sweden","Switzerland","Syrian Arab Republic","Taiwan, Province of China",
-                    "Tajikistan","Tanzania, United Republic of","Thailand","Timor-Leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela","Viet Nam","Virgin Islands, British",
-                    "Virgin Islands, U.s.","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"];
+function getCountryListHTML() {
+    let countryList = ["Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana",
+        "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, Democratic Republic of the Congo", "Cook Islands", "Costa Rica", "Cote D'Ivoire",
+        "Croatia", "Cuba", "Curacao", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar",
+        "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and Mcdonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran, Islamic Republic of", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya",
+        "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kosovo", "Kuwait", "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia, the Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique",
+        "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau",
+        "Palestinian Territory, Occupied", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Barthelemy", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Martin", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe",
+        "Saudi Arabia", "Senegal", "Serbia", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Sint Maarten", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China",
+        "Tajikistan", "Tanzania, United Republic of", "Thailand", "Timor-Leste", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Viet Nam", "Virgin Islands, British",
+        "Virgin Islands, U.s.", "Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"];
 
     let tempHTML = "<select id='shopcountry' name='country' class='form-control'>";
     countryList.forEach((country) => tempHTML = tempHTML + "<option value='" + country + "'>" + country + "</option>")
@@ -534,16 +534,16 @@ function getItemsList() {
             let info = localStorage.getItem("posinf");
             let latitude = sessionStorage.getItem("latitude");
             let longitude = sessionStorage.getItem("longitude");
-            if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
-                info = latitude + "," + longitude + ",";                
+            if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null")) {
+                info = latitude + "," + longitude + ",";
                 updatedRows = rows.map(row => {
                     return { ...row, distance: getDistance(row, info) };
-                }           
+                }
 
                 );
-                updatedRows.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+                updatedRows.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
 
-            } 
+            }
             //SM-DONOTDELETE
             // else if ((info != undefined) && (info != null) && (info != "") && (info != "null") && (info != ",,")) {
             //     updatedRows = rows.map(row => {
@@ -573,15 +573,15 @@ function getDistance(row, info) {
     let distanceKm = 0;
 
     //SM-TODONE-Fix name to Sample
-    if (row.subcategory == "Sample"){
+    if (row.subcategory == "Sample") {
         distanceKm = 0;
-    }else if ((dest != undefined) && (dest != null) && (dest != "") && (dest != "null") && (dest != ",")) {
+    } else if ((dest != undefined) && (dest != null) && (dest != "") && (dest != "null") && (dest != ",")) {
 
         let latitude = sessionStorage.getItem("latitude");
         let longitude = sessionStorage.getItem("longitude");
-        
-        if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
-            info = latitude + "," + longitude + ",";            
+
+        if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null")) {
+            info = latitude + "," + longitude + ",";
         }
         let srcCrd = info.split(",");
         let destCrd = dest.split(",");
@@ -622,14 +622,14 @@ function populateitemsDropDownDisplay() {
     if ((document.getElementById("dropDownItmCatgListId").innerHTML).trim() != "") {
         return;
     }
-    
+
     // let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
-    
+
     // if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
     //     distanceLimit = 50;  
     // }
-    
-    
+
+
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
 
     let rows = JSON.parse(tf);
@@ -824,7 +824,7 @@ function Show(pageName) {
         //document.getElementById("mainContainer").style.width = "100%";
     } else if (pageName == "mystore") {
         myStore();
-    }else if (pageName == "myfavorites") {
+    } else if (pageName == "myfavorites") {
         myfavorites();
     }
 
@@ -916,10 +916,10 @@ function checkURL() {
     }
 
     let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
-    
-    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
+
+    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined)) {
         sessionStorage.setItem("selectedDistance", 50);
-    }else{
+    } else {
         document.getElementById("distanceSlider").value = distanceLimit;
         document.getElementById("selectedDist").innerHTML = distanceLimit;
     }
@@ -1097,7 +1097,7 @@ function checkURL() {
     } else if (pageName == "myfavorites") {
         myfavorites();
         return;
-    }else if (pageName == "projectscanner") {
+    } else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
         document.getElementById("projectscannerDivId").style.width = "100%";
         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:#cc0000;" ></i>' + "Upload project files and click on the file to scan the code"
@@ -1183,11 +1183,11 @@ function displayStore(storename) {
 
     if (storename.match(/^\b[0-9a-zA-Z -]+\b$/)) {
         fnGetStore(storename);
-    }else{
+    } else {
         Show('home');
     }
 
-    
+
 
     // let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     // let allRows = JSON.parse(tf);
@@ -1347,7 +1347,7 @@ function getCreateStore() {
 
 
 
-    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/");
+    setOpenGraphTags(title, metaDesc, "https://bizzlistings.com/");
 
 
     //document.title = category + " " + subcategory + ". " + title ;
@@ -1381,7 +1381,7 @@ function getCreateStore() {
 
 }
 
-function setOpenGraphTags(title, metaDesc, url, img=""){
+function setOpenGraphTags(title, metaDesc, url, img = "") {
 
     //SM:DONOTDELETE
     // $('meta[name="description"]').attr('content', metaDesc);
@@ -1456,7 +1456,7 @@ function getOneItemOfShop(tags) {
     });
 
     let itemRows = tags.filter(function (entry) {
-        return entry.discontinue == "0" && entry.title != tags[0].storename && entry.title != undefined; 
+        return entry.discontinue == "0" && entry.title != tags[0].storename && entry.title != undefined;
     });
 
     let itemstr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + itemRows[0].title.replaceAll(" ", "-");
@@ -1524,7 +1524,7 @@ function getOneItemOfShop(tags) {
     //$('meta[property="og:description"]').attr('content', metaDesc);
     //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
 
-    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/" + itemstr);
+    setOpenGraphTags(title, metaDesc, "https://bizzlistings.com/" + itemstr);
 
     //document.title = category + " " + subcategory + ". " + title ;
     document.title = tags[0].storename + " - " + title;
@@ -1684,7 +1684,7 @@ function getFullShopDetails(tags, itemstr) {
     //$('meta[property="og:description"]').attr('content', metaDesc);
     //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
 
-    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/" + itemstr);
+    setOpenGraphTags(title, metaDesc, "https://bizzlistings.com/" + itemstr);
 
 
     //document.title = category + " " + subcategory + ". " + title ;
@@ -1734,7 +1734,7 @@ function getFullShopDetails(tags, itemstr) {
 function htmlToText(html) {
     let temp = document.createElement('div');
     temp.innerHTML = html;
-    return temp.textContent; 
+    return temp.textContent;
 }
 
 function getShopLocationAndHours(tags) {
@@ -3406,7 +3406,7 @@ function populateMyStore(tags) {
 
     document.getElementById("itemListDivId").style.display = "block";
     document.getElementById("itemListInnerDivId").innerHTML = newHTML + '</div><div class="centerAlignBorderBox"><button class="button_type1 width_150px" onclick="addNewShopItem(); return false;">Add Item</button></div>';
-    
+
     document.getElementById("distanceFilter").style.display = "none";
 
 }
@@ -4708,14 +4708,14 @@ function populateItemsList(rows = "") {
     let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
     let latitude = sessionStorage.getItem("latitude");
 
-    if ((latitude == undefined) || (latitude == null) || (latitude == "") || (latitude == "null")){
-        distanceLimit = 1000; 
+    if ((latitude == undefined) || (latitude == null) || (latitude == "") || (latitude == "null")) {
+        distanceLimit = 1000;
     }
     //SM-TODONE-comment out below
     //distanceLimit = 5000000;  
 
-    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
-        distanceLimit = 50;  
+    if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined)) {
+        distanceLimit = 50;
     }
 
     rows = rows.filter(function (entry) {
@@ -4743,7 +4743,7 @@ function populateItemsList(rows = "") {
 
     let defaultDisplayCount = 100;
     let categoryMaxCount = 0;
-    let currDisplayCount = 0;    
+    let currDisplayCount = 0;
 
 
     for (let i = 0; i < rows.length; i++) {
@@ -4844,13 +4844,13 @@ function populateItemsList(rows = "") {
             //SM-TODONE-Done-Comment out Below-DO Not Delete
             //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ '+ rows[i].distance +' Km)' + '</a>';    
 
-        } else if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
-           if (rows[i].distance > 0) {
+        } else if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null")) {
+            if (rows[i].distance > 0) {
                 //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
-                innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ '+ rows[i].distance +' Km)' + '</a>';    
+                innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ ' + rows[i].distance + ' Km)' + '</a>';
 
-            } else{
-                innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">'  + rows[i].city  + '</a>';
+            } else {
+                innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + rows[i].city + '</a>';
             }
         }
 
@@ -7029,13 +7029,13 @@ function reportChatUser(elem) {
     //placePopupAtPosFromBtnXOffset(elem, -300, -10);
 }
 
-function updateSelectedval(){
+function updateSelectedval() {
     let distance = document.getElementById("distanceSlider").value;
     document.getElementById("selectedDist").innerHTML = distance;
     sessionStorage.setItem("selectedDistance", distance);
 }
 
-function applyDistanceFilter(){
+function applyDistanceFilter() {
     (() => {
 
         if (navigator.geolocation) {
@@ -7047,7 +7047,7 @@ function applyDistanceFilter(){
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            
+
             sessionStorage.setItem("latitude", latitude);
             sessionStorage.setItem("longitude", longitude);
 
@@ -7058,8 +7058,8 @@ function applyDistanceFilter(){
                 return { ...row, distance: getDistance(row, info) };
             }
             );
-            
-            updatedRows.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+
+            updatedRows.sort((a, b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
 
             sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
             checkURL();
@@ -7071,7 +7071,7 @@ function applyDistanceFilter(){
     })();
 
 
-    
+
 }
 
 function checkAnimation() {
@@ -7103,3 +7103,4 @@ function checkAnimation() {
 function closeModal() {
     document.getElementById("myModal").style.display = "none";
 }
+

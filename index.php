@@ -6,15 +6,37 @@ $description = "Platform for business owners, professionals and enterpreneurs to
  their businesses and services on the internet for free";
 $image_url = "Your Image URL";
 $keywords = "Business, Free, Listings, business page, growth";
-$page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-//$title = $_SESSION['latitude']; 
 
-//if ($_SESSION['webTitle'] != "") {
-   $title = $_SESSION['webTitle'];
-   $description = $_SESSION['webDesc'] ;
-  $image_url = $_SESSION['image_url'];
-  $keywords = $_SESSION['webKeywords'];
-//}
+//SM-TODONE-Revert below
+$page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+//$page_url = $_SERVER["REQUEST_URI"];
+
+$path = urldecode($_SERVER["REQUEST_URI"]);
+$path = substr($path, 1);
+
+if (strpos($path, '=') !== false) {
+   return;
+}elseif (strpos($path, 'items/') !== false) {
+    $itemstr = substr($path, strpos($path, "items/") + 6);
+    if (strpos($itemstr, '/') !== false) {
+      $dummy = $database->getItem($itemstr);
+      if ($dummy != "Err in DB call"){
+         $title = $_SESSION['webTitle'];
+         $description = $_SESSION['webDesc'] ;
+         $image_url = $_SESSION['image_url'];
+         $keywords = $_SESSION['webKeywords'];
+      }
+    }
+} elseif (strpos($path, '/') === 0) {
+   $dummy = $database->getStore($path);
+   if ($dummy != "Err in DB call"){
+      $title = $_SESSION['webTitle'];
+      $description = $_SESSION['webDesc'] ;
+      $image_url = $_SESSION['image_url'];
+      $keywords = $_SESSION['webKeywords'];
+   }
+}
+
 ?>
 
 <!DOCTYPE html>
