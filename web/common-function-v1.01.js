@@ -1268,6 +1268,7 @@ function fnGetItem(itemstr) {
             }
         },
         error: function (xhr, status, error) {
+            //SM-TODONE-Commentoutbelow
             //console.log("error");
             //console.log(xhr);
         }
@@ -1345,21 +1346,8 @@ function getCreateStore() {
     //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/");
 
 
-    let ogTitle = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:title');
-    ogTitle.setAttribute('content', title);
-    document.head.appendChild(ogTitle);
 
-    let ogDescription = document.createElement('meta');
-    ogDescription.setAttribute('property', 'og:description');
-    ogDescription.setAttribute('content', metaDesc);
-    document.head.appendChild(ogDescription);
-
-    let ogUrl = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:url');
-    ogTitle.setAttribute('content', "https://bizzlistings.com/" );
-    document.head.appendChild(ogUrl);
-
+    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/");
 
 
     //document.title = category + " " + subcategory + ". " + title ;
@@ -1390,6 +1378,35 @@ function getCreateStore() {
         //scrollTop: $("#itemListDivId").offset().top - 40
         scrollTop: $("#itemListDivId").offset().top - 80
     }, 100);
+
+}
+
+function setOpenGraphTags(title, metaDesc, url, img=""){
+
+    //SM:DONOTDELETE
+    // $('meta[name="description"]').attr('content', metaDesc);
+    // $('meta[property="og:title"]').attr('content', title);
+    // $('meta[property="og:description"]').attr('content', metaDesc);
+
+    // let ogTitle = document.createElement('meta');
+    // ogTitle.setAttribute('property', 'og:title');
+    // ogTitle.setAttribute('content', title);
+    // document.head.appendChild(ogTitle);
+
+    // let ogDescription = document.createElement('meta');
+    // ogDescription.setAttribute('property', 'og:description');
+    // ogDescription.setAttribute('content', metaDesc);
+    // document.head.appendChild(ogDescription);
+
+    // let ogUrl = document.createElement('meta');
+    // ogTitle.setAttribute('property', 'og:url');
+    // ogTitle.setAttribute('content', url );
+    // document.head.appendChild(ogUrl);
+
+    // let ogImg = document.createElement('meta');
+    // ogTitle.setAttribute('property', 'og:image');
+    // ogTitle.setAttribute('content', img );
+    // document.head.appendChild(ogImg);
 
 }
 
@@ -1507,22 +1524,7 @@ function getOneItemOfShop(tags) {
     //$('meta[property="og:description"]').attr('content', metaDesc);
     //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
 
-    let ogTitle = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:title');
-    ogTitle.setAttribute('content', title);
-    document.head.appendChild(ogTitle);
-
-    let ogDescription = document.createElement('meta');
-    ogDescription.setAttribute('property', 'og:description');
-    ogDescription.setAttribute('content', metaDesc);
-    document.head.appendChild(ogDescription);
-
-    let ogUrl = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:url');
-    ogTitle.setAttribute('content', "https://bizzlistings.com/" + itemstr);
-    document.head.appendChild(ogUrl);
-
-
+    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/" + itemstr);
 
     //document.title = category + " " + subcategory + ". " + title ;
     document.title = tags[0].storename + " - " + title;
@@ -1682,22 +1684,7 @@ function getFullShopDetails(tags, itemstr) {
     //$('meta[property="og:description"]').attr('content', metaDesc);
     //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
 
-    // Create a new meta element
-    let ogTitle = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:title');
-    ogTitle.setAttribute('content', title);
-    document.head.appendChild(ogTitle);
-
-    let ogDescription = document.createElement('meta');
-    ogDescription.setAttribute('property', 'og:description');
-    ogDescription.setAttribute('content', metaDesc);
-    document.head.appendChild(ogDescription);
-
-    let ogUrl = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:url');
-    ogTitle.setAttribute('content', "https://bizzlistings.com/" + itemstr);
-    document.head.appendChild(ogUrl);
-
+    setOpenGraphTags(title,metaDesc, "https://bizzlistings.com/" + itemstr);
 
 
     //document.title = category + " " + subcategory + ". " + title ;

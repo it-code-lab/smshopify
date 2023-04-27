@@ -4,14 +4,7 @@ let currentChatTab = 0;
 let conversationId = null;
 let status = 'Idle';
 
-// OnClick event handler for our open chat button
-// document.querySelector('.open-chat-widget').onclick = event => {
-//     event.preventDefault();
-//     // Execute the initialize chat function
-//     initChat();
-// };
-// Intialize chat function - handle all aspects of the chat widget
-function initChat (elem){
+function initChat(elem) {
     // Add init code here
     // Show the chat widget
     document.querySelector('.chat-widget').style.display = 'flex';
@@ -24,7 +17,7 @@ function initChat (elem){
         // Close the chat
         document.querySelector('.chat-widget').classList.remove('chatopen');
     };
- 
+
     //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
 
     fetch(the.hosturl + '/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
@@ -38,66 +31,20 @@ function initChat (elem){
         selectChatTab(2);
     });
 
-    // // Login form submit event handler
-    // document.querySelector('.chat-widget-login-tab form').onsubmit = event => {
-    //     event.preventDefault();
-    //     // Declare form related variables
-    //     let formEle = document.querySelector('.chat-widget-login-tab form');
-    //     let formData = new FormData(formEle);
-    //     // Execute POST AJAX request and attempt to authenticate the user
-    //     fetch(formEle.action, {
-    //         cache: 'no-store',
-    //         method: 'POST',
-    //         body: formData
-    //     }).then(response => response.text()).then(data => {
-    //         // If the response includes the "operator" string
-    //         if (data.includes('operator')) {
-    //             // Show the password field
-    //             document.querySelector('.chat-widget-login-tab .msg').insertAdjacentHTML('beforebegin', '<input type="password" name="password" placeholder="Your Password" required>');
-    //         } else if (data.includes('success')) {
-    //             // Authentication success! Execute AJAX request to retrieve the user's conversations
-
-    //             //document.querySelector('.chat-widget-login-tab .msg').innerHTML = 'Success!';
-
-    //             fetch('chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
-    //                 // Update the status
-    //                 status = 'Idle';
-    //                 // Update the conversations tab content
-    //                 document.querySelector('.chat-widget-conversations-tab').innerHTML = data;
-    //                 // Execute the conversation handler function
-    //                 conversationHandler();
-    //                 // Transition to the conversations tab
-    //                 selectChatTab(2);
-    //             });
-
-    //         } else {
-    //             // Authentication failed! Show the error message on the form
-    //             document.querySelector('.chat-widget-login-tab .msg').innerHTML = data;
-    //         }
-    //     });
-    // };
-
-    // Previous tab button OnClick event handler
-    // document.querySelector('.previous-chat-tab-btn').onclick = event => {
-    //     event.preventDefault();
-    //     // Transition to the respective page
-    //     selectChatTab(currentChatTab - 1);
-    // };
-
     //**********SM-DONOTDELETE */
     //makeElementDraggable("chat-window");
 
-    makeElementDraggable("chat-window","chat-window-header");
+    makeElementDraggable("chat-window", "chat-window-header");
 };
 
-function goToPrev(){
+function goToPrev() {
     selectChatTab(currentChatTab - 1);
     //document.querySelector(".shop-user-city").innerHTML = "";
     setTimeout(() => {
         document.getElementById("headerDragger").innerHTML = "";
-        document.getElementById("reportChatUserDivId").style.display = "none"; 
+        document.getElementById("reportChatUserDivId").style.display = "none";
     }, 100);
-    
+
 }
 
 
@@ -111,7 +58,7 @@ function selectChatTab(value) {
     document.querySelector('.previous-chat-tab-btn').style.display = value > 1 ? 'block' : 'none';
     // Update the conversation ID variable if the user is on the first or second tab
     //if (value == 1 || value == 2) {
-    if (value == 1 ) {
+    if (value == 1) {
         conversationId = null;
     }
     // If the user is on the login form tab (tab 1), remove the secret code cookie (logout)
@@ -120,35 +67,20 @@ function selectChatTab(value) {
     }
 
     setTimeout(() => {
-        try{
+        try {
             document.querySelector(".shop-user-city").innerHTML = document.querySelector(".stickyhdr").innerHTML
             document.getElementById("reportChatUserDivId").style.display = "block";
-        }catch(e){
+        } catch (e) {
 
         }
-        
+
     }, 50);
-    
+
 };
 
 
 // Conversation handler function - will add the event handlers to the conversations list and new chat button
 const conversationHandler = () => {
-
-    // // New chat button OnClick event handler
-    // document.querySelector('.chat-widget-new-conversation').onclick = event => {
-    //     event.preventDefault();
-    //     // Update the status
-    //     status = 'Waiting';
-    //     // Notify the user
-    //     document.querySelector('.chat-widget-conversation-tab').innerHTML = `
-    //     <div class="chat-widget-messages">
-    //         <div class="chat-widget-message">Please wait...</div>
-    //     </div>
-    //     `;
-    //     // Transition to the conversation tab (tab 3)
-    //     selectChatTab(3);
-    // };
 
     // Iterate the conversations and add the OnClick event handler to each element
     document.querySelectorAll('.chat-widget-conversation').forEach(element => {
@@ -160,30 +92,6 @@ const conversationHandler = () => {
         };
     });
 };
-
-// // If the secret code cookie exists, attempt to automatically authenticate the user
-// if (document.cookie.match(/^(.*;)?\s*chat_secret\s*=\s*[^;]+(.*)?$/)) {
-//     // Execute GET AJAX request to retireve the conversations
-//     fetch('chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(data => {
-//         // If respone not equals error
-//         if (data != 'error') {
-//             // User is authenticated! Update the status and conversations tab content
-//             status = 'Idle';
-//             document.querySelector('.chat-widget-conversations-tab').innerHTML = data;
-//             // Execute the conversation handler function
-//             conversationHandler();
-//             // Transition to the conversations tab
-//             selectChatTab(2);
-//         }
-//     });
-// }
-
-// Previous tab button OnClick event handler
-// document.querySelector('.previous-chat-tab-btn').onclick = event => {
-//     event.preventDefault();
-//     // Transition to the respective page
-//     selectChatTab(currentChatTab - 1);
-// };
 
 // Get conversation function - execute an AJAX request that will retrieve the conversation based on the conversation ID column
 function getConversation(id) {
@@ -210,15 +118,6 @@ function getConversation(id) {
             chatWidgetInputMsg.onsubmit = event => {
                 event.preventDefault();
                 // Execute POST AJAX request that will send the captured message to the server and insert it into the database
-                
-                // fetch(chatWidgetInputMsg.action, {
-                //     cache: 'no-store',
-                //     method: 'POST',
-                //     body: new FormData(chatWidgetInputMsg)
-                // });
-
-
-                //url: the.hosturl + '/php/process.php',
 
                 $.ajax({
                     url: the.hosturl + '/php/process.php',
@@ -262,14 +161,14 @@ setInterval(() => {
     fetch(the.hosturl + '/php/chatconversations.php', { cache: 'no-store' }).then(response => response.text()).then(html => {
         let newConvCnt = html.split("msg color_blue").length - 1;
         let oldCount = document.querySelector(".chatBadge").innerHTML;
-        if (newConvCnt > 0){
+        if (newConvCnt > 0) {
             document.querySelector(".chatBadge").style.display = "block";
             document.querySelector(".chatBadge").innerHTML = newConvCnt;
-            if (newConvCnt > oldCount){
-                var audio = document.getElementById('audioPreview');         
+            if (newConvCnt > oldCount) {
+                var audio = document.getElementById('audioPreview');
                 audio.play();
-            }            
-        }else {
+            }
+        } else {
             document.querySelector(".chatBadge").style.display = "none";
         }
         //When converstations list is open
@@ -281,7 +180,7 @@ setInterval(() => {
         }
     });
 
-    
+
     if (currentChatTab == 2 && conversationId != null) {
         // If the current tab is 3 and the conversation ID variable is not NUll 
         // When individual converation is open

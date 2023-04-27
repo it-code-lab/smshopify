@@ -1,32 +1,56 @@
+<?php
+include_once("php/session.php");
+
+$title = "Grow your business";
+$description = "Platform for business owners, professionals and enterpreneurs to showcase
+ their businesses and services on the internet for free";
+$image_url = "Your Image URL";
+$keywords = "Business, Free, Listings, business page, growth";
+$page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+//$title = $_SESSION['latitude']; 
+
+//if ($_SESSION['webTitle'] != "") {
+   $title = $_SESSION['webTitle'];
+   $description = $_SESSION['webDesc'] ;
+  $image_url = $_SESSION['image_url'];
+  $keywords = $_SESSION['webKeywords'];
+//}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <!-- Google tag (gtag.js) ***DO NOT USE ON THIS FILE****-->
-   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMD8K2RLDE"></script>
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFYY85KF1M"></script>
    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-
-      gtag('config', 'G-JMD8K2RLDE');
-   </script> -->
+      gtag('config', 'G-MFYY85KF1M');
+   </script>
 
    <meta charset="utf-8" />
+   <title><?php echo $title; ?></title>
+    <meta name="description" content="<?php echo $description; ?>">
+    <meta property="og:title" content="<?php echo $title; ?>">
+    <meta property="og:description" content="<?php echo $description; ?>">
+    <meta property="og:image" content="<?php echo $image_url; ?>">
+    <meta property="og:url" content="<?php echo $page_url; ?>">
+    <meta name="keywords" content="<?php echo $keywords; ?>">
+
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-   <meta name="keywords" content="Software, IT, items, Code Samples" />
-   <meta name="description"
-      content="Easy to understand items with lots of sample codes in programming languages Java, Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing feature to scan and help understand the programming code." />
+
+   <!-- <meta name="keywords" content="Business, Free, Listings, business page, growth" /> -->
+   <!-- <meta name="description" content="<?php echo $description; ?>" />
+   <title>Grow your business</title> -->
+
    <meta name="author" content="Numerouno" />
-   <title>Grow your business</title>
+
+
    <!-- Favicon-->
    <link rel="icon" type="image/x-icon" href="/bizzlistings/assets/favicon.ico" />
-   <!-- Core theme CSS (includes Bootstrap)-->
-   <!-- <link href="/bizzlistings/css/styles.css" rel="stylesheet" /> -->
-   <!-- <link href="/bizzlistings/css/codemirror.css" rel="stylesheet" /> -->
-   <!--  
-         <link href="/bizzlistings/css/bootstrap.min.css" rel="stylesheet" />
-         -->
+
    <link href="/bizzlistings/css/codescriber-v1.00.css" rel="stylesheet" />
    <link href="/bizzlistings/css/slidestyles.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smshopi-v1.00.css" rel="stylesheet" />
@@ -34,20 +58,20 @@
    <link href="/bizzlistings/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smtheme-v1.00.css" rel="stylesheet" />
    <link href="/bizzlistings/css/chatstyle.css" rel="stylesheet" type="text/css">
-   <!-- 
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-         
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
-         -->
+   <link href="/bizzlistings/web/common-style.css" rel="stylesheet">
+
+
+   <!-- FONT AWESOME -->
    <script src="https://kit.fontawesome.com/2e937192fc.js" crossorigin="anonymous"></script>
    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-   <link rel="stylesheet" href="/bizzlistings/web/common-style.css">
-   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&flags=gated"></script>
+
+
+
+   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&flags=gated"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.js"
       integrity="sha256-dPTL2a+npIonoK5i0Tyes0txCMUWZBf8cfKRfACRotc=" crossorigin="anonymous"></script>
-   <!-- Codemirror Modes -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"
       integrity="sha256-cphnEddX56MtGJsi1PoCPLds+dlnDj1QQkAlCWeJYDo=" crossorigin="anonymous"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"
@@ -63,21 +87,20 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.min.js"
       integrity="sha256-G+QhvxjUNi5P5cyQqjROwriSUy2lZtCFUQh+8W1o6I0=" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.css"
-      integrity="sha256-XfaQ13HxIRg0hWLdKpAGBDOuLt7M0JCKvKpEgLHj5Gg=" crossorigin="anonymous" />
+      integrity="sha256-XfaQ13HxIRg0hWLdKpAGBDOuLt7M0JCKvKpEgLHj5Gg=" crossorigin="anonymous" /> -->
+
+   <!-- JQUERY    -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
    <!-- <script src="/bizzlistings/js/jquery-resizable-delit.js"></script> -->
    <!--REF: https://medium.com/@petehouston/remove-tinymce-warning-notification-on-cloud-api-key-70a4a352b8b0 -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script> -->
 
-   <!--REF: https://highlightjs.org/usage/ -->
-   <link rel="stylesheet" href="/bizzlistings/css/default.min.css">
-   <!-- <script src="/bizzlistings/js/highlight.min.js"></script> -->
 
-   <!-- For Location Display on Map -->
-   <!-- <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'>
-   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
+   <!-- <link rel="stylesheet" href="/bizzlistings/css/default.min.css"> -->
 
    <!-- For Location Display on Map -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -91,23 +114,14 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
       integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
 
-   <!-- <script src="/bizzlistings/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
-   <script src="/bizzlistings/js/lib/unpackers/urlencode_unpacker.js"></script>
-   <script src="/bizzlistings/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
-   <script src="/bizzlistings/js/lib/unpackers/myobfuscate_unpacker.js"></script> -->
-
    <script src="/bizzlistings/web/common-function-v1.01.js"></script>
-
-   <!-- ****SM-TO-SMADM******* -->
-   <script src="/bizzlistings/web/smadm-common-function.js"></script>
-
    <script src="/bizzlistings/web/chat-function.js"></script>
 
    <script type="application/ld+json">{
 			"@context": "https://schema.org/",
 			"@type":"WebSite","url":"https://bizzlistings.com/",
 			"name": "BizzListings - Grow your business",
-			"datePublished": "2022-07-10",
+			"datePublished": "2023-04-17",
 			"description": "Grow your business",
 			"thumbnailUrl": "https://bizzlistings.com/images/banner.png"         
 		 }
@@ -121,25 +135,28 @@
       <div id="page-content-wrapper">
          <!-- Top navigation-->
          <div class="topnav" id="myTopnav">
-            <a id="homeLinkId" class="navLink" href="/bizzlistings/kisna/?target=home"
+            <a id="homeLinkId" class="navLink" href="/bizzlistings/?target=home"
                onclick="Show('home'); return false; ">HOME</a>
 
-            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/kisna/?target=item"
+            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/?target=item"
                onclick="Show('item'); return false; ">LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
 
-            <a id="howtoLinkId" class="navLink" href="/bizzlistings/kisna/?target=howto"
+            <a id="howtoLinkId" class="navLink" href="/bizzlistings/?target=howto"
                onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
-            <a id="contactusLinkId" class="navLink" href="/bizzlistings/kisna/?target=contactus"
+            <a id="contactusLinkId" class="navLink" href="/bizzlistings/?target=contactus"
                onclick="Show('contactus'); return false; ">CONTACT US</a>
-            <a id="loginLinkId" class="navLink" href="/bizzlistings/kisna/?target=login"
+            <a id="loginLinkId" class="navLink" href="/bizzlistings/?target=login"
                onclick="Show('login'); return false; ">LOG IN</a>
             <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
-            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/kisna/?target=mystore"
+            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/?target=mystore"
                onclick="Show('mystore'); return false;">CREATE MY STORE</a>
-            <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="javascript:myfavorites()">FAVORITES</a>
+
+            <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="/bizzlistings/?target=myfavorites"
+            onclick="Show('myfavorites'); return false;" >FAVORITES</a>
+
             <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
                <i class="fa fa-commenting font_size_24px" aria-hidden="true"></i>
                <span class="chatBadge displayNone">0</span>
@@ -148,22 +165,6 @@
                </audio>
             </a>
 
-            <!-- ****SM-TO-SMADM******* -->
-            <a id="admLinkId" class="navLink dropDownNav displayNone" href="">MANAGE <i
-                  class="fa fa-caret-down"></i></a>
-            <div class="dropdown-content">
-               <a id="itemsPendingReviewLinkId" class="navLink displayNone"
-                  href="javascript:admgetItmPendingReview()">Check and approve Created Stores and Items Pending
-                  Review</a>
-               <a id="reportsPendingReviewLinkId" class="navLink displayNone"
-                  href="javascript:admgetreportsPendingReview()">Check the Issues Reported with Items and Chats</a>
-               <a id="accMgmtLinkId" class="navLink displayNone" href="javascript:admgetaccMgMt()">Review and Manage
-                  User Accounts</a>
-               <a id="messageLinkId" class="navLink displayNone" href="javascript:admgetChatMgt()">Review Chats</a>
-               <a id="reviewsLinkId" class="navLink displayNone" href="javascript:admgetReviews()">Check and approve the
-                  review submitted for items</a>
-               <a id="checkallStoresLinkId" class="navLink" href="javascript:admcheckStores()">Check All Stores</a>
-            </div>
 
             <a class="searchWrapper"><span id="itemsearchDivId">
                   <form autocomplete="off" class="dummyForm">
@@ -203,7 +204,6 @@
             <!-- <section id="bgSVGId" >
                <div class="wave"></div>
              </section> -->
-
             <div id="mainContainer" class="panel-container panel-left">
 
                <!--*************************************************************--->
@@ -297,6 +297,45 @@
                         platform makes it simple and quick to get started. Let's grow your business together!
                      </div>
 
+                     <div class="sampleBusPageLinkContainer">
+                        <div class="sampleBustxtdiv">
+                           Get inspired by our sample business pages! Check out our showcase of businesses from various
+                           categories to get an idea of what your own business page could look like. Follow the links
+                           below to explore our sample pages and start creating your own unique business page on
+                           BizzListings.
+                        </div>
+                        <div>
+                           <ul class="sapleBusPagesList">
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Beauty-Oasis-Sample">Beautician</a>
+                              </li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Fix-My-Tech-Sample">Electronics
+                                    Repair</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Fresh-Choice-Market-Sample">Grocery
+                                    Store</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Happy-Hearts-Childcare-Sample">Day
+                                    Care</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Idli-Dosa-Joint-Sample">Food Joint</a>
+                              </li>
+
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Rapid-Repairs-Sample">Car and Bike
+                                    Repair</a></li>
+                              <li><a class="anchor_tag_btn3"
+                                    href="/bizzlistings/The-Stationery-Studio-Sample">Stationery Store</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Thread-and-Needle-Sample">Tailoring and
+                                    dressmaking shops</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Wardrobe-Wonders-Sample">Clothes
+                                    Shop</a></li>
+                              <li><a class="anchor_tag_btn3" href="/bizzlistings/Shutter-Bliss-Photography">Photography
+                                    Shop</a></li>
+                           </ul>
+                        </div>
+                     </div>
+                     <div class="videoContainer">
+                        <div class='sampleBustxtdiv'>How to create free Business Listings</div>
+                        <div class='shopVideoIframeDiv'>
+                           <iframe src='https://www.youtube.com/embed/EmaA9rO2gwM'> </iframe>
+                        </div>
+                     </div>
                      <div class="displayNone"
                         style="background-color: rgba(9, 84, 132); width: 100%; margin: 0px; padding: 20px; ">
                         <label style="color: white"> Lots of programming languages supported. Some of them are listed
@@ -324,6 +363,14 @@
 
 
                <div id="itemListDivId">
+                  <div id="distanceFilter" class="padding_10px  ">
+                     Filter results by distance (<span id="selectedDist">50</span> Km)
+                     <div class="distantFltrInner">
+                        <i class="fa fa-map-marker locationMarker" style="font-size:36px"></i>
+                        <input type="range" min="1" max="1000" value="50" oninput="updateSelectedval()" onchange="updateSelectedval()" class="distanceSliderCls" id="distanceSlider">                  
+                        <button class="helper float_right width_100px" onclick="applyDistanceFilter();">Apply</button>
+                     </div>
+                  </div>
 
                   <div id="itemListInnerDivId"></div>
 
@@ -367,14 +414,15 @@
                   <div id="registerSecDivId" class="displayNone" style="margin-top: 20px;">
                      <label class="form_header_label1 scale-up-ver-top"> REGISTER </label>
                      <hr>
-                     <input class="un" id='registerusname' type="text" placeholder="Your full name">
-                     <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
-                     <input class="pass" id='registerpassword' type="password" align="center"
-                        placeholder="Set Password">
-                     <input class="pass" id='registerpasswordre' type="password" align="center"
-                        placeholder="Re-enter Password">
-                     <br>
-
+                     <div id="registrationFieldsDiv">
+                        <input class="un" id='registerusname' type="text" placeholder="Your full name">
+                        <input class="un " id='registeremailid' type="text" align="center" placeholder="Login Email Id">
+                        <input class="pass" id='registerpassword' type="password" align="center"
+                           placeholder="Set Password">
+                        <input class="pass" id='registerpasswordre' type="password" align="center"
+                           placeholder="Re-enter Password">
+                        <br>
+                     </div>
 
                      <label id="registererrormsg" style="color: #cc0000; font-size: 14px"></label>
                      <br>
@@ -565,14 +613,12 @@
                <h3 class="footer-heading">
                   KEY LINKS
                </h3>
-               <!-- ****SM-TO-SMADM******* -->
                <div class="footer-languages">
-                  <a onclick="Show('home'); return false;" href="/bizzlistings/kisna/?target=home">Home</a>
-                  <a onclick="Show('item'); return false;" href="/bizzlistings/kisna/?target=item">Listings</a>
-                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/kisna/?target=contactus">Contact
-                     Us</a>
-                  <a onclick="showpolicyAfterURLHistUpd(); return false;"
-                     href="/bizzlistings/kisna/?target=policy">Usage Policy</a>
+                  <a onclick="Show('home'); return false;" href="/bizzlistings/?target=home">Home</a>
+                  <a onclick="Show('item'); return false;" href="/bizzlistings/?target=item">Listings</a>
+                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/?target=contactus">Contact Us</a>
+                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/?target=policy">Usage
+                     Policy</a>
 
                </div>
             </div>
@@ -628,6 +674,14 @@
    <div id="toastsnackbar_center" class="shadow_3"></div>
    <div id="toastsnackbar" class="shadow_1"></div>
 
+   <div id="myModal" class="modaldiv displayNone">
+      <!-- Modal content -->
+      <div class="modaldiv-content">
+         <!-- <span class="modaldivclose" onclick="closeModal()">&times;</span> -->
+         <div id="modalhtmlid"></div>
+      </div>
+   </div>
+
    <div id="chat-window" class="chat-widget">
       <div id="chat-window-header" class="chat-widget-header">
          <a href="javascript:goToPrev()" class="previous-chat-tab-btn">&lsaquo;</a>
@@ -658,24 +712,24 @@
 
    </script>
    <script>
-      //getHowToVideos();
 
       setTimeout(() => {
          getInfo();
-      }, 0)
-
-      setTimeout(() => {
-         getItemsListadm();
       }, 0);
 
-      ;
+
+      setTimeout(() => {
+         getItemsList();
+      }, 0);
+
+
 
       setTimeout(() => {
          getCategoryList();
       }, 0);
 
-      // ****SM-TO-SMADM*******
-      admcheckURL();
+
+      checkURL();
 
       $(window).scroll(function () {
          checkAnimation();
