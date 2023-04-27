@@ -362,7 +362,7 @@ function admFnGetItem(itemstr) {
     });
 }
 
-function admgetOneItemOfShop(tags, itemstr) {
+function admgetOneItemOfShop(tags) {
 
     let itemid = tags[0].itemid;
     let category = tags[0].category;

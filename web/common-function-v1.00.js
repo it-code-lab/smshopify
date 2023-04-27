@@ -84,7 +84,7 @@ let shopLocationCheckBox = "<label class='informationBox fontsize_14px'>Provide 
     + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
     + '<div contenteditable="true" class="addressfield__input"  id="shopcity"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
     + '<div contenteditable="true" class="addressfield__input"  id="shopstate"> </div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
-    + '<div contenteditable="true" class="addressfield__input"  id="shopcountry"> </div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
+    + '<div contenteditable="true" class="addressfield__input"  id="shopcountryPar"> ' + getCountryListHTML() + ' </div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
     + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode"> </div> </label> </div>  </div>'
     + '</div>';
 
@@ -151,7 +151,27 @@ let shopItemTabContentDivs = '<div id="addImages" class="shopTabcontent">'
 
 let colorList = ["#000000", "#ffffff", "#00ffff", "#34568B", "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1", "#955251", "#B565A7", "#009B77", "#D65076", "#45B8AC", "#EFC050", "#5B5EA6", "#DFCFBE", "#55B4B0", "#98B4D4", "#C3447A", "#bb00bb", "#ff0000", "#888888", "#417203", "#934f4d", "#7E909A", "#A5D8DD", "#EA6A47", "#0091D5", "#B3C100", "#4CB5F5", "#6Ab187", "#DBAE58", "#488A99", "#934f4d"];
 
+
+
 let revealSecColor = getSecColors();
+
+function getCountryListHTML(){
+    let countryList = ["Afghanistan","Aland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bonaire, Sint Eustatius and Saba","Bosnia and Herzegovina","Botswana",
+                    "Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo, Democratic Republic of the Congo","Cook Islands","Costa Rica","Cote D'Ivoire",
+                    "Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar",
+                    "Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and Mcdonald Islands","Holy See (Vatican City State)","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya",
+                    "Kiribati","Korea, Democratic People's Republic of","Korea, Republic of","Kosovo","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libyan Arab Jamahiriya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia, the Former Yugoslav Republic of","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique",
+                    "Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Moldova, Republic of","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau",
+                    "Palestinian Territory, Occupied","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russian Federation","Rwanda","Saint Barthelemy","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Martin","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe",
+                    "Saudi Arabia","Senegal","Serbia","Serbia and Montenegro","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Swaziland","Sweden","Switzerland","Syrian Arab Republic","Taiwan, Province of China",
+                    "Tajikistan","Tanzania, United Republic of","Thailand","Timor-Leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela","Viet Nam","Virgin Islands, British",
+                    "Virgin Islands, U.s.","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"];
+
+    let tempHTML = "<select id='shopcountry' name='country' class='form-control'>";
+    countryList.forEach((country) => tempHTML = tempHTML + "<option value='" + country + "'>" + country + "</option>")
+    tempHTML = tempHTML + "</select>";
+    return tempHTML;
+}
 
 function getItemButtons() {
     let tempHTML = "";
@@ -512,12 +532,26 @@ function getItemsList() {
             let rows = JSON.parse(response);
             let updatedRows = rows;
             let info = localStorage.getItem("posinf");
-            if ((info != undefined) && (info != null) && (info != "") && (info != "null") && (info != ",,")) {
+            let latitude = sessionStorage.getItem("latitude");
+            let longitude = sessionStorage.getItem("longitude");
+            if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
+                info = latitude + "," + longitude + ",";                
                 updatedRows = rows.map(row => {
                     return { ...row, distance: getDistance(row, info) };
-                }
+                }           
+
                 );
-            }
+                updatedRows.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+
+            } 
+            //SM-DONOTDELETE
+            // else if ((info != undefined) && (info != null) && (info != "") && (info != "null") && (info != ",,")) {
+            //     updatedRows = rows.map(row => {
+            //         return { ...row, distance: getDistance(row, info) };
+            //     }
+            //     );
+            // }
+
             sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
             setTimeout(() => {
                 populateItemDropDown();
@@ -540,8 +574,15 @@ function getDistance(row, info) {
 
     //SM-TODONE-Fix name to Sample
     if (row.subcategory == "Sample"){
-        distanceKm = 20;
+        distanceKm = 0;
     }else if ((dest != undefined) && (dest != null) && (dest != "") && (dest != "null") && (dest != ",")) {
+
+        let latitude = sessionStorage.getItem("latitude");
+        let longitude = sessionStorage.getItem("longitude");
+        
+        if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
+            info = latitude + "," + longitude + ",";            
+        }
         let srcCrd = info.split(",");
         let destCrd = dest.split(",");
         distanceKm = getDistanceFromLatLonInKm(srcCrd[0], srcCrd[1], destCrd[0], destCrd[1]);
@@ -1135,28 +1176,67 @@ function checkURL() {
 
 function displayStore(storename) {
 
-    let tf = JSON.parse(sessionStorage.getItem("itemsList"));
-    let allRows = JSON.parse(tf);
+    storename = decodeURI(storename);
+    storename = storename.replaceAll(" ", "-");
 
-    let storeRow = allRows.filter(function (entry) {
-        let title = entry.title;
-        let titleSpaceReplaced = title.replaceAll(' ', '-');
-        return entry.discontinue == "0" && titleSpaceReplaced.toUpperCase() == storename.toUpperCase();
-    });
+    //if (!searchText.match(/^[0-9a-zA-Z \b]+$/)) {
 
-    if (storeRow.length > 0) {
-        document.getElementById("itemDivId").style.display = "block";
-        fnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
-    } else {
-        if (storename == "") {
-            Show('home');
-        } else {
-            document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
-            document.getElementById("itemDivId").style.display = "block";
-
-        }
-
+    if (storename.match(/^\b[0-9a-zA-Z -]+\b$/)) {
+        fnGetStore(storename);
+    }else{
+        Show('home');
     }
+
+    
+
+    // let tf = JSON.parse(sessionStorage.getItem("itemsList"));
+    // let allRows = JSON.parse(tf);
+
+    // let storeRow = allRows.filter(function (entry) {
+    //     let title = entry.title;
+    //     let titleSpaceReplaced = title.replaceAll(' ', '-');
+    //     return entry.discontinue == "0" && titleSpaceReplaced.toUpperCase() == storename.toUpperCase();
+    // });
+
+    // if (storeRow.length > 0) {
+    //     document.getElementById("itemDivId").style.display = "block";
+    //     fnGetItem(storeRow[0].category + "/" + storeRow[0].storename + "/" + storeRow[0].title);
+    // } else {
+    //     if (storename == "") {
+    //         Show('home');
+    //     } else {
+    //         document.getElementById("itemDivId").innerHTML = "Sorry. The requested page is not found.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
+    //         document.getElementById("itemDivId").style.display = "block";
+
+    //     }
+
+    // }
+}
+
+function fnGetStore(storestr) {
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        type: 'POST',
+        data: jQuery.param({
+            usrfunction: "getStore",
+            storestr: storestr
+        }),
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (response) {
+
+            document.getElementById("itemListDivId").style.display = "block";
+            document.getElementById("itemEditDivId").style.display = "none";
+            document.getElementById("itemDivId").style.display = "none";
+
+            let tags = JSON.parse(response);
+            getFullShopDetails(tags, storestr);
+
+        },
+        error: function (xhr, status, error) {
+            //console.log("error");
+            //console.log(xhr);
+        }
+    });
 }
 
 function fnGetItem(itemstr) {
@@ -1294,7 +1374,7 @@ function deleteCurrentComponent(btn) {
     //btn.parentElement.innerHTML = "";
 }
 
-function getOneItemOfShop(tags, itemstr) {
+function getOneItemOfShop(tags) {
 
     let itemid = tags[0].itemid;
     let category = tags[0].category;
@@ -1333,7 +1413,11 @@ function getOneItemOfShop(tags, itemstr) {
         return entry.discontinue == "0" && entry.title == tags[0].storename;
     });
 
-    let itemStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
+    let itemRows = tags.filter(function (entry) {
+        return entry.discontinue == "0" && entry.title != tags[0].storename && entry.title != undefined; 
+    });
+
+    let itemstr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + itemRows[0].title.replaceAll(" ", "-");
     let storeStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].storename.replaceAll(" ", "-");
 
     let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=item";
@@ -1344,7 +1428,7 @@ function getOneItemOfShop(tags, itemstr) {
         '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + storeStr + "'" + '); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
-        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
+        '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + itemstr + "'" + '); return false;" href ="' + window.location.href + '" class="itemTopLinkCls"  >' + title + "</a></div>";
     //END - Navigation Links
 
     //newHTML = newHTML + "<div classXX = 'shopContainerSub' > <h1 classXX='shopContainerH1' > " + title + "</h1></div>";
@@ -1447,7 +1531,7 @@ function getFullShopDetails(tags, itemstr) {
     let tf = JSON.parse(sessionStorage.getItem("itemsList"));
     let allRows = JSON.parse(tf);
 
-    let storeRow = allRows.filter(function (entry) {
+    let storeRow = tags.filter(function (entry) {
         return entry.discontinue == "0" && entry.storename == tags[0].storename && entry.title == tags[0].storename;
     });
 
@@ -3363,7 +3447,7 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         + '<div contenteditable="true" class="addressfield__input"  id="shopaddressline1">' + addr_line1 + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcity">City/Town/Village</span> '
         + '<div contenteditable="true" class="addressfield__input"  id="shopcity">' + addr_city + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopstate">State</span> '
         + '<div contenteditable="true" class="addressfield__input"  id="shopstate">' + addr_State + '</div> </label>  <label class="addressfield"><span class="addressfield__label" for="shopcountry">Country</span> '
-        + '<div contenteditable="true" class="addressfield__input"  id="shopcountry">' + addr_Cntry + '</div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
+        + '<div contenteditable="true" class="addressfield__input"  id="shopcountryParent">' + getCountryListHTML() + '</div> </label>  <label class="addressfield"> <span class="addressfield__label" for="shoppostalcode">Postal code</span>'
         + '<div contenteditable="true" class="addressfield__input"  id="shoppostalcode">' + addr_postalcode + '</div> </label> </div>  </div>'
         + '</div>';
 
@@ -3416,6 +3500,10 @@ function getShopBannerForUpd(itemid, bannerhtml, description, uselocationfromadd
         for (let i = 0; i < allItems.length; i++) {
             allItems[i].classList.remove("scale-in-center");
         }
+    }, 500);
+
+    setTimeout(function () {
+        $('#shopcountry').val(addr_Cntry);
     }, 500);
 
     return contentToAdd;
@@ -3620,19 +3708,19 @@ async function saveNewStore(itemid, createNewItem) {
 
     let displaylocationflag = document.querySelector(".showStoreLoc").checked ? '1' : '0';
     let maplocationcoordinates = "";
-    if (localStorage.getItem("latitude") != null) {
-        maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    if (sessionStorage.getItem("latitude") != null) {
+        maplocationcoordinates = sessionStorage.getItem("latitude") + "," + sessionStorage.getItem("longitude");
     }
     //let uselocationfromaddress = document.getElementById("storeAddrDivId").innerHTML;
     let uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
         "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
         "shopstate^" + document.getElementById("shopstate").innerHTML + "~" +
-        "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
+        "shopcountry^" + $("#shopcountry :selected").text() + "~" +
         "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
 
     let city = document.getElementById("shopcity").innerHTML;
     let state = document.getElementById("shopstate").innerHTML;
-    let country = document.getElementById("shopcountry").innerHTML;
+    let country = $("#shopcountry :selected").text();
 
     if (document.querySelector(".showStoreAddr").checked) {
         if (uselocationfromaddress == "") {
@@ -3902,7 +3990,7 @@ function saveItemChanges(evt) {
 
     let city = document.getElementById("shopcity").innerHTML;
     let state = document.getElementById("shopstate").innerHTML;
-    let country = document.getElementById("shopcountry").innerHTML;
+    let country = $("#shopcountry :selected").text();
 
     if (itemType == "store") {
         bannerhtml = document.querySelector(".shopTopBanner").parentElement.innerHTML;
@@ -3916,7 +4004,7 @@ function saveItemChanges(evt) {
         uselocationfromaddress = "shopaddressline1^" + document.getElementById("shopaddressline1").innerHTML + "~" +
             "shopcity^" + document.getElementById("shopcity").innerHTML + "~" +
             "shopstate^" + document.getElementById("shopstate").innerHTML + "~" +
-            "shopcountry^" + document.getElementById("shopcountry").innerHTML + "~" +
+            "shopcountry^" + $("#shopcountry :selected").text() + "~" +
             "shoppostalcode^" + document.getElementById("shoppostalcode").innerHTML;
     }
 
@@ -3940,6 +4028,10 @@ function saveItemChanges(evt) {
         title = parentDiv.querySelector('.itemNameCls').textContent;
     }
 
+    if (!title.match(/^[0-9a-zA-Z \b]+$/)) {
+        errorInfo = errorInfo + "Only characters and numbers are allowed in Name." + "<br>";
+    }
+
     if (title.length > 200) {
         errorInfo = errorInfo + "Please limit the item name to 200 characters." + "<br>";
     }
@@ -3961,8 +4053,8 @@ function saveItemChanges(evt) {
 
     let maplocationcoordinates = "";
 
-    if (localStorage.getItem("latitude") != null) {
-        maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+    if (sessionStorage.getItem("latitude") != null) {
+        maplocationcoordinates = sessionStorage.getItem("latitude") + "," + sessionStorage.getItem("longitude");
     }
 
     if (itemid == "new") {
@@ -4039,8 +4131,8 @@ function saveItemChanges(evt) {
         //Check item fields are changed 
         let maplocationcoordinates = "";
 
-        if (localStorage.getItem("latitude") != null) {
-            maplocationcoordinates = localStorage.getItem("latitude") + "," + localStorage.getItem("longitude");
+        if (sessionStorage.getItem("latitude") != null) {
+            maplocationcoordinates = sessionStorage.getItem("latitude") + "," + sessionStorage.getItem("longitude");
         }
         if ((rows[0].bannerhtml == bannerhtml)
             && (rows[0].description == description)
@@ -4550,7 +4642,14 @@ function populateItemsList(rows = "") {
 
 
     let distanceLimit = JSON.parse(sessionStorage.getItem("selectedDistance"));
-    
+    let latitude = sessionStorage.getItem("latitude");
+
+    if ((latitude == undefined) || (latitude == null) || (latitude == "") || (latitude == "null")){
+        distanceLimit = 1000; 
+    }
+    //SM-TODONE-comment out below
+    //distanceLimit = 5000000;  
+
     if ((distanceLimit == null) || (distanceLimit == "") || (distanceLimit == undefined) ) {
         distanceLimit = 50;  
     }
@@ -4580,7 +4679,8 @@ function populateItemsList(rows = "") {
 
     let defaultDisplayCount = 100;
     let categoryMaxCount = 0;
-    let currDisplayCount = 0;
+    let currDisplayCount = 0;    
+
 
     for (let i = 0; i < rows.length; i++) {
 
@@ -4675,14 +4775,19 @@ function populateItemsList(rows = "") {
 
         if (rows[i].subcategory == "Sample") {
             //SM-TODONE-UnComment below-Comment out next line
-            innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + '~ 20 Km' + '</a>';
+            innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + 'Sample' + '</a>';
 
             //SM-TODONE-Done-Comment out Below-DO Not Delete
             //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ '+ rows[i].distance +' Km)' + '</a>';    
 
-        } else if (rows[i].distance > 5) {
-            //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
-            innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">' + '~ ' + rows[i].distance + ' Km' + '</a>';
+        } else if ((latitude != undefined) && (latitude != null) && (latitude != "") && (latitude != "null") ) {
+           if (rows[i].distance > 0) {
+                //innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + arr[0] + '</a>';    
+                innerHTML = innerHTML  + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd('+ "'" + itemStr + "'" +'); return false;" href="' + itemTitleURL + '">' + rows[i].city + ' (~ '+ rows[i].distance +' Km)' + '</a>';    
+
+            } else{
+                innerHTML = innerHTML + '<a class="anchor_tag_btn2" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href="' + itemTitleURL + '">'  + rows[i].city  + '</a>';
+            }
         }
 
 
@@ -5739,7 +5844,7 @@ function gotoNextTab(elem) {
             } else if ((tablinks[i].innerHTML == "Location") || (tablinks[i].innerHTML == "Save")) {
                 let shopcity = document.getElementById("shopcity").innerHTML;
                 let shopstate = document.getElementById("shopstate").innerHTML;
-                let shopcountry = document.getElementById("shopcountry").innerHTML;
+                let shopcountry = $("#shopcountry :selected").text();
 
                 if ((shopcity == "") || (shopstate == "") || (shopcountry == "")) {
                     // tempHTML = "City/Town/Village, State and Country information is required <div class='float_right marginleft_5px hover_pointer' onclick='hideParentToastDiv(this)'><i class='fa fa-window-close'></i> </div>" ;
@@ -5959,8 +6064,8 @@ function showStoreLocationDiv(elem) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             getMap(latitude, longitude);
-            localStorage.setItem("latitude", latitude);
-            localStorage.setItem("longitude", longitude);
+            sessionStorage.setItem("latitude", latitude);
+            sessionStorage.setItem("longitude", longitude);
         }
 
         function error() {
@@ -6878,6 +6983,9 @@ function applyDistanceFilter(){
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
+            
+            sessionStorage.setItem("latitude", latitude);
+            sessionStorage.setItem("longitude", longitude);
 
             let info = latitude + "," + longitude;
             let tags = sessionStorage.getItem("itemsList");
@@ -6886,6 +6994,9 @@ function applyDistanceFilter(){
                 return { ...row, distance: getDistance(row, info) };
             }
             );
+            
+            updatedRows.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0));
+
             sessionStorage.setItem("itemsList", JSON.stringify(JSON.stringify(updatedRows)));
             checkURL();
         }

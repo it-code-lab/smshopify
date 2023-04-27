@@ -395,12 +395,11 @@
     }
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     .max_4box_responsive {
         width: 25% !important;
-        /* padding-right: 3rem; */
     }
-}
+} */
 
 
 
@@ -655,7 +654,7 @@
     padding: 5px;
     background-color: #a7a5a5;
     color: #fff;
-    width: 120px;
+    width: 150px;
     text-align: center;
     margin: auto;
     font-weight: normal;
@@ -663,6 +662,8 @@
     cursor: pointer;
     text-decoration: none;
     display: block;
+    text-decoration: none !important;
+    white-space: unset;
 }
 .anchor_tag_btn2:hover{
     background-color: #555353;
