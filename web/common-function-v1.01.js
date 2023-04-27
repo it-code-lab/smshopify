@@ -1337,6 +1337,31 @@ function getCreateStore() {
 
     document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
     document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+
+    //REF: https://stackoverflow.com/questions/44241258/set-dynamic-meta-tags-and-open-graph-tags-using-jquery
+
+    //$('meta[property="og:title"]').attr('content', title);
+    //$('meta[property="og:description"]').attr('content', metaDesc);
+    //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/");
+
+
+    let ogTitle = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:title');
+    ogTitle.setAttribute('content', title);
+    document.head.appendChild(ogTitle);
+
+    let ogDescription = document.createElement('meta');
+    ogDescription.setAttribute('property', 'og:description');
+    ogDescription.setAttribute('content', metaDesc);
+    document.head.appendChild(ogDescription);
+
+    let ogUrl = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:url');
+    ogTitle.setAttribute('content', "https://bizzlistings.com/" );
+    document.head.appendChild(ogUrl);
+
+
+
     //document.title = category + " " + subcategory + ". " + title ;
     document.title = "Create your store";
 
@@ -1469,13 +1494,36 @@ function getOneItemOfShop(tags) {
     //document.getElementById(elemId).style.backgroundColor = "#cc0000";
     //END: Change the background color of the active item link
 
-    let metaDesc = title + ", " + tags[0].itemdescription;
+
+    let metaDesc = title + ", " + htmlToText(tags[0].itemdescription);
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
 
     document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
     document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+
+    //$('meta[property="og:title"]').attr('content', title);
+    //$('meta[property="og:description"]').attr('content', metaDesc);
+    //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
+
+    let ogTitle = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:title');
+    ogTitle.setAttribute('content', title);
+    document.head.appendChild(ogTitle);
+
+    let ogDescription = document.createElement('meta');
+    ogDescription.setAttribute('property', 'og:description');
+    ogDescription.setAttribute('content', metaDesc);
+    document.head.appendChild(ogDescription);
+
+    let ogUrl = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:url');
+    ogTitle.setAttribute('content', "https://bizzlistings.com/" + itemstr);
+    document.head.appendChild(ogUrl);
+
+
+
     //document.title = category + " " + subcategory + ". " + title ;
     document.title = tags[0].storename + " - " + title;
 
@@ -1622,13 +1670,36 @@ function getFullShopDetails(tags, itemstr) {
 
     //END: Change the background color of the active item link
 
-    let metaDesc = tags[0].storename + "," + description;
+    let metaDesc = tags[0].storename + "," + htmlToText(description);
 
     let metaKey = category + "," + subcategory + "," + title + "," + keywords;
 
 
     document.querySelector('meta[name="description"]').setAttribute("content", metaDesc);
     document.querySelector('meta[name="keywords"]').setAttribute("content", metaKey);
+
+    //$('meta[property="og:title"]').attr('content', title);
+    //$('meta[property="og:description"]').attr('content', metaDesc);
+    //$('meta[property="og:url"]').attr('content', "https://bizzlistings.com/" + itemstr);
+
+    // Create a new meta element
+    let ogTitle = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:title');
+    ogTitle.setAttribute('content', title);
+    document.head.appendChild(ogTitle);
+
+    let ogDescription = document.createElement('meta');
+    ogDescription.setAttribute('property', 'og:description');
+    ogDescription.setAttribute('content', metaDesc);
+    document.head.appendChild(ogDescription);
+
+    let ogUrl = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:url');
+    ogTitle.setAttribute('content', "https://bizzlistings.com/" + itemstr);
+    document.head.appendChild(ogUrl);
+
+
+
     //document.title = category + " " + subcategory + ". " + title ;
     document.title = title;
 
@@ -1671,6 +1742,12 @@ function getFullShopDetails(tags, itemstr) {
         }
         updateStatus();
     }, 50);
+}
+
+function htmlToText(html) {
+    let temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent; 
 }
 
 function getShopLocationAndHours(tags) {
