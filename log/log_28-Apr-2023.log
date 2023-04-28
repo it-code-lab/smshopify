@@ -1,0 +1,134 @@
+2023-04-28 12:33:20:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('bizzlistings/Bank-loan-legal-services'),' ','-') order by storename
+2023-04-28 12:34:04:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('bizzlistings/Bank-loan-legal-services'),' ','-') order by storename
+2023-04-28 12:34:48:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:35:14:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER(''),' ','-') order by storename
+2023-04-28 12:35:25:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER(''),' ','-') order by storename
+2023-04-28 12:36:29:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:37:59:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:38:34:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:38:38:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:38:54:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:40:52:getStore called with parm path
+2023-04-28 12:40:52:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:41:05:getStore called with parm path
+2023-04-28 12:41:05:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:41:20:getStore called with parm path
+2023-04-28 12:41:20:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:41:58:getStore called with parm path
+2023-04-28 12:41:58:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:43:21:getStore called with parm path
+2023-04-28 12:43:21:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:43:44:getStore called with parm path
+2023-04-28 12:43:44:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:44:26:getStore called with parm path
+2023-04-28 12:44:26:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:44:26:getItem called with parm path
+2023-04-28 12:44:26:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER(''),' ','-') order by storename
+2023-04-28 12:45:38:getStore called with parm path
+2023-04-28 12:45:38:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:45:38:getItem called with parm path,,
+2023-04-28 12:45:38:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER(''),' ','-') order by storename
+2023-04-28 12:46:32:getStore called with parm path
+2023-04-28 12:46:32:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:46:32:getItem called with parm path,,
+2023-04-28 12:46:32:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER(''),' ','-') order by storename
+2023-04-28 12:46:58:getStore called with parm path
+2023-04-28 12:46:58:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:46:58:getItem called with parm path/x/x/y
+2023-04-28 12:46:58:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('x'),' ','-') order by storename
+2023-04-28 12:47:06:getStore called with parm path
+2023-04-28 12:47:06:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:47:06:getItem called with parm path/x/x/y
+2023-04-28 12:47:06:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('x'),' ','-') order by storename
+2023-04-28 12:47:29:getStore called with parm path
+2023-04-28 12:47:29:getStore-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+        itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                        uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                        bannerhtml FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('path'),' ','-') order by storename
+2023-04-28 12:47:29:getItem called with parm path/x/x/y
+2023-04-28 12:47:29:getItem-SELECT itemid, itemuid, category, categoryseq, subcategory, versionseq, title, titleseq, shortdescription, description, city, state, country,keywords,lastupdatedate, discontinue,
+            itemprice, itemimages, itemdescription, displaylocationflag, maplocationcoordinates, address,
+                            uselocationfromaddress,coordinatesfromaddress, displayhoursflag,hourshtml, availabilityinfo, storename,
+                            bannerhtml, keywords FROM items where discontinue='0' and LOWER(REPLACE(storename, ' ', '-')) = REPLACE(LOWER('x'),' ','-') order by storename
+2023-04-28 03:29:00:getItem called with parm beautician/beauty-oasis-sample/hair-styling
+2023-04-28 03:29:27:getItem called with parm beautician/beauty-oasis-sample/hair-styling
+2023-04-28 03:38:54:getItem called with parm car-and-bike-repair/rapid-repairs-sample/electrical-repairs
+2023-04-28 03:39:02:getItem called with parm car-and-bike-repair/rapid-repairs-sample/electrical-repairs

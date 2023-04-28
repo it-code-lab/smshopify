@@ -23,18 +23,24 @@ if (strpos($path, '=') !== false) {
       if ($dummy != "Err in DB call"){
          $title = $_SESSION['webTitle'];
          $description = $_SESSION['webDesc'] ;
-         $image_url = $_SESSION['image_url'];
+         $image_url = "https://bizzlistings.com".$_SESSION['image_url'];
          $keywords = $_SESSION['webKeywords'];
+      }else {
+         //$description = $dummy;
       }
     }
-} elseif (strpos($path, '/') === 0) {
+} elseif (strpos($path, '/') === false) {
    $dummy = $database->getStore($path);
    if ($dummy != "Err in DB call"){
       $title = $_SESSION['webTitle'];
       $description = $_SESSION['webDesc'] ;
-      $image_url = $_SESSION['image_url'];
+      $image_url = "https://bizzlistings.com".$_SESSION['image_url'];
       $keywords = $_SESSION['webKeywords'];
-   }
+   }else {
+         //$description = $dummy;
+    }
+}else {
+  // $description = $path;
 }
 
 ?>
