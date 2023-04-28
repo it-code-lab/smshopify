@@ -23,7 +23,8 @@ if (strpos($path, '=') !== false) {
       if ($dummy != "Err in DB call"){
          $title = $_SESSION['webTitle'];
          $description = $_SESSION['webDesc'] ;
-         $image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+         //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+         $image_url = "https://bizzlistings.com/getimage.php?file=".$_SESSION['image_nm'];
          $keywords = $_SESSION['webKeywords'];
       }else {
          //$description = $dummy;
@@ -34,7 +35,8 @@ if (strpos($path, '=') !== false) {
    if ($dummy != "Err in DB call"){
       $title = $_SESSION['webTitle'];
       $description = $_SESSION['webDesc'] ;
-      $image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+      //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+      $image_url = "https://bizzlistings.com/getimage.php?file=".$_SESSION['image_nm'];
       $keywords = $_SESSION['webKeywords'];
    }else {
          //$description = $dummy;
