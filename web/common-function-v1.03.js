@@ -1047,8 +1047,18 @@ function checkURL() {
     }
 
     if (path.indexOf('/find/') > -1) {
+
+        if (sessionStorage.getItem("itemsList") == null) {
+            document.getElementById("loaderDivId").style.display = "block";
+            setTimeout(function () {
+                document.getElementById("loaderDivId").style.display = "none";
+                checkURL();
+            }, 500);
+            return;
+        }
+        document.getElementById("itemEditDivId").style.display = "none";
         let ar = path.split('/find/');
-        document.getElementById("item-search-box").value = ar[1];
+        document.getElementById("item-search-box").value = decodeURI(ar[1]);
         searchItem();
         return;
     }
@@ -4555,7 +4565,7 @@ function searchItem() {
     let searchText = document.getElementById("item-search-box").value;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "/find/" + searchText;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "find/" + searchText;
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
