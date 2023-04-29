@@ -144,7 +144,7 @@ if (strpos($path, '=') !== false) {
    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
       integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
 
-   <script src="/bizzlistings/web/common-function-v1.01.js"></script>
+   <script src="/bizzlistings/web/common-function-v1.02.js"></script>
    <script src="/bizzlistings/web/chat-function.js"></script>
 
    <script type="application/ld+json">{
@@ -165,26 +165,26 @@ if (strpos($path, '=') !== false) {
       <div id="page-content-wrapper">
          <!-- Top navigation-->
          <div class="topnav" id="myTopnav">
-            <a id="homeLinkId" class="navLink" href="/bizzlistings/?target=home"
+            <a id="homeLinkId" class="navLink" href="/bizzlistings/target/home"
                onclick="Show('home'); return false; ">HOME</a>
 
-            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/?target=item"
+            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/target/item"
                onclick="Show('item'); return false; ">LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
 
-            <a id="howtoLinkId" class="navLink" href="/bizzlistings/?target=howto"
+            <a id="howtoLinkId" class="navLink" href="/bizzlistings/target/howto"
                onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
-            <a id="contactusLinkId" class="navLink" href="/bizzlistings/?target=contactus"
+            <a id="contactusLinkId" class="navLink" href="/bizzlistings/target/contactus"
                onclick="Show('contactus'); return false; ">CONTACT US</a>
-            <a id="loginLinkId" class="navLink" href="/bizzlistings/?target=login"
+            <a id="loginLinkId" class="navLink" href="/bizzlistings/target/login"
                onclick="Show('login'); return false; ">LOG IN</a>
             <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
-            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/?target=mystore"
+            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/target/mystore"
                onclick="Show('mystore'); return false;">CREATE MY STORE</a>
 
-            <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="/bizzlistings/?target=myfavorites"
+            <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="/bizzlistings/target/myfavorites"
             onclick="Show('myfavorites'); return false;" >FAVORITES</a>
 
             <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
@@ -644,10 +644,10 @@ if (strpos($path, '=') !== false) {
                   KEY LINKS
                </h3>
                <div class="footer-languages">
-                  <a onclick="Show('home'); return false;" href="/bizzlistings/?target=home">Home</a>
-                  <a onclick="Show('item'); return false;" href="/bizzlistings/?target=item">Listings</a>
-                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/?target=contactus">Contact Us</a>
-                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/?target=policy">Usage
+                  <a onclick="Show('home'); return false;" href="/bizzlistings/target/home">Home</a>
+                  <a onclick="Show('item'); return false;" href="/bizzlistings/target/item">Listings</a>
+                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/target/contactus">Contact Us</a>
+                  <a onclick="showpolicyAfterURLHistUpd(); return false;" href="/bizzlistings/target/policy">Usage
                      Policy</a>
 
                </div>

@@ -100,7 +100,7 @@
    <script src="/bizzlistings/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
    <script src="/bizzlistings/js/lib/unpackers/myobfuscate_unpacker.js"></script> -->
 
-   <script src="/bizzlistings/web/common-function-v1.01.js"></script>
+   <script src="/bizzlistings/web/common-function-v1.02.js"></script>
 
    <!-- ****SM-TO-SMADM******* -->
    <script src="/bizzlistings/web/smadm-common-function.js"></script>
@@ -125,23 +125,23 @@
       <div id="page-content-wrapper">
          <!-- Top navigation-->
          <div class="topnav" id="myTopnav">
-            <a id="homeLinkId" class="navLink" href="/bizzlistings/kisna/?target=home"
+            <a id="homeLinkId" class="navLink" href="/bizzlistings/kisna/target/home"
                onclick="Show('home'); return false; ">HOME</a>
 
-            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/kisna/?target=item"
+            <a id="itemLinkId" class="navLink dropDownNav" href="/bizzlistings/kisna/target/item"
                onclick="Show('item'); return false; ">LISTINGS <i class="fa fa-caret-down"></i></a>
             <div id="dropDownItmCatgListId" class="dropdown-content">
             </div>
 
 
-            <a id="howtoLinkId" class="navLink" href="/bizzlistings/kisna/?target=howto"
+            <a id="howtoLinkId" class="navLink" href="/bizzlistings/kisna/target/howto"
                onclick="Show('howto'); return false; ">HOW TO VIDEOS</a>
-            <a id="contactusLinkId" class="navLink" href="/bizzlistings/kisna/?target=contactus"
+            <a id="contactusLinkId" class="navLink" href="/bizzlistings/kisna/target/contactus"
                onclick="Show('contactus'); return false; ">CONTACT US</a>
-            <a id="loginLinkId" class="navLink" href="/bizzlistings/kisna/?target=login"
+            <a id="loginLinkId" class="navLink" href="/bizzlistings/kisna/target/login"
                onclick="Show('login'); return false; ">LOG IN</a>
             <a id="logoutLinkId" class="navLink" style="display:none" href="javascript:Logout()">LOGOUT</a>
-            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/kisna/?target=mystore"
+            <a id="mystoreLinkId" class="navLink" href="/bizzlistings/kisna/target/mystore"
                onclick="Show('mystore'); return false;">CREATE MY STORE</a>
             <a id="myfavoritesLinkId" class="navLink" class="displayNone" href="javascript:myfavorites()">FAVORITES</a>
             <a id="mychatLinkId" class="displayNone" href="javascript:mychat()">
@@ -571,12 +571,12 @@
                </h3>
                <!-- ****SM-TO-SMADM******* -->
                <div class="footer-languages">
-                  <a onclick="Show('home'); return false;" href="/bizzlistings/kisna/?target=home">Home</a>
-                  <a onclick="Show('item'); return false;" href="/bizzlistings/kisna/?target=item">Listings</a>
-                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/kisna/?target=contactus">Contact
+                  <a onclick="Show('home'); return false;" href="/bizzlistings/kisna/target/home">Home</a>
+                  <a onclick="Show('item'); return false;" href="/bizzlistings/kisna/target/item">Listings</a>
+                  <a onclick="Show('contactus'); return false;" href="/bizzlistings/kisna/target/contactus">Contact
                      Us</a>
                   <a onclick="showpolicyAfterURLHistUpd(); return false;"
-                     href="/bizzlistings/kisna/?target=policy">Usage Policy</a>
+                     href="/bizzlistings/kisna/target/policy">Usage Policy</a>
 
                </div>
             </div>

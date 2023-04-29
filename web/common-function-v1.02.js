@@ -756,10 +756,10 @@ function Show(pageName) {
 
     updateCommonDivsToDisplayNone();
 
-    //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?target=" + pageName;
+    //let myUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "target/" + pageName;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=" + pageName;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/" + pageName;
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
@@ -908,8 +908,8 @@ function checkURL() {
         document.getElementById("cookie-div-id").style.display = "none"
     }
 
-    if (LocationSearchStr.indexOf('passkey=') > 0) {
-        let ar = LocationSearchStr.split('passkey=');
+    if (path.indexOf('/passkey/') > -1) {
+        let ar = path.split('/passkey/');
         let accountactivationkey = ar[1];
         activateAccount(accountactivationkey);
         return;
@@ -1019,8 +1019,8 @@ function checkURL() {
         return;
     }
 
-    if (LocationSearchStr.indexOf('resetkey=') > 0) {
-        let ar = LocationSearchStr.split('resetkey=');
+    if (path.indexOf('/resetkey/') > -1) {
+        let ar = path.split('/resetkey/');
         let passwordresetkey = ar[1];
         //resetPassword(passwordresetkey);
         sessionStorage.setItem("passwordresetkey", passwordresetkey);
@@ -1041,15 +1041,15 @@ function checkURL() {
         return;
     }
 
-    if (LocationSearchStr.indexOf('find=') > 0) {
-        let ar = LocationSearchStr.split('find=');
+    if (path.indexOf('/find/') > -1) {
+        let ar = path.split('/find/');
         document.getElementById("item-search-box").value = ar[1];
         searchItem();
         return;
     }
 
-    if (LocationSearchStr.indexOf('target=') > 0) {
-        let ar = LocationSearchStr.split('target=');
+    if (path.indexOf('/target/') > -1) {
+        let ar = path.split('/target/');
         pageName = ar[1];
     }
 
@@ -1462,7 +1462,7 @@ function getOneItemOfShop(tags) {
     let itemstr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + itemRows[0].title.replaceAll(" ", "-");
     let storeStr = categorySpaceReplaced.toLowerCase() + "/" + storeRow[0].storename.replaceAll(" ", "-") + "/" + storeRow[0].storename.replaceAll(" ", "-");
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=item";
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/item";
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
@@ -1607,7 +1607,7 @@ function getFullShopDetails(tags, itemstr) {
     });
 
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=item";
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/item";
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + category;
 
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + tags[0].storename.replaceAll(" ", "-");
@@ -4550,7 +4550,7 @@ function searchItem() {
     let searchText = document.getElementById("item-search-box").value;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?find=" + searchText;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "/find/" + searchText;
 
     const nextURL = myUrl;
     const nextTitle = 'Code Helper';
@@ -4938,7 +4938,7 @@ function goToHome() {
 
     let path = window.location.pathname;
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
-    myUrl = myUrl + "?target=home";
+    myUrl = myUrl + "target/home";
     window.location.href = myUrl;
 }
 
@@ -4947,7 +4947,7 @@ function goToLogin() {
     let path = window.location.pathname;
     sessionStorage.setItem("lastUrl", window.location.href);
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1)
-    myUrl = myUrl + "?target=login";
+    myUrl = myUrl + "target/login";
     window.location.href = myUrl;
 }
 
@@ -5027,8 +5027,8 @@ function login() {
 
                 let lastUrl = sessionStorage.getItem("lastUrl");
 
-                if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
-                    lastUrl = myUrl + "?target=" + "home"
+                if ((lastUrl == null) || (lastUrl.includes("target/login"))) {
+                    lastUrl = myUrl + "target/" + "home"
                 }
 
                 window.open(lastUrl, "_self");
@@ -5083,10 +5083,10 @@ async function Logout() {
                 //Show("projectscanner");
 
                 //let myUrl = window.location.protocol + "//" + window.location.host +	window.location.pathname ;
-                //window.open(myUrl + "?target=" + "projectscanner", "_self");	
+                //window.open(myUrl + "/target/" + "projectscanner", "_self");	
 
                 let path = window.location.pathname;
-                let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=home";
+                let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/home";
 
                 window.open(myUrl, "_self");
             }
@@ -6857,7 +6857,7 @@ function showpolicyAfterURLHistUpd() {
     //let myUrl = window.location.protocol + "//" + window.location.host + "/items/" + category;
 
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "?target=policy";
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/policy";
 
 
     const nextURL = myUrl;
@@ -6897,8 +6897,8 @@ function goToPrevURL() {
         window.location.pathname;
 
     let lastUrl = sessionStorage.getItem("lastUrl");
-    if ((lastUrl == null) || (lastUrl.includes("?target=login")) || (lastUrl.includes("?target=policy"))) {
-        lastUrl = myUrl + "?target=" + "home"
+    if ((lastUrl == null) || (lastUrl.includes("target/login")) || (lastUrl.includes("target/policy"))) {
+        lastUrl = myUrl + "target/" + "home"
     }
     window.open(lastUrl, "_self");
 }

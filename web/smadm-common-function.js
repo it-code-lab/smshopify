@@ -36,8 +36,8 @@ function admcheckURL() {
 
     LocationSearchStr = LocationSearchStr.replace(re, ' ');
 
-    if (LocationSearchStr.indexOf('passkey=') > 0) {
-        let ar = LocationSearchStr.split('passkey=');
+    if (path.indexOf('/passkey/') > -1) {
+        let ar = path.split('/passkey/');
         let accountactivationkey = ar[1];
         activateAccount(accountactivationkey);
         return;
@@ -156,8 +156,8 @@ function admproceedWithRequest() {
         return;
     }
 
-    if (LocationSearchStr.indexOf('resetkey=') > 0) {
-        let ar = LocationSearchStr.split('resetkey=');
+    if (path.indexOf('/resetkey/') > -1) {
+        let ar = path.split('/resetkey/');
         let passwordresetkey = ar[1];
         sessionStorage.setItem("passwordresetkey", passwordresetkey);
 
@@ -175,8 +175,8 @@ function admproceedWithRequest() {
         return;
     }
 
-    if (LocationSearchStr.indexOf('target=') > 0) {
-        let ar = LocationSearchStr.split('target=');
+    if (path.indexOf('/target/') > -1) {
+        let ar = path.split('/target/');
         pageName = ar[1];
     }
 
@@ -401,7 +401,7 @@ function admgetOneItemOfShop(tags) {
         return entry.discontinue == "0" && entry.title == tags[0].storename;
     });
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/?target=item";
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/target/item";
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + categorySpaceReplaced + "/" + storeRow[0].title.replaceAll(" ", "-") + "/" + storeRow[0].title.replaceAll(" ", "-");
 
@@ -590,7 +590,7 @@ function admgetFullShopDetails(tags, itemstr) {
 
 
 
-    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/?target=item";
+    let itemUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/target/item";
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category;
 
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1) + "kisna/items/" + category + "/" + tags[0].title.replaceAll(" ", "-") + "/" + tags[0].title.replaceAll(" ", "-");
@@ -2157,7 +2157,7 @@ function admgoToLogin() {
     let path = window.location.pathname;
     sessionStorage.setItem("lastUrl", window.location.href);
     let myUrl = path.substring(0, path.indexOf('/', path.indexOf('bizzlistings')) + 1)
-    myUrl = myUrl + "?target=login";
+    myUrl = myUrl + "target/login";
     window.location.href = myUrl;
 }
 
@@ -2229,8 +2229,8 @@ function admlogin() {
 
                 let lastUrl = sessionStorage.getItem("lastUrl");
 
-                // if ((lastUrl == null) || (lastUrl.includes("?target=login"))) {
-                //     lastUrl = myUrl + "?target=" + "home"
+                // if ((lastUrl == null) || (lastUrl.includes("target/login"))) {
+                //     lastUrl = myUrl + "target/" + "home"
                 // }
                 lastUrl = myUrl;
                 window.open(lastUrl, "_self");
