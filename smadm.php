@@ -32,7 +32,7 @@
    <link href="/bizzlistings/css/smshopi-v1.00.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstyleltlimit.css" rel="stylesheet" />
-   <link href="/bizzlistings/css/smtheme-v1.00.css" rel="stylesheet" />
+   <link href="/bizzlistings/css/smtheme-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/chatstyle.css" rel="stylesheet" type="text/css">
 
    
@@ -100,7 +100,7 @@
    <script src="/bizzlistings/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
    <script src="/bizzlistings/js/lib/unpackers/myobfuscate_unpacker.js"></script> -->
 
-   <script src="/bizzlistings/web/common-function-v1.02.js"></script>
+   <script src="/bizzlistings/web/common-function-v1.03.js"></script>
 
    <!-- ****SM-TO-SMADM******* -->
    <script src="/bizzlistings/web/smadm-common-function.js"></script>

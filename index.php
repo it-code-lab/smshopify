@@ -14,35 +14,44 @@ $page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 $path = urldecode($_SERVER["REQUEST_URI"]);
 $path = substr($path, 1);
 
-if (strpos($path, '=') !== false) {
-   return;
-}elseif (strpos($path, 'items/') !== false) {
+if (strpos($path, 'items/') !== false) {
     $itemstr = substr($path, strpos($path, "items/") + 6);
     if (strpos($itemstr, '/') !== false) {
-      $dummy = $database->getItem($itemstr);
+      if (isset($_SESSION['countrynm'])) {
+         $title = $_SESSION['webTitle'];
+         $description = $_SESSION['webDesc'] ;
+         //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+         $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
+         $keywords = $_SESSION['webKeywords'];
+      } else {
+         $dummy = $database->getItem($itemstr);
+         if ($dummy != "Err in DB call") {
+            $title = $_SESSION['webTitle'];
+            $description = $_SESSION['webDesc'] ;
+            //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+            $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
+            $keywords = $_SESSION['webKeywords'];
+         }
+      }
+    }
+} elseif (strpos($path, '/') === false) {
+   if (isset($_SESSION['countrynm'])) {
+      $title = $_SESSION['webTitle'];
+      $description = $_SESSION['webDesc'] ;
+      //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
+      $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
+      $keywords = $_SESSION['webKeywords'];
+   } else {
+      $dummy = $database->getStore($path);
       if ($dummy != "Err in DB call"){
          $title = $_SESSION['webTitle'];
          $description = $_SESSION['webDesc'] ;
          //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
          $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
          $keywords = $_SESSION['webKeywords'];
-      }else {
-         //$description = $dummy;
       }
-    }
-} elseif (strpos($path, '/') === false) {
-   $dummy = $database->getStore($path);
-   if ($dummy != "Err in DB call"){
-      $title = $_SESSION['webTitle'];
-      $description = $_SESSION['webDesc'] ;
-      //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
-      $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
-      $keywords = $_SESSION['webKeywords'];
-   }else {
-         //$description = $dummy;
-    }
-}else {
-  // $description = $path;
+   }
+
 }
 
 ?>
@@ -86,7 +95,7 @@ if (strpos($path, '=') !== false) {
    <link href="/bizzlistings/css/smshopi-v1.00.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstyleltlimit.css" rel="stylesheet" />
-   <link href="/bizzlistings/css/smtheme-v1.00.css" rel="stylesheet" />
+   <link href="/bizzlistings/css/smtheme-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/chatstyle.css" rel="stylesheet" type="text/css">
    <link href="/bizzlistings/web/common-style.css" rel="stylesheet">
 
@@ -144,7 +153,7 @@ if (strpos($path, '=') !== false) {
    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
       integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
 
-   <script src="/bizzlistings/web/common-function-v1.02.js"></script>
+   <script src="/bizzlistings/web/common-function-v1.03.js"></script>
    <script src="/bizzlistings/web/chat-function.js"></script>
 
    <script type="application/ld+json">{

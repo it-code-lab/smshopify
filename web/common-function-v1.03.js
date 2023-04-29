@@ -457,6 +457,11 @@ function getInfo() {
     if (tags != null) {
         if ((tags != "") && (tags != "null")) {
             let srcCrd = tags.split(",");
+            //SM-TODONE - Test later
+            if (srcCrd[2] == ""){
+                sessionStorage.setItem("locset", "y");
+                return;
+            }
             $.ajax({
                 url: the.hosturl + '/php/process.php',
                 type: 'POST',
@@ -1466,7 +1471,7 @@ function getOneItemOfShop(tags) {
     let categoryUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "items/" + categorySpaceReplaced;
     let storeUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + storeRow[0].title.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2 bgcolor_10 color_1'>" +
         '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + storeStr + "'" + '); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + storeRow[0].title + "</a>" + " ❯ " +
@@ -1615,7 +1620,7 @@ function getFullShopDetails(tags, itemstr) {
     //let itemStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + title.replaceAll(" ", "-");
     let storeStr = category.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-") + "/" + tags[0].storename.replaceAll(" ", "-");
 
-    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2'>" +
+    let newHTML = "<div classXX = 'shopContainer' ><div class='display_block marginbottom_12px line_height2 bgcolor_10 color_1'>" +
         '<a class="anchor_tag_btn1" onclick="Show(' + "'" + 'item' + "'" + '); return false;" href ="' + itemUrl + '" class="itemTopLinkCls" ' + ' >' + "All Listings</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="showcategoryAfterURLHistUpd(' + "'" + category + "'" + '); return false;" href ="' + categoryUrl + '" class="itemTopLinkCls"  >' + category + "</a>" + " ❯ " +
         '<a class="anchor_tag_btn1" onclick="getItemAfterURLHistUpd(' + "'" + storeStr + "'" + '); return false;" href ="' + storeUrl + '" class="itemTopLinkCls"  >' + title + "</a></div>";
