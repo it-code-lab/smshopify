@@ -24,7 +24,7 @@ if (strpos($path, '=') !== false) {
          $title = $_SESSION['webTitle'];
          $description = $_SESSION['webDesc'] ;
          //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
-         $image_url = "https://bizzlistings.com/getimage.php?file=".$_SESSION['image_nm'];
+         $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
          $keywords = $_SESSION['webKeywords'];
       }else {
          //$description = $dummy;
@@ -36,7 +36,7 @@ if (strpos($path, '=') !== false) {
       $title = $_SESSION['webTitle'];
       $description = $_SESSION['webDesc'] ;
       //$image_url = "https://bizzlistings.com".$_SESSION['image_url'];
-      $image_url = "https://bizzlistings.com/getimage.php?file=".$_SESSION['image_nm'];
+      $image_url = "https://bizzlistings.com/getimage/".$_SESSION['image_nm'];
       $keywords = $_SESSION['webKeywords'];
    }else {
          //$description = $dummy;
