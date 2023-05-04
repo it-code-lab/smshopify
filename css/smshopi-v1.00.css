@@ -981,6 +981,7 @@ form.dummyForm {
     height: 0;
     text-align: center;
     margin: auto;
+    margin-bottom: 100px;
 }
 
 @media (min-width: 1000px) {

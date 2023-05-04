@@ -398,6 +398,11 @@ if (strpos($path, 'items/') !== false) {
                         <div class='shopVideoIframeDiv'>
                            <iframe src='https://www.youtube.com/embed/EmaA9rO2gwM'> </iframe>
                         </div>
+
+                        <div class='sampleBustxtdiv'>How to make changes to the listings</div>
+                        <div class='shopVideoIframeDiv'>
+                           <iframe src='https://www.youtube.com/embed/r7lgGYbW28U'> </iframe>
+                        </div>
                      </div>
                      <div class="displayNone"
                         style="background-color: rgba(9, 84, 132); width: 100%; margin: 0px; padding: 20px; ">
