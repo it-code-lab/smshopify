@@ -754,7 +754,7 @@ function updateCommonDivsToDisplayNone() {
 function Show(pageName) {
 
     document.querySelector('.pageNotFound').style.display = "none";
-    
+
     if (onMobileBrowser()) {
         let x = document.getElementById("myTopnav");
         x.className = "topnav";
@@ -5077,7 +5077,8 @@ function login() {
                 let lastUrl = sessionStorage.getItem("lastUrl");
 
                 if ((lastUrl == null) || (lastUrl.includes("target/login"))) {
-                    lastUrl = myUrl + "target/" + "home"
+                    let path = window.location.pathname;
+                    lastUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "target/home" ;
                 }
 
                 window.open(lastUrl, "_self");
