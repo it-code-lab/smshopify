@@ -29,7 +29,7 @@
          -->
    <link href="/bizzlistings/css/codescriber-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/slidestyles.css" rel="stylesheet" />
-   <link href="/bizzlistings/css/smshopi-v1.00.css" rel="stylesheet" />
+   <link href="/bizzlistings/css/smshopi-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smtheme-v1.01.css" rel="stylesheet" />
