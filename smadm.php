@@ -189,10 +189,35 @@
          <!-- Page content-->
          <div id="loaderDivId">
 
-            <div class="loader">
+            <div class="loader2">
+               <span></span>
+               <span></span>
+               <span></span>
+               <span></span>
+            </div>
+
+            <!-- SM:DONOTDELETE -->
+            <!-- <div class="loader">
                <i class="loaderDot"></i>
                <i class="loaderDot"></i>
                <i class="loaderDot"></i>
+            </div> -->
+         </div>
+         <div class="pageNotFound container-textalign-center displayNone">
+            <h1 class="text-center ">Not Found</h1>
+            <div class="four_zero_four_bg">
+               
+
+            </div>
+
+            <div class="contant_box_404">
+               <h3 class="h2">
+               Look like you're lost
+               </h3>
+
+               <p>The page you are looking for is not avaible!</p>
+
+               <a href="/bizzlistings/target/home" onclick="Show('home');" class="link_404">Go to Home</a>
             </div>
          </div>
 

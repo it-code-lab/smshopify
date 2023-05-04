@@ -753,6 +753,8 @@ function updateCommonDivsToDisplayNone() {
 
 function Show(pageName) {
 
+    document.querySelector('.pageNotFound').style.display = "none";
+    
     if (onMobileBrowser()) {
         let x = document.getElementById("myTopnav");
         x.className = "topnav";
@@ -821,6 +823,7 @@ function Show(pageName) {
 
 
     } else if (pageName == "home") {
+        
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.display = "block";
@@ -1199,7 +1202,11 @@ function checkURL() {
         document.getElementById("homeDivId").style.width = "100%";
         document.getElementById("loaderDivId").style.display = "none";
         //document.getElementById("mainContainer").style.width = "100%";			
+    }else {
+        document.querySelector('.pageNotFound').style.display = 'block';
+        document.getElementById("loaderDivId").style.display = "none";
     }
+    
 }
 
 function displayStore(storename) {
@@ -1257,6 +1264,11 @@ function fnGetStore(storestr) {
             document.getElementById("itemDivId").style.display = "none";
 
             let tags = JSON.parse(response);
+            if (tags == "Err in DB call"){
+                document.querySelector('.pageNotFound').style.display = 'block';
+                document.getElementById("loaderDivId").style.display = "none";
+                return;
+            }
             getFullShopDetails(tags, storestr);
 
         },
@@ -1283,6 +1295,13 @@ function fnGetItem(itemstr) {
             document.getElementById("itemDivId").style.display = "none";
 
             let tags = JSON.parse(response);
+
+            if (tags == "Err in DB call"){
+                document.querySelector('.pageNotFound').style.display = 'block';
+                document.getElementById("loaderDivId").style.display = "none";
+                return;
+            }
+
             if (tags[0].title == "Create My Store") {
                 getCreateStore();
                 //} else if (tags[0].title != tags[0].storename) {
