@@ -978,14 +978,15 @@ function checkURL() {
         //let shoptitle = path.replaceAll("/antaksharee/lyrics/","");
 
         if (sessionStorage.getItem("itemsList") == null) {
-            document.getElementById("loaderDivId").style.display = "block";
+            //document.getElementById("loaderDivId").style.display = "block";
             setTimeout(function () {
-                document.getElementById("loaderDivId").style.display = "none";
+                //document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
             return;
         }
 
+        //document.getElementById("loaderDivId").style.display = "none";
         document.getElementById("loginDivId").style.display = "none";
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
@@ -993,7 +994,7 @@ function checkURL() {
 
         document.getElementById("itemDivId").style.display = "block";
 
-        document.getElementById("itemEditDivId").style.display = "block";
+        //document.getElementById("itemEditDivId").style.display = "block";
 
 
         let itemstr = path.substring(path.indexOf("items/") + 6);
@@ -1010,6 +1011,7 @@ function checkURL() {
             document.getElementById("itemEditDivId").style.width = "20%";
             document.getElementById("itemEditDivId").innerHTML = "";
             fnGetItem(itemstr);
+            document.getElementById("loaderDivId").style.display = "none";
         } else {
             itemstr = decodeURI(itemstr);
             document.getElementById("itemDivId").style.display = "none";
@@ -1018,6 +1020,7 @@ function checkURL() {
             document.getElementById("itemListDivId").style.width = "100%";
             //populateItemsList();
             showcategory(itemstr)
+            document.getElementById("loaderDivId").style.display = "none";
         }
 
 
@@ -1038,7 +1041,7 @@ function checkURL() {
         document.getElementById("loginerrormsg").innerHTML = "";
 
         //showHelpDivMessage("Login to add or make updates to the help scan codes");
-
+        document.getElementById("loaderDivId").style.display = "none";
         document.getElementById("loginSecDivId").style.display = "none";
         document.getElementById("forgotPWDivId").style.display = "block";
         document.getElementById("itemEditDivId").style.display = "none";
@@ -1049,17 +1052,19 @@ function checkURL() {
     if (path.indexOf('/find/') > -1) {
 
         if (sessionStorage.getItem("itemsList") == null) {
-            document.getElementById("loaderDivId").style.display = "block";
+            //document.getElementById("loaderDivId").style.display = "block";
             setTimeout(function () {
-                document.getElementById("loaderDivId").style.display = "none";
+                //document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
             return;
         }
+        //document.getElementById("loaderDivId").style.display = "none";
         document.getElementById("itemEditDivId").style.display = "none";
         let ar = path.split('/find/');
         document.getElementById("item-search-box").value = decodeURI(ar[1]);
         searchItem();
+        document.getElementById("loaderDivId").style.display = "none";
         return;
     }
 
@@ -1068,6 +1073,7 @@ function checkURL() {
         pageName = ar[1];
     }
 
+    //document.getElementById("loaderDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
@@ -1086,6 +1092,7 @@ function checkURL() {
 
         populateHelpTopics();
         document.getElementById("HelpTopicsDivId").style.width = "100%";
+        document.getElementById("loaderDivId").style.display = "none";
 
     } else if (pageName == "mystore") {
 
@@ -1105,12 +1112,15 @@ function checkURL() {
             return;
         }
         myStore();
+        //document.getElementById("loaderDivId").style.display = "none";
         return;
     } else if (pageName == "policy") {
         showPolicy();
+        document.getElementById("loaderDivId").style.display = "none";
         return;
     } else if (pageName == "myfavorites") {
         myfavorites();
+        document.getElementById("loaderDivId").style.display = "none";
         return;
     } else if (pageName == "projectscanner") {
         document.getElementById("bgSVGId").style.display = "none";
@@ -1118,11 +1128,12 @@ function checkURL() {
         document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:#cc0000;" ></i>' + "Upload project files and click on the file to scan the code"
     } else if (pageName == "login") {
         document.getElementById("loginDivId").style.display = "block";
+        document.getElementById("loaderDivId").style.display = "none";
 
     } else if (pageName == "contactus") {
 
         document.getElementById("contactusDivId").style.display = "block";
-
+        document.getElementById("loaderDivId").style.display = "none";
 
         refreshCaptcha();
 
@@ -1136,9 +1147,9 @@ function checkURL() {
     } else if (pageName == "item") {
 
         if (sessionStorage.getItem("itemsList") == null) {
-            document.getElementById("loaderDivId").style.display = "block";
+            //document.getElementById("loaderDivId").style.display = "block";
             setTimeout(function () {
-                document.getElementById("loaderDivId").style.display = "none";
+                //document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
             return;
@@ -1153,14 +1164,14 @@ function checkURL() {
         document.getElementById("itemListDivId").style.width = "100%";
 
         populateItemsList();
-
+        document.getElementById("loaderDivId").style.display = "none";
         $(".cardsContainerDivClassPadd").css("height", "200px");
     } else if (pageName == "") {
 
         if (sessionStorage.getItem("itemsList") == null) {
-            document.getElementById("loaderDivId").style.display = "block";
+            //document.getElementById("loaderDivId").style.display = "block";
             setTimeout(function () {
-                document.getElementById("loaderDivId").style.display = "none";
+                //document.getElementById("loaderDivId").style.display = "none";
                 checkURL();
             }, 500);
             return;
@@ -1178,6 +1189,7 @@ function checkURL() {
         let storename = path.substring(path.indexOf(the.hosturl) + the.hosturl.length + 1);
 
         displayStore(storename);
+        document.getElementById("loaderDivId").style.display = "none";
         //populateItemsList();
         //document.getElementById("mainContainer").style.width = "100%";
         $(".cardsContainerDivClassPadd").css("height", "200px");
@@ -1185,6 +1197,7 @@ function checkURL() {
         document.getElementById("contactusDivId").style.display = "none";
         document.getElementById("howtoDivId").style.display = "none";
         document.getElementById("homeDivId").style.width = "100%";
+        document.getElementById("loaderDivId").style.display = "none";
         //document.getElementById("mainContainer").style.width = "100%";			
     }
 }
@@ -3235,6 +3248,7 @@ function myStore() {
         // x.style.display = "block";
         // Show('login');
 
+        document.getElementById("loaderDivId").style.display = "none";
         let x = document.getElementById("toastsnackbar");
         x.innerHTML = "Login to create or access your store";
         x.classList.add("show");
@@ -3243,7 +3257,6 @@ function myStore() {
         }, 3000);
 
         Show('login');
-
         //DONOTDELETE
         // setTimeout(() => {
         //     x.style.display = "none";
@@ -3261,6 +3274,7 @@ function myStore() {
                 if (retstatus == "err") {
                     //alert("Please relogin");
                     goToLogin();
+                    document.getElementById("loaderDivId").style.display = "none";
                 } else {
                     document.getElementById("loginDivId").style.display = "none";
                     document.getElementById("contactusDivId").style.display = "none";
@@ -3278,6 +3292,7 @@ function myStore() {
                     document.getElementById("itemEditDivId").style.display = "none";
 
                     checkMyStores();
+                    document.getElementById("loaderDivId").style.display = "none";
                 }
             },
             error: function (xhr, status, error) {

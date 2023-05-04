@@ -90,7 +90,7 @@ if (strpos($path, 'items/') !== false) {
    <!-- Favicon-->
    <link rel="icon" type="image/x-icon" href="/bizzlistings/assets/favicon.ico" />
 
-   <link href="/bizzlistings/css/codescriber-v1.00.css" rel="stylesheet" />
+   <link href="/bizzlistings/css/codescriber-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/slidestyles.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smshopi-v1.00.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smstylegtlimit.css" rel="stylesheet" />
@@ -153,7 +153,7 @@ if (strpos($path, 'items/') !== false) {
    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
       integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
 
-   <script src="/bizzlistings/web/common-function-v1.03.js"></script>
+   <script src="/bizzlistings/web/common-function-v1.04.js"></script>
    <script src="/bizzlistings/web/chat-function.js"></script>
 
    <script type="application/ld+json">{
@@ -225,11 +225,19 @@ if (strpos($path, 'items/') !== false) {
          <!-- Page content-->
          <div id="loaderDivId">
 
-            <div class="loader">
-               <i class="loaderDot"></i>
-               <i class="loaderDot"></i>
-               <i class="loaderDot"></i>
+            <div class="loader2">
+               <span></span>
+               <span></span>
+               <span></span>
+               <span></span>
             </div>
+
+            <!-- SM:DONOTDELETE -->
+            <!-- <div class="loader">
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+            </div> -->
          </div>
 
          <!-- REF: https://getwaves.io/ -->
@@ -417,7 +425,7 @@ if (strpos($path, 'items/') !== false) {
                <div id="itemDivId">
                </div>
 
-               <div id="itemEditDivId">
+               <div id="itemEditDivId" class="displayNone">
                </div>
 
                <!--*************************************************************--->
@@ -430,7 +438,7 @@ if (strpos($path, 'items/') !== false) {
                <!--**START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
                <!--*************************************************************--->
 
-               <div id="loginDivId" class="login">
+               <div id="loginDivId" class="login displayNone">
                   <div id="loginSecDivId" style="margin-top: 20px;">
                      <label class="form_header_label1 scale-up-ver-top"> LOGIN </label>
                      <hr>
@@ -586,7 +594,7 @@ if (strpos($path, 'items/') !== false) {
                <!--****END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
                <!--*************************************************************--->
 
-               <div id="contactusDivId">
+               <div id="contactusDivId" class="displayNone">
                   <div id="contactusSecDivId" style="margin: 0 auto;   padding: 20px; ">
                      <label class="form_header_label1 scale-up-ver-top"> CONTACT US </label>
 

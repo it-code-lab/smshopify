@@ -672,7 +672,7 @@ Refer: https://codepen.io/frippa/pen/JEjzD
 */
 
 #loaderDivId {
-  display: none;
+  /* display: none; */
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -744,6 +744,60 @@ i.loaderDot:nth-child(3) {
 }
 
 
+.loader2{
+  margin: 100px auto;
+  width: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  animation: rotateLoader2 3s linear infinite;
+}
+
+@keyframes rotateLoader2{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.loader2 span{
+  width: 32px;
+  height: 32px;
+  background-color: red;
+  margin: 3px;
+  animation: scale 1.5s linear infinite;
+}
+
+@keyframes scale{
+  50%{
+    transform: scale(1.2);
+  }
+}
+
+.loader2 span:nth-child(1){
+  border-radius: 50% 50% 0 50%;
+  background-color: #ffbe0b;
+  transform-origin: bottom right;
+}
+
+.loader2 span:nth-child(2){
+  border-radius: 50% 50% 50% 0;
+  background-color: #ff006e;
+  transform-origin: bottom left;
+  animation-delay: .5s;
+}
+
+.loader2 span:nth-child(3){
+  border-radius: 50% 0 50% 50%;
+  background-color: #fb5607;
+  transform-origin: top right;
+  animation-delay: 1.5s;
+}
+
+.loader2 span:nth-child(4){
+  border-radius: 0 50% 50% 50%;
+  background-color: #8338ec;
+  transform-origin: top left;
+  animation-delay: 1s;
+}
 
 
 /* SM: END: ***********Above styles are for loading animation **************/

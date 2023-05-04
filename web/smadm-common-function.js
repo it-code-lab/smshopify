@@ -48,6 +48,7 @@ function admcheckURL() {
 
     let myCookie = getCookie("cookname");
 
+    document.getElementById("loaderDivId").style.display = "none";
     document.getElementById("contactusDivId").style.display = "none";
     document.getElementById("howtoDivId").style.display = "none";
     document.getElementById("homeDivId").style.display = "none";
