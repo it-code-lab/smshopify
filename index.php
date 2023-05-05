@@ -251,7 +251,7 @@ if (strpos($path, 'items/') !== false) {
                Look like you're lost
                </h3>
 
-               <p>The page you are looking for is not avaible!</p>
+               <p>The page you are looking for is not available!</p>
 
                <a href="/bizzlistings/target/home" onclick="Show('home');" class="link_404">Go to Home</a>
             </div>
