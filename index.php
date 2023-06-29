@@ -89,7 +89,7 @@ if (strpos($path, 'items/') !== false) {
 
    <!-- Favicon-->
    <link rel="icon" type="image/x-icon" href="/bizzlistings/assets/favicon.ico" />
-
+   <link rel="canonical" href="https://bizzlistings.com" />
    <link href="/bizzlistings/css/codescriber-v1.01.css" rel="stylesheet" />
    <link href="/bizzlistings/css/slidestyles.css" rel="stylesheet" />
    <link href="/bizzlistings/css/smshopi-v1.01.css" rel="stylesheet" />
