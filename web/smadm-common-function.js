@@ -1266,6 +1266,8 @@ function admEditItem(btn) {
         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image3') >I3</button>" +
         "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','image4') >I@Car</button>" +
         "<label class='toolBarlabel'>Messages</label>" +
+        "<button data-title='PageContent-Info' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','pageinfo') >PageContentInfo</button>" +
+
         "<button title='Warning'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','warning') >Warn</button>" +
         "<button title='Error' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','error') >Err</button>" +
         "<button title='Green-Success' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','greenmsg') >Succ</button>" +
